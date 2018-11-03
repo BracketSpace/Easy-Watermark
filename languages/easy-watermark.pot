@@ -1,0 +1,754 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Watermark 0.6.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-05 08:16+0100\n"
+"PO-Revision-Date: 2014-08-05 08:17+0100\n"
+"Last-Translator: Wojtek Szałkiewicz <wojtek@szalkiewicz.pl>\n"
+"Language-Team: Wojtek Szałkiewicz <wojtek@szalkiewicz.pl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: /media/szaleq/Data/easy-watermark/trunk\n"
+"X-Poedit-SearchPath-0: /media/szaleq/Data/easy-watermark/trunk/classes\n"
+"X-Poedit-SearchPath-1: /media/szaleq/Data/easy-watermark/trunk/views\n"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:97
+msgid "Same image and watermark paths."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:98
+msgid "No watermark image or text specified."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:99
+msgid "No input image specified."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:100
+msgid "Not allowed image type."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:101
+msgid "No output file specified."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:102
+msgid "Not allowed output type."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:103
+msgid "Could not apply watermark."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:213
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:250
+msgid "Watermark successfully added."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:253
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:954
+msgid "watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:253
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:954
+msgid "not watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:254
+#, php-format
+msgid "An Image has been marked as %s."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:260
+msgid "Invalid mime type."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:263
+msgid "No watermark image selected and no watermark text set."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:265
+msgid "Go to settings page"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:269
+msgid "An error has occurred."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:275
+msgid ""
+"Easy Watermark is active, but requires GD library to work. Please enable "
+"this extension."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:275
+msgid "Read more"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:303
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:330
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:971
+msgid "Add Watermark"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:346
+msgid "Add watermark"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:522
+#, php-format
+msgid "No permission to edit file %s. Skipping..."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:527
+#, php-format
+msgid "Not supported mime type of %s. Skipping..."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:533
+#, php-format
+msgid "Watermark successfully added to %s"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:674
+#, php-format
+msgid "Error: '%s', file: %s"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:744
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:761
+msgid "Complete!"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:848
+#, php-format
+msgid "Image succesfully restored: %s"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:898
+msgid "Unknown failure reason."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:937
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:116
+msgid "Easy Watermark"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:955
+msgid "Status"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:962
+msgid "mark as not watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:962
+msgid "mark as watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:976
+msgid "Restore original image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:982
+msgid "This image is used as watermark."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:982
+msgid "Change settings"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:89
+msgid "General"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:90
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:32
+msgid "Image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:91
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:33
+msgid "Text"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:132
+msgid "Author placeholders"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:137
+msgid "User placeholders"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:142
+msgid "Image placeholders"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:147
+msgid "General placeholders"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:358
+msgid "Settings"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:371
+msgid "Donate"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:2
+msgid "About"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:4
+msgid "Plugin Version"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:5
+msgid "Plugin Author"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:6
+msgid "GD library is enabled."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:6
+msgid "GD library is not available! Easy Watermark can't work without it."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:8
+msgid "Plugin page in WP repository"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:10
+msgid "FAQ"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:12
+msgid "Support"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:13
+msgid "Want to buy me a coffee?"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:4
+msgid "Easy Watermark Tools"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:10
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:2
+msgid "Bulk Watermark"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:14
+msgid ""
+"Using this tool you can quickly apply watermark to all images in the Media "
+"Library."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:16
+msgid ""
+"Using this tool you can quickly apply watermark to all images you uploaded "
+"to the Media Library."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:20
+msgid "Start"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:20
+msgid ""
+"Be carefull with this option. If some images alredy has watermark, it will "
+"be added though."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:24
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:2
+msgid "Restore original images"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:28
+msgid ""
+"Here you can remove watermark from all images by restoring the original "
+"image files."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:30
+msgid ""
+"Here you can remove watermark from the images you uploaded by restoring the "
+"original image files."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:34
+msgid "Restore"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_author.php:1
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:1
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_image.php:1
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_user.php:1
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:2
+msgid "Placeholders"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_author.php:2
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:2
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_image.php:2
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_user.php:2
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:4
+msgid ""
+"You can use this placeholders in your text watermark, it will be replaced "
+"with proper value just befor applying watermark."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_author.php:4
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:6
+msgid "image author login"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_author.php:5
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:7
+msgid "image author display name"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_author.php:6
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:8
+msgid "image author email address"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_author.php:7
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:9
+msgid "image author url"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:4
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:14
+msgid "site admin email"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:5
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:15
+msgid "blog title"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:6
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:16
+msgid "blog url"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:7
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:17
+msgid "current date (see general settings for date format)"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_general.php:8
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:18
+msgid "current time"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_image.php:4
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:19
+msgid "image title"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_image.php:5
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:20
+msgid "alternative text for the image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_user.php:4
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:10
+msgid "current user login"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_user.php:5
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:11
+msgid "current user display name"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_user.php:6
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:12
+msgid "current user email address"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/help_tab_placeholders_user.php:7
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:13
+msgid "current user url"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:3
+msgid "Auto Watermark"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:4
+msgid "Add watermark when uploading images"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:6
+msgid "Image Types"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:10
+msgid "Select image types which should be watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:12
+msgid "Backup"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:13
+msgid ""
+"Save original images to allow to restore them after watermark was applied"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:13
+msgid ""
+"This option will use more space on your server. Please consider creating "
+"manual backup of original images on your local drive."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:15
+msgid "Image Sizes"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:26
+msgid "Select image sizes which should be watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:29
+msgid "Watermark Type"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:34
+msgid "Image + Text"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:36
+msgid "Choose, whether to apply image, text, or both."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:39
+msgid "Jpeg Quality"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:40
+msgid ""
+"Set jpeg quality from 0 (worst quality, smaller file) to 100 (best quality, "
+"biggest file)"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:42
+msgid "Date Format"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:43
+msgid "Leave blank to use default date format (see general settings)"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:45
+msgid "Time Format"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:46
+msgid "Leave blank to use default time format"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:49
+msgid "User Roles"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:50
+msgid ""
+"Select, which user roles can have a permission to apply watermarks (only "
+"roles with permission to upload files are listed here)"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:62
+msgid "allow"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:63
+msgid "deny"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:67
+msgid "Allow to Auto Watermark"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:68
+msgid ""
+"Check this to allow watermarking on upload to every user. If unchecked, "
+"'Auto Watermark' function will be dependent on above role-based settings."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:71
+msgid "Post Types"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:72
+msgid "Select what post type attachments should be automatically watermarked"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:75
+msgid "Select All"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:78
+msgid "Unattached Images"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:78
+msgid "uploaded through the media library page"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:79
+msgid "Posts"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:80
+msgid "Pages"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:3
+msgid "Watermark Image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid "Choose Watermark Image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid "Set as Watermark Image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid "Select/Upload Image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid ""
+"Note: If you want to upload a new image, make sure that \"Auto watermark\" "
+"option is unticked or text watermark is not set. Otherwise uploaded image "
+"will be watermarked."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:17
+msgid "Click on image to change it."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:17
+msgid "Remove image"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:18
+msgid ""
+"Note: If you want to upload a new image, make sure that \"Auto watermark\" "
+"option is unticked, or remove current image and unset text watermark first. "
+"Otherwise uploaded image will be watermarked."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:21
+msgid "Image Alignment"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:34
+msgid "Scaling Mode"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:36
+msgid "None"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:37
+msgid "Fill"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:38
+msgid "Fit"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:39
+msgid "Fit to Width"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:40
+msgid "Fit to Height"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:41
+msgid "Select how to scale watermark image."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:42
+msgid "Scale to Smaller"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:43
+msgid ""
+"If this is checked, watermark will be scaled only for images smaller than "
+"watermark image."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:46
+msgid "Scale"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:49
+msgid "Image Offset"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:50
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:29
+msgid "x"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:52
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:31
+msgid "y"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:53
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:32
+msgid ""
+"Offset can be defined in pixels (just numeric value) or as percentage (e.g. "
+"'33%')"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:55
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:58
+msgid "Opacity"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:55
+msgid "Opacity does not affect the png images with alpha chanel."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:2
+msgid "Watermark Text"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:3
+msgid "You can use placeholders. See help."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:7
+msgid "Preview"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:15
+msgid "Text Alignment"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:28
+msgid "Text Offset"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:34
+msgid "Font"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:41
+msgid "Text Color"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:50
+msgid "Text Size"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:54
+msgid "Text Angle"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-page.php:7
+msgid "Easy Watermark Settings"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-page.php:23
+msgid "Save Changes"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:7
+msgid ""
+"You are about to restore all original images. This action will remove all "
+"watermarks ever applied. Are you sure you want to do this?"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:9
+msgid ""
+"You are about to restore original images for attachments you ever uploaded. "
+"This action This action will remove all watermarks ever applied. Are you "
+"sure you want to do this?"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:13
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:13
+msgid "Proceed"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:13
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:13
+msgid "Cancel"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:17
+#, php-format
+msgid "%s images restored."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:17
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:17
+#, php-format
+msgid "%s or %s"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:17
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:17
+msgid "Go back"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:17
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:17
+msgid "Go to Media Library"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:20
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:20
+msgid "Starting..."
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:23
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:23
+#, php-format
+msgid "Processed %s of %s images"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/restore_all.php:24
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:24
+#, php-format
+msgid "Duration: %s"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:7
+msgid ""
+"You are about to watermark all images in the library. This action can not be "
+"undone. Are you sure you want to do this?"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:9
+msgid ""
+"You are about to watermark all images you have uploaded ever. This action "
+"can not be undone. Are you sure you want to do this?"
+msgstr ""
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/tools/watermark_all.php:17
+#, php-format
+msgid "%s images watermarked."
+msgstr ""

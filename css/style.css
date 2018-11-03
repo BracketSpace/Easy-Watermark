@@ -1,0 +1,108 @@
+#colorselector {
+	width:36px;
+	height:36px;
+	background:url(../images/select2.png);
+	display:inline-block;
+	vertical-align:middle;
+	position:relative;
+}
+
+#colorselector div {
+	width:28px;
+	height:28px;
+	margin:4px;
+	position:absolute;
+	background:url(../images/select2.png) 50% 50%;
+}
+
+#text-preview {
+	margin: 4px 0;
+}
+
+tr.hidden {
+	display:none;
+}
+
+#alignmentbox {
+	width:243px;
+	height:183px;
+	padding:3px 0 0 3px;
+	background:#ddd;
+}
+
+#alignmentbox label {
+	display:block;
+	float:left;
+	width:78px;
+	height:58px;
+	margin:0 3px 3px 0;
+	line-height:58px;
+	text-align:center;
+	background-image: url(../images/alignment-background-lt.jpg);
+	background-repeat: no-repeat;
+}
+
+#alignmentbox label.current,
+#alignmentbox label.current:hover {
+	background-image: url(../images/alignment-background.jpg);
+}
+
+#alignmentbox label:hover {
+	background-image: url(../images/alignment-background-dk.jpg);
+}
+
+label#alignment-1-label {
+	background-position: left top;
+}
+
+label#alignment-2-label {
+	background-position: -81px 0;
+}
+
+label#alignment-3-label {
+	background-position: -162px 0;
+}
+
+label#alignment-4-label {
+	background-position: 0 -61px;
+}
+
+label#alignment-5-label {
+	background-position: -81px -61px;
+}
+
+label#alignment-6-label {
+	background-position: -162px -61px;
+}
+
+label#alignment-7-label {
+	background-position: 0 -122px;
+}
+
+label#alignment-8-label {
+	background-position: -81px -122px;
+}
+
+label#alignment-9-label {
+	background-position: -162px -122px;
+}
+
+#icon-easy-watermark {
+	background: url(../images/icon-32.png) no-repeat 2px 1px;
+}
+
+.form-table {
+	clear:none!important;
+}
+
+#ew-font optgroup {
+	margin:0;
+}
+
+.easy-watermark .nav-tab-wrapper {
+	overflow: hidden;
+}
+
+.easy-watermark .nav-tab-wrapper:after {
+	display: none;
+}

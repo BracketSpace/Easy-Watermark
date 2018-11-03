@@ -1,0 +1,548 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Watermark 0.5.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-10 16:14+0100\n"
+"PO-Revision-Date: 2014-04-08 07:05-0800\n"
+"Last-Translator: M.Amin Askari <call@webhunter.ir>\n"
+"Language-Team: webhunter.ir <call@webhunter.ir>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: /media/szaleq/Data/easy-watermark/trunk\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: fa\n"
+"X-Poedit-SearchPath-0: /media/szaleq/Data/easy-watermark/trunk/classes\n"
+"X-Poedit-SearchPath-1: /media/szaleq/Data/easy-watermark/trunk/views\n"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:170
+msgid "Cheatin&#8217; uh?"
+msgstr "تقلب میکنی؟! هان؟!"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:207
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:10
+msgid "Watermark successfully added."
+msgstr "واترمارک با موفقیت اضافه شد!"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:210
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:658
+msgid "watermarked"
+msgstr "واترمارک شده"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:210
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:658
+msgid "not watermarked"
+msgstr "واترمارک نشده"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:211
+#, php-format
+msgid "An Image has been marked as %s."
+msgstr "تصویر علامت گذاری شده به عنوان %s."
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:217
+msgid "Invalid mime type."
+msgstr "نوع پرونده نا معتبر است."
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:220
+msgid "No watermark image selected and no watermark text set."
+msgstr "هیچ واترمارک تصویری و واترمارک متنی تعیین نشده."
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:222
+msgid "Go to settings page"
+msgstr "برو به صفحه تنظیمات"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:226
+msgid "An error has occurred."
+msgstr "خطایی رخ داده است."
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:232
+msgid ""
+"Easy Watermark is active, but requires GD library to work. Please enable "
+"this extension."
+msgstr ""
+"ایزی واترمارک فعال است اما برای اینکه کار کند به GD library نیاز دارد،لطفا "
+"آنرا فعال کنید. "
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:232
+msgid "Read more"
+msgstr "اطلاعات بیشتر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:256
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:283
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:675
+msgid "Add Watermark"
+msgstr "اضافه کردن واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:299
+msgid "Add watermark"
+msgstr "اضافه کردن واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:448
+#, php-format
+msgid "No permission to edit file %s. Skipping..."
+msgstr "سطح دسترسی برای ویرایش%s وجود ندارد .نادیده گرفتن..."
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:453
+#, php-format
+msgid "Not supported mime type of %s. Skipping..."
+msgstr "نوع mime پرونده %s پشتیبانی نمیشود.نادیده گرفتن..."
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:459
+#, php-format
+msgid "Watermark successfully added to %s"
+msgstr "واترمارک با موفقیت اضافه شد %s"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:644
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:115
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:4
+msgid "Easy Watermark"
+msgstr "ایزی واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:659
+msgid "Status"
+msgstr "وضعیت"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:666
+msgid "mark as not watermarked"
+msgstr "نشان دار به عنوان واترمارک نشده "
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-plugin.php:666
+msgid "mark as watermarked"
+msgstr "نشان دار به عنوان واترمارک شده"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:88
+msgid "General"
+msgstr "عمومی"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:89
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:29
+msgid "Image"
+msgstr "تصویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:90
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:30
+msgid "Text"
+msgstr "متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:317
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: /media/szaleq/Data/easy-watermark/trunk/classes/class-ew-settings.php:330
+msgid "Donate"
+msgstr "حمایت"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:2
+msgid "About"
+msgstr "درباره"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:4
+msgid "Plugin Version"
+msgstr "نگارش افزونه"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:5
+msgid "Plugin Author"
+msgstr "نویسنده افزونه"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:6
+msgid "GD library is enabled."
+msgstr "GD library فعال است."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:6
+msgid "GD library is not available! Easy Watermark can't work without it."
+msgstr "GD library در دسترس نیست،ایزی واترمارک بدون آن کار نخواهد کرد!"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:8
+msgid "Plugin page in WP repository"
+msgstr "صفحه ی افزونه در مخزن وردپرس"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:10
+msgid "FAQ"
+msgstr "سوالات متداول"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:12
+msgid "Support"
+msgstr "پشتیبانی"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/about.php:13
+msgid "Want to buy me a coffee?"
+msgstr "نمیخوای منو به یه قهوه مهمون کنی؟"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:10
+msgid "Go to Media Library"
+msgstr "رفتن به کتابخانه رسانه ها"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:17
+msgid ""
+"You are about to watermark all images in the library. This action can not be "
+"undone. Are you sure you want to do this?"
+msgstr ""
+"شما در حال وارترمارک کردن تمامی تصاویر موجود در کتابخانه می باشید،این عمل "
+"قابل بازگشت نیست.آیا از انجام این کار اطمینان دارید؟!"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:19
+msgid ""
+"You are about to watermark all images you have uploaded ever. This action "
+"can not be undone. Are you sure you want to do this?"
+msgstr ""
+"شما در حال وارترمارک کردن تمامی تصاویری هستید که تا کنون آپلود شده.این عمل "
+"قابل بازگشت نیست.آیا از انجام این کار اطمینان دارید؟!"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:22
+msgid "Proceed"
+msgstr "ادامه"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:22
+msgid "Cancel"
+msgstr "انصراف"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:29
+msgid "Add watermark to all images"
+msgstr "اضافه کردن واترمارک به همه ی تصاویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:31
+msgid "Add watermark to all images uploaded by you"
+msgstr "اضافه کردن واترمارک به همه تصاویر آپلود شده توسط شما"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/easy-watermark-page.php:33
+msgid ""
+"Be carefull with that option. If some images alredy has watermark, it will "
+"be added though."
+msgstr ""
+"در مورد این گزینه مراقب باشید،اگر تصاویری قبلا واترمارک شده باشند دوباره "
+"واترماک بر روی آنها اعمال خواهد شد."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:2
+msgid "Placeholders"
+msgstr "نگهدار محتوایی"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:4
+msgid ""
+"You can use this placeholders in your text watermark, it will be replaced "
+"with proper value just befor applying watermark."
+msgstr ""
+"شما میتوانید از نگهدار محتوایی برای واترمارک متنی استفاده نمایید،نگهدار "
+"محتوایی تا قبل از اعمال واترمارک با مقدار مناسب جایگزین خواهد شد."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:6
+msgid "current user login"
+msgstr "ورود کاربر فعلی"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:7
+msgid "current user display name"
+msgstr "نام کاربر فعلی"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:8
+msgid "current user email address"
+msgstr "آدرس ایمیل کاربر فعلی"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:9
+msgid "site admin email"
+msgstr "آدرس ایمیل مدیر سایت "
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:10
+msgid "blog title"
+msgstr "عنوان بلاگ"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:11
+msgid "blog url"
+msgstr "آدرس بلاگ"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:12
+msgid "current date (see general settings for date format)"
+msgstr "تاریخ جاری(تنظیمات عمومی برای فرمت تاریخ را مشاهده کنید)"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/placeholders.php:13
+msgid "current time"
+msgstr "زمان جاری"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:3
+msgid "Auto Watermark"
+msgstr "واترمارک خودکار"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:4
+msgid "Add watermark when uploading images"
+msgstr "اضافه کردن واترمارک هنگام آپلود تصاویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:6
+msgid "Image Types"
+msgstr "انواع تصاویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:10
+msgid "Select image types which should be watermarked"
+msgstr "انتخاب کنید بر روی چه نوع تصویری واترمارک اعمال شود"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:12
+msgid "Image Sizes"
+msgstr "اندازه تصاویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:23
+msgid "Select image sizes which should be watermarked"
+msgstr "انتخاب کنید بر روی چه اندازه ای از تصاویر واترمارک اعمال شود"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:26
+msgid "Watermark Type"
+msgstr "نوع واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:31
+msgid "Image + Text"
+msgstr "تصویر+متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:33
+msgid "Choose, whether to apply image, text, or both."
+msgstr "انتخاب کنید کدامیک به کار برده شود،تصویر،متن و یا هردو."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:36
+msgid "Jpeg Quality"
+msgstr "کیفیت Jpeg"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:37
+msgid ""
+"Set jpeg quality from 0 (worst quality, smaller file) to 100 (best quality, "
+"biggest file)"
+msgstr ""
+"کیفیت تصاویر را تعیین نمایید،0 کیفیت پایین و فایل کوچک و 100 بهترین کیفیت و "
+"فایل بزرگتر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:39
+msgid "Date Format"
+msgstr "فرمت تاریخ"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:40
+msgid "Leave blank to use default date format (see general settings)"
+msgstr "برای استفاده از تنظیمات پیشفرض تاریخ این گزینه را خالی بگذارید"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:42
+msgid "Time Format"
+msgstr "فرمت زمان"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:43
+msgid "Leave blank to use default time format"
+msgstr "برای استفاده از تنظیمات پیشفرض زمان این گزینه را خالی بگذارید"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:46
+msgid "User Roles"
+msgstr "نقشهای کاربری"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:47
+msgid ""
+"Select, which user roles can have a permission to apply watermarks (only "
+"roles with permission to upload files are listed here)"
+msgstr "تعیین کنید چه نقش کاربری سطوح دسترسی برای اعمال واترمارک را داشته باشد"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:59
+msgid "allow"
+msgstr "اجازه دادن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:60
+msgid "deny"
+msgstr "رد کردن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:64
+msgid "Allow to Auto Watermark"
+msgstr "اجازه برای واترمارک خودکار"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:65
+msgid ""
+"Check this to allow watermarking on upload to every user. If unchecked, "
+"'Auto Watermark' function will be dependent on above role-based settings."
+msgstr ""
+"این گزینه را انتخاب کنید تا به تمام کاربران اجازه ی واترمارک در آپلود را "
+"بدهید،در صورت عدم انتخاب، واتر مارک خودکار تنها برای کاربران با نقشهای بالا "
+"کار خواهد کرد. "
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:68
+msgid "Post Types"
+msgstr "انواع نوشته ها"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:69
+msgid "Select what post type attachments should be automatically watermarked"
+msgstr "انتخاب کنید چه نوع پیوستی در نوشته ها به صورت خودکار واترمارک شود"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:72
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:75
+msgid "Unattached Images"
+msgstr "تصاویر ضمیمه نشده"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:75
+msgid "uploaded through the media library page"
+msgstr "آپلود از طریق صفحه کتابخانه رسانه ها"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:76
+msgid "Posts"
+msgstr "نوشته ها"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-general.php:77
+msgid "Pages"
+msgstr "صفحات"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:3
+msgid "Watermark Image"
+msgstr "تصویر واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid "Choose Watermark Image"
+msgstr "گزینش تصویر واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid "Set as Watermark Image"
+msgstr "انتخاب به عنوان تصویر واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid "Select/Upload Image"
+msgstr "انتخاب و آپلود تصویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:8
+msgid ""
+"Note: If you want to upload a new image, make sure that \"Auto watermark\" "
+"option is unticked or text watermark is not set. Otherwise uploaded image "
+"will be watermarked."
+msgstr ""
+"توجه،درصورتی که قصد دارین تصویر جدیدی را آپلود نمایید باید تیک مربوط به "
+"واترمارک خودکار را بردارید در غیر اینصورت تصویر آپلود شده هم دارای واترمارک "
+"خواهد شد."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:17
+msgid "Click on image to change it."
+msgstr "برای تغییر تصویر بر روی آن کلیک نمایید."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:17
+msgid "Remove image"
+msgstr "حذف تصویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:18
+msgid ""
+"Note: If you want to upload a new image, make sure that \"Auto watermark\" "
+"option is unticked, or remove current image and unset text watermark first. "
+"Otherwise uploaded image will be watermarked."
+msgstr ""
+"توجه،درصورتی که قصد دارین تصویر جدیدی را آپلود نمایید باید تیک مربوط به "
+"واترمارک خودکار را بردارید در غیر اینصورت تصویر آپلود شده هم دارای واترمارک "
+"خواهد شد."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:21
+msgid "Image Alignment"
+msgstr "موقعیت تصویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:34
+msgid "Scaling Mode"
+msgstr "حالت متناسب کردن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:36
+msgid "None"
+msgstr "هیچ"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:37
+msgid "Fill"
+msgstr "پر کردن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:38
+msgid "Fit"
+msgstr "اندازه"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:39
+msgid "Fit to Width"
+msgstr "متناسب کردن در عرض"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:40
+msgid "Fit to Height"
+msgstr "متناسب کردن در ارتفاع"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:41
+msgid "Select how to scale watermark image."
+msgstr "نحوه متناسب سازی تصاویر واترمارک را انتخاب کنید."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:42
+msgid "Scale to Smaller"
+msgstr "تناسب برای کوچکتر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:43
+msgid ""
+"If this is checked, watermark will be scaled only for images smaller than "
+"watermark image."
+msgstr ""
+"اگر این گزینه انتخاب شده باشد واترمارک فقط برای تصاویر کوچکتر از خودش متناسب "
+"می شود."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:46
+msgid "Scale"
+msgstr "نسبت اندازه"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:49
+msgid "Image Offset"
+msgstr "جابجایی تصویر"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:50
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:29
+msgid "x"
+msgstr "x"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:52
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:31
+msgid "y"
+msgstr "y"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:53
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:32
+msgid ""
+"Offset can be defined in pixels (just numeric value) or as percentage (e.g. "
+"'33%')"
+msgstr "جابجایی فقط در پیکسل و به صورت عدد و یا درصد تعریف شده است،مثلا 33%!"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:55
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:62
+msgid "Opacity"
+msgstr "میزان شفافیت"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-image.php:55
+msgid "Opacity does not affect the png images with alpha chanel."
+msgstr "میزان شفافیت بر روی تصاویر PNG با چنل آفلا تاثیر نمی گذارد."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:2
+msgid "Watermark Text"
+msgstr "متن واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:3
+msgid "You can use placeholders listed on the right side of this page"
+msgstr "شما میتوانید از نگهدارنده محتوا در سمت راست این صفحه استفاده نمایید."
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:7
+msgid "Preview"
+msgstr "مشاهده"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:15
+msgid "Text Alignment"
+msgstr "موقعیت متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:28
+msgid "Text Offset"
+msgstr "انحراف متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:34
+msgid "Font"
+msgstr "فونت و قلم"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:45
+msgid "Text Color"
+msgstr "رنگ متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:54
+msgid "Text Size"
+msgstr "سایز متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-form-text.php:58
+msgid "Text Angle"
+msgstr "زاویه متن"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-page.php:6
+msgid "Easy Watermark Settings"
+msgstr "تنظیمات ایزی واترمارک"
+
+#: /media/szaleq/Data/easy-watermark/trunk/views/settings-page.php:22
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"

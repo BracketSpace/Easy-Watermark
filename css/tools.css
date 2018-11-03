@@ -1,0 +1,24 @@
+#ew-progress {
+	position:relative;
+	display:none;
+}
+
+#ew-status {
+	display:none;
+}
+
+#ew-status span {
+	font-weight:bold;
+}
+
+#ew-finished {
+	display:none;
+}
+
+.progress-label {
+	position: absolute;
+	width:100%;
+	text-align:center;
+	top: 4px;
+	font-weight: bold;
+}
