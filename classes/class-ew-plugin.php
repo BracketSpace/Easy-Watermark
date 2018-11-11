@@ -107,6 +107,12 @@ class EW_Plugin extends EW_Plugin_Core
 			EasyWatermark::ERROR_NOT_ALLOWED_OUTPUT_TYPE	=> __('Not allowed output type.', 'easy-watermark'),
 			EasyWatermark::ERROR_UNKNOWN					=> __('Could not apply watermark.', 'easy-watermark')
 		);
+
+		// Init Freemius.
+		ew_fs();
+
+		// Signal that SDK was initiated.
+		do_action('ew_fs_loaded');
 	}
 
 	/**

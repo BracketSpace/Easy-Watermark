@@ -25,6 +25,7 @@ require_once EWCLASSES . EWDS . 'class-ew-plugin-core.php';
 require_once EWCLASSES . EWDS . 'class-ew-plugin.php';
 require_once EWCLASSES . EWDS . 'class-ew-settings.php';
 require_once EWLIB . EWDS . 'EasyWatermark.php';
+require_once EWBASE . EWDS . 'freemius.php';
 
 // Initiate plugin
 EW_Plugin::init();
