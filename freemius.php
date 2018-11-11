@@ -20,6 +20,7 @@ function ew_fs() {
                 'slug'           => 'easy-watermark-settings',
                 'account'        => false,
                 'support'        => false,
+                'contact'        => false,
                 'parent'         => array(
                     'slug' => 'options-general.php',
                 ),

@@ -1,10 +1,10 @@
 === Easy Watermark ===
-Contributors: szaleq
+Contributors: szaleq, bracketspace
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wojtek%40szalkiewicz%2epl&lc=GB&item_name=Easy%20Watermark%20Wordpress%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: watermark, image, picture, photo, media, gallery, signature, transparent, upload, admin
 Requires at least: 3.8
-Tested up to: 4.9.7
-Stable tag: 0.6.1
+Tested up to: 4.9.8
+Stable tag: 0.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: easy-watermark
@@ -91,6 +91,9 @@ All available placeholders are listed in a box titled 'Placeholders' on the text
 5. Easy Watermark metabox on attachment page
 
 == Changelog ==
+
+= 0.7.0 =
+* Freemius integration
 
 = 0.6.1 =
 * Minor adjustments for newest WordPress version

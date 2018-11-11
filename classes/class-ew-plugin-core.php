@@ -2,7 +2,7 @@
 /**
  * @copyright:	Wojtek Szałkiewicz
  * @license:	GPLv2 or later
- * 
+ *
  * This class is a base class for wordpress plugins.
  * It's a part of package in which you found it.
  * See readme.txt for more information.
@@ -23,7 +23,7 @@ class EW_Plugin_Core extends EW_Pluggable
 	/**
 	 * @var string  plugin version
 	 */
-	protected static $version = '0.6.0';
+	protected static $version = '0.7.0';
 
 	/**
 	 * @var string	plugin class name
