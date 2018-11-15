@@ -1,0 +1,13 @@
+{
+  "name": "szaleq/easy-watermark",
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=5.4.0",
+    "composer/installers": "v1.0.6",
+    "underdev/requirements": "^1.2",
+    "underdev/singleton": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {"EasyWatermark\\": "src/classes"}
+  }
+}
