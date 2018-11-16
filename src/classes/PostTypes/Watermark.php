@@ -105,14 +105,16 @@ class Watermark {
 	}
 
 	/**
-	 * Removes default publish metabox
+	 * Adds custom save buttons
 	 *
 	 * @action submitpost_box
 	 * @return void
 	 */
 	public function add_submit_metabox( $post ) {
-		echo new View( 'submitdiv', [
-				'post' => $post
-			] );
+		if ( 'watermark' == $post->post_type ) {
+			echo new View( 'submitdiv', [
+					'post' => $post
+				] );
+		}
 	}
 }
