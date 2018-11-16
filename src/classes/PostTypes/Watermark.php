@@ -8,6 +8,7 @@
 namespace EasyWatermark\PostTypes;
 
 use EasyWatermark\Traits\Hookable;
+use EasyWatermark\Core\View;
 
 /**
  * Watermark post type class
@@ -24,6 +25,7 @@ class Watermark {
 	 * Registers custom post type
 	 *
 	 * @action init
+	 * @return void
 	 */
 	public function register() {
 
@@ -32,7 +34,7 @@ class Watermark {
 			'singular_name'      => _x( 'Watermark', 'post type singular name', 'easy-watermark' ),
 			'menu_name'          => _x( 'Watermarks', 'admin menu', 'easy-watermark' ),
 			'name_admin_bar'     => _x( 'Watermark', 'add new on admin bar', 'easy-watermark' ),
-			'add_new'            => _x( 'Add New', 'book', 'easy-watermark' ),
+			'add_new'            => _x( 'Add New', 'Watermark', 'easy-watermark' ),
 			'add_new_item'       => __( 'Add New Watermark', 'easy-watermark' ),
 			'new_item'           => __( 'New Watermark', 'easy-watermark' ),
 			'edit_item'          => __( 'Edit Watermark', 'easy-watermark' ),
@@ -59,5 +61,58 @@ class Watermark {
 
 		register_post_type( 'watermark', $args );
 
+	}
+
+	/**
+	 * Removes default publish metabox
+	 *
+	 * @filter post_updated_messages
+	 * @param  array  $messages
+	 * @return array
+	 */
+	public function post_updated_messages( $messages ) {
+		global $post;
+
+		$messages['watermark'] = [
+			'',
+			__( 'Watermark updated.', 'easy-watermark' ),
+			__( 'Custom field updated.', 'easy-watermark' ),
+			__( 'Custom field deleted.', 'easy-watermark' ),
+			__( 'Watermark updated.', 'easy-watermark' ),
+			isset( $_GET['revision'] ) ? sprintf( __( 'Watermark restored to revision from %s', 'easy-watermark' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			__( 'Watermark saved.', 'easy-watermark' ),
+			__( 'Watermark saved.', 'easy-watermark' ),
+			__( 'Watermark submitted.', 'easy-watermark' ),
+			sprintf(
+				__( 'Watermark scheduled for: <strong>%1$s</strong>.', 'easy-watermark' ),
+				date_i18n( __( 'M j, Y @ G:i', 'easy-watermark' ), strtotime( $post->post_date ) )
+			),
+			__( 'Watermark draft updated.', 'easy-watermark' )
+		];
+
+		return $messages;
+	}
+
+
+	/**
+	 * Removes default publish metabox
+	 *
+	 * @action do_meta_boxes
+	 * @return void
+	 */
+	public function remove_submit_metabox() {
+		remove_meta_box( 'submitdiv', 'watermark', 'side' );
+	}
+
+	/**
+	 * Removes default publish metabox
+	 *
+	 * @action submitpost_box
+	 * @return void
+	 */
+	public function add_submit_metabox( $post ) {
+		echo new View( 'submitdiv', [
+				'post' => $post
+			] );
 	}
 }
