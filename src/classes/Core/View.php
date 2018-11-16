@@ -34,6 +34,16 @@ class View {
 	}
 
 	/**
+	 * Sets view name
+	 *
+	 * @param  string  $name
+	 * @return void
+	 */
+	public function setName( $name ) {
+		$this->name = $name;
+	}
+
+	/**
 	 * Sets single param
 	 *
 	 * @param  string  $key
@@ -68,10 +78,14 @@ class View {
 	 * @return string
 	 */
 	public function render() {
+		if ( ! is_string( $this->name ) ) {
+			wp_die( sprintf( __( 'View name should be a string, %s given.', 'easy-watermark' ), gettype( $this->name ) ), __( 'Invalid view name type', 'easy-watermark' ) );
+		}
+
 		$filename = $this->path . $this->name . '.php';
 
 		if ( ! file_exists( $filename ) ) {
-			wp_die( __( 'View file does not exist: ', 'easy-watermark' ) . $this->name, __( 'View not found', 'easy-watermark' ) );
+			wp_die( sprintf( __( 'View file does not exist: %s', 'easy-watermark' ), $this->name ), __( 'View not found', 'easy-watermark' ) );
 		}
 
 		ob_start();
