@@ -1,0 +1,27 @@
+{
+  "name": "easy-watermark",
+  "version": "1.0.0",
+  "description": "Easy Watermark Wordpress Plugin",
+  "main": "main.js",
+  "repository": "https://github.com/BracketSpace/Easy-Watermark.git",
+  "author": "Wojtek Szałkiewicz <wojtek@underdev.it>",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "webpack": "^4.25.1"
+  },
+  "scripts": {
+    "build-dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.1.2"
+  }
+}

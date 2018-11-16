@@ -2,6 +2,7 @@
 build
 Thumbs.db
 wp-cli.local.yml
+yarn-error.log
 dist
 docs
 bower_components
@@ -11,3 +12,4 @@ vendor
 *.sql
 *.tar.gz
 *.zip
+*.lock

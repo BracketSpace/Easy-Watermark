@@ -8,12 +8,14 @@
  namespace EasyWatermark\Core;
 
  use EasyWatermark\Traits\Hookable;
+ use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
  use underDEV\Utils\Singleton;
 
 /**
  * Main plugin class
  */
 class Plugin extends Singleton {
+
 	use Hookable;
 
 	/**
@@ -50,6 +52,8 @@ class Plugin extends Singleton {
 		register_uninstall_hook( EW_FILE_PATH, [ Installer::class, 'uninstall' ] );
 
 		$this->hook();
+
+		new WatermarkPostType();
 
 	}
 
