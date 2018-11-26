@@ -95,26 +95,27 @@ class Watermark {
 
 
 	/**
-	 * Removes default publish metabox
+	 * Changes default publish metabox, removes slug metabox
 	 *
 	 * @action do_meta_boxes
 	 * @return void
 	 */
 	public function remove_submit_metabox() {
 		remove_meta_box( 'submitdiv', 'watermark', 'side' );
+		remove_meta_box( 'slugdiv', 'watermark', 'normal' );
+
+		add_meta_box( 'submitdiv', __( 'Save' ), [ $this, 'save_meta_box' ], 'watermark', 'side', 'high' );
 	}
 
 	/**
-	 * Adds custom save buttons
+	 * Renders Save meta box content
 	 *
-	 * @action submitpost_box
+	 * @param  object  $post
 	 * @return void
 	 */
-	public function add_submit_metabox( $post ) {
-		if ( 'watermark' == $post->post_type ) {
-			echo new View( 'submitdiv', [
-					'post' => $post
-				] );
-		}
+	public function save_meta_box( $post ) {
+		echo new View( 'submitdiv', [
+			'post' => $post
+		] );
 	}
 }
