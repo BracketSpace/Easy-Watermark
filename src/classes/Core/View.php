@@ -28,7 +28,7 @@ class View {
 	 */
 	public function __construct( $name = '', $params = [] ) {
 		$this->name = $name;
-		$this->$params = $params;
+		$this->params = $params;
 
 		$this->path = EW_DIR_PATH . '/src/views/';
 	}
@@ -89,6 +89,8 @@ class View {
 		}
 
 		ob_start();
+
+		var_dump( $this->params );
 
 		extract( $this->params );
 
