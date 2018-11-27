@@ -51,7 +51,7 @@ class Watermark {
 			'description'     => __( 'Watermarks', 'easy-watermark' ),
 			'public'          => false,
 			'show_ui'         => true,
-			'capability_type' => 'post',
+			'capability_type' => [ 'watermark', 'watermarks' ],
 			'has_archive'     => false,
 			'hierarchical'    => false,
 			'menu_icon'       => 'dashicons-media-text',
@@ -108,11 +108,54 @@ class Watermark {
 	 * @action do_meta_boxes
 	 * @return void
 	 */
-	public function remove_submit_metabox() {
+	public function setup_metaboxes() {
+		global $post;
+
 		remove_meta_box( 'submitdiv', 'watermark', 'side' );
 		remove_meta_box( 'slugdiv', 'watermark', 'normal' );
 
-		add_meta_box( 'submitdiv', __( 'Save' ), [ $this, 'save_meta_box' ], 'watermark', 'side', 'high' );
+		if ( 2 > $this->get_watermarks_count() || 'publish' == $post->post_status ) {
+			add_meta_box( 'submitdiv', __( 'Save' ), [ $this, 'save_meta_box' ], 'watermark', 'side', 'high' );
+		}
+	}
+
+	/**
+	 * Watermark edit screen columns setup
+   *
+   * @filter get_user_option_screen_layout_watermark
+   *
+   * @param  integer $columns User setup columns.
+   * @return integer
+ 	 */
+	public function setup_columns( $columns ) {
+		global $post;
+
+		if ( 2 <= $this->get_watermarks_count() && 'publish' != $post->post_status ) {
+			// Force one column
+			return 1;
+		}
+
+		return $columns;
+	}
+
+
+	/**
+	 * Watermark edit screen title support setup
+   *
+   * @action edit_form_top
+   *
+   * @return void
+ 	 */
+	public function change_title_support() {
+  	global $_wp_post_type_features, $post;
+
+		if ( 'publish' == $post->post_status ) {
+			return;
+		}
+
+		if ( 2 <= $this->get_watermarks_count() && isset( $_wp_post_type_features['watermark']['title'] ) ) {
+			unset( $_wp_post_type_features['watermark']['title'] );
+		}
 	}
 
 	/**

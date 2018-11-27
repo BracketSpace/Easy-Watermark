@@ -23,6 +23,17 @@
 			 // First activation
 			 self::install();
 		 }
+
+		 $admin = get_role( 'administrator' );
+
+		 $admin->add_cap( 'edit_watermark' );
+		 $admin->add_cap( 'read_watermark' );
+		 $admin->add_cap( 'delete_watermark' );
+		 $admin->add_cap( 'edit_watermarks' );
+		 $admin->add_cap( 'edit_others_watermarks' );
+		 $admin->add_cap( 'publish_watermarks' );
+		 $admin->add_cap( 'read_private_watermarks' );
+
 	 }
 
 	 /**
@@ -31,6 +42,17 @@
 		* @return void
 		*/
 	 public static function deactivate() {
+
+		 $admin = get_role( 'administrator' );
+
+		 $admin->remove_cap( 'edit_watermark' );
+		 $admin->remove_cap( 'read_watermark' );
+		 $admin->remove_cap( 'delete_watermark' );
+		 $admin->remove_cap( 'edit_watermarks' );
+		 $admin->remove_cap( 'edit_others_watermarks' );
+		 $admin->remove_cap( 'publish_watermarks' );
+		 $admin->remove_cap( 'read_private_watermarks' );
+
 	 }
 
 	 /**
