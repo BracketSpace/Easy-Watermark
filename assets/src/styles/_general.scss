@@ -1,0 +1,13 @@
+body {
+	&.post-type-watermark {
+		.actions {
+			&.bulkactions {
+				padding-right: 0 !important;
+
+				.button {
+					margin-right: 16px !important;
+				}
+			}
+		}
+	}
+}

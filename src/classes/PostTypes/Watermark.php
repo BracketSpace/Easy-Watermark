@@ -17,6 +17,8 @@ class Watermark {
 
 	use Hookable;
 
+	private $untrashed = false;
+
 	public function __construct() {
 		$this->hook();
 	}
@@ -64,7 +66,7 @@ class Watermark {
 	}
 
 	/**
-	 * Removes default publish metabox
+	 * Sets watermark update messages
 	 *
 	 * @filter post_updated_messages
 	 * @param  array  $messages
@@ -91,6 +93,113 @@ class Watermark {
 		];
 
 		return $messages;
+	}
+
+	/**
+	 * Sets watermark bulk update messages
+	 *
+	 * @filter bulk_post_updated_messages
+	 * @param  array  $messages
+	 * @return array
+	 */
+	public function bulk_post_updated_messages( $messages, $counts ) {
+		global $post;
+
+		$messages['watermark'] = [
+			'updated'   => _n( '%s watermark updated.', '%s watermarks updated.', $counts['updated'], 'easy-watermark' ),
+			'locked'    => ( 1 == $counts['locked'] ) ? __( '1 watermarkt not updated, somebody is editing it.', 'easy-watermark' ) :
+			                   _n( '%s watermark not updated, somebody is editing it.', '%s watermarks not updated, somebody is editing them.', $counts['locked'], 'easy-watermark' ),
+			'deleted'   => _n( '%s watermark permanently deleted.', '%s watermarks permanently deleted.', $counts['deleted'], 'easy-watermark' ),
+			'trashed'   => _n( '%s watermark moved to the Trash.', '%s watermarks moved to the Trash.', $counts['trashed'], 'easy-watermark' ),
+			'untrashed' => _n( '%s watermark restored from the Trash.', '%s watermarks restored from the Trash.', $counts['untrashed'], 'easy-watermark' )
+		];
+
+		return $messages;
+	}
+
+	/**
+	 * Checks if watermark has been untrashed
+	 *
+	 * @action untrashed_post
+	 *
+	 * @return object
+	 */
+	public function untrashed_post( $post_id ) {
+		global $post;
+
+		if ( 'watermark' == $post->post_type ) {
+			$this->untrashed = true;
+		}
+	}
+
+	/**
+	 * Changes redirect location after watermark restoration from trash
+	 *
+	 * @action wp_redirect
+	 *
+	 * @param  string  $location
+	 * @return string
+	 */
+	public function redirect( $location ) {
+		global $post;
+
+		if ( 'watermark' == $post->post_type ) {
+ 			if ( false !== strpos( $location, 'untrashed=1' ) && ! $this->untrashed ) {
+				$location = add_query_arg( [
+					'ew-limited' => '1'
+				], remove_query_arg( 'untrashed', $location ) );
+			}
+		}
+
+		return $location;
+	}
+
+	/**
+	 * Prints admin notices
+	 *
+	 * @action admin_notices
+	 *
+	 * @return null
+	 */
+	public function admin_notices() {
+		if ( isset( $_REQUEST['ew-limited'] ) && $_REQUEST['ew-limited'] ) {
+
+			echo new View( 'notices/untrash-error' );
+
+			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'ew-limited' ], $_SERVER['REQUEST_URI'] );
+		}
+	}
+
+	/**
+	 * Filters row actions for watermark post type
+	 *
+	 * @filter post_row_actions
+	 *
+	 * @return array
+	 */
+	public function post_row_actions( $actions , $post) {
+		if ( 'watermark' == $post->post_type ) {
+			if ( 2 <= $this->get_watermarks_count() && isset( $actions['untrash'] ) ) {
+				unset( $actions['untrash'] );
+			}
+		}
+
+		return $actions;
+	}
+
+	/**
+	 * Filters watermark bulk actions
+	 *
+	 * @filter bulk_actions-edit-watermark
+	 *
+	 * @return null
+	 */
+	public function bulk_actions( $actions ) {
+		if ( isset( $actions['untrash'] ) ) {
+			unset( $actions['untrash'] );
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -138,7 +247,6 @@ class Watermark {
 		return $columns;
 	}
 
-
 	/**
 	 * Watermark edit screen title support setup
    *
@@ -158,6 +266,22 @@ class Watermark {
 		}
 	}
 
+	/**
+	 * Watermark edit screen title support setup
+   *
+   * @filter pre_untrash_post
+   *
+	 * @param  null    $untrash
+	 * @param  object  $post
+   * @return bool
+ 	 */
+	public function pre_untrash_post( $untrash, $post ) {
+		if ( 'watermark' == $post->post_type && 2 <= $this->get_watermarks_count() ) {
+			return true;
+		}
+
+		return $untrash;
+	}
 	/**
 	 * Renders Save meta box content
 	 *

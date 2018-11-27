@@ -54,6 +54,7 @@ class Plugin extends Singleton {
 		$this->hook();
 
 		new WatermarkPostType();
+		new Assets();
 
 	}
 
@@ -61,6 +62,7 @@ class Plugin extends Singleton {
 	 * Initiates plugin
 	 *
 	 * @action  init
+	 *
 	 * @return  void
 	 */
 	public function init() {
