@@ -93,6 +93,14 @@ class Watermark {
 		return $messages;
 	}
 
+	/**
+	 * Returns watermarks count
+	 *
+	 * @return object
+	 */
+	public function get_watermarks_count() {
+		return wp_count_posts( 'watermark' )->publish;
+	}
 
 	/**
 	 * Changes default publish metabox, removes slug metabox
@@ -115,7 +123,8 @@ class Watermark {
 	 */
 	public function save_meta_box( $post ) {
 		echo new View( 'submitdiv', [
-			'post' => $post
+			'post'  => $post,
+			'count' => $this->get_watermarks_count()
 		] );
 	}
 }

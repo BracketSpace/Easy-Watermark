@@ -90,8 +90,6 @@ class View {
 
 		ob_start();
 
-		var_dump( $this->params );
-
 		extract( $this->params );
 
 		include $filename;
