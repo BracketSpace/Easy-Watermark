@@ -1,3 +1,7 @@
-import Test from './test.js'
+import WatermarkTypeSelector from './watermark-type-selector.js'
 
-new Test()
+export default class App {
+	constructor() {
+		new WatermarkTypeSelector();
+	}
+}

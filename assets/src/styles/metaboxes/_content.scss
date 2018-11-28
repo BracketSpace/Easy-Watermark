@@ -1,0 +1,17 @@
+#watermark-content {
+	.image-content,
+	.text-content,
+	.select-image-button,
+	.watermark-image {
+		display: none;
+	}
+
+	.watermark-image {
+		img {
+			cursor: pointer;
+			width: auto;
+			height: auto;
+			max-width: 100%;
+		}
+	}
+}

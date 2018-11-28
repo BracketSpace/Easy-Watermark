@@ -19,6 +19,12 @@ class Watermark {
 
 	private $untrashed = false;
 
+	private $defaults = [
+		'attachment_id' => null,
+		'mime_type' => null,
+		'url' => null
+	];
+
 	public function __construct() {
 		$this->hook();
 	}
@@ -215,6 +221,7 @@ class Watermark {
 	 * Changes default publish metabox, removes slug metabox
 	 *
 	 * @action do_meta_boxes
+	 *
 	 * @return void
 	 */
 	public function setup_metaboxes() {
@@ -225,7 +232,73 @@ class Watermark {
 
 		if ( 2 > $this->get_watermarks_count() || 'publish' == $post->post_status ) {
 			add_meta_box( 'submitdiv', __( 'Save' ), [ $this, 'save_meta_box' ], 'watermark', 'side', 'high' );
+			add_meta_box( 'watermark-content', __( 'Watermark' ), [ $this, 'content_meta_box' ], 'watermark', 'normal', 'high' );
 		}
+	}
+
+	public function content_meta_box( $post ) {
+
+		$params = $post->post_content ? json_decode( $post->post_content ) : [];
+		$params = wp_parse_args( $params, $this->defaults );
+
+		echo new View( 'edit-screen/metaboxes/content', $params );
+
+	}
+
+	/**
+	 * Hides screen options on watermark editing screen
+	 *
+	 * @filter screen_options_show_screen
+	 *
+	 * @param  bool    $show_screen
+	 * @param  object  $screen
+	 * @return bool
+	 */
+	public function screen_options_show_screen( $show_screen, $screen ) {
+
+			if ( 'watermark' == $screen->id ) {
+				return false;
+			}
+
+			return $show_screen;
+
+	}
+
+	/**
+	 * Hides all watermark metaboxes
+	 *
+	 * @filter hidden_meta_boxes
+	 *
+	 * @param  array   $hidden
+	 * @param  object  $screen
+	 * @param  bool    $use_defaults
+	 * @return bool
+	 */
+	public function hidden_meta_boxes( $hidden, $screen, $use_defaults ) {
+
+		if ( 'watermark' == $screen->id ) {
+			$hidden += [
+				'watermark-content'
+			];
+		}
+
+		return $hidden;
+
+	}
+
+	/**
+	 * Adds watermark type selector
+	 *
+	 * @action edit_form_after_title
+	 *
+	 * @return void
+	 */
+	public function edit_form_after_title() {
+
+		if ( 'watermark' == get_current_screen()->id ) {
+			echo new View( 'edit-screen/watermark-type-selector' );
+		}
+
 	}
 
 	/**
@@ -289,7 +362,7 @@ class Watermark {
 	 * @return void
 	 */
 	public function save_meta_box( $post ) {
-		echo new View( 'submitdiv', [
+		echo new View( 'edit-screen/submitdiv', [
 			'post'  => $post,
 			'count' => $this->get_watermarks_count()
 		] );

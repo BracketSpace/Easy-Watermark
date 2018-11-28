@@ -31,7 +31,10 @@ class Assets {
 	 * @return void
 	 */
 	public function register_admin_scripts() {
+
 		wp_register_style( 'ew-admin-style', $this->asset_url( 'styles', 'easy-watermark.css' ), [], '1.0' );
+		wp_register_script( 'ew-admin-script', $this->asset_url( 'scripts', 'easy-watermark.js' ), [ 'jquery' ], '1.0' );
+
 	}
 
 	/**
@@ -42,7 +45,14 @@ class Assets {
 	 * @return void
 	 */
 	public function enqueue_admin_scripts() {
-		wp_enqueue_style( 'ew-admin-style' );
+
+		if ( 'watermark' == get_current_screen()->id ) {
+			wp_enqueue_style( 'ew-admin-style' );
+
+			wp_enqueue_media();
+			wp_enqueue_script( 'ew-admin-script' );
+		}
+
 	}
 
 	private function asset_url( $type, $file ) {

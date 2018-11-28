@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = (env, argv) => {
@@ -30,7 +31,10 @@ module.exports = (env, argv) => {
 			]
 		},
 		plugins: [
-			new ExtractTextPlugin('styles/easy-watermark.css')
-		]
+			new ExtractTextPlugin('styles/easy-watermark.css'),
+		],
+		externals: {
+			jquery: 'jQuery'
+		}
 	}
 }
