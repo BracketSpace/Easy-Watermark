@@ -5,11 +5,12 @@
  * @package easy-watermark
  */
 
- namespace EasyWatermark\Core;
+namespace EasyWatermark\Core;
 
- use EasyWatermark\Traits\Hookable;
- use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
- use underDEV\Utils\Singleton;
+use EasyWatermark\Metaboxes;
+use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
+use EasyWatermark\Traits\Hookable;
+use underDEV\Utils\Singleton;
 
 /**
  * Main plugin class
@@ -56,6 +57,13 @@ class Plugin extends Singleton {
 		new WatermarkPostType();
 		new Assets();
 
+		$this->setup_metaboxes();
+
+	}
+
+	private function setup_metaboxes() {
+		new Metaboxes\Submitdiv();
+		new Metaboxes\WatermarkContent();
 	}
 
 	/**

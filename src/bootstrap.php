@@ -13,8 +13,8 @@
  * @param string $subtitle
  * @param string $title
  */
-$error = function( $message, $subtitle = '', $title = '' ) {
-  $title = $title ?: __( 'Easy Watermark &rsaquo; Error', 'easy-watermark' );
+$ew_error = function( $message, $subtitle = '', $title = '' ) {
+	$title = $title ?: __( 'Easy Watermark &rsaquo; Error', 'easy-watermark' );
 	$footer = '<a href="https://wordpress.org/support/plugin/easy-watermark">Support </a>';
   $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
   wp_die( $message, $title );
@@ -29,7 +29,7 @@ $autoloader = dirname( __FILE__ ) . '/../vendor/autoload.php';
  * Check if the composer vendors are installed
  */
 if ( ! file_exists( $autoloader ) ) {
-	$error( 'If you are a developer, please run: `<code>composer install</code>`. Otherwies contact us for help.', 'The plugin vendors are missing.' );
+	$ew_error( 'If you are a developer, please run: `<code>composer install</code>`. Otherwies contact us for help.', 'The plugin vendors are missing.' );
 }
 
 /**

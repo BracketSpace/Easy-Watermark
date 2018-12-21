@@ -17,14 +17,14 @@ class Watermark {
 
 	use Hookable;
 
+	/**
+	 * @param  bool
+	 */
 	private $untrashed = false;
 
-	private $defaults = [
-		'attachment_id' => null,
-		'mime_type' => null,
-		'url' => null
-	];
-
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		$this->hook();
 	}
@@ -218,34 +218,6 @@ class Watermark {
 	}
 
 	/**
-	 * Changes default publish metabox, removes slug metabox
-	 *
-	 * @action do_meta_boxes
-	 *
-	 * @return void
-	 */
-	public function setup_metaboxes() {
-		global $post;
-
-		remove_meta_box( 'submitdiv', 'watermark', 'side' );
-		remove_meta_box( 'slugdiv', 'watermark', 'normal' );
-
-		if ( 2 > $this->get_watermarks_count() || 'publish' == $post->post_status ) {
-			add_meta_box( 'submitdiv', __( 'Save' ), [ $this, 'save_meta_box' ], 'watermark', 'side', 'high' );
-			add_meta_box( 'watermark-content', __( 'Watermark' ), [ $this, 'content_meta_box' ], 'watermark', 'normal', 'high' );
-		}
-	}
-
-	public function content_meta_box( $post ) {
-
-		$params = $post->post_content ? json_decode( $post->post_content ) : [];
-		$params = wp_parse_args( $params, $this->defaults );
-
-		echo new View( 'edit-screen/metaboxes/content', $params );
-
-	}
-
-	/**
 	 * Hides screen options on watermark editing screen
 	 *
 	 * @filter screen_options_show_screen
@@ -255,35 +227,11 @@ class Watermark {
 	 * @return bool
 	 */
 	public function screen_options_show_screen( $show_screen, $screen ) {
-
-			if ( 'watermark' == $screen->id ) {
-				return false;
-			}
-
-			return $show_screen;
-
-	}
-
-	/**
-	 * Hides all watermark metaboxes
-	 *
-	 * @filter hidden_meta_boxes
-	 *
-	 * @param  array   $hidden
-	 * @param  object  $screen
-	 * @param  bool    $use_defaults
-	 * @return bool
-	 */
-	public function hidden_meta_boxes( $hidden, $screen, $use_defaults ) {
-
 		if ( 'watermark' == $screen->id ) {
-			$hidden += [
-				'watermark-content'
-			];
+			return false;
 		}
 
-		return $hidden;
-
+		return $show_screen;
 	}
 
 	/**
