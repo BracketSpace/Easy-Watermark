@@ -10,7 +10,7 @@ export default class WatermarkTypeSelector {
 			new contentMetabox()
 		]
 
-		$( document ).on( 'change', 'input[name=watermark-type]', this.selectWatermarkType )
+		$( document ).on( 'change', 'input.watermark-type', this.selectWatermarkType )
 	}
 
 	selectWatermarkType( e ) {

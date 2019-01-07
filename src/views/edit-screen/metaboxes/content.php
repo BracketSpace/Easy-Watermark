@@ -12,6 +12,7 @@
 		</div>
 	</div>
 	<div class="text-content">
-		<p>Text Setup</p>
+		<input name="watermark[text]" type="text" value="<?php echo $text; ?>" placeholder="<?php _e( 'Watermark text', 'easy-watermark' ); ?>" />
+		<p class="description"><?php _e( 'You can use placeholders listed in "Placeholders" metabox.', 'easy-watermark' ); ?></p>
 	</div>
 </div>

@@ -51,9 +51,11 @@ class Watermark {
 	 * @param  array
 	 */
 	private $defaults = [
+		'type'          => null,
 		'attachment_id' => null,
 		'mime_type'     => null,
-		'url'           => null
+		'url'           => null,
+		'text'          => '',
 	];
 
 	/**
