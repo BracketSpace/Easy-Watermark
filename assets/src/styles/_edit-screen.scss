@@ -1,0 +1,46 @@
+body {
+	&.post-type-watermark {
+		#poststuff {
+			.watermark-type-selector {
+				h2 {
+					padding-left: 0;
+				}
+
+				.buttons {
+					display: flex;
+				}
+
+				input[type="radio"] {
+					position: absolute;
+					z-index: -1;
+					opacity: 0;
+
+					&:checked + .button {
+						background: #0085ba;
+						border-color: #0073aa #006799 #006799;
+						box-shadow: 0 1px 0 #006799;
+						color: #fff;
+						text-decoration: none;
+						text-shadow: 0 -1px 1px #006799,1px 0 1px #006799,0 1px 1px #006799,-1px 0 1px #006799;
+
+						&:active {
+							transform: none;
+						}
+					}
+				}
+
+				.button {
+					&.first {
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
+					}
+
+					&.last {
+						border-top-left-radius: 0;
+						border-bottom-left-radius: 0;
+					}
+				}
+			}
+		}
+	}
+}

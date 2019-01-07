@@ -10,6 +10,7 @@
     "webpack": "^4.25.1"
   },
   "scripts": {
+    "start": "webpack --watch --progress --mode development",
     "build-dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
