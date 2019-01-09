@@ -13,7 +13,7 @@ use EasyWatermark\Watermark\Watermark;
 /**
  * Metabox class
  */
-class WatermarkContent extends Metabox {
+class Alignment extends Metabox {
 
 	/**
 	 * Inits metabox
@@ -21,8 +21,8 @@ class WatermarkContent extends Metabox {
 	 * @return void
 	 */
 	public function init() {
-		$this->id    = 'watermark-content';
-		$this->title = __( 'Watermark' );
+		$this->id    = 'alignment';
+		$this->title = __( 'Alignment' );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class WatermarkContent extends Metabox {
 	public function content( $post ) {
 		$watermark = Watermark::get( $post );
 
-		echo new View( 'edit-screen/metaboxes/content', $watermark->get_params() );
+		echo new View( 'edit-screen/metaboxes/alignment', $watermark->get_params() );
 	}
 
 }

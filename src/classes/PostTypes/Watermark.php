@@ -105,6 +105,7 @@ class Watermark {
 	 * Sets watermark bulk update messages
 	 *
 	 * @filter bulk_post_updated_messages
+	 *
 	 * @param  array  $messages
 	 * @return array
 	 */
@@ -168,6 +169,12 @@ class Watermark {
 	 * @return null
 	 */
 	public function admin_notices() {
+		global $post;
+
+		if ( 'watermark' == get_current_screen()->id && 2 <= $this->get_watermarks_count() && 'publish' != $post->post_status ) {
+			echo new View( 'notices/watermarks-number-exceeded-error' );
+		}
+
 		if ( isset( $_REQUEST['ew-limited'] ) && $_REQUEST['ew-limited'] ) {
 
 			echo new View( 'notices/untrash-error' );
@@ -241,12 +248,10 @@ class Watermark {
 	 *
 	 * @return void
 	 */
-	public function edit_form_after_title() {
-
-		if ( 'watermark' == get_current_screen()->id ) {
+	public function edit_form_after_title( $post ) {
+		if ( 'watermark' == get_current_screen()->id && ( 2 > $this->get_watermarks_count() || 'publish' == $post->post_status ) ) {
 			echo new View( 'edit-screen/watermark-type-selector' );
 		}
-
 	}
 
 	/**

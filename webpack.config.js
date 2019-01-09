@@ -7,7 +7,8 @@ module.exports = (env, argv) => {
 	  entry: "./assets/src/main.js",
 	  output: {
 			path: path.resolve(__dirname, "assets/dist"),
-	    filename: "./scripts/easy-watermark.js"
+	    filename: "./scripts/easy-watermark.js",
+			publicPath: '../'
 	  },
 		module: {
 			rules: [
@@ -27,6 +28,19 @@ module.exports = (env, argv) => {
 							'sass-loader'
 						]
 	        })
+				},
+				{
+					test: /\.(png|jpg|gif)$/i,
+					use: [
+						{
+							loader: 'url-loader',
+							options: {
+								limit: 8192,
+          			name: '[name].[ext]',
+								outputPath: 'images'
+							}
+						}
+					]
 				}
 			]
 		},

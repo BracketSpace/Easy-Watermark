@@ -1,13 +1,15 @@
 import $ from 'jquery'
 
 import contentMetabox from './metaboxes/content.js'
+import alignmentMetabox from './metaboxes/alignment.js'
 
 export default class WatermarkTypeSelector {
 	constructor() {
 		this.selectWatermarkType = this.selectWatermarkType.bind( this )
 
 		this.metaboxes = [
-			new contentMetabox()
+			new contentMetabox(),
+			new alignmentMetabox()
 		]
 
 		$( document ).on( 'change', 'input.watermark-type', this.selectWatermarkType )
@@ -18,14 +20,6 @@ export default class WatermarkTypeSelector {
 		for ( let metabox of this.metaboxes ) {
 			metabox.enable( e.target.value )
 		}
-		// switch ( e.target.value ) {
-		// 	case 'text':
-		// 		this.enableTextWatermark()
-		// 		break
-		// 	case 'image':
-		// 		this.enableImageWatermark()
-		// 		break
-		// }
 	}
 
 	enableTextWatermark() {

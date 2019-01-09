@@ -48,9 +48,8 @@ class Submitdiv extends Metabox {
 	 * @return void
 	 */
 	public function content( $post ) {
-		echo new View( 'edit-screen/submitdiv', [
-			'post'  => $post,
-			'count' => $this->get_watermarks_count()
+		echo new View( 'edit-screen/metaboxes/submitdiv', [
+			'post'  => $post
 		] );
 	}
 }

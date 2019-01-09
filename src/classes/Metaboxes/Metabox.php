@@ -76,11 +76,9 @@ abstract class Metabox {
 	 * @param  bool    $use_defaults
 	 * @return bool
 	 */
-	public function hide( $hidden, $screen, $use_defaults ) {
+	public function hide( $hidden, $screen ) {
 		if ( true == $this->hide && 'watermark' == $screen->id ) {
-			$hidden += [
-				$this->id
-			];
+			array_push( $hidden, $this->id );
 		}
 
 		return $hidden;
