@@ -30,14 +30,14 @@ export default class {
 	}
 
 	enable( type ) {
-		this.metabox.show()
+		this.metabox.fadeIn( 200 )
 
 		if ( type == 'image' ) {
-			this.imageContent.slideDown()
-			this.textContent.slideUp()
+			this.imageContent.show()
+			this.textContent.hide()
 		} else {
-			this.textContent.slideDown()
-			this.imageContent.slideUp()
+			this.textContent.show()
+			this.imageContent.hide()
 		}
 	}
 

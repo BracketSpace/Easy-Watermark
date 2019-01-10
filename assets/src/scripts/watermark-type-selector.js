@@ -7,18 +7,27 @@ export default class WatermarkTypeSelector {
 	constructor() {
 		this.selectWatermarkType = this.selectWatermarkType.bind( this )
 
+		this.selector = $( 'input.watermark-type' )
+
 		this.metaboxes = [
 			new contentMetabox(),
 			new alignmentMetabox()
 		]
 
-		$( document ).on( 'change', 'input.watermark-type', this.selectWatermarkType )
+		const selected = this.selector.filter('[checked]')
+
+		if ( selected.length ) {
+			this.selectWatermarkType( selected[0].value )
+		}
+
+		this.selector.on( 'change', ( e ) => {
+			this.selectWatermarkType( e.target.value )
+		} )
 	}
 
-	selectWatermarkType( e ) {
-
+	selectWatermarkType( type ) {
 		for ( let metabox of this.metaboxes ) {
-			metabox.enable( e.target.value )
+			metabox.enable( type )
 		}
 	}
 

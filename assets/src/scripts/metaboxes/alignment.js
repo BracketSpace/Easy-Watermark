@@ -6,6 +6,6 @@ export default class {
 	}
 
 	enable( type ) {
-		this.metabox.show()
+		this.metabox.fadeIn( 200 )
 	}
 }
