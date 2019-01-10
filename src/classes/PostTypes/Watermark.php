@@ -9,6 +9,7 @@ namespace EasyWatermark\PostTypes;
 
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Core\View;
+use EasyWatermark\Watermark\Watermark as WatermarkObject;
 
 /**
  * Watermark post type class
@@ -250,7 +251,9 @@ class Watermark {
 	 */
 	public function edit_form_after_title( $post ) {
 		if ( 'watermark' == get_current_screen()->id && ( 2 > $this->get_watermarks_count() || 'publish' == $post->post_status ) ) {
-			echo new View( 'edit-screen/watermark-type-selector' );
+			$watermark = WatermarkObject::get( $post );
+
+			echo new View( 'edit-screen/watermark-type-selector', $watermark->get_params() );
 		}
 	}
 
@@ -293,7 +296,7 @@ class Watermark {
 	}
 
 	/**
-	 * Watermark edit screen title support setup
+	 * Filters whether a post untrashing should take place.
    *
    * @filter pre_untrash_post
    *
@@ -308,16 +311,21 @@ class Watermark {
 
 		return $untrash;
 	}
+
 	/**
-	 * Renders Save meta box content
+	 * Stores serialized watermark data in post content
 	 *
-	 * @param  object  $post
-	 * @return void
+	 * @filter wp_insert_post_data
+	 *
+	 * @param  array  $dada
+	 * @param  array  $postarr
+	 * @return array
 	 */
-	public function save_meta_box( $post ) {
-		echo new View( 'edit-screen/submitdiv', [
-			'post'  => $post,
-			'count' => $this->get_watermarks_count()
-		] );
+	public function wp_insert_post_data( $data, $postarr ) {
+		if ( 'watermark' == $data['post_type'] && isset( $postarr['watermark'] ) ) {
+			$data['post_content'] = json_encode( $postarr['watermark'] );
+		}
+
+		return $data;
 	}
 }
