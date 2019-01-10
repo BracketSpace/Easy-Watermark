@@ -56,6 +56,16 @@ class Watermark {
 		'mime_type'     => null,
 		'url'           => null,
 		'text'          => '',
+		'offset'        => [
+			'x' => [
+				'value' => 0,
+				'unit'  => 'px'
+			],
+			'y' => [
+				'value' => 0,
+				'unit'  => 'px'
+			]
+		]
 	];
 
 	/**
@@ -66,8 +76,12 @@ class Watermark {
 	public function __construct( $post ) {
 		$this->post = $post;
 
-		$this->params = $post->post_content ? json_decode( $post->post_content ) : [];
+		$this->params = $post->post_content ? json_decode( $post->post_content, true ) : [];
+
+		// $this->params = [];
+
 		$this->params = wp_parse_args( $this->params, $this->defaults );
+		// var_dump( $this->params ); die();
 	}
 
 	/**

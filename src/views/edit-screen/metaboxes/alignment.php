@@ -34,6 +34,39 @@
 					</div>
 				</td>
 			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Offset', 'easy-watermark' ); ?></th>
+				<td>
+					<div class="form-field">
+						<div class="form-field-prepend">
+							<span class="form-field-text"><?php _e( 'x', 'easy-watermark' ); ?>:</span>
+						</div>
+						<input size="3" type="number" name="watermark[offset][x][value]" value="<?php echo $offset['x']['value']; ?>" />
+						<div class="form-field-append">
+							<input type="hidden" id="watermark-offset-x-unit" name="watermark[offset][x][unit]" value="<?php echo $offset['x']['unit']; ?>" />
+							<button data-toggle="dropdown"><?php echo $offset['x']['unit']; ?></button>
+							<div class="dropdown-menu" data-target="#watermark-offset-x-unit">
+					      <a class="dropdown-item" href="#" data-value="px"><?php _e( 'px', 'easy-watermark' ); ?></a>
+					      <a class="dropdown-item" href="#" data-value="%"><?php _e( '%', 'easy-watermark' ); ?></a>
+					    </div>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="form-field-prepend">
+							<span class="form-field-text"><?php _e( 'y', 'easy-watermark' ); ?>:</span>
+						</div>
+						<input size="3" type="number" name="watermark[offset][y][value]" value="<?php echo $offset['y']['value']; ?>" />
+						<div class="form-field-append">
+							<input type="hidden" id="watermark-offset-y-unit" name="watermark[offset][y][unit]" value="<?php echo $offset['y']['unit']; ?>" />
+							<button data-toggle="dropdown"><?php echo $offset['y']['unit']; ?></button>
+							<div class="dropdown-menu" data-target="#watermark-offset-y-unit">
+					      <a class="dropdown-item" href="#" data-value="px"><?php _e( 'px', 'easy-watermark' ); ?></a>
+					      <a class="dropdown-item" href="#" data-value="percent"><?php _e( '%', 'easy-watermark' ); ?></a>
+					    </div>
+						</div>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>
