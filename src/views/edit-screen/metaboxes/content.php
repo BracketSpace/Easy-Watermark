@@ -8,6 +8,7 @@
 			<a class="button-secondary" data-choose="<?php _e('Choose Watermark Image', 'easy-watermark'); ?>" data-button-label="<?php _e('Set as Watermark Image', 'easy-watermark'); ?>" href="#"><?php _e('Select/Upload Image', 'easy-watermark'); ?></a>
 		</div>
 		<div class="watermark-image">
+			<p class="description"><?php _e('Click on image to change it.', 'easy-watermark'); ?></p>
 			<img src="<?php echo $url; ?>" />
 		</div>
 	</div>
