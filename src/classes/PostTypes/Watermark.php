@@ -323,7 +323,9 @@ class Watermark {
 	 */
 	public function wp_insert_post_data( $data, $postarr ) {
 		if ( 'watermark' == $data['post_type'] && isset( $postarr['watermark'] ) ) {
-			$data['post_content'] = json_encode( $postarr['watermark'] );
+			$watermark_data = WatermarkObject::parse_params( $postarr['watermark'] );
+
+			$data['post_content'] = json_encode( $watermark_data );
 		}
 
 		return $data;

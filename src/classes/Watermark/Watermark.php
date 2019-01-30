@@ -50,7 +50,7 @@ class Watermark {
 	/**
 	 * @param  array
 	 */
-	private $defaults = [
+	private static $defaults = [
 		'type'          => null,
 		'attachment_id' => null,
 		'mime_type'     => null,
@@ -65,6 +65,23 @@ class Watermark {
 				'value' => 0,
 				'unit'  => 'px'
 			]
+		],
+		'auto_add'    => true,
+		'image_types' => [
+			'image/jpeg',
+			'image/png',
+			'image/gif'
+		],
+		'image_sizes' => [
+			'medium',
+			'medium_large',
+			'large',
+			'full'
+		],
+		'post_types' => [
+			'unattached',
+			'post',
+			'page'
 		]
 	];
 
@@ -77,11 +94,7 @@ class Watermark {
 		$this->post = $post;
 
 		$this->params = $post->post_content ? json_decode( $post->post_content, true ) : [];
-
-		// $this->params = [];
-
-		$this->params = wp_parse_args( $this->params, $this->defaults );
-		// var_dump( $this->params ); die();
+		$this->params = wp_parse_args( $this->params, self::$defaults );
 	}
 
 	/**
@@ -120,5 +133,15 @@ class Watermark {
 		}
 
 		return $this->get_param( $key );
+	}
+
+	public static function parse_params( $params ) {
+		foreach ( self::$defaults as $key => $value ) {
+			if ( ! array_key_exists( $key, $params ) ) {
+				$params[$key] = false;
+			}
+		}
+
+		return $params;
 	}
 }

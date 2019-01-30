@@ -8,16 +8,16 @@ export default class {
 		this.textContent  = this.metabox.find( '.text-content' )
 
 		this.buttonWrap = this.metabox.find( '.select-image-button' )
-		this.button = this.buttonWrap.find( 'a' )
+		this.button     = this.buttonWrap.find( 'a' )
 
-		this.imageWrap = this.metabox.find( '.watermark-image' )
-		this.image = this.imageWrap.find( 'img' )
-		this.mimeTypeField = this.metabox.find( 'input.watermark-mime-type' )
-		this.urlField = this.metabox.find( 'input.watermark-url' )
+		this.imageWrap         = this.metabox.find( '.watermark-image' )
+		this.image             = this.imageWrap.find( 'img' )
+		this.mimeTypeField     = this.metabox.find( 'input.watermark-mime-type' )
+		this.urlField          = this.metabox.find( 'input.watermark-url' )
 		this.attachmentIdField = this.metabox.find( 'input.watermark-id' )
 
 		this.openMediaLibrary = this.openMediaLibrary.bind( this )
-		this.selectImage = this.selectImage.bind( this )
+		this.selectImage      = this.selectImage.bind( this )
 
 		this.button.on( 'click', this.openMediaLibrary )
 		this.image.on( 'click', this.openMediaLibrary )

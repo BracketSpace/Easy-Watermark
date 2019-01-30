@@ -7,7 +7,9 @@
 
 namespace EasyWatermark\Metaboxes;
 
+use EasyWatermark\Core\View;
 use EasyWatermark\Traits\Hookable;
+use EasyWatermark\Watermark\Watermark;
 
 /**
  * Metabox class
@@ -97,7 +99,13 @@ abstract class Metabox {
 	 * @param  object  $post  current pot
 	 * @return void
 	 */
-	abstract public function content( $post );
+	public function content( $post ) {
+		$watermark = Watermark::get( $post );
+
+		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
+			'post' => $post
+		], $watermark->get_params() ) );
+	}
 
 	/**
 	 * Returns watermarks count

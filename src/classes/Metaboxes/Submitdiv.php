@@ -7,9 +7,6 @@
 
 namespace EasyWatermark\Metaboxes;
 
-use EasyWatermark\Core\View;
-use EasyWatermark\Watermark\Watermark;
-
 /**
  * Metabox class
  */
@@ -39,17 +36,5 @@ class Submitdiv extends Metabox {
 		remove_meta_box( 'slugdiv', 'watermark', 'normal' );
 
 		parent::setup();
-	}
-
-	/**
-	 * Renders metabox content
-	 *
-	 * @param  object  $post  current pot
-	 * @return void
-	 */
-	public function content( $post ) {
-		echo new View( 'edit-screen/metaboxes/submitdiv', [
-			'post'  => $post
-		] );
 	}
 }
