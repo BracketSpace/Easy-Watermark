@@ -8,14 +8,13 @@
 namespace EasyWatermark\Metaboxes;
 
 use EasyWatermark\Core\View;
-use EasyWatermark\Helpers\Image;
+use EasyWatermark\Helpers\Text;
 use EasyWatermark\Watermark\Watermark;
-
 
 /**
  * Metabox class
  */
-class ApplyingRules extends Metabox {
+class TextOptions extends Metabox {
 
 	/**
 	 * Inits metabox
@@ -23,8 +22,8 @@ class ApplyingRules extends Metabox {
 	 * @return void
 	 */
 	public function init() {
-		$this->id    = 'applying-rules';
-		$this->title = __( 'Applying Rules', 'easy-watermark' );
+		$this->id    = 'text-options';
+		$this->title = __( 'Text Options' );
 	}
 
 	/**
@@ -37,9 +36,7 @@ class ApplyingRules extends Metabox {
 		$watermark = Watermark::get( $post );
 
 		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
-			'available_image_sizes' => Image::getAvailableSizes(),
-			'available_mime_types'  => Image::getAvailableMimeTypes(),
-			'available_post_types'  => get_post_types( [ 'public' => true ], 'objects' )
+			'available_fonts' => Text::getAvailableFonts(),
 		], $watermark->get_params() ) );
 	}
 }

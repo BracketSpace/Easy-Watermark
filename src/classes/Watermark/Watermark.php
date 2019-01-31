@@ -61,6 +61,11 @@ class Watermark {
 		'scaling_mode'    => 'none',
 		'scale_down_only' => false,
 		'scale'           => 100,
+		'font'            => null,
+		'text_color'      => '#000000',
+		'text_size'       => 24,
+		'text_angle'      => 0,
+		'opacity'         => 100,
 		'offset'          => [
 			'x' => [
 				'value' => 0,

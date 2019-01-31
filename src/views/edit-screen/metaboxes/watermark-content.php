@@ -10,6 +10,21 @@
 		<div class="watermark-image">
 			<p class="description"><?php _e('Click on image to change it.', 'easy-watermark'); ?></p>
 			<img src="<?php echo $url; ?>" />
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th scope="row"><?php _e('Opacity', 'easy-watermark'); ?></th>
+						<td>
+							<div class="form-field">
+								<input type="number" size="3" min="0" max="100" step="0.1" name="watermark[opacity]" id="opacity" value="<?php echo $opacity; ?>" />
+								<div class="form-field-append">
+									<span class="form-field-text"> %</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div class="text-content">

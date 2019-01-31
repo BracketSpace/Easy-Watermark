@@ -33,7 +33,7 @@ class Assets {
 	public function register_admin_scripts() {
 
 		wp_register_style( 'ew-admin-style', $this->asset_url( 'styles', 'easy-watermark.css' ), [], '1.0' );
-		wp_register_script( 'ew-admin-script', $this->asset_url( 'scripts', 'easy-watermark.js' ), [ 'jquery' ], '1.0' );
+		wp_register_script( 'ew-admin-script', $this->asset_url( 'scripts', 'easy-watermark.js' ), [ 'jquery', 'iris' ], '1.0' );
 
 	}
 
