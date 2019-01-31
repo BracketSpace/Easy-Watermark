@@ -66,8 +66,9 @@ class Watermark {
 				'unit'  => 'px'
 			]
 		],
-		'auto_add'    => true,
-		'image_types' => [
+		'auto_add'     => true,
+		'auto_add_all' => true,
+		'image_types'  => [
 			'image/jpeg',
 			'image/png',
 			'image/gif'

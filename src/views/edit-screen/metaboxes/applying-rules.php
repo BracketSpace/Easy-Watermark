@@ -2,7 +2,7 @@
 	<table class="form-table">
 		<tbody>
 			<tr valign="top">
-				<th scope="row"><?php _e('Image Sizes', 'easy-watermark'); ?></th>
+				<th scope="row"><?php _e( 'Image Sizes', 'easy-watermark' ); ?></th>
 				<td>
 					<ul>
 						<?php foreach($available_image_sizes as $size => $label ) : ?>
@@ -13,19 +13,25 @@
 							</li>
 						<?php endforeach; ?>
 					</ul>
-					<p class="description"><?php _e('Select which image sizes should be watermarked', 'easy-watermark'); ?></p>
+					<p class="description"><?php _e( 'Select which image sizes should be watermarked', 'easy-watermark' ); ?></p>
 				</td>
 			</tr>
+		</tbody>
+	</table>
+	<h3><?php _e( 'Auto Watermark', 'easy-watermark' ); ?></h3>
+	<p><?php _e( 'Auto Watermark option allows to apply watermark automatically during image upload. Below you can configure this behavior.', 'easy-watermark' ); ?></p>
+	<table class="form-table">
+		<tbody>
 			<tr valign="top">
-				<th scope="row"><?php _e('Auto Watermark', 'easy-watermark'); ?></th>
+				<th scope="row"><?php _e( 'Auto Watermark', 'easy-watermark' ); ?></th>
 				<td>
 					<label for="watermark-autoadd">
-						<input id="watermark-autoadd" name="watermark[auto_add]" type="checkbox" value="1" <?php checked('1', $auto_add); ?> /> <?php _e('Automatically apply this watermark during image upload', 'easy-watermark'); ?>
+						<input id="watermark-autoadd" name="watermark[auto_add]" type="checkbox" value="1" <?php checked('1', $auto_add); ?> /> <?php _e( 'Automatically apply this watermark during image upload', 'easy-watermark' ); ?>
 					</label>
 				</td>
 			</tr>
 			<tr valign="top" class="hidden">
-				<th scope="row"><?php _e('Image Types', 'easy-watermark'); ?></th>
+				<th scope="row"><?php _e( 'Image types', 'easy-watermark' ); ?></th>
 				<td>
 					<ul>
 						<?php foreach($available_mime_types as $type => $label ) : ?>
@@ -36,11 +42,11 @@
 							</li>
 						<?php endforeach; ?>
 					</ul>
-					<p class="description"><?php _e('Select which image types should be automatically watermarked', 'easy-watermark'); ?></p>
+					<p class="description"><?php _e( 'Select which image types should be automatically watermarked', 'easy-watermark' ); ?></p>
 				</td>
 			</tr>
 			<tr valign="top" class="hidden">
-				<th scope="row"><?php _e('Post Types', 'easy-watermark'); ?></th>
+				<th scope="row"><?php _e( 'Post types', 'easy-watermark' ); ?></th>
 				<td>
 					<ul>
 						<li>
@@ -60,7 +66,16 @@
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</ul>
-					<p class="description"><?php _e('Select what post type attachments should be automatically watermarked', 'easy-watermark'); ?></p>
+					<p class="description"><?php _e( 'Select what post type attachments should be automatically watermarked', 'easy-watermark' ); ?></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e('Allow for all users', 'easy-watermark'); ?></th>
+				<td>
+					<label for="watermark-autoadd-all">
+						<input id="watermark-autoadd-all" name="watermark[auto_add_all]" type="checkbox" value="1" <?php checked( '1', $auto_add_all ); ?> /> <?php _e( 'Check this to enable Auto Watermark for all users', 'easy-watermark' ); ?>
+					</label>
+					<p class="description"><?php _e( 'If unchecked, Auto Watermark function will depend on the role settings.', 'easy-watermark' ); ?></p>
 				</td>
 			</tr>
 		</tbody>
