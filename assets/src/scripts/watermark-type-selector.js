@@ -3,6 +3,7 @@ import $ from 'jquery'
 import ContentMetabox from './metaboxes/content.js'
 import AlignmentMetabox from './metaboxes/alignment.js'
 import ApplyingRules from './metaboxes/applying-rules.js'
+import Scaling from './metaboxes/scaling.js'
 
 export default class WatermarkTypeSelector {
 	constructor() {
@@ -13,7 +14,8 @@ export default class WatermarkTypeSelector {
 		this.metaboxes = [
 			new ContentMetabox(),
 			new AlignmentMetabox(),
-			new ApplyingRules()
+			new ApplyingRules(),
+			new Scaling(),
 		]
 
 		const selected = this.selector.filter('[checked]')

@@ -51,12 +51,17 @@ class Watermark {
 	 * @param  array
 	 */
 	private static $defaults = [
-		'type'          => null,
-		'attachment_id' => null,
-		'mime_type'     => null,
-		'url'           => null,
-		'text'          => '',
-		'offset'        => [
+		'type'            => null,
+		'attachment_id'   => null,
+		'mime_type'       => null,
+		'url'             => null,
+		'text'            => '',
+		'auto_add'        => true,
+		'auto_add_all'    => true,
+		'scaling_mode'    => 'none',
+		'scale_down_only' => false,
+		'scale'           => 100,
+		'offset'          => [
 			'x' => [
 				'value' => 0,
 				'unit'  => 'px'
@@ -66,8 +71,6 @@ class Watermark {
 				'unit'  => 'px'
 			]
 		],
-		'auto_add'     => true,
-		'auto_add_all' => true,
 		'image_types'  => [
 			'image/jpeg',
 			'image/png',
@@ -83,7 +86,7 @@ class Watermark {
 			'unattached',
 			'post',
 			'page'
-		]
+		],
 	];
 
 	/**

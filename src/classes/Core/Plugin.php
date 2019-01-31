@@ -65,6 +65,7 @@ class Plugin extends Singleton {
 		new Metaboxes\Submitdiv();
 		new Metaboxes\WatermarkContent();
 		new Metaboxes\Alignment();
+		new Metaboxes\Scaling();
 		new Metaboxes\ApplyingRules();
 	}
 

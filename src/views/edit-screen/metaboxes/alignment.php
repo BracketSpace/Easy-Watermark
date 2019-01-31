@@ -61,7 +61,7 @@
 							<button data-toggle="dropdown"><?php echo $offset['y']['unit']; ?></button>
 							<div class="dropdown-menu" data-target="#watermark-offset-y-unit">
 					      <a class="dropdown-item" href="#" data-value="px"><?php _e( 'px', 'easy-watermark' ); ?></a>
-					      <a class="dropdown-item" href="#" data-value="percent"><?php _e( '%', 'easy-watermark' ); ?></a>
+					      <a class="dropdown-item" href="#" data-value="%"><?php _e( '%', 'easy-watermark' ); ?></a>
 					    </div>
 						</div>
 					</div>
