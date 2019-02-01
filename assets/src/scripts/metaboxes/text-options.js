@@ -15,7 +15,7 @@ export default class {
 			}
 		} )
 
-		let color = this.colorInput.iris( 'color', true )
+		let color = this.colorInput.wpColorPicker( 'color', true )
 		this.colorInputStyle( color )
 	}
 
