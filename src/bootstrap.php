@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin bootstrap file
+ *
  * @package easy-watermark
  */
 
