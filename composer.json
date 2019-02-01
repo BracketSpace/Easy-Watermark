@@ -1,6 +1,10 @@
 {
   "name": "szaleq/easy-watermark",
   "type": "wordpress-plugin",
+  "scripts": {
+    "phpcs": "phpcs",
+    "phpcbf": "phpcbf"
+  },
   "require": {
     "php": ">=5.4.0",
     "composer/installers": "v1.0.6",
