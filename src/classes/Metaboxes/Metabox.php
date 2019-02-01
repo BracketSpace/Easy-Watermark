@@ -73,9 +73,9 @@ abstract class Metabox {
 	 *
 	 * @filter hidden_meta_boxes
 	 *
-	 * @param  array   $hidden
-	 * @param  object  $screen
-	 * @param  bool    $use_defaults
+	 * @param  array  $hidden
+	 * @param  object $screen
+	 * @param  bool   $use_defaults
 	 * @return bool
 	 */
 	public function hide( $hidden, $screen ) {
@@ -96,14 +96,14 @@ abstract class Metabox {
 	/**
 	 * Renders metabox content
 	 *
-	 * @param  object  $post  current pot
+	 * @param  object $post  current pot
 	 * @return void
 	 */
 	public function content( $post ) {
 		$watermark = Watermark::get( $post );
 
 		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
-			'post' => $post
+			'post' => $post,
 		], $watermark->get_params() ) );
 	}
 

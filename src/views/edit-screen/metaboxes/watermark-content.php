@@ -5,15 +5,15 @@
 		<input class="watermark-mime-type" name="watermark[mime_type]" type="hidden" value="<?php echo $mime_type; ?>" />
 
 		<div class="select-image-button">
-			<a class="button-secondary" data-choose="<?php _e('Choose Watermark Image', 'easy-watermark'); ?>" data-button-label="<?php _e('Set as Watermark Image', 'easy-watermark'); ?>" href="#"><?php _e('Select/Upload Image', 'easy-watermark'); ?></a>
+			<a class="button-secondary" data-choose="<?php _e( 'Choose Watermark Image', 'easy-watermark' ); ?>" data-button-label="<?php _e( 'Set as Watermark Image', 'easy-watermark' ); ?>" href="#"><?php _e( 'Select/Upload Image', 'easy-watermark' ); ?></a>
 		</div>
 		<div class="watermark-image">
-			<p class="description"><?php _e('Click on image to change it.', 'easy-watermark'); ?></p>
+			<p class="description"><?php _e( 'Click on image to change it.', 'easy-watermark' ); ?></p>
 			<img src="<?php echo $url; ?>" />
 			<table class="form-table">
 				<tbody>
 					<tr>
-						<th scope="row"><?php _e('Opacity', 'easy-watermark'); ?></th>
+						<th scope="row"><?php _e( 'Opacity', 'easy-watermark' ); ?></th>
 						<td>
 							<div class="form-field">
 								<input type="number" size="3" min="0" max="100" step="0.1" name="watermark[opacity]" id="opacity" value="<?php echo $opacity; ?>" />

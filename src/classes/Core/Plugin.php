@@ -40,8 +40,8 @@ class Plugin extends Singleton {
 	protected function __construct() {
 
 		$data = \get_file_data( EW_FILE_PATH, [
-			'name' => 'Plugin Name',
-			'version' => 'Version'
+			'name'    => 'Plugin Name',
+			'version' => 'Version',
 		], 'plugin' );
 
 		$this->name    = $data['name'];

@@ -11,7 +11,7 @@ return function( $comparsion, $r ) {
 		return;
 	}
 
-	if ( ! extension_loaded('gd') || ! function_exists('gd_info') ) {
+	if ( ! extension_loaded( 'gd' ) || ! function_exists( 'gd_info' ) ) {
 		$r->add_error( __( 'GD library installed and activated', 'easy-watermark' ) );
 	}
 };

@@ -5,11 +5,11 @@
 				<th scope="row"><?php _e( 'Scaling mode', 'easy-watermark' ); ?></th>
 				<td>
 					<select name="watermark[scaling_mode]" id="watermark-scaling-mode">
-						<option value="none" <?php selected( 'none', $scaling_mode ); ?>><?php _e( 'None', 'easy-watermark' ) ?></option>
-						<option value="cover" <?php selected( 'cover', $scaling_mode ); ?>><?php _e( 'Cover', 'easy-watermark' ) ?></option>
-						<option value="contain" <?php selected( 'contain', $scaling_mode ); ?>><?php _e( 'Contain', 'easy-watermark' ) ?></option>
-						<option value="fit_to_width" <?php selected( 'fit_to_width', $scaling_mode ); ?>><?php _e( 'Fit to width', 'easy-watermark' ) ?></option>
-						<option value="fit_to_height" <?php selected( 'fit_to_height', $scaling_mode ); ?>><?php _e( 'Fit to height', 'easy-watermark' ) ?></option>
+						<option value="none" <?php selected( 'none', $scaling_mode ); ?>><?php _e( 'None', 'easy-watermark' ); ?></option>
+						<option value="cover" <?php selected( 'cover', $scaling_mode ); ?>><?php _e( 'Cover', 'easy-watermark' ); ?></option>
+						<option value="contain" <?php selected( 'contain', $scaling_mode ); ?>><?php _e( 'Contain', 'easy-watermark' ); ?></option>
+						<option value="fit_to_width" <?php selected( 'fit_to_width', $scaling_mode ); ?>><?php _e( 'Fit to width', 'easy-watermark' ); ?></option>
+						<option value="fit_to_height" <?php selected( 'fit_to_height', $scaling_mode ); ?>><?php _e( 'Fit to height', 'easy-watermark' ); ?></option>
 					</select>
 				</td>
 			</tr>

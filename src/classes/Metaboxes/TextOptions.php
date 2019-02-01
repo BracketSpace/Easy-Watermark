@@ -29,7 +29,7 @@ class TextOptions extends Metabox {
 	/**
 	 * Renders metabox content
 	 *
-	 * @param  object  $post  current pot
+	 * @param  object $post  current pot
 	 * @return void
 	 */
 	public function content( $post ) {

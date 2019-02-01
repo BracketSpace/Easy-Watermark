@@ -30,7 +30,7 @@ class ApplyingRules extends Metabox {
 	/**
 	 * Renders metabox content
 	 *
-	 * @param  object  $post  current pot
+	 * @param  object $post  current pot
 	 * @return void
 	 */
 	public function content( $post ) {
@@ -39,7 +39,7 @@ class ApplyingRules extends Metabox {
 		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
 			'available_image_sizes' => Image::getAvailableSizes(),
 			'available_mime_types'  => Image::getAvailableMimeTypes(),
-			'available_post_types'  => get_post_types( [ 'public' => true ], 'objects' )
+			'available_post_types'  => get_post_types( [ 'public' => true ], 'objects' ),
 		], $watermark->get_params() ) );
 	}
 }

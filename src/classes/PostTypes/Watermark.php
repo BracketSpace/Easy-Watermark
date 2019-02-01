@@ -76,7 +76,7 @@ class Watermark {
 	 * Sets watermark update messages
 	 *
 	 * @filter post_updated_messages
-	 * @param  array  $messages
+	 * @param  array $messages
 	 * @return array
 	 */
 	public function post_updated_messages( $messages ) {
@@ -96,7 +96,7 @@ class Watermark {
 				__( 'Watermark scheduled for: <strong>%1$s</strong>.', 'easy-watermark' ),
 				date_i18n( __( 'M j, Y @ G:i', 'easy-watermark' ), strtotime( $post->post_date ) )
 			),
-			__( 'Watermark draft updated.', 'easy-watermark' )
+			__( 'Watermark draft updated.', 'easy-watermark' ),
 		];
 
 		return $messages;
@@ -107,7 +107,7 @@ class Watermark {
 	 *
 	 * @filter bulk_post_updated_messages
 	 *
-	 * @param  array  $messages
+	 * @param  array $messages
 	 * @return array
 	 */
 	public function bulk_post_updated_messages( $messages, $counts ) {
@@ -116,10 +116,10 @@ class Watermark {
 		$messages['watermark'] = [
 			'updated'   => _n( '%s watermark updated.', '%s watermarks updated.', $counts['updated'], 'easy-watermark' ),
 			'locked'    => ( 1 == $counts['locked'] ) ? __( '1 watermarkt not updated, somebody is editing it.', 'easy-watermark' ) :
-			                   _n( '%s watermark not updated, somebody is editing it.', '%s watermarks not updated, somebody is editing them.', $counts['locked'], 'easy-watermark' ),
+							   _n( '%s watermark not updated, somebody is editing it.', '%s watermarks not updated, somebody is editing them.', $counts['locked'], 'easy-watermark' ),
 			'deleted'   => _n( '%s watermark permanently deleted.', '%s watermarks permanently deleted.', $counts['deleted'], 'easy-watermark' ),
 			'trashed'   => _n( '%s watermark moved to the Trash.', '%s watermarks moved to the Trash.', $counts['trashed'], 'easy-watermark' ),
-			'untrashed' => _n( '%s watermark restored from the Trash.', '%s watermarks restored from the Trash.', $counts['untrashed'], 'easy-watermark' )
+			'untrashed' => _n( '%s watermark restored from the Trash.', '%s watermarks restored from the Trash.', $counts['untrashed'], 'easy-watermark' ),
 		];
 
 		return $messages;
@@ -145,16 +145,16 @@ class Watermark {
 	 *
 	 * @action wp_redirect
 	 *
-	 * @param  string  $location
+	 * @param  string $location
 	 * @return string
 	 */
 	public function redirect( $location ) {
 		global $post;
 
 		if ( 'watermark' == $post->post_type ) {
- 			if ( false !== strpos( $location, 'untrashed=1' ) && ! $this->untrashed ) {
+			if ( false !== strpos( $location, 'untrashed=1' ) && ! $this->untrashed ) {
 				$location = add_query_arg( [
-					'ew-limited' => '1'
+					'ew-limited' => '1',
 				], remove_query_arg( 'untrashed', $location ) );
 			}
 		}
@@ -191,7 +191,7 @@ class Watermark {
 	 *
 	 * @return array
 	 */
-	public function post_row_actions( $actions , $post) {
+	public function post_row_actions( $actions, $post ) {
 		if ( 'watermark' == $post->post_type ) {
 			if ( 2 <= $this->get_watermarks_count() && isset( $actions['untrash'] ) ) {
 				unset( $actions['untrash'] );
@@ -230,8 +230,8 @@ class Watermark {
 	 *
 	 * @filter screen_options_show_screen
 	 *
-	 * @param  bool    $show_screen
-	 * @param  object  $screen
+	 * @param  bool   $show_screen
+	 * @param  object $screen
 	 * @return bool
 	 */
 	public function screen_options_show_screen( $show_screen, $screen ) {
@@ -259,12 +259,12 @@ class Watermark {
 
 	/**
 	 * Watermark edit screen columns setup
-   *
-   * @filter get_user_option_screen_layout_watermark
-   *
-   * @param  integer $columns User setup columns.
-   * @return integer
- 	 */
+	 *
+	 * @filter get_user_option_screen_layout_watermark
+	 *
+	 * @param  integer $columns User setup columns.
+	 * @return integer
+	 */
 	public function setup_columns( $columns ) {
 		global $post;
 
@@ -278,13 +278,13 @@ class Watermark {
 
 	/**
 	 * Watermark edit screen title support setup
-   *
-   * @action edit_form_top
-   *
-   * @return void
- 	 */
+	 *
+	 * @action edit_form_top
+	 *
+	 * @return void
+	 */
 	public function change_title_support() {
-  	global $_wp_post_type_features, $post;
+		global $_wp_post_type_features, $post;
 
 		if ( 'publish' == $post->post_status ) {
 			return;
@@ -297,13 +297,13 @@ class Watermark {
 
 	/**
 	 * Filters whether a post untrashing should take place.
-   *
-   * @filter pre_untrash_post
-   *
-	 * @param  null    $untrash
-	 * @param  object  $post
-   * @return bool
- 	 */
+	 *
+	 * @filter pre_untrash_post
+	 *
+	 * @param  null   $untrash
+	 * @param  object $post
+	 * @return bool
+	 */
 	public function pre_untrash_post( $untrash, $post ) {
 		if ( 'watermark' == $post->post_type && 2 <= $this->get_watermarks_count() ) {
 			return true;
@@ -317,8 +317,8 @@ class Watermark {
 	 *
 	 * @filter wp_insert_post_data
 	 *
-	 * @param  array  $dada
-	 * @param  array  $postarr
+	 * @param  array $dada
+	 * @param  array $postarr
 	 * @return array
 	 */
 	public function wp_insert_post_data( $data, $postarr ) {

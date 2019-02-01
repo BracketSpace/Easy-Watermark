@@ -26,15 +26,15 @@ class Watermark {
 	public static function get( $post ) {
 		if ( is_numeric( $post ) ) {
 			$post = get_post( $id );
-		} else if ( ! $post instanceof \WP_Post ) {
+		} elseif ( ! $post instanceof \WP_Post ) {
 			return false;
 		}
 
-		if ( ! isset( self::$instances[$post->ID] ) ) {
-			self::$instances[$post->ID] = new self( $post );
+		if ( ! isset( self::$instances[ $post->ID ] ) ) {
+			self::$instances[ $post->ID ] = new self( $post );
 		}
 
-		return self::$instances[$post->ID];
+		return self::$instances[ $post->ID ];
 	}
 
 	/**
@@ -69,28 +69,28 @@ class Watermark {
 		'offset'          => [
 			'x' => [
 				'value' => 0,
-				'unit'  => 'px'
+				'unit'  => 'px',
 			],
 			'y' => [
 				'value' => 0,
-				'unit'  => 'px'
-			]
+				'unit'  => 'px',
+			],
 		],
-		'image_types'  => [
+		'image_types'     => [
 			'image/jpeg',
 			'image/png',
-			'image/gif'
+			'image/gif',
 		],
-		'image_sizes' => [
+		'image_sizes'     => [
 			'medium',
 			'medium_large',
 			'large',
-			'full'
+			'full',
 		],
-		'post_types' => [
+		'post_types'      => [
 			'unattached',
 			'post',
-			'page'
+			'page',
 		],
 	];
 
@@ -109,7 +109,7 @@ class Watermark {
 	/**
 	 * Getter for watermark config params
 	 *
-	 * @param  string  $key  param name
+	 * @param  string $key  param name
 	 * @return mixed
 	 */
 	public function get_param( $key ) {
@@ -128,12 +128,12 @@ class Watermark {
 	}
 
 	/**
-	 * Magic method for more wordpress feel
+	 * Magic method for more WordPress feel
 	 *
 	 * Allows to do:
-	 * 		echo $watermark->post_title;
+	 *      echo $watermark->post_title;
 	 *
-	 * @param  string  $key  param name|post field
+	 * @param  string $key  param name|post field
 	 * @return mixed
 	 */
 	public function __get( $key ) {
@@ -147,7 +147,7 @@ class Watermark {
 	public static function parse_params( $params ) {
 		foreach ( self::$defaults as $key => $value ) {
 			if ( ! array_key_exists( $key, $params ) ) {
-				$params[$key] = false;
+				$params[ $key ] = false;
 			}
 		}
 

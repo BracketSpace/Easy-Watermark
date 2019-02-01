@@ -27,7 +27,7 @@ class View {
 	 * Constructor
 	 */
 	public function __construct( $name = '', $params = [] ) {
-		$this->name = $name;
+		$this->name   = $name;
 		$this->params = $params;
 
 		$this->path = EW_DIR_PATH . '/src/views/';
@@ -36,7 +36,7 @@ class View {
 	/**
 	 * Sets view name
 	 *
-	 * @param  string  $name
+	 * @param  string $name
 	 * @return void
 	 */
 	public function setName( $name ) {
@@ -46,8 +46,8 @@ class View {
 	/**
 	 * Sets single param
 	 *
-	 * @param  string  $key
-	 * @param  mixed   $value
+	 * @param  string $key
+	 * @param  mixed  $value
 	 * @return mixed   previous value if exists or null
 	 */
 	public function setParam( $key, $value ) {
@@ -61,7 +61,7 @@ class View {
 	/**
 	 * Sets params
 	 *
-	 * @param  array  $key
+	 * @param  array $key
 	 * @return array  previous params
 	 */
 	public function setParams( $params ) {
