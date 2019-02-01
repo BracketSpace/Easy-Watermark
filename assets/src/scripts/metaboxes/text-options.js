@@ -5,28 +5,9 @@ export default class {
 		this.metabox = $( '#text-options' )
 		this.colorInput = this.metabox.find( '#text-color' )
 
-		this.colorInput.iris( {
+		this.colorInput.wpColorPicker( {
 			palettes: true,
-			hide    : false,
-			border  : false,
-			mode    : 'hsv',
-			change  : ( e, ui ) => {
-				this.colorInputStyle( ui.color )
-			}
 		} )
-
-		let color = this.colorInput.iris( 'color', true )
-		this.colorInputStyle( color )
-	}
-
-	colorInputStyle( color ) {
-		this.colorInput.css( 'background-color', color.toString() );
-
-		if ( color.l() < 50 ) {
-			this.colorInput.css( 'color', '#fff' );
-		} else {
-			this.colorInput.css( 'color', '#000' );
-		}
 	}
 
 	enable( type ) {
