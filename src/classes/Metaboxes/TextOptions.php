@@ -29,14 +29,15 @@ class TextOptions extends Metabox {
 	/**
 	 * Renders metabox content
 	 *
-	 * @param  object  $post  current pot
+	 * @param  object $post Current post.
 	 * @return void
 	 */
 	public function content( $post ) {
 		$watermark = Watermark::get( $post );
 
+		// phpcs:ignore
 		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
-			'available_fonts' => Text::getAvailableFonts(),
+			'available_fonts' => Text::get_available_fonts(),
 		], $watermark->get_params() ) );
 	}
 }

@@ -20,17 +20,23 @@ class Plugin extends Singleton {
 	use Hookable;
 
 	/**
-	 * @var string plugin name
+	 * Plugin name
+	 *
+	 * @var string
 	 */
 	private $name = null;
 
 	/**
-	 * @var string plugin slug
+	 * Plugin slug
+	 *
+	 * @var string
 	 */
 	private $slug = null;
 
 	/**
-	 * @var string plugin version
+	 * Plugin version
+	 *
+	 * @var string
 	 */
 	private $version = null;
 
@@ -40,17 +46,17 @@ class Plugin extends Singleton {
 	protected function __construct() {
 
 		$data = \get_file_data( EW_FILE_PATH, [
-			'name' => 'Plugin Name',
-			'version' => 'Version'
+			'name'    => 'Plugin Name',
+			'version' => 'Version',
 		], 'plugin' );
 
 		$this->name    = $data['name'];
 		$this->slug    = dirname( plugin_basename( EW_FILE_PATH ) );
 		$this->version = $data['version'];
 
-		register_activation_hook( EW_FILE_PATH, [ Installer::class, 'activate' ] );
-		register_deactivation_hook( EW_FILE_PATH, [ Installer::class, 'deactivate' ] );
-		register_uninstall_hook( EW_FILE_PATH, [ Installer::class, 'uninstall' ] );
+		register_activation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'activate' ] );
+		register_deactivation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'deactivate' ] );
+		register_uninstall_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
 		$this->hook();
 
@@ -61,6 +67,11 @@ class Plugin extends Singleton {
 
 	}
 
+	/**
+	 * Creates metabox objects
+	 *
+	 * @return  void
+	 */
 	private function setup_metaboxes() {
 		new Metaboxes\Submitdiv();
 		new Metaboxes\WatermarkContent();
@@ -78,9 +89,11 @@ class Plugin extends Singleton {
 	 * @return  void
 	 */
 	public function init() {
-		if ( $this->version != ( $lastVersion = get_option( $this->slug . '-version' ) ) ) {
-			// Version has changed. Update
-			Installer::update( $lastVersion );
+
+		$last_version = get_option( $this->slug . '-version' );
+		if ( $this->version !== $last_version ) {
+			// Version has changed. Update.
+			Installer::update( $last_version );
 		}
 	}
 

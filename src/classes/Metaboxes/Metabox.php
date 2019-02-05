@@ -19,27 +19,37 @@ abstract class Metabox {
 	use Hookable;
 
 	/**
-	 * @param  string  metabox id
+	 * Metabox id
+	 *
+	 * @var  string
 	 */
 	protected $id;
 
 	/**
-	 * @param  string  metabox title
+	 * Metabox title
+	 *
+	 * @var  string
 	 */
 	protected $title;
 
 	/**
-	 * @param  string  metabox position (normal|side|advanced)
+	 * Metabox position (normal|side|advanced)
+	 *
+	 * @var  string
 	 */
 	protected $position = 'normal';
 
 	/**
-	 * @param  string  metabox priority
+	 * Metabox priority
+	 *
+	 * @var  string
 	 */
 	protected $priority = 'high';
 
 	/**
-	 * @param  bool  whether to initially hide metabox
+	 * Whether to initially hide metabox
+	 *
+	 * @var  bool
 	 */
 	protected $hide = true;
 
@@ -63,7 +73,7 @@ abstract class Metabox {
 	public function setup() {
 		global $post;
 
-		if ( 2 > $this->get_watermarks_count() || 'publish' == $post->post_status ) {
+		if ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) {
 			add_meta_box( $this->id, $this->title, [ $this, 'content' ], 'watermark', $this->position, $this->priority );
 		}
 	}
@@ -73,13 +83,12 @@ abstract class Metabox {
 	 *
 	 * @filter hidden_meta_boxes
 	 *
-	 * @param  array   $hidden
-	 * @param  object  $screen
-	 * @param  bool    $use_defaults
+	 * @param  array  $hidden Hidden metaboxes.
+	 * @param  object $screen Current screen.
 	 * @return bool
 	 */
 	public function hide( $hidden, $screen ) {
-		if ( true == $this->hide && 'watermark' == $screen->id ) {
+		if ( true === $this->hide && 'watermark' === $screen->id ) {
 			array_push( $hidden, $this->id );
 		}
 
@@ -96,14 +105,15 @@ abstract class Metabox {
 	/**
 	 * Renders metabox content
 	 *
-	 * @param  object  $post  current pot
+	 * @param  object $post Current post.
 	 * @return void
 	 */
 	public function content( $post ) {
 		$watermark = Watermark::get( $post );
 
+		// phpcs:ignore
 		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
-			'post' => $post
+			'post' => $post,
 		], $watermark->get_params() ) );
 	}
 

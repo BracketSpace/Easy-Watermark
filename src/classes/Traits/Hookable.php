@@ -14,7 +14,7 @@ trait Hookable {
 	 *
 	 * @var array
 	 */
-	protected $_called_doc_hooks = [];
+	protected $called_doc_hooks = [];
 
 	/**
 	 * Pattern for doc hooks
@@ -30,12 +30,12 @@ trait Hookable {
 
 		$class_name = get_class( $this );
 
-		if ( isset( $this->_called_doc_hooks[ $class_name ] ) ) {
+		if ( isset( $this->called_doc_hooks[ $class_name ] ) ) {
 			return;
 		}
 
-		$this->_called_doc_hooks[ $class_name ] = true;
-		$reflector                              = new \ReflectionObject( $this );
+		$this->called_doc_hooks[ $class_name ] = true;
+		$reflector                             = new \ReflectionObject( $this );
 
 		foreach ( $reflector->getMethods() as $method ) {
 
@@ -90,7 +90,7 @@ trait Hookable {
 			}
 		}
 
-		unset( $this->_called_doc_hooks[ $class_name ] );
+		unset( $this->called_doc_hooks[ $class_name ] );
 
 	}
 }
