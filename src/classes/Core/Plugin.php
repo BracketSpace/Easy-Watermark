@@ -54,9 +54,9 @@ class Plugin extends Singleton {
 		$this->slug    = dirname( plugin_basename( EW_FILE_PATH ) );
 		$this->version = $data['version'];
 
-		register_activation_hook( EW_FILE_PATH, [ Installer::class, 'activate' ] );
-		register_deactivation_hook( EW_FILE_PATH, [ Installer::class, 'deactivate' ] );
-		register_uninstall_hook( EW_FILE_PATH, [ Installer::class, 'uninstall' ] );
+		register_activation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'activate' ] );
+		register_deactivation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'deactivate' ] );
+		register_uninstall_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
 		$this->hook();
 

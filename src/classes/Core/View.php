@@ -112,11 +112,11 @@ class View {
 	}
 
 	/**
-	 * Prints view
+	 * Displays view
 	 *
 	 * @return void
 	 */
-	public function print() {
+	public function display() {
 		echo $this->render(); // phpcs:ignore
 	}
 

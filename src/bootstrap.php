@@ -44,7 +44,7 @@ require $autoloader;
  * Requirements check
  */
 $requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermark' ), [
-	'php'      => '5.5.0',
+	'php'      => '5.4.0',
 	'wp'       => '4.6',
 	'dochooks' => true,
 	'gd'       => true,
