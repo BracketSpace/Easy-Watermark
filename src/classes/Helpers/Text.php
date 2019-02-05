@@ -1,14 +1,22 @@
 <?php
 /**
- * Image helper
+ * Text helper
  *
  * @package easy-watermark
  */
 
 namespace EasyWatermark\Helpers;
 
+/**
+ * Text helper
+ */
 class Text {
-	public static function getAvailableFonts() {
+	/**
+	 * Returns available fonts
+	 *
+	 * @return array
+	 */
+	public static function get_available_fonts() {
 		return [
 			'Arial.ttf'           => 'Arial',
 			'Arial_Black.ttf'     => 'Arial Black',

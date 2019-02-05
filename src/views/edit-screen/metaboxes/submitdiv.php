@@ -1,3 +1,12 @@
+<?php
+/**
+ * Submitdiv metabox
+ *
+ * @package easy-watermark
+ */
+
+?>
+
 <div id="submitpost" class="submitbox">
 	<div id="major-publishing-actions">
 		<div id="delete-action">
@@ -9,7 +18,7 @@
 				$delete_text = __( 'Move to Trash' );
 			}
 			?>
-			<a class="submitdelete deletion" href="<?php echo get_delete_post_link( $post->ID ); ?>"><?php echo $delete_text; ?></a>
+			<a class="submitdelete deletion" href="<?php echo get_delete_post_link( $post->ID ); ?>"><?php echo esc_html( $delete_text ); ?></a>
 		<?php endif; ?>
 		</div>
 		<div id="publishing-action">

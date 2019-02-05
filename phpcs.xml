@@ -30,7 +30,7 @@
 
 	<!-- PHPCompatibility -->
 	<rule ref="PHPCompatibility" />
-	<config name="testVersion" value="5.4-" />
+	<config name="testVersion" value="5.5-" />
 
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>

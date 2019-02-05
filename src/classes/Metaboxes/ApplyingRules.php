@@ -30,15 +30,16 @@ class ApplyingRules extends Metabox {
 	/**
 	 * Renders metabox content
 	 *
-	 * @param  object $post  current pot
+	 * @param  object $post  current post.
 	 * @return void
 	 */
 	public function content( $post ) {
 		$watermark = Watermark::get( $post );
 
+		// phpcs:ignore
 		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
-			'available_image_sizes' => Image::getAvailableSizes(),
-			'available_mime_types'  => Image::getAvailableMimeTypes(),
+			'available_image_sizes' => Image::get_available_sizes(),
+			'available_mime_types'  => Image::get_available_mime_types(),
 			'available_post_types'  => get_post_types( [ 'public' => true ], 'objects' ),
 		], $watermark->get_params() ) );
 	}

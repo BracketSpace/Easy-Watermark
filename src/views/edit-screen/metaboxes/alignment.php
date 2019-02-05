@@ -1,8 +1,17 @@
+<?php
+/**
+ * Alignment metabox
+ *
+ * @package easy-watermark
+ */
+
+?>
+
 <div class="alignment-metabox">
 	<table class="form-table">
 		<tbody>
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Alignment', 'easy-watermark' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Alignment', 'easy-watermark' ); ?></th>
 				<td>
 					<div class="alignment-selector">
 						<input type="radio" name="watermark[alignment]" value="top-left" id="alignment-top-left" <?php checked( 'top-left', $alignment ); ?> />
@@ -35,33 +44,33 @@
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Offset', 'easy-watermark' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Offset', 'easy-watermark' ); ?></th>
 				<td>
 					<div class="form-field">
 						<div class="form-field-prepend">
-							<span class="form-field-text"><?php _e( 'x', 'easy-watermark' ); ?>:</span>
+							<span class="form-field-text"><?php esc_html_e( 'x', 'easy-watermark' ); ?>:</span>
 						</div>
-						<input size="3" type="number" name="watermark[offset][x][value]" value="<?php echo $offset['x']['value']; ?>" />
+						<input size="3" type="number" name="watermark[offset][x][value]" value="<?php echo esc_attr( $offset['x']['value'] ); ?>" />
 						<div class="form-field-append">
-							<input type="hidden" id="watermark-offset-x-unit" name="watermark[offset][x][unit]" value="<?php echo $offset['x']['unit']; ?>" />
-							<button data-toggle="dropdown"><?php echo $offset['x']['unit']; ?></button>
+							<input type="hidden" id="watermark-offset-x-unit" name="watermark[offset][x][unit]" value="<?php echo esc_attr( $offset['x']['unit'] ); ?>" />
+							<button data-toggle="dropdown"><?php echo esc_html( $offset['x']['unit'] ); ?></button>
 							<div class="dropdown-menu" data-target="#watermark-offset-x-unit">
-						  <a class="dropdown-item" href="#" data-value="px"><?php _e( 'px', 'easy-watermark' ); ?></a>
-						  <a class="dropdown-item" href="#" data-value="%"><?php _e( '%', 'easy-watermark' ); ?></a>
+							<a class="dropdown-item" href="#" data-value="px"><?php esc_html_e( 'px', 'easy-watermark' ); ?></a>
+							<a class="dropdown-item" href="#" data-value="%"><?php esc_html_e( '%', 'easy-watermark' ); ?></a>
 						</div>
 						</div>
 					</div>
 					<div class="form-field">
 						<div class="form-field-prepend">
-							<span class="form-field-text"><?php _e( 'y', 'easy-watermark' ); ?>:</span>
+							<span class="form-field-text"><?php esc_html_e( 'y', 'easy-watermark' ); ?>:</span>
 						</div>
-						<input size="3" type="number" name="watermark[offset][y][value]" value="<?php echo $offset['y']['value']; ?>" />
+						<input size="3" type="number" name="watermark[offset][y][value]" value="<?php echo esc_attr( $offset['y']['value'] ); ?>" />
 						<div class="form-field-append">
-							<input type="hidden" id="watermark-offset-y-unit" name="watermark[offset][y][unit]" value="<?php echo $offset['y']['unit']; ?>" />
-							<button data-toggle="dropdown"><?php echo $offset['y']['unit']; ?></button>
+							<input type="hidden" id="watermark-offset-y-unit" name="watermark[offset][y][unit]" value="<?php echo esc_attr( $offset['y']['unit'] ); ?>" />
+							<button data-toggle="dropdown"><?php echo esc_html( $offset['y']['unit'] ); ?></button>
 							<div class="dropdown-menu" data-target="#watermark-offset-y-unit">
-						  <a class="dropdown-item" href="#" data-value="px"><?php _e( 'px', 'easy-watermark' ); ?></a>
-						  <a class="dropdown-item" href="#" data-value="%"><?php _e( '%', 'easy-watermark' ); ?></a>
+							<a class="dropdown-item" href="#" data-value="px"><?php esc_html_e( 'px', 'easy-watermark' ); ?></a>
+							<a class="dropdown-item" href="#" data-value="%"><?php esc_html_e( '%', 'easy-watermark' ); ?></a>
 						</div>
 						</div>
 					</div>

@@ -5,26 +5,38 @@
  * @package easy-watermark
  */
 
- namespace EasyWatermark\Core;
+namespace EasyWatermark\Core;
 
+/**
+ * View class
+ */
 class View {
 	/**
-	 * @var  string  view name
+	 * View name
+	 *
+	 * @var  string
 	 */
 	private $name;
 
 	/**
-	 * @var  array  params
+	 * Params
+	 *
+	 * @var  array
 	 */
 	private $params = [];
 
 	/**
-	 * @var  string  views path
+	 * Views path
+	 *
+	 * @var  string
 	 */
 	private $path;
 
 	/**
 	 * Constructor
+	 *
+	 * @param string $name    View name.
+	 * @param array  $params  View params.
 	 */
 	public function __construct( $name = '', $params = [] ) {
 		$this->name   = $name;
@@ -36,21 +48,21 @@ class View {
 	/**
 	 * Sets view name
 	 *
-	 * @param  string $name
+	 * @param  string $name  View name.
 	 * @return void
 	 */
-	public function setName( $name ) {
+	public function set_name( $name ) {
 		$this->name = $name;
 	}
 
 	/**
 	 * Sets single param
 	 *
-	 * @param  string $key
-	 * @param  mixed  $value
-	 * @return mixed   previous value if exists or null
+	 * @param  string $key   Param name.
+	 * @param  mixed  $value Param value.
+	 * @return mixed  previous value if exists or null
 	 */
-	public function setParam( $key, $value ) {
+	public function set_param( $key, $value ) {
 		$previous = isset( $this->params[ $key ] ) ? $this->params[ $key ] : null;
 
 		$this->params[ $key ] = $value;
@@ -61,10 +73,10 @@ class View {
 	/**
 	 * Sets params
 	 *
-	 * @param  array $key
-	 * @return array  previous params
+	 * @param  array $params View params.
+	 * @return array previous params
 	 */
-	public function setParams( $params ) {
+	public function set_params( $params ) {
 		$previous = $this->params;
 
 		$this->params = (array) $params;
@@ -79,18 +91,20 @@ class View {
 	 */
 	public function render() {
 		if ( ! is_string( $this->name ) ) {
-			wp_die( sprintf( __( 'View name should be a string, %s given.', 'easy-watermark' ), gettype( $this->name ) ), __( 'Invalid view name type', 'easy-watermark' ) );
+			/* translators: argument type */
+			wp_die( sprintf( esc_html__( 'View name should be a string, %s given.', 'easy-watermark' ), esc_html( gettype( $this->name ) ) ), esc_html__( 'Invalid view name type', 'easy-watermark' ) );
 		}
 
 		$filename = $this->path . $this->name . '.php';
 
 		if ( ! file_exists( $filename ) ) {
-			wp_die( sprintf( __( 'View file does not exist: %s', 'easy-watermark' ), $this->name ), __( 'View not found', 'easy-watermark' ) );
+			/* translators: view name */
+			wp_die( sprintf( esc_html__( 'View file does not exist: %s', 'easy-watermark' ), esc_html( $this->name ) ), esc_html__( 'View not found', 'easy-watermark' ) );
 		}
 
 		ob_start();
 
-		extract( $this->params );
+		extract( $this->params ); // phpcs:ignore
 
 		include $filename;
 
@@ -103,7 +117,7 @@ class View {
 	 * @return void
 	 */
 	public function print() {
-		echo $this->render();
+		echo $this->render(); // phpcs:ignore
 	}
 
 	/**

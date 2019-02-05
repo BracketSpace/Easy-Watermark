@@ -5,11 +5,11 @@
  * @package easy-watermark
  */
 
- namespace EasyWatermark\Core;
+namespace EasyWatermark\Core;
 
- /**
-  * Helper class providing install, uninstall, update methods
-  */
+/**
+ * Helper class providing install, uninstall, update methods
+ */
 class Installer {
 	/**
 	 * Activates plugin
@@ -17,10 +17,10 @@ class Installer {
 	 * @return void
 	 */
 	public static function activate() {
-		 $version = get_option( Plugin::get()->getSlug() . '-version', false );
+		$version = get_option( Plugin::get()->getSlug() . '-version', false );
 
 		if ( ! $version ) {
-			// First activation
+			// First activation.
 			self::install();
 		}
 
@@ -76,7 +76,7 @@ class Installer {
 	/**
 	 * Updates plugin
 	 *
-	 * @param  string $from previous active version
+	 * @param  string $from previous active version.
 	 * @return void
 	 */
 	public static function update( $from ) {

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Function for GD library test
+ *
  * @package easy-watermark
  */
 

@@ -20,17 +20,23 @@ class Plugin extends Singleton {
 	use Hookable;
 
 	/**
-	 * @var string plugin name
+	 * Plugin name
+	 *
+	 * @var string
 	 */
 	private $name = null;
 
 	/**
-	 * @var string plugin slug
+	 * Plugin slug
+	 *
+	 * @var string
 	 */
 	private $slug = null;
 
 	/**
-	 * @var string plugin version
+	 * Plugin version
+	 *
+	 * @var string
 	 */
 	private $version = null;
 
@@ -61,6 +67,11 @@ class Plugin extends Singleton {
 
 	}
 
+	/**
+	 * Creates metabox objects
+	 *
+	 * @return  void
+	 */
 	private function setup_metaboxes() {
 		new Metaboxes\Submitdiv();
 		new Metaboxes\WatermarkContent();
@@ -78,9 +89,11 @@ class Plugin extends Singleton {
 	 * @return  void
 	 */
 	public function init() {
-		if ( $this->version != ( $lastVersion = get_option( $this->slug . '-version' ) ) ) {
-			// Version has changed. Update
-			Installer::update( $lastVersion );
+
+		$last_version = get_option( $this->slug . '-version' );
+		if ( $this->version !== $last_version ) {
+			// Version has changed. Update.
+			Installer::update( $last_version );
 		}
 	}
 

@@ -13,42 +13,9 @@ namespace EasyWatermark\Watermark;
 class Watermark {
 
 	/**
-	 * @param  array  instances
-	 */
-	private static $instances = [];
-
-	/**
-	 * Factory method for watermark instances.
-	 * Creates one instance for post id.
+	 * Default params
 	 *
-	 * @return object
-	 */
-	public static function get( $post ) {
-		if ( is_numeric( $post ) ) {
-			$post = get_post( $id );
-		} elseif ( ! $post instanceof \WP_Post ) {
-			return false;
-		}
-
-		if ( ! isset( self::$instances[ $post->ID ] ) ) {
-			self::$instances[ $post->ID ] = new self( $post );
-		}
-
-		return self::$instances[ $post->ID ];
-	}
-
-	/**
-	 * @param  object  original post
-	 */
-	private $post;
-
-	/**
-	 * @param  array  watermark configuration params
-	 */
-	private $params;
-
-	/**
-	 * @param  array
+	 * @var array
 	 */
 	private static $defaults = [
 		'type'            => null,
@@ -66,6 +33,7 @@ class Watermark {
 		'text_size'       => 24,
 		'text_angle'      => 0,
 		'opacity'         => 100,
+		'alignment'       => 'center',
 		'offset'          => [
 			'x' => [
 				'value' => 0,
@@ -95,8 +63,69 @@ class Watermark {
 	];
 
 	/**
+	 * Instances
+	 *
+	 * @var  array
+	 */
+	private static $instances = [];
+
+	/**
+	 * Factory method for watermark instances.
+	 * Creates one instance for post id.
+	 *
+	 * @param  mixed $post Post ID or WP_Post instance.
+	 * @return mixed
+	 */
+	public static function get( $post ) {
+		if ( is_numeric( $post ) ) {
+			$post = get_post( $post );
+		}
+
+		if ( ! $post instanceof \WP_Post ) {
+			return false;
+		}
+
+		if ( ! isset( self::$instances[ $post->ID ] ) ) {
+			self::$instances[ $post->ID ] = new self( $post );
+		}
+
+		return self::$instances[ $post->ID ];
+	}
+
+	/**
+	 * Builds complete params array to save in post content
+	 *
+	 * @param  array $params Params array.
+	 * @return array
+	 */
+	public static function parse_params( $params ) {
+		foreach ( self::$defaults as $key => $value ) {
+			if ( ! array_key_exists( $key, $params ) ) {
+				$params[ $key ] = false;
+			}
+		}
+
+		return $params;
+	}
+
+	/**
+	 * Original post object
+	 *
+	 * @var object
+	 */
+	private $post;
+
+	/**
+	 * Watermark configuration params
+	 *
+	 * @var array
+	 */
+	private $params;
+
+	/**
 	 * Constructor
 	 *
+	 * @param  WP_Post $post Post object.
 	 * @return void
 	 */
 	public function __construct( $post ) {
@@ -109,7 +138,7 @@ class Watermark {
 	/**
 	 * Getter for watermark config params
 	 *
-	 * @param  string $key  param name
+	 * @param  string $key Param name.
 	 * @return mixed
 	 */
 	public function get_param( $key ) {
@@ -121,7 +150,7 @@ class Watermark {
 	/**
 	 * Getter for watermark config params
 	 *
-	 * @return array  watermark config params
+	 * @return array watermark config params
 	 */
 	public function get_params() {
 		return $this->params;
@@ -133,7 +162,7 @@ class Watermark {
 	 * Allows to do:
 	 *      echo $watermark->post_title;
 	 *
-	 * @param  string $key  param name|post field
+	 * @param  string $key Param name or WP_Post field.
 	 * @return mixed
 	 */
 	public function __get( $key ) {
@@ -142,15 +171,5 @@ class Watermark {
 		}
 
 		return $this->get_param( $key );
-	}
-
-	public static function parse_params( $params ) {
-		foreach ( self::$defaults as $key => $value ) {
-			if ( ! array_key_exists( $key, $params ) ) {
-				$params[ $key ] = false;
-			}
-		}
-
-		return $params;
 	}
 }

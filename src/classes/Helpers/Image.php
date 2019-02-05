@@ -7,8 +7,16 @@
 
 namespace EasyWatermark\Helpers;
 
+/**
+ * Image helper
+ */
 class Image {
-	public static function getAvailableSizes() {
+	/**
+	 * Returns all registered image sizes
+	 *
+	 * @return array
+	 */
+	public static function get_available_sizes() {
 		global $_wp_additional_image_sizes;
 
 		$size_names = apply_filters( 'image_size_names_choose', array(
@@ -34,7 +42,12 @@ class Image {
 		return $sizes;
 	}
 
-	public static function getAvailableMimeTypes() {
+	/**
+	 * Returns available mime types
+	 *
+	 * @return array
+	 */
+	public static function get_available_mime_types() {
 		return [
 			'image/jpeg' => 'JPEG',
 			'image/png'  => 'PNG',

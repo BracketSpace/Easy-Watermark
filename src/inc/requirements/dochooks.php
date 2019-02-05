@@ -1,5 +1,7 @@
 <?php
 /**
+ * Function for dochooks test
+ *
  * @package easy-watermark
  */
 

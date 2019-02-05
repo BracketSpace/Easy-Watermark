@@ -5,9 +5,9 @@
  * @package easy-watermark
  */
 
- namespace EasyWatermark;
+namespace EasyWatermark;
 
- use EasyWatermark\Core\Plugin as EasyWatermark;
+use EasyWatermark\Core\Plugin as EasyWatermark;
 
 /**
  * Helper function for startup errors
@@ -20,7 +20,7 @@ $ew_error = function( $message, $subtitle = '', $title = '' ) {
 	$title   = $title ?: __( 'Easy Watermark &rsaquo; Error', 'easy-watermark' );
 	$footer  = '<a href="https://wordpress.org/support/plugin/easy-watermark">Support </a>';
 	$message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
-	wp_die( $message, $title );
+	wp_die( $message, $title ); // phpcs:ignore
 };
 
 /**
@@ -44,7 +44,7 @@ require $autoloader;
  * Requirements check
  */
 $requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermark' ), [
-	'php'      => '5.4.0',
+	'php'      => '5.5.0',
 	'wp'       => '4.6',
 	'dochooks' => true,
 	'gd'       => true,
