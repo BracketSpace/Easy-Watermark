@@ -6,7 +6,6 @@
  */
 
 ?>
-
 <div class="scaling-metabox">
 	<table class="form-table">
 		<tbody>

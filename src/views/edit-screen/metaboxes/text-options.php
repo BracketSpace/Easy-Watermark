@@ -6,7 +6,6 @@
  */
 
 ?>
-
 <div class="text-options-metabox">
 	<table class="form-table">
 		<tbody>

@@ -6,7 +6,6 @@
  */
 
 ?>
-
 <div id="submitpost" class="submitbox">
 	<div id="major-publishing-actions">
 		<div id="delete-action">

@@ -1,5 +1,6 @@
 body {
-	&.post-type-watermark {
+	&.post-type-watermark,
+	&.settings_page_easy-watermark {
 		.actions {
 			&.bulkactions {
 				padding-right: 0 !important;

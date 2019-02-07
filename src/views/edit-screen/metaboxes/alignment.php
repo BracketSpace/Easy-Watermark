@@ -6,7 +6,6 @@
  */
 
 ?>
-
 <div class="alignment-metabox">
 	<table class="form-table">
 		<tbody>

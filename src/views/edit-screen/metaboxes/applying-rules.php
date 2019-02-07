@@ -6,7 +6,6 @@
  */
 
 ?>
-
 <div class="applying-rules-metabox">
 	<table class="form-table">
 		<tbody>

@@ -6,7 +6,6 @@
  */
 
 ?>
-
 <div class="watermark-content-metabox">
 	<div class="image-content">
 		<input class="watermark-id" name="watermark[attachment_id]" type="hidden" value="<?php echo esc_html( $attachment_id ); ?>" />

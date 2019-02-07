@@ -60,8 +60,20 @@ class Plugin extends Singleton {
 
 		$this->hook();
 
+	}
+
+	/**
+	 * Creates nessesary instances
+	 *
+	 * @action  plugins_loaded
+	 *
+	 * @return  void
+	 */
+	public function setup() {
+
 		new WatermarkPostType();
 		new Assets();
+		new Settings();
 
 		$this->setup_metaboxes();
 
@@ -102,7 +114,7 @@ class Plugin extends Singleton {
 	 *
 	 * @return string
 	 */
-	public function getName() {
+	public function get_name() {
 		return $this->name;
 	}
 
@@ -111,7 +123,7 @@ class Plugin extends Singleton {
 	 *
 	 * @return string
 	 */
-	public function getSlug() {
+	public function get_slug() {
 		return $this->slug;
 	}
 
@@ -120,7 +132,7 @@ class Plugin extends Singleton {
 	 *
 	 * @return string
 	 */
-	public function getVersion() {
+	public function get_version() {
 		return $this->version;
 	}
 
