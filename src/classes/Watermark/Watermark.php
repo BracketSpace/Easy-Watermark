@@ -109,6 +109,15 @@ class Watermark {
 	}
 
 	/**
+	 * Returns defaults array
+	 *
+	 * @return array
+	 */
+	public static function get_defaults() {
+		return self::$defaults;
+	}
+
+	/**
 	 * Original post object
 	 *
 	 * @var object

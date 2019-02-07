@@ -73,7 +73,13 @@ class Plugin extends Singleton {
 
 		new WatermarkPostType();
 		new Assets();
-		new Settings();
+		$settings = new Settings();
+
+		$last_version = get_option( $this->slug . '-version' );
+		if ( $this->version !== $last_version ) {
+			// Version has changed. Update.
+			Installer::update( $last_version, $settings->get_settings() );
+		}
 
 		$this->setup_metaboxes();
 
@@ -100,14 +106,7 @@ class Plugin extends Singleton {
 	 *
 	 * @return  void
 	 */
-	public function init() {
-
-		$last_version = get_option( $this->slug . '-version' );
-		if ( $this->version !== $last_version ) {
-			// Version has changed. Update.
-			Installer::update( $last_version );
-		}
-	}
+	public function init() {}
 
 	/**
 	 * Returns plugin name
