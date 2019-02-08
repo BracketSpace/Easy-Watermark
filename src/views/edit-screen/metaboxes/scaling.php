@@ -21,7 +21,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr valign="top">
+			<tr valign="top" class="hidden show-for-all">
 				<th scope="row"><?php esc_html_e( 'Scale down only', 'easy-watermark' ); ?></th>
 				<td>
 					<label for="scale-down-only">
@@ -30,7 +30,7 @@
 					<p class="description"><?php esc_html_e( 'Note: if this option is not checked watermark image will also get scaled up on bigger images which might result in loss of quality/redability.', 'easy-watermark' ); ?></p>
 				</td>
 			</tr>
-			<tr valign="top" class="hidden">
+			<tr valign="top" class="hidden show-for-fit">
 				<th scope="row"><?php esc_html_e( 'Scale', 'easy-watermark' ); ?></th>
 				<td>
 					<div class="form-field">

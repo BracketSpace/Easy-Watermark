@@ -15,6 +15,7 @@ export default class {
 		this.mimeTypeField     = this.metabox.find( 'input.watermark-mime-type' )
 		this.urlField          = this.metabox.find( 'input.watermark-url' )
 		this.attachmentIdField = this.metabox.find( 'input.watermark-id' )
+		this.opacityField      = this.metabox.find( 'input#opacity' )
 
 		this.openMediaLibrary = this.openMediaLibrary.bind( this )
 		this.selectImage      = this.selectImage.bind( this )
@@ -35,9 +36,11 @@ export default class {
 		if ( type == 'image' ) {
 			this.imageContent.show()
 			this.textContent.hide()
+			this.opacityField.prop( 'disabled', false )
 		} else {
 			this.textContent.show()
 			this.imageContent.hide()
+			this.opacityField.prop( 'disabled', true )
 		}
 	}
 
