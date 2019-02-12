@@ -106,7 +106,7 @@ class ImageProcessorGD extends ImageProcessor {
 	 * Prints image with text preview
 	 *
 	 * @param  Watermark $watermark Text watermark for preview.
-	 * @return void
+	 * @return WP_Error|void
 	 */
 	public function print_text_preview( $watermark ) {
 
