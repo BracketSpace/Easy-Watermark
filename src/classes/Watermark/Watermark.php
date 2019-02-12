@@ -77,6 +77,7 @@ class Watermark {
 	 * @return mixed
 	 */
 	public static function get( $post ) {
+
 		if ( is_numeric( $post ) ) {
 			$post = get_post( $post );
 		}
@@ -90,6 +91,7 @@ class Watermark {
 		}
 
 		return self::$instances[ $post->ID ];
+
 	}
 
 	/**
@@ -99,13 +101,19 @@ class Watermark {
 	 * @return array
 	 */
 	public static function parse_params( $params ) {
+
 		foreach ( self::$defaults as $key => $value ) {
 			if ( ! array_key_exists( $key, $params ) ) {
-				$params[ $key ] = false;
+				if ( 'array' === gettype( self::$defaults[ $key ] ) ) {
+					$params[ $key ] = [];
+				} else {
+					$params[ $key ] = false;
+				}
 			}
 		}
 
 		return $params;
+
 	}
 
 	/**
@@ -138,10 +146,12 @@ class Watermark {
 	 * @return void
 	 */
 	public function __construct( $post ) {
+
 		$this->post = $post;
 
 		$this->params = $post->post_content ? json_decode( $post->post_content, true ) : [];
 		$this->params = wp_parse_args( $this->params, self::$defaults );
+
 	}
 
 	/**
@@ -151,9 +161,22 @@ class Watermark {
 	 * @return mixed
 	 */
 	public function get_param( $key ) {
+
 		if ( isset( $this->params[ $key ] ) ) {
 			return $this->params[ $key ];
 		}
+
+	}
+
+	/**
+	 * Setter for watermark config params
+	 *
+	 * @param  string $key   Param name.
+	 * @param  string $value Param value.
+	 * @return void
+	 */
+	public function set_param( $key, $value ) {
+		$this->params[ $key ] = $value;
 	}
 
 	/**
@@ -175,10 +198,23 @@ class Watermark {
 	 * @return mixed
 	 */
 	public function __get( $key ) {
+
 		if ( isset( $this->post->$key ) ) {
 			return $this->post->$key;
 		}
 
 		return $this->get_param( $key );
+
+	}
+
+	/**
+	 * Magic setter for watermark params
+	 *
+	 * @param  string $key   Param name.
+	 * @param  mixed  $value Param value.
+	 * @return void
+	 */
+	public function __set( $key, $value ) {
+		$this->set_param( $key, $value );
 	}
 }
