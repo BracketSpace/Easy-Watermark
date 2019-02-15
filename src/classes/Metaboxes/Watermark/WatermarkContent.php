@@ -5,12 +5,14 @@
  * @package easy-watermark
  */
 
-namespace EasyWatermark\Metaboxes;
+namespace EasyWatermark\Metaboxes\Watermark;
+
+use EasyWatermark\Metaboxes\WatermarkMetabox;
 
 /**
  * Metabox class
  */
-class WatermarkContent extends Metabox {
+class WatermarkContent extends WatermarkMetabox {
 
 	/**
 	 * Inits metabox

@@ -44,14 +44,21 @@ abstract class Metabox {
 	 *
 	 * @var  string
 	 */
-	protected $priority = 'high';
+	protected $priority = 'default';
 
 	/**
 	 * Whether to initially hide metabox
 	 *
 	 * @var  bool
 	 */
-	protected $hide = true;
+	protected $hide = false;
+
+	/**
+	 * Post type
+	 *
+	 * @var  string
+	 */
+	protected $post_type = 'post';
 
 	/**
 	 * Constructor
@@ -59,8 +66,10 @@ abstract class Metabox {
 	 * @return void
 	 */
 	public function __construct() {
+
 		$this->hook();
 		$this->init();
+
 	}
 
 	/**
@@ -71,11 +80,7 @@ abstract class Metabox {
 	 * @return void
 	 */
 	public function setup() {
-		global $post;
-
-		if ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) {
-			add_meta_box( $this->id, $this->title, [ $this, 'content' ], 'watermark', $this->position, $this->priority );
-		}
+		add_meta_box( $this->id, $this->title, [ $this, 'content' ], $this->post_type, $this->position, $this->priority );
 	}
 
 	/**
@@ -88,7 +93,7 @@ abstract class Metabox {
 	 * @return bool
 	 */
 	public function hide( $hidden, $screen ) {
-		if ( true === $this->hide && 'watermark' === $screen->id ) {
+		if ( true === $this->hide && $this->post_type === $screen->id ) {
 			array_push( $hidden, $this->id );
 		}
 
@@ -109,12 +114,11 @@ abstract class Metabox {
 	 * @return void
 	 */
 	public function content( $post ) {
-		$watermark = Watermark::get( $post );
-
-		// phpcs:ignore
-		echo new View( 'edit-screen/metaboxes/' . $this->id, array_merge( [
+		// phpcs:disable
+		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, [
 			'post' => $post,
-		], $watermark->get_params() ) );
+		] );
+		// phpcs:enable
 	}
 
 	/**
@@ -124,5 +128,12 @@ abstract class Metabox {
 	 */
 	public function get_watermarks_count() {
 		return wp_count_posts( 'watermark' )->publish;
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$this->unhook();
 	}
 }
