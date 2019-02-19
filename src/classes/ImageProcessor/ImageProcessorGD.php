@@ -267,7 +267,7 @@ class ImageProcessorGD extends ImageProcessor {
 				// Create blank image.
 				$this->output_image = imagecreatetruecolor( $image_size['width'], $image_size['height'] );
 
-				if ( 'png' === $this->image_type && $this->is_alpha_png( $this->$image_file ) ) {
+				if ( 'png' === $this->image_type && $this->is_alpha_png( $this->image_file ) ) {
 					// Preserve opacity for png images.
 					imagealphablending( $this->output_image, false );
 					imagesavealpha( $this->output_image, true );
@@ -715,7 +715,6 @@ class ImageProcessorGD extends ImageProcessor {
 	public function __destruct() {
 
 		$this->clean();
-		parent::__destruct();
 
 	}
 }

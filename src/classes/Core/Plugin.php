@@ -13,6 +13,7 @@ use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\Watermark;
+use EasyWatermark\Backup\Manager as BackupManager;
 use underDEV\Utils\Singleton;
 
 /**
@@ -70,6 +71,8 @@ class Plugin extends Singleton {
 
 		$this->hook();
 
+		BackupManager::get();
+
 	}
 
 	/**
@@ -86,7 +89,7 @@ class Plugin extends Singleton {
 		new WatermarkPostType();
 		new Assets();
 
-		$settings = new Settings();
+		$settings = Settings::get();
 
 		$last_version = get_option( $this->slug . '-version' );
 		if ( $this->version !== $last_version ) {

@@ -25,6 +25,7 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+
 	<?php if ( ! $all_applied ) : ?>
 		<div class="button-wrap">
 			<?php if ( empty( $applied_watermarks ) ) : ?>
@@ -35,10 +36,13 @@
 			<span class="spinner"></span>
 		</div>
 	<?php endif; ?>
-	<?php if ( $has_backup ) : ?>
+
+	<?php if ( '1' === $has_backup ) : ?>
 		<div class="button-wrap">
-				<button data-action="restore" data-nonce="<?php echo esc_attr( wp_create_nonce( 'restore' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Restore original image', 'easy-watermark' ); ?></button>
+			<button data-action="restore_backup" data-nonce="<?php echo esc_attr( wp_create_nonce( 'restore_backup' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Restore original image', 'easy-watermark' ); ?></button>
 			<span class="spinner"></span>
 		</div>
-<?php endif ?>
+	<?php endif ?>
+
+	<?php do_action( 'easy_watermark/attachment_metabox_content' ); ?>
 </div>

@@ -7,15 +7,11 @@
 
 namespace EasyWatermark\ImageProcessor;
 
-use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Watermark;
 /**
  * ImageProcessor abstract class
  */
 abstract class ImageProcessor {
-
-
-	use Hookable;
 
 	/**
 	 * Image file path
@@ -49,16 +45,6 @@ abstract class ImageProcessor {
 		$this->image_file = $file;
 		$this->params     = $params;
 
-		$this->hook();
-
-	}
-
-	/**
-	 * Destructor
-	 */
-	public function __destruct() {
-
-		$this->unhook();
 	}
 
 	/**

@@ -7,13 +7,15 @@
 
 namespace EasyWatermark\Core;
 
+use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\View;
 use EasyWatermark\Traits\Hookable;
+use underDEV\Utils\Singleton;
 
 /**
  * Settings class
  */
-class Settings {
+class Settings extends Singleton {
 
 	use Hookable;
 
@@ -24,6 +26,8 @@ class Settings {
 	 */
 	private $defaults = [
 		'jpeg_quality' => 75,
+		'backup'       => true,
+		'backupper'    => 'local',
 	];
 
 	/**
@@ -66,7 +70,7 @@ class Settings {
 			__( 'Easy Watermark', 'easy-watermark' ),
 			__( 'Easy Watermark', 'easy-watermark' ),
 			'manage_options',
-			'easy-watermark',
+			'ew-settings',
 			[ $this, 'settings_page' ]
 		);
 
@@ -79,9 +83,17 @@ class Settings {
 	 */
 	public function settings_page() {
 
+		$settings = $this->get_settings();
+
 		$status = new View( 'settings/status' );
 
-		$general = new View( 'settings/general', $this->get_settings() );
+		$general = new View( 'settings/general', $settings );
+
+		$backup = new View( 'settings/backup', [
+			'backup'             => $settings['backup'],
+			'selected_backupper' => $settings['backupper'],
+			'backuppers'         => BackupManager::get()->get_available_backuppers(),
+		] );
 
 		$permissions = new View( 'settings/permissions', [
 			'roles' => $this->get_roles(),
@@ -91,6 +103,7 @@ class Settings {
 		echo new View( 'settings-page', [
 			'status'      => $status,
 			'general'     => $general,
+			'backup'     => $backup,
 			'permissions' => $permissions,
 		] );
 		// phpcs:enable
@@ -128,6 +141,16 @@ class Settings {
 			$settings['jpeg_quality'] = 0;
 		} elseif ( 100 < $settings['jpeg_quality'] ) {
 			$settings['jpeg_quality'] = 100;
+		}
+
+		if ( isset( $settings['backup'] ) && '1' === $settings['backup'] ) {
+			$settings['backup'] = true;
+		} else {
+			$settings['backup'] = false;
+		}
+
+		if ( isset( $settings['backupper'] ) ) {
+			$settings['backupper'] = sanitize_text_field( $settings['backupper'] );
 		}
 
 		$this->setup_permissions( $settings['permissions'] );
@@ -220,6 +243,18 @@ class Settings {
 			'<a href="options-general.php?page=easy-watermark">' . __( 'Settings' ) . '</a>',
 		], $links );
 
+	}
+
+	/**
+	 * Magic method for accessing settings
+	 *
+	 * @param  string $key Settings key.
+	 * @return mixed
+	 */
+	public function __get( $key ) {
+		if ( array_key_exists( $key, $this->settings ) ) {
+			return $this->settings[ $key ];
+		}
 	}
 
 	/**

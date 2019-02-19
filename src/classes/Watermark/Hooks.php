@@ -39,6 +39,24 @@ class Hooks {
 	}
 
 	/**
+	 * Cleans backup on attachment removal
+	 *
+	 * @action delete_attachment
+	 *
+	 * @param  integer $attachment_id Image attachment ID.
+	 * @return void
+	 */
+	public function delete_attachment( $attachment_id ) {
+
+		$has_backup = get_post_meta( $attachment_id, '_ew_has_backup', true );
+
+		if ( '1' === $has_backup ) {
+			$this->watermark_handler->clean_backup( $attachment_id );
+		}
+
+	}
+
+	/**
 	 * Adds attachment version to the url
 	 *
 	 * @filter wp_get_attachment_image_src
