@@ -24,6 +24,13 @@ class ImageProcessorGD extends ImageProcessor {
 	private $finfo;
 
 	/**
+	 * Is FreeType extension enabled?
+	 *
+	 * @var boolean
+	 */
+	private $is_freetype_enabled;
+
+	/**
 	 * Allowed image types
 	 *
 	 * @var array
@@ -57,6 +64,54 @@ class ImageProcessorGD extends ImageProcessor {
 	 * @var array
 	 */
 	private $image_size;
+
+	/**
+	 * Constructor
+	 *
+	 * @param string $file Image file.
+	 * @param array  $params     Params.
+	 */
+	public function __construct( $file = null, $params = [] ) {
+
+		$gdinfo                    = gd_info();
+		$this->is_freetype_enabled = $gdinfo['FreeType Support'];
+
+		parent::__construct( $file, $params );
+
+	}
+
+	/**
+	 * Checks if the processor can be used in particular system
+	 *
+	 * @return boolean
+	 */
+	public static function is_available() {
+
+		if ( extension_loaded( 'gd' ) && function_exists( 'gd_info' ) ) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * Filters available watermark types
+	 *
+	 * @filter easy_watermark/watermark_types
+	 *
+	 * @param  array $types Available watermark types.
+	 * @return array
+	 */
+	public function available_watermark_types( $types ) {
+
+		if ( ! $this->is_freetype_enabled && array_key_exists( 'text', $types ) ) {
+			unset( $types['text'] );
+		}
+
+		return $types;
+
+	}
 
 	/**
 	 * Processes image
@@ -163,7 +218,7 @@ class ImageProcessorGD extends ImageProcessor {
 			],
 		];
 
-		$this->image_type = 'jpeg';
+		$this->image_type = 'png';
 
 		$this->apply_text_watermark( $watermark );
 
@@ -212,7 +267,7 @@ class ImageProcessorGD extends ImageProcessor {
 				// Create blank image.
 				$this->output_image = imagecreatetruecolor( $image_size['width'], $image_size['height'] );
 
-				if ( 'png' === $this->image_type && $this->is_alpha_png( $this->$image_file ) ) {
+				if ( 'png' === $this->image_type && $this->is_alpha_png( $this->image_file ) ) {
 					// Preserve opacity for png images.
 					imagealphablending( $this->output_image, false );
 					imagesavealpha( $this->output_image, true );
@@ -635,7 +690,9 @@ class ImageProcessorGD extends ImageProcessor {
 	 *
 	 * @return void
 	 */
-	private function clean() {
+	public function clean() {
+
+		parent::clean();
 
 		if ( $this->watermark_image ) {
 			imagedestroy( $this->watermark_image );
@@ -656,6 +713,8 @@ class ImageProcessorGD extends ImageProcessor {
 	 * Destructor
 	 */
 	public function __destruct() {
+
 		$this->clean();
+
 	}
 }

@@ -5,14 +5,14 @@
  * @package easy-watermark
  */
 
-namespace EasyWatermark\ImageProcessor;
+namespace EasyWatermark\AttachmentProcessor;
 
 use EasyWatermark\Watermark\Watermark;
 
 /**
- * ImageProcessor abstract class
+ * AttachmentProcessor abstract class
  */
-abstract class ImageProcessor {
+abstract class AttachmentProcessor {
 
 	/**
 	 * Image file path
