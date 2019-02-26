@@ -63,6 +63,11 @@ if ( ! $requirements->satisfied() ) {
 	return;
 }
 
+/**
+ * Require Freemius integration file
+ */
+require 'inc/freemius.php';
+
 $plugin = EasyWatermark::get();
 
 do_action( 'ew_load', $plugin );

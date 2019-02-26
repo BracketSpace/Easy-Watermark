@@ -60,6 +60,12 @@ class Plugin extends Singleton {
 
 		$this->hook();
 
+		// Init Freemius.
+		ew_fs();
+
+		// Signal that SDK was initiated.
+		do_action('ew_fs_loaded');
+
 	}
 
 	/**
