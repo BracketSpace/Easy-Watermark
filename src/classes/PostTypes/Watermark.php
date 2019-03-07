@@ -7,8 +7,9 @@
 
 namespace EasyWatermark\PostTypes;
 
-use EasyWatermark\Traits\Hookable;
+use EasyWatermark\Core\Plugin;
 use EasyWatermark\Core\View;
+use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Watermark as WatermarkObject;
 
 /**
@@ -58,16 +59,23 @@ class Watermark {
 		];
 
 		$args = [
-			'labels'          => $labels,
-			'description'     => __( 'Watermarks', 'easy-watermark' ),
-			'public'          => false,
-			'show_ui'         => true,
-			'capability_type' => [ 'watermark', 'watermarks' ],
-			'has_archive'     => false,
-			'hierarchical'    => false,
-			'menu_icon'       => 'dashicons-media-text',
-			'menu_position'   => null,
-			'supports'        => [ 'title' ],
+			'labels'        => $labels,
+			'description'   => __( 'Watermarks', 'easy-watermark' ),
+			'public'        => false,
+			'show_ui'       => true,
+			'has_archive'   => false,
+			'hierarchical'  => false,
+			'menu_icon'     => 'dashicons-media-text',
+			'menu_position' => null,
+			'supports'      => [ 'title' ],
+			'map_meta_cap'  => true,
+			'capabilities'  => [
+				'edit_post'           => 'edit_watermark',
+				'edit_posts'          => 'edit_watermarks',
+				'edit_others_posts'   => 'edit_others_watermarks',
+				'delete_posts'        => 'delete_watermarks',
+				'delete_others_posts' => 'delete_others_watermarks',
+			],
 		];
 
 		register_post_type( 'watermark', $args );
@@ -264,9 +272,15 @@ class Watermark {
 	 */
 	public function edit_form_after_title( $post ) {
 		if ( 'watermark' === get_current_screen()->id && ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) ) {
-			$watermark = WatermarkObject::get( $post );
+			$watermark         = WatermarkObject::get( $post );
+			$watermark_handler = Plugin::get()->get_watermark_handler();
 
-			echo new View( 'edit-screen/watermark-type-selector', $watermark->get_params() ); // phpcs:ignore
+ 			// phpcs:disable
+			echo new View( 'edit-screen/watermark-type-selector', [
+				'watermark_types' => $watermark_handler->get_watermark_types(),
+				'selected_type'   => $watermark->type,
+			] );
+			// phpcs:enable
 		}
 	}
 
@@ -342,5 +356,12 @@ class Watermark {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$this->unhook();
 	}
 }

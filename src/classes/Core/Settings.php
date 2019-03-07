@@ -156,13 +156,11 @@ class Settings {
 			$can_apply  = ( isset( $permissions[ $role_name ]['apply'] ) && '1' === $permissions[ $role_name ]['apply'] );
 
 			$role->add_cap( 'edit_watermark', $can_create );
-			$role->add_cap( 'read_watermark', $can_create );
-			$role->add_cap( 'delete_watermark', $can_create );
 			$role->add_cap( 'edit_watermarks', $can_create );
-			$role->add_cap( 'publish_watermarks', $can_create );
+			$role->add_cap( 'delete_watermark', $can_create );
 
 			$role->add_cap( 'edit_others_watermarks', $can_edit );
-			$role->add_cap( 'read_private_watermarks', $can_edit );
+			$role->add_cap( 'delete_others_watermarks', $can_edit );
 
 			$role->add_cap( 'apply_watermark', $can_apply );
 
@@ -222,5 +220,12 @@ class Settings {
 			'<a href="options-general.php?page=easy-watermark">' . __( 'Settings' ) . '</a>',
 		], $links );
 
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$this->unhook();
 	}
 }

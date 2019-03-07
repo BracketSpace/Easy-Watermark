@@ -30,33 +30,27 @@ class Installer {
 		$admin = get_role( 'administrator' );
 
 		$admin->add_cap( 'edit_watermark' );
-		$admin->add_cap( 'read_watermark' );
-		$admin->add_cap( 'delete_watermark' );
 		$admin->add_cap( 'edit_watermarks' );
 		$admin->add_cap( 'edit_others_watermarks' );
-		$admin->add_cap( 'publish_watermarks' );
-		$admin->add_cap( 'read_private_watermarks' );
+		$admin->add_cap( 'delete_watermarks' );
+		$admin->add_cap( 'delete_others_watermarks' );
 		$admin->add_cap( 'apply_watermark' );
 
 		$editor = get_role( 'editor' );
 
-		$editor->add_cap( 'edit_watermark' );
-		$editor->add_cap( 'read_watermark' );
-		$editor->add_cap( 'delete_watermark' );
-		$editor->add_cap( 'edit_watermarks' );
-		$editor->add_cap( 'edit_others_watermarks' );
-		$editor->add_cap( 'publish_watermarks' );
-		$editor->add_cap( 'read_private_watermarks' );
-		$editor->add_cap( 'apply_watermark' );
+		$admin->add_cap( 'edit_watermark' );
+		$admin->add_cap( 'edit_watermarks' );
+		$admin->add_cap( 'edit_others_watermarks' );
+		$admin->add_cap( 'delete_watermarks' );
+		$admin->add_cap( 'delete_others_watermarks' );
+		$admin->add_cap( 'apply_watermark' );
 
 		$author = get_role( 'author' );
 
-		$author->add_cap( 'edit_watermark' );
-		$author->add_cap( 'read_watermark' );
-		$author->add_cap( 'delete_watermark' );
-		$author->add_cap( 'edit_watermarks' );
-		$author->add_cap( 'publish_watermarks' );
-		$author->add_cap( 'apply_watermark' );
+		$admin->add_cap( 'edit_watermark' );
+		$admin->add_cap( 'edit_watermarks' );
+		$admin->add_cap( 'delete_watermarks' );
+		$admin->add_cap( 'apply_watermark' );
 
 	}
 

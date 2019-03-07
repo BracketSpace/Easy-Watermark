@@ -33,8 +33,8 @@ class Assets {
 	public function register_admin_scripts() {
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_register_style( 'ew-admin-style', $this->asset_url( 'styles', 'easy-watermark.css' ), [], '1.0' );
-		wp_register_script( 'ew-admin-script', $this->asset_url( 'scripts', 'easy-watermark.js' ), [ 'jquery', 'wp-color-picker' ], '1.0', true );
+		wp_register_style( 'ew-admin-style', $this->asset_url( 'styles', 'easy-watermark.css' ), [], $this->asset_version( 'styles', 'easy-watermark.css' ) );
+		wp_register_script( 'ew-admin-script', $this->asset_url( 'scripts', 'easy-watermark.js' ), [ 'jquery', 'wp-color-picker' ], $this->asset_version( 'scripts', 'easy-watermark.js' ), true );
 
 	}
 
@@ -47,13 +47,23 @@ class Assets {
 	 */
 	public function enqueue_admin_scripts() {
 
-		if ( 'watermark' === get_current_screen()->id ) {
+		$current_screen = get_current_screen();
+
+		if ( 'watermark' === $current_screen->id ) {
 			wp_enqueue_media();
-			wp_enqueue_script( 'ew-admin-script' );
 		}
 
-		if ( 'watermark' === get_current_screen()->id || 'settings_page_easy-watermark' === get_current_screen()->id ) {
+		if ( in_array( $current_screen->id, [ 'watermark', 'attachment', 'settings_page_easy-watermark' ], true ) ) {
 			wp_enqueue_style( 'ew-admin-style' );
+		}
+
+		if ( in_array( $current_screen->id, [ 'watermark', 'attachment' ], true ) ) {
+			wp_enqueue_script( 'ew-admin-script' );
+
+			wp_localize_script( 'ew-admin-script', 'ew', [
+				'currentScreen'       => $current_screen->id,
+				'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
+			] );
 		}
 
 	}
@@ -66,7 +76,31 @@ class Assets {
 	 * @return string
 	 */
 	private function asset_url( $type, $file ) {
-		return EW_DIR_URL . '/assets/dist/' . $type . '/' . $file;
+		return EW_DIR_URL . 'assets/dist/' . $type . '/' . $file;
+	}
+
+	/**
+	 * Returns asset version
+	 *
+	 * @param  string $type Asset type.
+	 * @param  string $file Filename.
+	 * @return string|void
+	 */
+	private function asset_version( $type, $file ) {
+
+		$path = EW_DIR_PATH . 'assets/dist/' . $type . '/' . $file;
+
+		if ( is_file( $path ) ) {
+			return filemtime( $path );
+		}
+
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$this->unhook();
 	}
 
 }

@@ -7,12 +7,15 @@
 
 namespace EasyWatermark\AttachmentProcessor;
 
+use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Watermark;
-
 /**
  * AttachmentProcessor abstract class
  */
 abstract class AttachmentProcessor {
+
+
+	use Hookable;
 
 	/**
 	 * Image file path
@@ -46,16 +49,29 @@ abstract class AttachmentProcessor {
 		$this->image_file = $file;
 		$this->params     = $params;
 
+		$this->hook();
+
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+
+		$this->unhook();
 	}
 
 	/**
 	 * Sets image file
 	 *
 	 * @param  string $file Image file.
-	 * @return mixed
+	 * @return ImageProcessor
 	 */
 	public function set_file( $file ) {
+
 		$this->image_file = $file;
+		return $this;
+
 	}
 
 	/**
@@ -79,10 +95,13 @@ abstract class AttachmentProcessor {
 	 *
 	 * @param  string $key   Param name.
 	 * @param  string $value Param value.
-	 * @return mixed
+	 * @return ImageProcessor
 	 */
 	public function set_param( $key, $value ) {
+
 		$this->params[ $key ] = $value;
+		return $this;
+
 	}
 
 	/**
@@ -207,6 +226,24 @@ abstract class AttachmentProcessor {
 			'blue'  => hexdec( $b ),
 		];
 
+	}
+
+	/**
+	 * Performs cleaning
+	 *
+	 * @return void
+	 */
+	public function clean() {
+		$this->watermarks = [];
+	}
+
+	/**
+	 * Checks if the processor can be used in particular system
+	 *
+	 * @return boolean
+	 */
+	public static function is_available() {
+		return false;
 	}
 
 	/**

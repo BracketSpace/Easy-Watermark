@@ -1,0 +1,36 @@
+#watermarks {
+	table {
+		text-align: left;
+		margin-bottom: 10px;
+
+		td {
+			padding: 5px 10px;
+		}
+
+		th {
+			padding: 5px 10px 5px 0;
+		}
+	}
+
+	.button-wrap {
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		button, .spinner {
+			float: left;
+		}
+	}
+
+	.error-message {
+		display: none;
+	}
+}
