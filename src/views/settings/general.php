@@ -6,6 +6,7 @@
  */
 
 ?>
+<h2><?php esc_html_e( 'General', 'easy-watermark' ); ?></h2>
 <table class="form-table">
 	<tbody>
 		<tr>

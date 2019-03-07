@@ -53,11 +53,8 @@ class Assets {
 			wp_enqueue_media();
 		}
 
-		if ( in_array( $current_screen->id, [ 'watermark', 'attachment', 'settings_page_easy-watermark' ], true ) ) {
+		if ( in_array( $current_screen->id, [ 'watermark', 'attachment', 'settings_page_ew-settings' ], true ) ) {
 			wp_enqueue_style( 'ew-admin-style' );
-		}
-
-		if ( in_array( $current_screen->id, [ 'watermark', 'attachment' ], true ) ) {
 			wp_enqueue_script( 'ew-admin-script' );
 
 			wp_localize_script( 'ew-admin-script', 'ew', [

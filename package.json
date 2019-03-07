@@ -12,8 +12,8 @@
   },
   "scripts": {
     "start": "webpack --watch --progress --mode development",
-    "build-dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode development",
+    "build-prod": "webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",

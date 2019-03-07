@@ -56,8 +56,6 @@ class Watermarks extends AttachmentMetabox {
 
 		$watermarks = $watermark_handler->get_watermarks();
 
-		wp_cache_flush();
-
 		$applied_watermarks = get_post_meta( $post->ID, '_ew_applied_watermarks', true );
 		$has_backup         = get_post_meta( $post->ID, '_ew_has_backup', true );
 

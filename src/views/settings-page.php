@@ -14,6 +14,7 @@
 		<?php
 		// phpcs:disable
 		echo $general;
+		echo $backup;
 		echo $permissions;
 		// phpcs:enable
 		?>

@@ -6,7 +6,7 @@
  */
 
 ?>
-<h3><?php esc_html_e( 'Permissions', 'easy-watermark' ); ?></h3>
+<h2><?php esc_html_e( 'Permissions', 'easy-watermark' ); ?></h2>
 <p class="description"><?php esc_html_e( 'Select, which user roles can have a permission to apply watermarks (only roles with permission to upload files are listed here)', 'easy-watermark' ); ?></p>
 <table class="form-table">
 	<tbody>
@@ -38,6 +38,6 @@
 					</ul>
 				</td>
 			</tr>
-			<?php endforeach; ?>
+		<?php endforeach; ?>
 	</tbody>
 </table>
