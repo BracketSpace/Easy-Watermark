@@ -225,9 +225,9 @@ class Handler {
 			}
 		}
 
-		$has_error = ! empty( $error->get_error_messages() );
+		$error_messages = $error->get_error_messages();
 
-		if ( false === $has_error ) {
+		if ( empty( $error_messages ) ) {
 			update_post_meta( $attachment_id, '_ew_applied_watermarks', $applied_watermarks );
 			update_post_meta( $attachment_id, '_ew_attachment_version', time() );
 
