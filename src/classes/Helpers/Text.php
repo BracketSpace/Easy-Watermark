@@ -30,4 +30,26 @@ class Text {
 			'Verdana.ttf'         => 'Verdana',
 		];
 	}
+
+	/**
+	 * Returns font file path
+	 *
+	 * @param  string $font Font name.
+	 * @return string
+	 */
+	public static function get_font_path( $font ) {
+
+		if ( file_exists( $font ) && is_file( $font ) ) {
+			$path = $font;
+		} else {
+			$path = EW_DIR_PATH . 'assets/dist/fonts/' . $font;
+
+			if ( ! file_exists( $path ) || ! is_file( $path ) ) {
+				$path = null;
+			}
+		}
+
+		return apply_filters( 'easy_watermark/font_path', $path, $font );
+
+	}
 }

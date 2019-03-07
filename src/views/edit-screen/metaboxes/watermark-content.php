@@ -29,6 +29,7 @@
 									<span class="form-field-text"> %</span>
 								</div>
 							</div>
+							<p class="description opacity-desc hidden"><?php esc_html_e( 'Opacity does not apply to png images.', 'easy-watermark' ); ?></p>
 						</td>
 					</tr>
 				</tbody>

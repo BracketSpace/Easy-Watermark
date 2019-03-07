@@ -10,6 +10,11 @@ module.exports = (env, argv) => {
 	    filename: "./scripts/easy-watermark.js",
 			publicPath: '../'
 	  },
+		performance: {
+			hints: false,
+			maxEntrypointSize: 512000,
+			maxAssetSize: 512000
+		},
 		module: {
 			rules: [
 				{
@@ -38,6 +43,19 @@ module.exports = (env, argv) => {
 								limit: 8192,
           			name: '[name].[ext]',
 								outputPath: 'images'
+							}
+						}
+					]
+				},
+				{
+					test: /\.(woff(2)?|ttf|eot|svg)$/,
+					use: [
+						{
+							loader: 'file-loader',
+							options: {
+								limit: 8192,
+								name: '[name].[ext]',
+								outputPath: 'fonts'
 							}
 						}
 					]
