@@ -283,8 +283,8 @@ class Handler {
 			}
 		}
 
-		$has_error = ! empty( $error->get_error_messages() );
-
+		$error_messages = $error->get_error_messages();
+		$has_error      = ! empty( $error_messages );
 		if ( false === $this->settings->backup || true === $has_error ) {
 			$this->clean_backup( $attachment_id );
 		}
