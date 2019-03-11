@@ -10,6 +10,18 @@ namespace EasyWatermark;
 use EasyWatermark\Core\Plugin as EasyWatermark;
 
 /**
+ * Main plugin file in older versions used for seamless update
+ */
+$old_file = EW_DIR_PATH . 'index.php';
+
+/**
+ * Remove old file if exists.
+ */
+if ( file_exists( $old_file ) ) {
+	unlink( $old_file );
+}
+
+/**
  * Helper function for startup errors
  *
  * @param string $message
