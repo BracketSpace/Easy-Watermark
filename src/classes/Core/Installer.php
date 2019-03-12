@@ -186,7 +186,7 @@ class Installer {
 
 		self::insert_image_watermark( $watermark_defaults, $settings );
 
-		if ( ! empty( $settings['text'] ) ) {
+		if ( ! empty( $settings['text']['text'] ) ) {
 			self::insert_text_watermark( $watermark_defaults, $settings );
 		}
 
@@ -272,7 +272,7 @@ class Installer {
 			'text_size'  => $settings['text']['size'],
 			'text_angle' => $settings['text']['angle'],
 			'opacity'    => $settings['text']['opacity'],
-			'alignment'  => $settings['image']['alignment'],
+			'alignment'  => $settings['text']['alignment'],
 			'offset'     => [
 				'x' => [
 					'value' => intval( $settings['text']['offset_x'] ),
