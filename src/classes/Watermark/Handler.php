@@ -10,7 +10,7 @@ namespace EasyWatermark\Watermark;
 use EasyWatermark\Backup\BackupperInterface;
 use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Settings;
-use EasyWatermark\ImageProcessor;
+use EasyWatermark\AttachmentProcessor;
 use EasyWatermark\Metaboxes\Attachment\Watermarks;
 use WP_Error;
 
@@ -27,14 +27,14 @@ class Handler {
 	private $lock = false;
 
 	/**
-	 * ImageProcessor instance
+	 * AttachmentProcessor instance
 	 *
-	 * @var ImageProcessor
+	 * @var AttachmentProcessor
 	 */
 	private $processor;
 
 	/**
-	 * ImageProcessor instance
+	 * Backupper instance
 	 *
 	 * @var Backupper
 	 */
@@ -106,7 +106,7 @@ class Handler {
 	public function get_all_image_processors() {
 
 		$processors = [
-			'gd' => 'EasyWatermark\ImageProcessor\ImageProcessorGD',
+			'gd' => 'EasyWatermark\AttachmentProcessor\AttachmentProcessorGD',
 		];
 
 		return apply_filters( 'easy_watermark/image_processors', $processors );
@@ -116,7 +116,7 @@ class Handler {
 	/**
 	 * Returns image processor to use
 	 *
-	 * @return ImageProcessor
+	 * @return AttachmentProcessor
 	 */
 	public function get_image_processor() {
 
@@ -142,6 +142,8 @@ class Handler {
 	 */
 	public function get_watermark_types() {
 
+  	global $post;
+
 		$this->get_image_processor();
 
 		$types = [
@@ -155,7 +157,21 @@ class Handler {
 			],
 		];
 
-		return apply_filters( 'easy_watermark/watermark_types', $types );
+		$types = apply_filters( 'easy_watermark/watermark_types', $types );
+
+		$watermarks = $this->get_watermarks();
+
+		foreach ( $watermarks as $watermark ) {
+			if ( $watermark->ID === $post->ID ) {
+				continue;
+			}
+
+			if ( array_key_exists( $watermark->type, $types ) ) {
+				$types[$watermark->type]['available'] = false;
+			}
+		}
+
+		return $types;
 
 	}
 

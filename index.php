@@ -15,4 +15,7 @@ add_action( 'admin_init', function() {
 	deactivate_plugins( __FILE__  );
 	activate_plugin( $new_file, $_SERVER['REQUEST_URI'] );
 
+	// Remove this file after new plugin activtion.
+	// unlink( __FILE__ );
+
 } );

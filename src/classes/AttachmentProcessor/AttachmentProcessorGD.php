@@ -5,7 +5,7 @@
  * @package easy-watermark
  */
 
-namespace EasyWatermark\ImageProcessor;
+namespace EasyWatermark\AttachmentProcessor;
 
 use EasyWatermark\Helpers\Text;
 use EasyWatermark\Watermark\Watermark;
@@ -14,7 +14,7 @@ use WP_Error;
 /**
  * GD Image Processor
  */
-class ImageProcessorGD extends ImageProcessor {
+class AttachmentProcessorGD extends AttachmentProcessor {
 
 	/**
 	 * Finfo instance

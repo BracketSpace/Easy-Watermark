@@ -7,7 +7,7 @@
 
 namespace EasyWatermark\Watermark;
 
-use EasyWatermark\ImageProcessor;
+use EasyWatermark\AttachmentProcessor;
 use EasyWatermark\Metaboxes\Attachment\Watermarks;
 use EasyWatermark\Traits\Hookable;
 

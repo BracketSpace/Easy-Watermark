@@ -7,7 +7,7 @@
 
 namespace EasyWatermark\Core;
 
-use EasyWatermark\ImageProcessor\ImageProcessorGD;
+use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
 use EasyWatermark\Traits\Hookable;

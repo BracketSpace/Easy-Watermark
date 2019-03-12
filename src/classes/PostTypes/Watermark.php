@@ -215,6 +215,13 @@ class Watermark {
 			if ( 2 <= $this->get_watermarks_count() && isset( $actions['untrash'] ) ) {
 				unset( $actions['untrash'] );
 			}
+
+			$watermark_types = Plugin::get()->get_watermark_handler()->get_watermark_types();
+			$watermark = WatermarkObject::get( $post );
+
+			if ( array_key_exists( $watermark->type, $watermark_types ) && false === $watermark_types[$watermark->type]['available'] ) {
+				unset( $actions['untrash'] );
+			}
 		}
 
 		return $actions;

@@ -6,7 +6,7 @@
  */
 
 /**
- * Check if ReflectionObject returns proper docblock comments for methods.
+ * Check if GD library is enabled.
  */
 return function( $comparsion, $r ) {
 	if ( true !== $comparsion ) {

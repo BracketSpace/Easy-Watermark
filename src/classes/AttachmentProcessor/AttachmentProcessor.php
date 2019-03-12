@@ -51,7 +51,7 @@ abstract class AttachmentProcessor {
 	 * Sets image file
 	 *
 	 * @param  string $file Image file.
-	 * @return ImageProcessor
+	 * @return AttachmentProcessor
 	 */
 	public function set_file( $file ) {
 
@@ -81,7 +81,7 @@ abstract class AttachmentProcessor {
 	 *
 	 * @param  string $key   Param name.
 	 * @param  string $value Param value.
-	 * @return ImageProcessor
+	 * @return AttachmentProcessor
 	 */
 	public function set_param( $key, $value ) {
 
