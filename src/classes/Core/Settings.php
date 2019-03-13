@@ -92,7 +92,7 @@ class Settings extends Singleton {
 		$backup = new View( 'settings/backup', [
 			'backup'             => $settings['backup'],
 			'selected_backupper' => $settings['backupper'],
-			'backuppers'         => BackupManager::get()->get_available_backuppers(),
+			'backuppers'         => BackupManager::get()->get_available_objects(),
 		] );
 
 		$permissions = new View( 'settings/permissions', [

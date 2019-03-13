@@ -7,109 +7,46 @@
 
 namespace EasyWatermark\AttachmentProcessor;
 
+use EasyWatermark\Core\Manager as AbstractManager;
 use underDEV\Utils\Singleton;
 use WP_Error;
 
 /**
  * Manager class
  */
-class Manager extends Singleton {
+class Manager extends AbstractManager {
 
 	/**
-	 * AttachmentProcessor instances
+	 * Parent class for created objects
 	 *
-	 * @var array
+	 * @var string
 	 */
-	private $processors = [];
-
-	/**
-	 * Available processors
-	 *
-	 * @var array
-	 */
-	private $available_processors = [];
+	protected $parent_class = 'EasyWatermark\AttachmentProcessor\AttachmentProcessor';
 
 	/**
 	 * Constructor
 	 */
 	protected function __construct() {
 
-		$this->register_processor( 'gd', __( 'GD', 'easy-watermark' ), 'EasyWatermark\\AttachmentProcessor\\AttachmentProcessorGD' );
-
-		do_action( 'easy_watermark/processor_manager_init', $this );
-
-	}
-
-	/**
-	 * Registers available attachment processor
-	 *
-	 * @param  string $type  AttachmentProcessor type.
-	 * @param  string $label AttachmentProcessor nice name to show in admin area.
-	 * @param  string $class AttachmentProcessor class name.
-	 * @return WP_Error|true
-	 */
-	public function register_processor( $type, $label, $class ) {
-
-		if ( ! class_exists( $class ) ) {
-			/* translators: attachment processor class name. */
-			return new WP_Error( 'invalid_processor_class', sprintf( __( 'Attachment processor class "%s" does not exist.' ), $class ) );
-		}
-
-		if ( ! is_subclass_of( $class, 'EasyWatermark\AttachmentProcessor\AttachmentProcessor' ) ) {
-			/* translators: attachment processor class name. */
-			return new WP_Error( 'invalid_processor_class', sprintf( __( 'Attachment processor class "%s" must extend EasyWatermark\\AttachmentProcessor\\AttachmentProcessor class.' ), $class ) );
-		}
-
-		$this->available_processors[ $type ] = [
-			'label' => $label,
-			'class' => $class,
+		$processors = [
+			'gd' => [
+				'label' => __( 'GD', 'easy-watermark' ),
+				'class' => 'EasyWatermark\\AttachmentProcessor\\AttachmentProcessorGD'
+			]
 		];
 
-		return true;
+		$this->default_classes = apply_filters( 'easy_watermark/available_processors', $processors );
 
-	}
+		$this->error_messages = [
+			/* translators: %s: class name. */
+			'invalid_class'        => __( 'Attachment processor class "%s" does not exist.' ),
+			/* translators: %1$s: child class name, %2$s: parent class name. */
+			'invalid_class_parent' => __( 'Attachment processor "%1$s" must extend %2$s.' ),
+			/* translators: %s: object type. */
+			'invalid_type'         => __( 'Attachment processor of type "%s" cannot be created.' )
+		];
 
-	/**
-	 * Returns AttachmentProcessor instance of given type
-	 *
-	 * @param  string $type AttachmentProcessor type.
-	 * @return AttachmentProcessor|WP_Error
-	 */
-	public function get_processor( $type ) {
+		parent::__construct();
 
-		if ( ! array_key_exists( $type, $this->processors ) ) {
-			return $this->create_processor( $type );
-		}
-
-		return $this->processors[ $type ];
-
-	}
-
-	/**
-	 * Returns AttachmentProcessor instance of given type
-	 *
-	 * @param  string $type AttachmentProcessor type.
-	 * @return AttachmentProcessor
-	 */
-	private function create_processor( $type ) {
-
-		if ( ! array_key_exists( $type, $this->available_processors ) ) {
-			/* translators: attachment processor type. */
-			return new WP_Error( 'invalid_processor_type', sprintf( __( 'Attachment processor of type "%s" cannot be created.' ), $type ) );
-		}
-
-		$class = $this->available_processors[ $type ]['class'];
-
-		return new $class();
-
-	}
-
-	/**
-	 * Returns available processors
-	 *
-	 * @return array
-	 */
-	public function get_available_processors() {
-		return $this->available_processors;
 	}
 }

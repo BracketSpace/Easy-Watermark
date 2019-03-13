@@ -7,6 +7,7 @@
 
 namespace EasyWatermark\Watermark;
 
+use EasyWatermark\AttachmentProcessor\Manager as ProcessorManager;
 use EasyWatermark\Backup\BackupperInterface;
 use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Settings;
@@ -71,7 +72,9 @@ class Handler {
 			$backupper = 'local';
 		}
 
-		$this->backupper = BackupManager::get()->get_backupper( $backupper );
+		$this->backupper = BackupManager::get()->get_object( $backupper );
+
+		$this->processor = ProcessorManager::get()->get_object( 'gd' );
 
 	}
 
@@ -99,43 +102,6 @@ class Handler {
 	}
 
 	/**
-	 * Returns all image processors
-	 *
-	 * @return array
-	 */
-	public function get_all_image_processors() {
-
-		$processors = [
-			'gd' => 'EasyWatermark\AttachmentProcessor\AttachmentProcessorGD',
-		];
-
-		return apply_filters( 'easy_watermark/image_processors', $processors );
-
-	}
-
-	/**
-	 * Returns image processor to use
-	 *
-	 * @return AttachmentProcessor
-	 */
-	public function get_image_processor() {
-
-		if ( ! $this->processor ) {
-			$processors = $this->get_all_image_processors();
-
-			foreach ( $processors as $processor ) {
-				if ( $processor::is_available() ) {
-					$this->processor = new $processor();
-					break;
-				}
-			}
-		}
-
-		return $this->processor;
-
-	}
-
-	/**
 	 * Returns available watermark types
 	 *
 	 * @return array
@@ -143,8 +109,6 @@ class Handler {
 	public function get_watermark_types() {
 
   	global $post;
-
-		$this->get_image_processor();
 
 		$types = [
 			'text'  => [
@@ -234,7 +198,6 @@ class Handler {
 			return true;
 		}
 
-		$processor  = $this->get_image_processor();
 		$attachment = get_post( $attachment_id );
 		$error      = new WP_Error();
 
@@ -275,7 +238,7 @@ class Handler {
 			foreach ( $watermarks as $watermark ) {
 				if ( in_array( $size, $watermark->image_sizes, true ) ) {
 					$apply = true;
-					$processor->add_watermark( $watermark );
+					$this->processor->add_watermark( $watermark );
 					$applied_watermarks[] = $watermark->ID;
 				}
 			}
@@ -283,12 +246,12 @@ class Handler {
 			if ( true === $apply ) {
 				$image_file = str_replace( $baename, wp_basename( $image['file'] ), $filepath );
 
-				$processor->set_file( $image_file )
+				$this->processor->set_file( $image_file )
 									->set_param( 'image_type', $image['mime-type'] );
 
-				$results = $processor->process();
+				$results = $this->processor->process();
 
-				$processor->clean();
+				$this->processor->clean();
 
 				foreach ( $results as $watermark_id => $result ) {
 					if ( is_wp_error( $result ) ) {
