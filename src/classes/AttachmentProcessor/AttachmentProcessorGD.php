@@ -66,6 +66,13 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	private $image_size;
 
 	/**
+	 * Watermark image
+	 *
+	 * @var resource
+	 */
+	private $watermark_image;
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $file Image file.

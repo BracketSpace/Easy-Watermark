@@ -42,7 +42,7 @@ abstract class WatermarkMetabox extends Metabox {
 	public function setup() {
 		global $post;
 
-		if ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) {
+		if ( $post && ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) ) {
 			parent::setup();
 		}
 	}

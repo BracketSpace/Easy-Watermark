@@ -81,8 +81,6 @@ class Watermarks extends AttachmentMetabox {
 			'applied_watermarks' => $applied_watermarks,
 			'all_applied'        => $all_applied,
 			'has_backup'         => $has_backup,
-			'apply_all_url'      => wp_nonce_url( $base_url, 'ew_apply_all' ),
-			'restore_url'        => wp_nonce_url( $base_url, 'ew_restore' ),
 		] );
 
 	}
