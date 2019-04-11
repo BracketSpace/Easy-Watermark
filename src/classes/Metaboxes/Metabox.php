@@ -108,17 +108,31 @@ abstract class Metabox {
 	abstract public function init();
 
 	/**
+	 * Prepares params for metabox view
+	 *
+	 * @param  array  $params Params.
+	 * @param  object $post Current post.
+	 * @return array
+	 */
+	public function prepare_params( $params, $post ) {
+		return $params;
+	}
+
+	/**
 	 * Renders metabox content
 	 *
 	 * @param  object $post Current post.
 	 * @return void
 	 */
 	public function content( $post ) {
-		// phpcs:disable
-		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, [
+
+		$params = $this->prepare_params( [
 			'post' => $post,
-		] );
-		// phpcs:enable
+		], $post );
+
+		// phpcs:ignore
+		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, $params );
+
 	}
 
 	/**

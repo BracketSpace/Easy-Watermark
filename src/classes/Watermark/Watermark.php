@@ -140,6 +140,13 @@ class Watermark {
 	private $params;
 
 	/**
+	 * Watermark configuration params
+	 *
+	 * @var array
+	 */
+	private $tmp_params;
+
+	/**
 	 * Constructor
 	 *
 	 * @param  WP_Post $post Post object.
@@ -151,6 +158,21 @@ class Watermark {
 
 		$this->params = $post->post_content ? json_decode( $post->post_content, true ) : [];
 		$this->params = wp_parse_args( $this->params, self::$defaults );
+
+	}
+
+	/**
+	 * Switches params to temporary if exist
+	 *
+	 * @return mixed
+	 */
+	public function use_temporary_params() {
+
+		$tmp_params = get_post_meta( $this->post->ID, '_ew_tmp_params', true );
+
+		if ( $tmp_params ) {
+			$this->params = wp_parse_args( $tmp_params, self::$defaults );
+		}
 
 	}
 

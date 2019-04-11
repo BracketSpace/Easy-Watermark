@@ -5,6 +5,7 @@ import AlignmentMetabox from '../metaboxes/watermark/alignment.js'
 import ApplyingRules from '../metaboxes/watermark/applying-rules.js'
 import Scaling from '../metaboxes/watermark/scaling.js'
 import TextOptions from '../metaboxes/watermark/text-options.js'
+import Preview from '../metaboxes/watermark/preview.js'
 
 export default class {
 	constructor() {
@@ -20,6 +21,7 @@ export default class {
 			new ApplyingRules(),
 			new Scaling(),
 			new TextOptions(),
+			new Preview(),
 		]
 
 		const selected = this.selector.filter('[checked]')
@@ -33,6 +35,7 @@ export default class {
 		} )
 
 		this.form.on( 'change', 'input, select', this.triggerSave )
+						 .on( 'ew.save', this.triggerSave )
 	}
 
 	selectWatermarkType( type ) {
@@ -42,8 +45,28 @@ export default class {
 	}
 
 	triggerSave() {
-		console.log( wp.autosave )
-		wp.autosave.server.triggerSave()
-		console.log( 'saved' )
+
+		let params = {
+			action: 'easy-watermark/autosave',
+			nonce : ew.autosaveNonce
+		}
+
+		let data = this.form.find('[name^=watermark], [name=post_ID]').serialize()
+
+		for ( let key in params ) {
+			data += '&' + encodeURIComponent( key ) + '=' + encodeURIComponent( params[key] )
+		}
+
+		$.ajax( {
+				type: "post",
+				url : ajaxurl,
+				data: data,
+		} ).done( ( response ) => {
+			if ( true === response.success ) {
+				this.form.trigger( 'ew.update' )
+			}
+		} ).fail( () => {
+			console.log( 'fail' )
+		} )
 	}
 }

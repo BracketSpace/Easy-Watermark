@@ -69,12 +69,12 @@ class Ajax {
 
 		$success_message = __( 'Watermark has been applied.', 'easy-watermark' );
 
-		$this->send_result( $result, $version, $attachment_id, $success_message );
+		$this->send_response( $result, $version, $attachment_id, $success_message );
 
 	}
 
 	/**
-	 * Applies single watermark
+	 * Applies all watermarks
 	 *
 	 * @action wp_ajax_easy-watermark/apply_all
 	 *
@@ -106,12 +106,12 @@ class Ajax {
 
 		$success_message = __( 'All watermarks has been applied.', 'easy-watermark' );
 
-		$this->send_result( $result, $version, $attachment_id, $success_message );
+		$this->send_response( $result, $version, $attachment_id, $success_message );
 
 	}
 
 	/**
-	 * Applies single watermark
+	 * Restores backup
 	 *
 	 * @action wp_ajax_easy-watermark/restore_backup
 	 *
@@ -145,12 +145,44 @@ class Ajax {
 
 		$success_message = __( 'Original image has been restored.', 'easy-watermark' );
 
-		$this->send_result( $result, $version, $attachment_id, $success_message );
+		$this->send_response( $result, $version, $attachment_id, $success_message );
 
 	}
 
 	/**
-	 * Applies single watermark
+	 * Temporarily saves watermark settings
+	 *
+	 * @action wp_ajax_easy-watermark/autosave
+	 *
+	 * @return void
+	 */
+	public function autosave() {
+
+		check_ajax_referer( 'watermark_autosave', 'nonce' );
+
+		if ( ! isset( $_REQUEST['watermark'] ) || ! isset( $_REQUEST['post_ID'] ) ) {
+			wp_send_json_error( [
+				'message' => __( 'No watermark data to save.', 'easy-watermark' ),
+			] );
+		}
+
+		$post_id = intval( $_REQUEST['post_ID'] );
+
+		// phpcs:ignore
+		$result = update_post_meta( $post_id, '_ew_tmp_params', $_REQUEST['watermark'] );
+
+		if ( false === $result ) {
+			wp_send_json_error( [
+				'message' => __( 'Something went wrong while saving temporary data.', 'easy-watermark' ),
+			] );
+		}
+
+		wp_send_json_success( $result );
+
+	}
+
+	/**
+	 * Sends response
 	 *
 	 * @param  mixed   $result          Watermarking result.
 	 * @param  string  $version         Attachment version.
@@ -158,7 +190,7 @@ class Ajax {
 	 * @param  string  $success_message Success message.
 	 * @return void
 	 */
-	protected function send_result( $result, $version, $attachment_id, $success_message ) {
+	protected function send_response( $result, $version, $attachment_id, $success_message ) {
 
 		$response_data = [
 			'metaboxContent'    => (string) Watermarks::get_content( get_post( $attachment_id ) ),

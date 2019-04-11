@@ -23,7 +23,7 @@ class Hooks {
 	 *
 	 * @var Handler
 	 */
-	private $watermark_handler;
+	private $handler;
 
 	/**
 	 * Constructor
@@ -34,7 +34,7 @@ class Hooks {
 
 		$this->hook();
 
-		$this->watermark_handler = $handler;
+		$this->handler = $handler;
 
 	}
 
@@ -51,7 +51,7 @@ class Hooks {
 		$has_backup = get_post_meta( $attachment_id, '_ew_has_backup', true );
 
 		if ( '1' === $has_backup ) {
-			$this->watermark_handler->clean_backup( $attachment_id );
+			$this->handler->clean_backup( $attachment_id );
 		}
 
 	}
@@ -75,9 +75,9 @@ class Hooks {
 		}
 
 		if ( is_array( $image ) && ! empty( $image ) && is_string( $image[0] ) ) {
-			$image[0] = $this->watermark_handler->add_attachment_version( $image[0], $attachment_id );
+			$image[0] = $this->handler->add_attachment_version( $image[0], $attachment_id );
 		} elseif ( is_string( $image ) ) {
-			$image = $this->watermark_handler->add_attachment_version( $image, $attachment_id );
+			$image = $this->handler->add_attachment_version( $image, $attachment_id );
 		}
 
 		return $image;
@@ -99,7 +99,7 @@ class Hooks {
 	public function wp_calculate_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
 
 		foreach ( $sources as &$source ) {
-			$source['url'] = $this->watermark_handler->add_attachment_version( $source['url'], $attachment_id );
+			$source['url'] = $this->handler->add_attachment_version( $source['url'], $attachment_id );
 		}
 
 		return $sources;
@@ -117,7 +117,7 @@ class Hooks {
 	 */
 	public function wp_generate_attachment_metadata( $metadata, $attachment_id ) {
 
-		$all_watermarks = $this->watermark_handler->get_watermarks();
+		$all_watermarks = $this->handler->get_watermarks();
 
 		$watermarks = [];
 
@@ -151,7 +151,7 @@ class Hooks {
 			$watermarks[] = $watermark;
 		}
 
-		$this->watermark_handler->apply_watermarks( $attachment_id, $watermarks, $metadata );
+		$this->handler->apply_watermarks( $attachment_id, $watermarks, $metadata );
 
 		return $metadata;
 

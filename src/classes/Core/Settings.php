@@ -70,7 +70,7 @@ class Settings extends Singleton {
 			__( 'Easy Watermark', 'easy-watermark' ),
 			__( 'Easy Watermark', 'easy-watermark' ),
 			'manage_options',
-			'ew-settings',
+			'easy-watermark',
 			[ $this, 'settings_page' ]
 		);
 

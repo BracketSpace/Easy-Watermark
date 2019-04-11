@@ -251,7 +251,8 @@ abstract class AttachmentProcessor {
 	 * Prints image with text preview
 	 *
 	 * @param  Watermark $watermark Text watermark for preview.
+	 * @param  string    $format    Output image format.
 	 * @return void
 	 */
-	abstract public function print_text_preview( $watermark );
+	abstract public function print_text_preview( $watermark, $format = 'png' );
 }

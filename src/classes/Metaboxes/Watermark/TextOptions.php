@@ -7,10 +7,9 @@
 
 namespace EasyWatermark\Metaboxes\Watermark;
 
-use EasyWatermark\Metaboxes\WatermarkMetabox;
-
 use EasyWatermark\Core\View;
 use EasyWatermark\Helpers\Text;
+use EasyWatermark\Metaboxes\WatermarkMetabox;
 use EasyWatermark\Watermark\Watermark;
 
 /**
@@ -29,17 +28,17 @@ class TextOptions extends WatermarkMetabox {
 	}
 
 	/**
-	 * Renders metabox content
+	 * Prepares params for metabox view
 	 *
+	 * @param  array  $params Params.
 	 * @param  object $post Current post.
-	 * @return void
+	 * @return array
 	 */
-	public function content( $post ) {
+	public function prepare_params( $params, $post ) {
 		$watermark = Watermark::get( $post );
 
-		// phpcs:ignore
-		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, array_merge( [
-			'available_fonts' => Text::get_available_fonts(),
-		], $watermark->get_params() ) );
+		$params['available_fonts'] = Text::get_available_fonts();
+
+		return array_merge( $params, $watermark->get_params() );
 	}
 }

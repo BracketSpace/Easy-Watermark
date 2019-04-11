@@ -22,7 +22,6 @@ class Manager extends AbstractManager {
 	 * @var string
 	 */
 	protected $parent_class = 'EasyWatermark\AttachmentProcessor\AttachmentProcessor';
-
 	/**
 	 * Constructor
 	 */
@@ -31,8 +30,8 @@ class Manager extends AbstractManager {
 		$processors = [
 			'gd' => [
 				'label' => __( 'GD', 'easy-watermark' ),
-				'class' => 'EasyWatermark\\AttachmentProcessor\\AttachmentProcessorGD'
-			]
+				'class' => 'EasyWatermark\\AttachmentProcessor\\AttachmentProcessorGD',
+			],
 		];
 
 		$this->default_classes = apply_filters( 'easy_watermark/available_processors', $processors );
@@ -43,10 +42,8 @@ class Manager extends AbstractManager {
 			/* translators: %1$s: child class name, %2$s: parent class name. */
 			'invalid_class_parent' => __( 'Attachment processor "%1$s" must extend %2$s.' ),
 			/* translators: %s: object type. */
-			'invalid_type'         => __( 'Attachment processor of type "%s" cannot be created.' )
+			'invalid_type'         => __( 'Attachment processor of type "%s" cannot be created.' ),
 		];
-
 		parent::__construct();
-
 	}
 }

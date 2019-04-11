@@ -1,0 +1,24 @@
+#preview {
+	img {
+		max-width: 100%;
+		height: auto;
+		cursor: pointer;
+	}
+}
+
+.ew-preview-popup {
+	display: none;
+
+	.media-frame-content {
+		top: 50px;
+		bottom: 0;
+		padding: 16px;
+
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			margin-bottom: 16px;
+		}
+	}
+}

@@ -60,6 +60,8 @@ class Assets {
 			wp_localize_script( 'ew-admin-script', 'ew', [
 				'currentScreen'       => $current_screen->id,
 				'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
+				'autosaveNonce'       => wp_create_nonce( 'watermark_autosave' ),
+				'previewImageNonce'   => wp_create_nonce( 'preview_image' ),
 			] );
 		}
 

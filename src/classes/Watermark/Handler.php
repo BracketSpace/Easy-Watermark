@@ -33,7 +33,6 @@ class Handler {
 	 * @var AttachmentProcessor
 	 */
 	private $processor;
-
 	/**
 	 * Backupper instance
 	 *
@@ -108,7 +107,7 @@ class Handler {
 	 */
 	public function get_watermark_types() {
 
-  	global $post;
+		global $post;
 
 		$types = [
 			'text'  => [
@@ -126,12 +125,12 @@ class Handler {
 		$watermarks = $this->get_watermarks();
 
 		foreach ( $watermarks as $watermark ) {
-			if ( $watermark->ID === $post->ID ) {
+			if ( $post && $watermark->ID === $post->ID ) {
 				continue;
 			}
 
 			if ( array_key_exists( $watermark->type, $types ) ) {
-				$types[$watermark->type]['available'] = false;
+				$types[ $watermark->type ]['available'] = false;
 			}
 		}
 
@@ -264,7 +263,6 @@ class Handler {
 
 		$error_messages = $error->get_error_messages();
 		$has_error      = ! empty( $error_messages );
-
 		if ( false === $this->settings->backup || true === $has_error ) {
 			$this->clean_backup( $attachment_id );
 		}
@@ -376,6 +374,43 @@ class Handler {
 		delete_post_meta( $attachment_id, '_ew_has_backup' );
 
 		return true;
+
+	}
+
+	/**
+	 * Prints text preview
+	 *
+	 * @param  Watermark $watermark Watermark object.
+	 * @param  string    $format       Preview format (jpg|png).
+	 * @return void
+	 */
+	public function print_text_preview( $watermark, $format ) {
+
+		$result = $this->processor->print_text_preview( $watermark, $format );
+
+		if ( ! is_wp_error( $result ) ) {
+			exit;
+		}
+
+	}
+
+	/**
+	 * Prints text preview
+	 *
+	 * @param  Watermark $watermark Watermark object.
+	 * @param  string    $format    Preview format (jpg|png).
+	 * @param  string    $file      Preview file.
+	 * @return void
+	 */
+	public function print_preview( $watermark, $format, $file ) {
+
+		$this->processor->set_file( $file );
+
+		$result = $this->processor->print_preview( $watermark, $format );
+
+		if ( ! is_wp_error( $result ) ) {
+			exit;
+		}
 
 	}
 

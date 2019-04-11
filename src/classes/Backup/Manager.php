@@ -22,7 +22,6 @@ class Manager extends AbstractManager {
 	 * @var string
 	 */
 	protected $interface = 'EasyWatermark\Backup\BackupperInterface';
-
 	/**
 	 * Constructor
 	 */
@@ -31,8 +30,8 @@ class Manager extends AbstractManager {
 		$backuppers = [
 			'local' => [
 				'label' => __( 'Local Backup', 'easy-watermark' ),
-				'class' => 'EasyWatermark\\Backup\\LocalBackupper'
-			]
+				'class' => 'EasyWatermark\\Backup\\LocalBackupper',
+			],
 		];
 
 		$this->default_classes = apply_filters( 'easy_watermark/available_backuppers', $backuppers );
@@ -43,10 +42,9 @@ class Manager extends AbstractManager {
 			/* translators: %1$s: child class name, %2$s: parent class name. */
 			'invalid_class_interface' => __( 'Backupper "%1$s" must implement %2$s interface.' ),
 			/* translators: %s: object type. */
-			'invalid_type'            => __( 'Backupper of type "%s" cannot be created.' )
+			'invalid_type'            => __( 'Backupper of type "%s" cannot be created.' ),
 		];
 
 		parent::__construct();
-
 	}
 }

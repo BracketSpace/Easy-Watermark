@@ -3,6 +3,7 @@ import $ from 'jquery'
 export default class {
 	constructor() {
 		this.metabox = $( '#watermark-content' )
+		this.form    = $( 'form#post' )
 
 		this.imageContent = this.metabox.find( '.image-content' )
 		this.textContent  = this.metabox.find( '.text-content' )
@@ -10,17 +11,21 @@ export default class {
 		this.buttonWrap = this.metabox.find( '.select-image-button' )
 		this.button     = this.buttonWrap.find( 'a' )
 
-		this.imageWrap         = this.metabox.find( '.watermark-image' )
-		this.image             = this.imageWrap.find( 'img' )
-		this.mimeTypeField     = this.metabox.find( 'input.watermark-mime-type' )
-		this.urlField          = this.metabox.find( 'input.watermark-url' )
-		this.attachmentIdField = this.metabox.find( 'input.watermark-id' )
-		this.opacityField      = this.metabox.find( 'input#opacity' )
-		this.opacityFieldDesc  = this.metabox.find( '.opacity-desc' )
+		this.imageWrap          = this.metabox.find( '.watermark-image' )
+		this.image              = this.imageWrap.find( 'img' )
+		this.mimeTypeField      = this.metabox.find( 'input.watermark-mime-type' )
+		this.urlField           = this.metabox.find( 'input.watermark-url' )
+		this.attachmentIdField  = this.metabox.find( 'input.watermark-id' )
+		this.opacityField       = this.metabox.find( 'input#opacity' )
+		this.opacityFieldDesc   = this.metabox.find( '.opacity-desc' )
+		this.watermarkTextField = this.metabox.find( 'input.watermark-text' )
 
-		this.openMediaLibrary = this.openMediaLibrary.bind( this )
-		this.selectImage      = this.selectImage.bind( this )
+		this.openMediaLibrary    = this.openMediaLibrary.bind( this )
+		this.selectImage         = this.selectImage.bind( this )
+		this.update              = this.update.bind( this )
+		this.watermarkTextChange = this.watermarkTextChange.bind( this )
 
+		this.form.on( 'ew.update', this.update )
 		this.button.on( 'click', this.openMediaLibrary )
 		this.image.on( 'click', this.openMediaLibrary )
 
@@ -30,6 +35,10 @@ export default class {
 		} else {
 			this.buttonWrap.show();
 		}
+
+		this.textChangeTimeout = null
+
+		this.watermarkTextField.on( 'input', this.watermarkTextChange )
 	}
 
 	enable( type ) {
@@ -43,6 +52,37 @@ export default class {
 			this.textContent.show()
 			this.imageContent.hide()
 			this.opacityField.prop( 'disabled', true )
+			this.prepareTextPreview()
+		}
+	}
+
+	watermarkTextChange() {
+		clearTimeout( this.textChangeTimeout )
+
+		this.textChangeTimeout = setTimeout( () => {
+			this.form.trigger( 'ew.save' )
+		}, 500 )
+	}
+
+	prepareTextPreview() {
+		if ( ! this.previewWrap ) {
+			this.previewWrap = this.metabox.find( '.text-preview' )
+			this.preview     = $( document.createElement( 'img' ) )
+
+			this.previewWrap.hide().append( this.preview )
+		}
+
+		this.refreshPreview();
+	}
+
+	refreshPreview() {
+		if ( this.watermarkTextField.val().length ) {
+			let src = this.previewWrap.data( 'src' ) + '?t=' + Date.now()
+
+			this.preview.attr( 'src', src )
+			this.previewWrap.show()
+		} else {
+			this.previewWrap.hide()
 		}
 	}
 
@@ -88,6 +128,8 @@ export default class {
 		this.imageWrap.show()
 		this.buttonWrap.hide();
 
+		this.form.trigger( 'ew.save' )
+
 	}
 
 	switchOpacityField( imgType ) {
@@ -97,6 +139,12 @@ export default class {
 		} else {
 			this.opacityField.parent().show();
 			this.opacityFieldDesc.hide();
+		}
+	}
+
+	update() {
+		if ( 'text' === this.form.find( 'input.watermark-type:checked' ).val() ){
+			this.refreshPreview()
 		}
 	}
 }

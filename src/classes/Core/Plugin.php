@@ -12,6 +12,7 @@ use EasyWatermark\Metaboxes;
 use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
+use EasyWatermark\Watermark\Preview;
 use EasyWatermark\Watermark\Watermark;
 use EasyWatermark\Backup\Manager as BackupManager;
 use underDEV\Utils\Singleton;
@@ -75,7 +76,7 @@ class Plugin extends Singleton {
 		ew_fs();
 
 		// Signal that SDK was initiated.
-		do_action('ew_fs_loaded');
+		do_action( 'ew_fs_loaded' );
 
 		BackupManager::get();
 
@@ -120,6 +121,7 @@ class Plugin extends Singleton {
 		new Metaboxes\Watermark\Alignment();
 		new Metaboxes\Watermark\Scaling();
 		new Metaboxes\Watermark\ApplyingRules();
+		new Metaboxes\Watermark\Preview();
 
 		if ( current_user_can( 'apply_watermark' ) ) {
 			new Metaboxes\Attachment\Watermarks();
@@ -134,7 +136,38 @@ class Plugin extends Singleton {
 	 *
 	 * @return  void
 	 */
-	public function init() {}
+	public function init() {
+
+		add_rewrite_tag( '%easy_watermark_preview%', '([^./-]+)' );
+		add_rewrite_tag( '%format%', '(jpg|png)' );
+		add_rewrite_tag( '%watermark_id%', '([0-9]+)' );
+		add_rewrite_tag( '%image_size%', '([^./-]+)' );
+
+	}
+
+	/**
+	 * Initiates plugin
+	 *
+	 * @action  parse_request
+	 *
+	 * @param   WP $wp WP object.
+	 * @return  void
+	 */
+	public function parse_request( $wp ) {
+
+		if ( ! array_key_exists( 'easy_watermark_preview', $wp->query_vars ) ) {
+			return;
+		}
+
+		$preview      = new Preview( $this->get_watermark_handler() );
+		$type         = $wp->query_vars['easy_watermark_preview'];
+		$watermark_id = $wp->query_vars['watermark_id'];
+		$format       = $wp->query_vars['format'];
+		$size         = isset( $wp->query_vars['image_size'] ) ? $wp->query_vars['image_size'] : 'full';
+
+		$preview->print( $type, $watermark_id, $format, $size );
+
+	}
 
 	/**
 	 * Returns plugin name

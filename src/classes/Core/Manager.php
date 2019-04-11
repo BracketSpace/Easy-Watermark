@@ -70,7 +70,7 @@ abstract class Manager extends Singleton {
 			/* translators: %1$s: child class name, %2$s: parent class name. */
 			'invalid_class_interface' => __( 'Class "%1$s" must implement %2$s interface.' ),
 			/* translators: %s: object type. */
-			'invalid_type'            => __( 'Object of type "%s" cannot be created.' )
+			'invalid_type'            => __( 'Object of type "%s" cannot be created.' ),
 		], $this->error_messages );
 
 		foreach ( $this->default_classes as $key => $config ) {
@@ -93,7 +93,7 @@ abstract class Manager extends Singleton {
 			return new WP_Error( 'invalid_class', sprintf( $this->error_messages['invalid_class'], $class ) );
 		}
 
-		if ( $this->parent_class !== false ) {
+		if ( false !== $this->parent_class ) {
 			$valid = $this->validate_parent( $class );
 
 			if ( is_wp_error( $valid ) ) {
@@ -101,7 +101,7 @@ abstract class Manager extends Singleton {
 			}
 		}
 
-		if ( $this->interface !== false ) {
+		if ( false !== $this->interface ) {
 			$valid = $this->validate_interface( $class );
 
 			if ( is_wp_error( $valid ) ) {

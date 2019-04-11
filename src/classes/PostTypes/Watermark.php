@@ -83,6 +83,23 @@ class Watermark {
 	}
 
 	/**
+	 * Removes temporary params on watermark edit screen
+	 *
+	 * @action current_screen
+	 *
+	 * @return void
+	 */
+	public function current_screen() {
+		if ( 'watermark' === get_current_screen()->id ) {
+			// phpcs:ignore
+			if ( isset( $_REQUEST['post'] ) && isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] ) {
+				// phpcs:ignore
+				delete_post_meta( intval( $_REQUEST['post'] ), '_ew_tmp_params' );
+			}
+		}
+	}
+
+	/**
 	 * Sets watermark update messages
 	 *
 	 * @filter post_updated_messages
@@ -217,9 +234,9 @@ class Watermark {
 			}
 
 			$watermark_types = Plugin::get()->get_watermark_handler()->get_watermark_types();
-			$watermark = WatermarkObject::get( $post );
+			$watermark       = WatermarkObject::get( $post );
 
-			if ( array_key_exists( $watermark->type, $watermark_types ) && false === $watermark_types[$watermark->type]['available'] ) {
+			if ( array_key_exists( $watermark->type, $watermark_types ) && false === $watermark_types[ $watermark->type ]['available'] ) {
 				unset( $actions['untrash'] );
 			}
 		}
@@ -360,6 +377,8 @@ class Watermark {
 			$watermark_data = WatermarkObject::parse_params( $postarr['watermark'] );
 
 			$data['post_content'] = wp_json_encode( $watermark_data );
+
+			delete_post_meta( $postarr['ID'], '_ew_tmp_params' );
 		}
 
 		return $data;

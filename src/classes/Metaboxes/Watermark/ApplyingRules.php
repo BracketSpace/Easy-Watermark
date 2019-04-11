@@ -29,19 +29,19 @@ class ApplyingRules extends WatermarkMetabox {
 	}
 
 	/**
-	 * Renders metabox content
+	 * Prepares params for metabox view
 	 *
-	 * @param  object $post  current post.
-	 * @return void
+	 * @param  array  $params Params.
+	 * @param  object $post Current post.
+	 * @return array
 	 */
-	public function content( $post ) {
+	public function prepare_params( $params, $post ) {
 		$watermark = Watermark::get( $post );
 
-		// phpcs:ignore
-		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, array_merge( [
+		return array_merge( $params, $watermark->get_params(), [
 			'available_image_sizes' => Image::get_available_sizes(),
 			'available_mime_types'  => Image::get_available_mime_types(),
 			'available_post_types'  => get_post_types( [ 'public' => true ], 'objects' ),
-		], $watermark->get_params() ) );
+		] );
 	}
 }

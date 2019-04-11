@@ -37,7 +37,8 @@
 		</div>
 	</div>
 	<div class="text-content">
-		<input name="watermark[text]" type="text" value="<?php echo esc_attr( $text ); ?>" placeholder="<?php esc_attr_e( 'Watermark text', 'easy-watermark' ); ?>" />
+		<input class="watermark-text" name="watermark[text]" type="text" value="<?php echo esc_attr( $text ); ?>" placeholder="<?php esc_attr_e( 'Watermark text', 'easy-watermark' ); ?>" />
 		<p class="description"><?php esc_html_e( 'You can use placeholders listed in "Placeholders" metabox.', 'easy-watermark' ); ?></p>
+		<div class="text-preview" data-src="<?php echo esc_attr( site_url( sprintf( 'easy-watermark-preview/text-%s.png', $post->ID ) ) ); ?>"></div>
 	</div>
 </div>

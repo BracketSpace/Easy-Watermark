@@ -3,12 +3,31 @@ import $ from 'jquery'
 export default class {
 	constructor() {
 		this.metabox    = $( '#text-options' )
+		this.form       = $( 'form#post' )
 		this.colorInput = this.metabox.find( '#text-color' )
 		this.fields     = this.metabox.find( 'input, select' )
 
+		this.colorChangeTimeout = null
+
+		this.colorChanged = this.colorChanged.bind( this )
+
 		this.colorInput.wpColorPicker( {
 			palettes: true,
+			change: this.colorChanged
 		} )
+	}
+
+	colorChanged( e, ui ) {
+		console.log( {
+			e: e,
+			ui: ui
+		} )
+
+		clearTimeout( this.colorChangeTimeout )
+
+		this.colorChangeTimeout = setTimeout( () => {
+			this.form.trigger( 'ew.save' )
+		}, 500 )
 	}
 
 	enable( type ) {

@@ -7,7 +7,6 @@
 
 namespace EasyWatermark\Metaboxes;
 
-use EasyWatermark\Core\View;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Watermark;
 
@@ -48,18 +47,16 @@ abstract class WatermarkMetabox extends Metabox {
 	}
 
 	/**
-	 * Renders metabox content
+	 * Prepares params for metabox view
 	 *
+	 * @param  array  $params Params.
 	 * @param  object $post Current post.
-	 * @return void
+	 * @return array
 	 */
-	public function content( $post ) {
+	public function prepare_params( $params, $post ) {
 		$watermark = Watermark::get( $post );
 
-		// phpcs:ignore
-		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, array_merge( [
-			'post' => $post,
-		], $watermark->get_params() ) );
+		return array_merge( $params, $watermark->get_params() );
 	}
 
 	/**

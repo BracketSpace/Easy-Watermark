@@ -152,13 +152,20 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	 * Prints image directly to the browser
 	 *
 	 * @param  Watermark|null $watermark Watermark to apply for the preview.
+	 * @param  string         $format    Output format.
 	 * @return void
 	 */
-	public function print_preview( $watermark = null ) {
+	public function print_preview( $watermark = null, $format = 'jpg' ) {
 
 		if ( $watermark instanceof Watermark ) {
 			$this->add_watermark( $watermark );
 		}
+
+		if ( 'jpg' === $format ) {
+			$format = 'jpeg';
+		}
+
+		$this->image_type = $format;
 
 		$this->process( false );
 
@@ -168,9 +175,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	 * Prints image with text preview
 	 *
 	 * @param  Watermark $watermark Text watermark for preview.
+	 * @param  string    $format    Output format.
 	 * @return WP_Error|void
 	 */
-	public function print_text_preview( $watermark ) {
+	public function print_text_preview( $watermark, $format = 'png' ) {
 
 		if ( ! $watermark instanceof Watermark ) {
 			return new WP_Error( 'invalid_watermark_type', __( 'Watermark should be instance of Easywatermark\Watermark\Watermark.', 'easy-watermark' ) );
@@ -178,6 +186,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 
 		if ( 'text' !== $watermark->type ) {
 			return new WP_Error( 'invalid_watermark_type', __( 'Text preview can be only generated for text watermark.', 'easy-watermark' ) );
+		}
+
+		if ( ! $watermark->text ) {
+			return new WP_Error( 'empty_watermark_text', __( 'Watermark text not specified.', 'easy-watermark' ) );
 		}
 
 		$font = Text::get_font_path( $watermark->font );
@@ -225,7 +237,11 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 			],
 		];
 
-		$this->image_type = 'png';
+		if ( 'jpg' === $format ) {
+			$format = 'jpeg';
+		}
+
+		$this->image_type = $format;
 
 		$this->apply_text_watermark( $watermark );
 
