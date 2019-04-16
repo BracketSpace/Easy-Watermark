@@ -125,6 +125,7 @@ class Plugin extends Singleton {
 		new Metaboxes\Watermark\Scaling();
 		new Metaboxes\Watermark\ApplyingRules();
 		new Metaboxes\Watermark\Preview();
+		new Metaboxes\Watermark\Placeholders();
 
 		if ( current_user_can( 'apply_watermark' ) ) {
 			new Metaboxes\Attachment\Watermarks();

@@ -74,6 +74,15 @@ class Resolver extends Singleton {
 	}
 
 	/**
+	 * Returns array of registered placeholders
+	 *
+	 * @return array
+	 */
+	public function get_placeholders() {
+		return $this->placeholders;
+	}
+
+	/**
 	 * Resolves placeholders for given value
 	 *
 	 * @param  string $value Value to resolve.

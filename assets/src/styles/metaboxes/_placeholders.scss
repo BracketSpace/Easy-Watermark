@@ -1,0 +1,97 @@
+#placeholders {
+	li {
+		margin-bottom: 20px;
+
+		> label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 5px;
+			width: calc(100% - 30px);
+		}
+	}
+
+	code {
+		cursor: pointer;
+		width: calc(100% - 30px);
+	}
+
+	.help {
+		float: right;
+		position: relative;
+		top: 10px;
+
+		&:hover {
+			.description {
+				display: block;
+				opacity: 1;
+			}
+		}
+
+		.question-mark {
+			color: #fff;
+			background-color: #888;
+			border-radius: 50%;
+			display: block;
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			cursor: pointer;
+		}
+
+		.description {
+			position: absolute;
+			right: 0;
+			top: 32px;
+			background-color: #fff;
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+			border: 1px solid #eee;
+			min-width: 200px;
+			z-index: 1;
+			font-size: 12px;
+			display: none;
+			opacity: 0;
+			transition: opacity 0.2s;
+
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 100%;
+				right: 0;
+				height: 0;
+				width: 0;
+				border-style: solid;
+				border-color: rgba(229,229,229,0);
+				pointer-events: none;
+				z-index: 18;
+			}
+
+			&::before {
+				margin-left: -11px;
+				border-width: 11px;
+				border-bottom-color: #eee;
+			}
+
+			&::after {
+				margin-left: -9px;
+				border-width: 9px;
+				border-bottom-color: #fff;
+				margin-right: 2px;
+			}
+
+			label {
+				font-weight: bold;
+				display: block;
+			}
+
+			span, i {
+				display: block;
+			}
+
+			&-content {
+				padding: 10px;
+			}
+		}
+	}
+}

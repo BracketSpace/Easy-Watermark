@@ -81,10 +81,8 @@ class Handler {
 		}
 
 		$this->backupper = BackupManager::get()->get_object( $backupper );
-
 		$this->processor = ProcessorManager::get()->get_object( 'gd' );
-
-		$this->resolver = new Resolver();
+		$this->resolver  = Resolver::get();
 
 	}
 

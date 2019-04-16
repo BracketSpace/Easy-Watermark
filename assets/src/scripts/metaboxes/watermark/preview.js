@@ -10,6 +10,7 @@ export default class {
 		this.link               = this.metabox.find( '.select-preview-image' )
 		this.previewWrap        = this.metabox.find( '.preview-wrap' )
 		this.contentWrap        = this.metabox.find( '.content-wrap' )
+		this.imageSelector      = this.metabox.find( '.image-selector' )
 		this.popup              = this.metabox.find( '.ew-preview-popup' )
 		this.spinner            = this.metabox.find( 'span.spinner' )
 		this.image              = $( document.createElement( 'img' ) )
@@ -31,8 +32,8 @@ export default class {
 
 		this.popup.find( '.media-modal-close, .media-modal-backdrop' ).on( 'click', this.closePopup )
 
+		this.imageSelector.hide();
 		this.contentWrap.hide()
-		this.spinner.css( 'display', 'block' )
 		this.previewWrap.prepend( this.image )
 
 		this.refreshPreview()
@@ -109,7 +110,12 @@ export default class {
 	}
 
 	refreshPreview() {
-		if ( this.hasPreview() ) {
+		this.contentWrap.hide()
+
+		if ( this.hasImage ) {
+			this.imageSelector.hide()
+			this.spinner.css( 'display', 'block' )
+
 			let time = Date.now(),
 					src  = this.previewWrap.data( 'src' ) + '?t=' + time
 
@@ -130,9 +136,10 @@ export default class {
 			this.image.one( 'load', () => {
 				this.spinner.hide()
 				this.contentWrap.fadeIn( 200 )
+				this.imageSelector.fadeIn( 200 )
 			} ).attr( 'src', src )
 		} else {
-			this.contentWrap.hide()
+			this.imageSelector.show()
 		}
 	}
 
@@ -147,10 +154,6 @@ export default class {
 	}
 
 	hasPreview() {
-		if ( ! this.hasImage ) {
-			return false
-		}
-
 		let type = this.form.find( 'input.watermark-type:checked' ).val()
 
 		if ( 'text' === type && this.watermarkTextField.val().length ) {

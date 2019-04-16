@@ -6,6 +6,7 @@ import ApplyingRules from '../metaboxes/watermark/applying-rules.js'
 import Scaling from '../metaboxes/watermark/scaling.js'
 import TextOptions from '../metaboxes/watermark/text-options.js'
 import Preview from '../metaboxes/watermark/preview.js'
+import Placeholders from '../metaboxes/watermark/placeholders.js'
 
 export default class {
 	constructor() {
@@ -22,6 +23,7 @@ export default class {
 			new Scaling(),
 			new TextOptions(),
 			new Preview(),
+			new Placeholders(),
 		]
 
 		const selected = this.selector.filter('[checked]')
