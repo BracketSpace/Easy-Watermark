@@ -15,6 +15,7 @@ use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\Preview;
 use EasyWatermark\Watermark\Watermark;
 use EasyWatermark\Backup\Manager as BackupManager;
+use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
 use underDEV\Utils\Singleton;
 
 /**
@@ -90,6 +91,8 @@ class Plugin extends Singleton {
 	 * @return  void
 	 */
 	public function setup() {
+
+		new DefaultPlaceholders();
 
 		$this->get_watermark_handler();
 

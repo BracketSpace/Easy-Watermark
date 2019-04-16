@@ -49,8 +49,6 @@ class Preview extends WatermarkMetabox {
 	public function prepare_params( $params, $post ) {
 		$watermark = Watermark::get( $post );
 
-		delete_option( '_ew_preview_image_id' );
-
 		$preview_image_id = get_option( '_ew_preview_image_id' );
 
 		$params['select_label'] = __( 'Select preview image', 'easy-watermark' );

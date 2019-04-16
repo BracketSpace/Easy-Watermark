@@ -13,6 +13,7 @@ use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Settings;
 use EasyWatermark\AttachmentProcessor;
 use EasyWatermark\Metaboxes\Attachment\Watermarks;
+use EasyWatermark\Placeholders\Resolver;
 use WP_Error;
 
 /**
@@ -33,12 +34,20 @@ class Handler {
 	 * @var AttachmentProcessor
 	 */
 	private $processor;
+
 	/**
 	 * Backupper instance
 	 *
 	 * @var Backupper
 	 */
 	private $backupper;
+
+	/**
+	 * Placeholders Resolver instance
+	 *
+	 * @var Resolver
+	 */
+	private $resolver;
 
 	/**
 	 * Settings instance
@@ -74,6 +83,8 @@ class Handler {
 		$this->backupper = BackupManager::get()->get_object( $backupper );
 
 		$this->processor = ProcessorManager::get()->get_object( 'gd' );
+
+		$this->resolver = new Resolver();
 
 	}
 
@@ -200,6 +211,9 @@ class Handler {
 		$attachment = get_post( $attachment_id );
 		$error      = new WP_Error();
 
+		$this->resolver->reset();
+		$this->resolver->set_attachment( $attachment );
+
 		$applied_watermarks = get_post_meta( $attachment_id, '_ew_applied_watermarks', true );
 
 		if ( ! is_array( $applied_watermarks ) ) {
@@ -237,6 +251,11 @@ class Handler {
 			foreach ( $watermarks as $watermark ) {
 				if ( in_array( $size, $watermark->image_sizes, true ) ) {
 					$apply = true;
+
+					if ( 'text' === $watermark->type ) {
+							$watermark->text = $this->resolver->resolve( $watermark->text );
+					}
+
 					$this->processor->add_watermark( $watermark );
 					$applied_watermarks[] = $watermark->ID;
 				}
@@ -386,6 +405,12 @@ class Handler {
 	 */
 	public function print_text_preview( $watermark, $format ) {
 
+		if ( 'text' !== $watermark->type ) {
+			return;
+		}
+
+		$watermark->text = $this->resolver->resolve( $watermark->text );
+
 		$result = $this->processor->print_text_preview( $watermark, $format );
 
 		if ( ! is_wp_error( $result ) ) {
@@ -395,16 +420,51 @@ class Handler {
 	}
 
 	/**
-	 * Prints text preview
+	 * Prints watermark preview
 	 *
 	 * @param  Watermark $watermark Watermark object.
 	 * @param  string    $format    Preview format (jpg|png).
-	 * @param  string    $file      Preview file.
+	 * @param  string    $size      Preview image size.
 	 * @return void
 	 */
-	public function print_preview( $watermark, $format, $file ) {
+	public function print_preview( $watermark, $format, $size ) {
 
-		$this->processor->set_file( $file );
+		$attachment_id = get_option( '_ew_preview_image_id' );
+
+		if ( ! $attachment_id ) {
+			return;
+		}
+
+		if ( ! in_array( $size, $watermark->image_sizes, true ) ) {
+			$watermark = null;
+		}
+
+		$attachment = get_post( $attachment_id );
+
+		if ( 'text' === $watermark->type ) {
+			$this->resolver->set_attachment( $attachment );
+			$watermark->text = $this->resolver->resolve( $watermark->text );
+		}
+
+		$meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+
+		$filepath = get_attached_file( $attachment_id );
+		$sizes    = $meta['sizes'];
+		$baename  = wp_basename( $meta['file'] );
+
+		$sizes['full'] = [
+			'file'      => $meta['file'],
+			'mime-type' => $attachment->post_mime_type,
+		];
+
+		if ( ! array_key_exists( $size, $sizes ) ) {
+			return false;
+		}
+
+		$image      = $sizes[ $size ];
+		$image_file = str_replace( $baename, wp_basename( $image['file'] ), $filepath );
+
+		$this->processor->set_file( $image_file );
 
 		$result = $this->processor->print_preview( $watermark, $format );
 

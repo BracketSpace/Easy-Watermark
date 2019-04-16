@@ -9,7 +9,9 @@ export default class {
 		this.attachmentIdField  = this.form.find( 'input.watermark-id' )
 		this.link               = this.metabox.find( '.select-preview-image' )
 		this.previewWrap        = this.metabox.find( '.preview-wrap' )
+		this.contentWrap        = this.metabox.find( '.content-wrap' )
 		this.popup              = this.metabox.find( '.ew-preview-popup' )
+		this.spinner            = this.metabox.find( 'span.spinner' )
 		this.image              = $( document.createElement( 'img' ) )
 
 		this.popup.appendTo( this.body )
@@ -29,7 +31,9 @@ export default class {
 
 		this.popup.find( '.media-modal-close, .media-modal-backdrop' ).on( 'click', this.closePopup )
 
-		this.previewWrap.hide().prepend( this.image )
+		this.contentWrap.hide()
+		this.spinner.css( 'display', 'block' )
+		this.previewWrap.prepend( this.image )
 
 		this.refreshPreview()
 	}
@@ -71,6 +75,9 @@ export default class {
 		let attachment  = this.frame.state().get( 'selection' ).first(),
 				watermarkId = this.form.find( 'input[name=post_ID]' ).val()
 
+		this.contentWrap.hide()
+		this.spinner.css( 'display', 'block' )
+
 		$.ajax( {
 				type: "post",
 				url : ajaxurl,
@@ -94,15 +101,11 @@ export default class {
 			if ( response.data.popup ) {
 				let popup = $( response.data.popup )
 
-				console.log( popup.find( '.media-frame-content' ) )
-
 				this.popup.find( '.media-frame-content' ).replaceWith( popup.find( '.media-frame-content' ) )
 			}
 
 			this.refreshPreview()
 		}
-
-		console.log( response )
 	}
 
 	refreshPreview() {
@@ -124,10 +127,12 @@ export default class {
 				img.attr( 'src', src )
 			} )
 
-			this.image.attr( 'src', src )
-			this.previewWrap.show()
+			this.image.one( 'load', () => {
+				this.spinner.hide()
+				this.contentWrap.fadeIn( 200 )
+			} ).attr( 'src', src )
 		} else {
-			this.previewWrap.hide()
+			this.contentWrap.hide()
 		}
 	}
 

@@ -85,37 +85,7 @@ class Preview {
 			return false;
 		}
 
-		$attachment_id = get_option( '_ew_preview_image_id' );
-
-		if ( ! $attachment_id ) {
-			return false;
-		}
-
-		$attachment = get_post( $attachment_id );
-
-		$meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
-
-		$filepath = get_attached_file( $attachment_id );
-		$sizes    = $meta['sizes'];
-		$baename  = wp_basename( $meta['file'] );
-
-		$sizes['full'] = [
-			'file'      => $meta['file'],
-			'mime-type' => $attachment->post_mime_type,
-		];
-
-		if ( ! array_key_exists( $size, $sizes ) ) {
-			return false;
-		}
-
-		$image      = $sizes[ $size ];
-		$image_file = str_replace( $baename, wp_basename( $image['file'] ), $filepath );
-
-		if ( ! in_array( $size, $watermark->image_sizes, true ) ) {
-			$watermark = null;
-		}
-
-		$this->handler->print_preview( $watermark, $format, $image_file );
+		$this->handler->print_preview( $watermark, $format, $size );
 	}
 
 }

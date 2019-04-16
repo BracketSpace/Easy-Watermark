@@ -4,6 +4,13 @@
 		height: auto;
 		cursor: pointer;
 	}
+
+	.spinner {
+		float: none;
+		visibility: visible;
+		display: none;
+		margin: 10px 0 0;
+	}
 }
 
 .ew-preview-popup {
