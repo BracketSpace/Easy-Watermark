@@ -34,7 +34,10 @@ class Assets {
 
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_register_style( 'ew-admin-style', $this->asset_url( 'styles', 'easy-watermark.css' ), [], $this->asset_version( 'styles', 'easy-watermark.css' ) );
-		wp_register_script( 'ew-admin-script', $this->asset_url( 'scripts', 'easy-watermark.js' ), [ 'jquery', 'wp-color-picker' ], $this->asset_version( 'scripts', 'easy-watermark.js' ), true );
+		wp_register_script( 'ew-attachment-edit', $this->asset_url( 'scripts', 'attachment-edit.js' ), [ 'jquery' ], $this->asset_version( 'scripts', 'attachment-edit.js' ), true );
+		wp_register_script( 'ew-settings', $this->asset_url( 'scripts', 'settings.js' ), [ 'jquery' ], $this->asset_version( 'scripts', 'settings.js' ), true );
+		wp_register_script( 'ew-upload', $this->asset_url( 'scripts', 'upload.js' ), [ 'jquery' ], $this->asset_version( 'scripts', 'upload.js' ), true );
+		wp_register_script( 'ew-watermark-edit', $this->asset_url( 'scripts', 'watermark-edit.js' ), [ 'jquery', 'wp-color-picker' ], $this->asset_version( 'scripts', 'watermark-edit.js' ), true );
 
 	}
 
@@ -53,16 +56,43 @@ class Assets {
 			wp_enqueue_media();
 		}
 
-		if ( in_array( $current_screen->id, [ 'watermark', 'attachment', 'settings_page_ew-settings' ], true ) ) {
-			wp_enqueue_style( 'ew-admin-style' );
-			wp_enqueue_script( 'ew-admin-script' );
+		$enqueue  = false;
+		$localize = false;
 
-			wp_localize_script( 'ew-admin-script', 'ew', [
-				'currentScreen'       => $current_screen->id,
-				'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
-				'autosaveNonce'       => wp_create_nonce( 'watermark_autosave' ),
-				'previewImageNonce'   => wp_create_nonce( 'preview_image' ),
-			] );
+		switch ( $current_screen->id ) {
+			case 'attachment':
+				$enqueue  = 'ew-attachment-edit';
+				$localize = [
+					'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' )
+				];
+				break;
+			case 'settings_page_ew-settings':
+				$enqueue = 'ew-settings';
+				break;
+			case 'upload':
+				$enqueue  = 'ew-upload';
+				$localize = [
+					'i18n' => [
+						'watermarkButtonLabel' => __( 'Watermark Selected', 'easy-watermark' )
+					]
+				];
+				break;
+			case 'watermark':
+				$enqueue  = 'ew-watermark-edit';
+				$localize = [
+					'autosaveNonce'     => wp_create_nonce( 'watermark_autosave' ),
+					'previewImageNonce' => wp_create_nonce( 'preview_image' ),
+				];
+				break;
+		}
+
+		if ( $enqueue ) {
+				wp_enqueue_style( 'ew-admin-style' );
+				wp_enqueue_script( $enqueue );
+
+				if ( $localize ) {
+					wp_localize_script( $enqueue, 'ew', $localize );
+				}
 		}
 
 	}

@@ -1,15 +1,19 @@
 import $ from 'jquery'
 
-export default class {
+class Settings {
 	constructor() {
-		this.form = $( 'form#easy-watermark-settings-form' )
-
-		if ( this.form.length ) {
+		$( document ).ready( () => {
 			this.init()
-		}
+		} )
 	}
 
 	init() {
+		this.form = $( 'form#easy-watermark-settings-form' )
+
+		if ( ! this.form.length ) {
+			return
+		}
+
 		this.toggleBackupSettingsVisibility = this.toggleBackupSettingsVisibility.bind( this )
 
 		this.backupCheckbox = this.form.find( '#ew-backup' )
@@ -32,3 +36,5 @@ export default class {
 		}
 	}
 }
+
+new Settings()

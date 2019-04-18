@@ -1,15 +1,21 @@
 import $ from 'jquery'
 
-import ContentMetabox from '../metaboxes/watermark/content.js'
-import AlignmentMetabox from '../metaboxes/watermark/alignment.js'
-import ApplyingRules from '../metaboxes/watermark/applying-rules.js'
-import Scaling from '../metaboxes/watermark/scaling.js'
-import TextOptions from '../metaboxes/watermark/text-options.js'
-import Preview from '../metaboxes/watermark/preview.js'
-import Placeholders from '../metaboxes/watermark/placeholders.js'
+import ContentMetabox from './metaboxes/watermark/content.js'
+import AlignmentMetabox from './metaboxes/watermark/alignment.js'
+import ApplyingRules from './metaboxes/watermark/applying-rules.js'
+import Scaling from './metaboxes/watermark/scaling.js'
+import TextOptions from './metaboxes/watermark/text-options.js'
+import Preview from './metaboxes/watermark/preview.js'
+import Placeholders from './metaboxes/watermark/placeholders.js'
 
-export default class {
+class WatermarkEdit {
 	constructor() {
+		$( document ).ready( () => {
+			this.init()
+		} )
+	}
+
+	init() {
 		this.selectWatermarkType = this.selectWatermarkType.bind( this )
 		this.triggerSave         = this.triggerSave.bind( this )
 
@@ -72,3 +78,5 @@ export default class {
 		} )
 	}
 }
+
+new WatermarkEdit()

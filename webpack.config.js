@@ -1,13 +1,21 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const RemovePlugin = require('remove-files-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, argv) => {
 	return {
-	  entry: "./assets/src/main.js",
+		entry: {
+			'main': './assets/src/styles/main.scss',
+			'attachment-edit': './assets/src/scripts/attachment-edit.js',
+			'settings': './assets/src/scripts/settings.js',
+			'upload': './assets/src/scripts/upload.js',
+			'watermark-edit': './assets/src/scripts/watermark-edit.js',
+		},
 	  output: {
 			path: path.resolve(__dirname, "assets/dist"),
-	    filename: "./scripts/easy-watermark.js",
+	    filename: "./scripts/[name].js",
 			publicPath: '../'
 	  },
 		performance: {
@@ -64,6 +72,17 @@ module.exports = (env, argv) => {
 		},
 		plugins: [
 			new ExtractTextPlugin('styles/easy-watermark.css'),
+			new CopyPlugin([
+	      { from: 'assets/src/fonts', to: 'fonts' },
+	    ]),
+			new RemovePlugin({
+				before: {
+					include: ['assets/dist']
+				},
+				after: {
+					include: ['assets/dist/scripts/main.js']
+				}
+			})
 		],
 		externals: {
 			jquery: 'jQuery'
