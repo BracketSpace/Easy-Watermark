@@ -18,7 +18,7 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 
 		events() {
 			return {
-				change: 'select',
+				change: 'selectWatermark',
 			};
 		}
 
@@ -26,7 +26,7 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 			return 'select';
 		}
 
-		select() {
+		selectWatermark() {
 			this.controller.trigger( 'watermark:selected', this.$el.val() );
 			this.controller.state().set( 'watermark', this.$el.val() );
 		}
@@ -42,11 +42,12 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 		render() {
 			super.render();
 
-			this.$el.append( $( '<option></option>' ).html( ew.i18n.selectWatermarkLabel ).val( '' ) )
-				.append( $( '<option></option>' ).html( ew.i18n.allWatermarksLabel ).val( 'all' ) );
+			this.$el
+				.append( $( '<option>', { value: '' } ).html( ew.i18n.selectWatermarkLabel ) )
+				.append( $( '<option>', { value: 'all' } ).html( ew.i18n.allWatermarksLabel ) );
 
 			for ( const id in ew.watermarks ) { // eslint-disable-line no-unused-vars
-				this.$el.append( $( '<option></option>' ).html( ew.watermarks[ id ] ).val( id ) );
+				this.$el.append( $( '<option>', { value: id } ).html( ew.watermarks[ id ] ) );
 			}
 
 			if ( this.controller.isModeActive( 'select' ) ) {

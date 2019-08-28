@@ -11,7 +11,7 @@ module.exports = ( env, argv ) => {
 			settings: './assets/src/scripts/settings.js',
 			uploader: './assets/src/scripts/uploader.js',
 			'attachment-edit': './assets/src/scripts/attachment-edit.js',
-			'upload-page': './assets/src/scripts/upload-page.js',
+			'media-library': './assets/src/scripts/media-library.js',
 			'watermark-edit': './assets/src/scripts/watermark-edit.js',
 		},
 		output: {
@@ -102,6 +102,7 @@ module.exports = ( env, argv ) => {
 		],
 		externals: {
 			jquery: 'jQuery',
+			backbone: 'Backbone',
 		},
 	};
 };

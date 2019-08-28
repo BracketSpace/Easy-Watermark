@@ -2,6 +2,7 @@
  * External dependencies
  */
 import $ from 'jquery';
+import { Collection, Model } from 'backbone';
 
 /**
  * Internal dependencies
@@ -12,7 +13,7 @@ import {
 	filterSelection,
 } from '../utils/functions.js';
 
-/* global wp, ew, Backbone, ajaxurl */
+/* global wp, ew, ajaxurl */
 
 if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typeof wp.media.view.MediaFrame.Manage ) {
 	wp.media.view.MediaFrame.Manage = class extends wp.media.view.MediaFrame.Manage {
@@ -26,8 +27,8 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 
 		browseContent( contentRegion ) {
 			this.state().set( {
-				ewCollection: new Backbone.Collection,
-				ewStatus: new Backbone.Model,
+				ewCollection: new Collection,
+				ewStatus: new Model,
 			} );
 
 			super.browseContent( contentRegion );

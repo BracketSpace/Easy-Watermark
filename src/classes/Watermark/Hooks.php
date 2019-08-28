@@ -187,6 +187,21 @@ class Hooks {
 	}
 
 	/**
+	 * Adds bulk actions
+	 *
+	 * @filter bulk_actions-upload
+	 *
+	 * @param array $bulk_actions Bulk actions.
+	 * @return array
+	 */
+	public function bulk_actions( $bulk_actions ) {
+		$bulk_actions['watermark'] = __( 'Watermark' );
+		$bulk_actions['restore']   = __( 'Restore original images' );
+
+		return $bulk_actions;
+	}
+
+	/**
 	 * Destructor
 	 */
 	public function __destruct() {

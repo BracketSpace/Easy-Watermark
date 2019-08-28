@@ -5,7 +5,7 @@ import WatermarkButton from './buttons/watermark.js';
 import RestoreButton from './buttons/restore.js';
 import WatermarkModeToggleButton from './buttons/watermark-mode-toggle.js';
 import WatermarkSelector from './watermark-selector.js';
-import WatermarkingStatus from './watermarking-status.js';
+import Status from './status.js';
 
 /* global wp, ew */
 
@@ -39,7 +39,7 @@ if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
 				priority: -30,
 			} ).render() );
 
-			this.toolbar.set( 'watermarkingStatus', new WatermarkingStatus( {
+			this.toolbar.set( 'watermarkingStatus', new Status( {
 				style: 'primary',
 				controller: this.controller,
 				priority: -20,

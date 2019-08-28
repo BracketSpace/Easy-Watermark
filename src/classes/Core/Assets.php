@@ -61,7 +61,7 @@ class Assets {
 			'attachment-edit' => [ 'jquery' ],
 			'settings'        => [ 'jquery' ],
 			'uploader'        => [ 'jquery' ],
-			'upload-page'     => [ 'backbone' ],
+			'media-library'   => [ 'jquery', 'backbone' ],
 			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
 		];
 
@@ -107,7 +107,7 @@ class Assets {
 				break;
 			case 'upload':
 				$this->wp_enqueue_media();
-				$enqueue  = 'upload-page';
+				$enqueue  = 'media-library';
 				$localize = [
 					'watermarks'         => $this->get_watermarks(),
 					'mime'               => ImageHelper::get_available_mime_types(),

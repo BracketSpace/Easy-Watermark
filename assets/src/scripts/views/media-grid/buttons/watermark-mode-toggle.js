@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { filterSelection } from '../../utils/functions';
+import { filterSelection } from '../../../utils/functions';
 
 /* global wp */
 

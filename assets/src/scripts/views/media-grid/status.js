@@ -9,13 +9,7 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 		}
 
 		className() {
-			return 'watermarking-status';
-		}
-
-		events() {
-			return {
-				'click .cancel': 'cancel',
-			};
+			return 'ew-status';
 		}
 
 		template( processed, total ) {

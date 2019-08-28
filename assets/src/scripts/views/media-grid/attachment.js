@@ -6,7 +6,7 @@ import $ from 'jquery';
 /**
  * Internal dependencies
  */
-import { filterSelection } from '../utils/functions.js';
+import { filterSelection } from '../../utils/functions.js';
 
 /* global wp, ew */
 

@@ -6,7 +6,7 @@ import $ from 'jquery';
 /**
  * Internal dependencies
  */
-import '../styles/media-library.scss';
+import '../styles/uploader.scss';
 
 /* global wp, ew */
 
