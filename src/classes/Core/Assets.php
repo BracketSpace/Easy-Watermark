@@ -7,7 +7,9 @@
 
 namespace EasyWatermark\Core;
 
+use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Traits\Hookable;
+use EasyWatermark\Watermark\Handler;
 
 /**
  * Assets class
@@ -17,10 +19,29 @@ class Assets {
 	use Hookable;
 
 	/**
-	 * Constructor
+	 * Flag whether assets has been registered already
+	 *
+	 * @var boolean
 	 */
-	public function __construct() {
+	private $registered = false;
+
+	/**
+	 * Watermark handler instance
+	 *
+	 * @var Handler
+	 */
+	private $handler;
+
+	/**
+	 * Constructor
+	 *
+	 * @param Plugin $plugin Plugin instance.
+	 */
+	public function __construct( $plugin ) {
+
 		$this->hook();
+		$this->handler = $plugin->get_watermark_handler();
+
 	}
 
 	/**
@@ -32,12 +53,32 @@ class Assets {
 	 */
 	public function register_admin_scripts() {
 
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_register_style( 'ew-admin-style', $this->asset_url( 'styles', 'easy-watermark.css' ), [], $this->asset_version( 'styles', 'easy-watermark.css' ) );
-		wp_register_script( 'ew-attachment-edit', $this->asset_url( 'scripts', 'attachment-edit.js' ), [ 'jquery' ], $this->asset_version( 'scripts', 'attachment-edit.js' ), true );
-		wp_register_script( 'ew-settings', $this->asset_url( 'scripts', 'settings.js' ), [ 'jquery' ], $this->asset_version( 'scripts', 'settings.js' ), true );
-		wp_register_script( 'ew-upload', $this->asset_url( 'scripts', 'upload.js' ), [ 'jquery' ], $this->asset_version( 'scripts', 'upload.js' ), true );
-		wp_register_script( 'ew-watermark-edit', $this->asset_url( 'scripts', 'watermark-edit.js' ), [ 'jquery', 'wp-color-picker' ], $this->asset_version( 'scripts', 'watermark-edit.js' ), true );
+		if ( true === $this->registered ) {
+			return;
+		}
+
+		$assets = [
+			'attachment-edit' => [ 'jquery' ],
+			'settings'        => [ 'jquery' ],
+			'uploader'        => [ 'jquery' ],
+			'upload-page'     => [ 'backbone' ],
+			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
+		];
+
+		foreach ( $assets as $filename => $deps ) {
+			$script_version = $this->asset_version( 'scripts', $filename . '.js' );
+			$style_version  = $this->asset_version( 'styles', $filename . '.css' );
+
+			if ( false !== $script_version ) {
+				wp_register_script( 'ew-' . $filename, $this->asset_url( 'scripts', $filename . '.js' ), $deps, $script_version, true );
+			}
+
+			if ( false !== $style_version ) {
+				wp_register_style( 'ew-' . $filename, $this->asset_url( 'styles', $filename . '.css' ), [], $style_version );
+			}
+		}
+
+		$this->registered = true;
 
 	}
 
@@ -51,34 +92,53 @@ class Assets {
 	public function enqueue_admin_scripts() {
 
 		$current_screen = get_current_screen();
-
-		if ( 'watermark' === $current_screen->id ) {
-			wp_enqueue_media();
-		}
-
-		$enqueue  = false;
-		$localize = false;
+		$enqueue        = false;
+		$localize       = [];
 
 		switch ( $current_screen->id ) {
 			case 'attachment':
-				$enqueue  = 'ew-attachment-edit';
+				$enqueue  = 'attachment-edit';
 				$localize = [
-					'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' )
+					'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
 				];
 				break;
-			case 'settings_page_ew-settings':
-				$enqueue = 'ew-settings';
+			case 'settings_page_easy-watermark':
+				$enqueue = 'settings';
 				break;
 			case 'upload':
-				$enqueue  = 'ew-upload';
+				$this->wp_enqueue_media();
+				$enqueue  = 'upload-page';
 				$localize = [
-					'i18n' => [
-						'watermarkButtonLabel' => __( 'Watermark Selected', 'easy-watermark' )
-					]
+					'watermarks'         => $this->get_watermarks(),
+					'mime'               => ImageHelper::get_available_mime_types(),
+					'applyAllNonce'      => wp_create_nonce( 'apply_all' ),
+					'applySingleNonces'  => $this->get_watermark_nonces(),
+					'restoreBackupNonce' => wp_create_nonce( 'restore_backup' ),
+					'i18n'               => [
+						'watermarkModeToggleButtonLabel' => __( 'Watermark Selected', 'easy-watermark' ),
+						'watermarkButtonLabel'           => __( 'Watermark', 'easy-watermark' ),
+						'restoreButtonLabel'             => __( 'Restore original images', 'easy-watermark' ),
+						'cancelLabel'                    => __( 'Cancel', 'easy-watermark' ),
+						'selectWatermarkLabel'           => __( 'Select Watermark', 'easy-watermark' ),
+						'allWatermarksLabel'             => __( 'All Watermarks', 'easy-watermark' ),
+						'genericErrorMessage'            => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
+						/* translators: watermarked images number */
+						'watermarkingStatus'             => sprintf( __( 'Watermarked %s images', 'easy-watermark' ), '{counter}' ),
+						/* translators: watermarked images number */
+						'restoringStatus'                => sprintf( __( 'Restored %s images', 'easy-watermark' ), '{counter}' ),
+						/* translators: watermarked images number */
+						'watermarkingSuccessMessage'     => sprintf( __( 'Successfully watermarked %s images.', 'easy-watermark' ), '{procesed}' ),
+						/* translators: watermarked images number */
+						'restoringSuccessMessage'        => sprintf( __( 'Successfully restored %s images.', 'easy-watermark' ), '{procesed}' ),
+						/* translators: %1&s - image title, %2&s - error content */
+						'bulkActionErrorMessage'         => sprintf( __( 'An error occured while processing %1$s: %2$s', 'easy-watermark' ), '{imageTitle}', '{error}' ),
+					],
 				];
 				break;
 			case 'watermark':
-				$enqueue  = 'ew-watermark-edit';
+				wp_enqueue_style( 'wp-color-picker' );
+				wp_enqueue_media();
+				$enqueue  = 'watermark-edit';
 				$localize = [
 					'autosaveNonce'     => wp_create_nonce( 'watermark_autosave' ),
 					'previewImageNonce' => wp_create_nonce( 'preview_image' ),
@@ -87,12 +147,44 @@ class Assets {
 		}
 
 		if ( $enqueue ) {
-				wp_enqueue_style( 'ew-admin-style' );
-				wp_enqueue_script( $enqueue );
+			$this->enqueue_asset( $enqueue, $localize );
+		}
 
-				if ( $localize ) {
-					wp_localize_script( $enqueue, 'ew', $localize );
-				}
+	}
+
+	/**
+	 * Loads scripts/styles altering WordPress media library
+	 *
+	 * @action wp_enqueue_media
+	 *
+	 * @return void
+	 */
+	public function wp_enqueue_media() {
+
+		// In block editor wp_enqueue_media runs before admin_enqueue_scripts, so the scripts are not registered by now.
+		$this->register_admin_scripts();
+		$this->enqueue_asset( 'uploader', [
+			'autoWatermark' => true,
+		] );
+
+	}
+
+	/**
+	 * Enqueues script/style and localizes if necessary
+	 *
+	 * @param  string $asset_name Asset name.
+	 * @param  array  $localize   Localize data.
+	 * @return void
+	 */
+	private function enqueue_asset( $asset_name, $localize = [] ) {
+
+		$asset_name = 'ew-' . $asset_name;
+
+		wp_enqueue_style( $asset_name );
+		wp_enqueue_script( $asset_name );
+
+		if ( $localize ) {
+			wp_localize_script( $asset_name, 'ew', $localize );
 		}
 
 	}
@@ -113,7 +205,7 @@ class Assets {
 	 *
 	 * @param  string $type Asset type.
 	 * @param  string $file Filename.
-	 * @return string|void
+	 * @return string|false
 	 */
 	private function asset_version( $type, $file ) {
 
@@ -122,6 +214,44 @@ class Assets {
 		if ( is_file( $path ) ) {
 			return filemtime( $path );
 		}
+
+		return false;
+
+	}
+
+	/**
+	 * Returns watermarks list
+	 *
+	 * @return array
+	 */
+	private function get_watermarks() {
+
+		$watermarks      = $this->handler->get_watermarks();
+		$watermarks_list = [];
+
+		foreach ( $watermarks as $watermark ) {
+			$watermarks_list[ $watermark->ID ] = $watermark->post_title;
+		}
+
+		return $watermarks_list;
+
+	}
+
+	/**
+	 * Returns watermarks list
+	 *
+	 * @return array
+	 */
+	private function get_watermark_nonces() {
+
+		$watermarks = $this->handler->get_watermarks();
+		$nonces     = [];
+
+		foreach ( $watermarks as $watermark ) {
+			$nonces[ $watermark->ID ] = wp_create_nonce( 'apply_single-' . $watermark->ID );
+		}
+
+		return $nonces;
 
 	}
 

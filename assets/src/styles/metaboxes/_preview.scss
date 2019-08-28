@@ -1,18 +1,3 @@
-#preview {
-	img {
-		max-width: 100%;
-		height: auto;
-		cursor: pointer;
-	}
-
-	.spinner {
-		float: none;
-		visibility: visible;
-		display: none;
-		margin: 10px 0 0;
-	}
-}
-
 .ew-preview-popup {
 	display: none;
 
@@ -27,5 +12,21 @@
 			height: auto;
 			margin-bottom: 16px;
 		}
+	}
+}
+
+#preview {
+
+	img {
+		max-width: 100%;
+		height: auto;
+		cursor: pointer;
+	}
+
+	.spinner {
+		float: none;
+		visibility: visible;
+		display: none;
+		margin: 10px 0 0;
 	}
 }

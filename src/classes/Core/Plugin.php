@@ -8,14 +8,15 @@
 namespace EasyWatermark\Core;
 
 use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
+use EasyWatermark\Backup\Manager as BackupManager;
+use EasyWatermark\Features\AutoWatermarkSwitch;
 use EasyWatermark\Metaboxes;
-use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
+use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\Preview;
 use EasyWatermark\Watermark\Watermark;
-use EasyWatermark\Backup\Manager as BackupManager;
-use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
+use EasyWatermark\Watermark\PostType as WatermarkPostType;
 use underDEV\Utils\Singleton;
 
 /**
@@ -97,7 +98,8 @@ class Plugin extends Singleton {
 		$this->get_watermark_handler();
 
 		new WatermarkPostType();
-		new Assets();
+		new Assets( $this );
+		new AutoWatermarkSwitch();
 
 		$settings = Settings::get();
 

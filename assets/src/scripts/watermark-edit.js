@@ -1,26 +1,30 @@
-import $ from 'jquery'
+/**
+ * External dependencies
+ */
+import $ from 'jquery';
 
-import ContentMetabox from './metaboxes/watermark/content.js'
-import AlignmentMetabox from './metaboxes/watermark/alignment.js'
-import ApplyingRules from './metaboxes/watermark/applying-rules.js'
-import Scaling from './metaboxes/watermark/scaling.js'
-import TextOptions from './metaboxes/watermark/text-options.js'
-import Preview from './metaboxes/watermark/preview.js'
-import Placeholders from './metaboxes/watermark/placeholders.js'
+/**
+ * Internal dependencies
+ */
+import '../styles/watermark-edit.scss';
+
+/* global ew, ajaxurl */
+
+import ContentMetabox from './metaboxes/watermark/content.js';
+import AlignmentMetabox from './metaboxes/watermark/alignment.js';
+import ApplyingRules from './metaboxes/watermark/applying-rules.js';
+import Scaling from './metaboxes/watermark/scaling.js';
+import TextOptions from './metaboxes/watermark/text-options.js';
+import Preview from './metaboxes/watermark/preview.js';
+import Placeholders from './metaboxes/watermark/placeholders.js';
 
 class WatermarkEdit {
 	constructor() {
-		$( document ).ready( () => {
-			this.init()
-		} )
-	}
+		this.selectWatermarkType = this.selectWatermarkType.bind( this );
+		this.triggerSave = this.triggerSave.bind( this );
 
-	init() {
-		this.selectWatermarkType = this.selectWatermarkType.bind( this )
-		this.triggerSave         = this.triggerSave.bind( this )
-
-		this.form     = $( 'form#post' )
-		this.selector = this.form.find( 'input.watermark-type' )
+		this.form = $( 'form#post' );
+		this.selector = this.form.find( 'input.watermark-type' );
 
 		this.metaboxes = [
 			new ContentMetabox(),
@@ -30,53 +34,53 @@ class WatermarkEdit {
 			new TextOptions(),
 			new Preview(),
 			new Placeholders(),
-		]
+		];
 
-		const selected = this.selector.filter('[checked]')
+		const selected = this.selector.filter( '[checked]' );
 
 		if ( selected.length ) {
-			this.selectWatermarkType( selected[0].value )
+			this.selectWatermarkType( selected[ 0 ].value );
 		}
 
 		this.selector.on( 'change', ( e ) => {
-			this.selectWatermarkType( e.target.value )
-		} )
+			this.selectWatermarkType( e.target.value );
+		} );
 
-		this.form.on( 'change', 'input, select', this.triggerSave )
-						 .on( 'ew.save', this.triggerSave )
+		this.form
+			.on( 'change', 'input, select', this.triggerSave )
+			.on( 'ew.save', this.triggerSave );
 	}
 
 	selectWatermarkType( type ) {
-		for ( let metabox of this.metaboxes ) {
-			metabox.enable( type )
+		for ( const metabox of this.metaboxes ) { // eslint-disable-line no-unused-vars
+			metabox.enable( type );
 		}
 	}
 
 	triggerSave() {
-
-		let params = {
+		const params = {
 			action: 'easy-watermark/autosave',
-			nonce : ew.autosaveNonce
-		}
+			nonce: ew.autosaveNonce,
+		};
 
-		let data = this.form.find('[name^=watermark], [name=post_ID]').serialize()
+		let data = this.form.find( '[name^=watermark], [name=post_ID]' ).serialize();
 
-		for ( let key in params ) {
-			data += '&' + encodeURIComponent( key ) + '=' + encodeURIComponent( params[key] )
+		for ( const key in params ) { // eslint-disable-line no-unused-vars
+			data += '&' + encodeURIComponent( key ) + '=' + encodeURIComponent( params[ key ] );
 		}
 
 		$.ajax( {
-				type: "post",
-				url : ajaxurl,
-				data: data,
+			type: 'post',
+			url: ajaxurl,
+			data,
 		} ).done( ( response ) => {
 			if ( true === response.success ) {
-				this.form.trigger( 'ew.update' )
+				this.form.trigger( 'ew.update' );
 			}
 		} ).fail( () => {
-			console.log( 'fail' )
-		} )
+			// TODO: handle errors.
+		} );
 	}
 }
 
-new WatermarkEdit()
+$( document ).ready( () => new WatermarkEdit );

@@ -62,11 +62,9 @@ class Ajax {
 			] );
 		}
 
-		$attachment_id = intval( $_REQUEST['attachment_id'] );
-
-		$result  = $this->watermark_handler->apply_single_watermark( $attachment_id, $watermark_id );
-		$version = get_post_meta( $attachment_id, '_ew_attachment_version', true );
-
+		$attachment_id   = intval( $_REQUEST['attachment_id'] );
+		$result          = $this->watermark_handler->apply_single_watermark( $attachment_id, $watermark_id );
+		$version         = get_post_meta( $attachment_id, '_ew_attachment_version', true );
 		$success_message = __( 'Watermark has been applied.', 'easy-watermark' );
 
 		$this->send_response( $result, $version, $attachment_id, $success_message );
@@ -98,12 +96,9 @@ class Ajax {
 			] );
 		}
 
-		$attachment_id = intval( $_REQUEST['attachment_id'] );
-
-		$result = $this->watermark_handler->apply_all_watermarks( $attachment_id );
-
-		$version = get_post_meta( $attachment_id, '_ew_attachment_version', true );
-
+		$attachment_id   = intval( $_REQUEST['attachment_id'] );
+		$result          = $this->watermark_handler->apply_all_watermarks( $attachment_id );
+		$version         = get_post_meta( $attachment_id, '_ew_attachment_version', true );
 		$success_message = __( 'All watermarks has been applied.', 'easy-watermark' );
 
 		$this->send_response( $result, $version, $attachment_id, $success_message );
@@ -135,14 +130,10 @@ class Ajax {
 			] );
 		}
 
-		$attachment_id = intval( $_REQUEST['attachment_id'] );
-
-		$meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
-
-		$result = $this->watermark_handler->restore_backup( $attachment_id, $meta );
-
-		$version = get_post_meta( $attachment_id, '_ew_attachment_version', true );
-
+		$attachment_id   = intval( $_REQUEST['attachment_id'] );
+		$meta            = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+		$result          = $this->watermark_handler->restore_backup( $attachment_id, $meta );
+		$version         = get_post_meta( $attachment_id, '_ew_attachment_version', true );
 		$success_message = __( 'Original image has been restored.', 'easy-watermark' );
 
 		$this->send_response( $result, $version, $attachment_id, $success_message );
@@ -196,6 +187,7 @@ class Ajax {
 			'metaboxContent'    => (string) Watermarks::get_content( get_post( $attachment_id ) ),
 			'result'            => $result,
 			'attachmentVersion' => $version,
+			'hasBackup'         => get_post_meta( $attachment_id, '_ew_has_backup', true ),
 		];
 
 		if ( is_wp_error( $result ) ) {

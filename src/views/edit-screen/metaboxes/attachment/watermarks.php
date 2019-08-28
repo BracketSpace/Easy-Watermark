@@ -31,7 +31,7 @@
 			<?php if ( empty( $applied_watermarks ) ) : ?>
 				<button data-action="apply_all" data-nonce="<?php echo esc_attr( wp_create_nonce( 'apply_all' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Apply all watermarks', 'easy-watermark' ); ?></button>
 			<?php else : ?>
-				<button data-action="apply_all" data-nonce="<?php echo esc_attr( wp_create_nonce( 'apply_all' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Apply not applied watermarks', 'easy-watermark' ); ?></button>
+				<button data-action="apply_all" data-nonce="<?php echo esc_attr( wp_create_nonce( 'apply_all' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Apply remaining watermarks', 'easy-watermark' ); ?></button>
 			<?php endif; ?>
 			<span class="spinner"></span>
 		</div>

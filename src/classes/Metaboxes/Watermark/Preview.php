@@ -51,6 +51,16 @@ class Preview extends WatermarkMetabox {
 
 		$preview_image_id = get_option( '_ew_preview_image_id' );
 
+		if ( $preview_image_id ) {
+			$attachment = get_post( $preview_image_id );
+
+			if ( null === $attachment ) {
+				// Invalid attachment ID.
+				$preview_image_id = false;
+				delete_option( '_ew_preview_image_id' );
+			}
+		}
+
 		$params['select_label'] = __( 'Select preview image', 'easy-watermark' );
 		$params['change_label'] = __( 'Change preview image', 'easy-watermark' );
 		$params['link_label']   = $preview_image_id ? $params['change_label'] : $params['select_label'];

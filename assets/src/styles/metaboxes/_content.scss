@@ -1,4 +1,5 @@
 #watermark-content {
+
 	.image-content,
 	.text-content,
 	.select-image-button,
@@ -7,6 +8,7 @@
 	}
 
 	.watermark-image {
+
 		img {
 			cursor: pointer;
 			width: auto;
@@ -17,12 +19,14 @@
 	}
 
 	.text-content {
+
 		input {
 			width: 100%;
 		}
 	}
 
 	.text-preview {
+
 		img {
 			max-width: 100%;
 			height: auto;

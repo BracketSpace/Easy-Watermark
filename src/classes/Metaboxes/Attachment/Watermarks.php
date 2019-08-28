@@ -74,6 +74,14 @@ class Watermarks extends AttachmentMetabox {
 			}
 		}
 
+		$used_as_watermark = get_post_meta( $post->ID, '_ew_used_as_watermark', true );
+
+		if ( $used_as_watermark ) {
+			return new View( 'edit-screen/metaboxes/attachment/used-as-watermark', [
+				'used_as_watermark' => $used_as_watermark,
+			] );
+		}
+
 		// phpcs:ignore
 		return new View( 'edit-screen/metaboxes/attachment/watermarks', [
 			'post'               => $post,

@@ -206,6 +206,12 @@ class Handler {
 			return true;
 		}
 
+		$used_as_watermark = get_post_meta( $attachment_id, '_ew_used_as_watermark', true );
+
+		if ( $used_as_watermark ) {
+			return true;
+		}
+
 		$attachment = get_post( $attachment_id );
 		$error      = new WP_Error();
 
@@ -337,6 +343,12 @@ class Handler {
 	public function restore_backup( $attachment_id, $old_meta ) {
 
 		if ( ! $this->backupper instanceof BackupperInterface ) {
+			return;
+		}
+
+		$has_backup = get_post_meta( $attachment_id, '_ew_has_backup', true );
+
+		if ( '1' !== $has_backup ) {
 			return;
 		}
 
