@@ -10,6 +10,7 @@ namespace EasyWatermark\Core;
 use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
 use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Features\AutoWatermarkSwitch;
+use EasyWatermark\Features\SrcsetFilter;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
 use EasyWatermark\Traits\Hookable;
@@ -100,6 +101,7 @@ class Plugin extends Singleton {
 		new WatermarkPostType();
 		new Assets( $this );
 		new AutoWatermarkSwitch();
+		new SrcsetFilter( $this );
 
 		$settings = Settings::get();
 

@@ -25,9 +25,10 @@ class Settings extends Singleton {
 	 * @var array
 	 */
 	private $defaults = [
-		'jpeg_quality' => 75,
-		'backup'       => true,
-		'backupper'    => 'local',
+		'jpeg_quality'  => 75,
+		'backup'        => true,
+		'filter_srcset' => true,
+		'backupper'     => 'local',
 	];
 
 	/**
@@ -52,8 +53,7 @@ class Settings extends Singleton {
 		$this->hook();
 
 		$this->option_key = Plugin::get()->get_slug() . '-settings';
-
-		$this->settings = wp_parse_args( get_option( $this->option_key ), $this->defaults );
+		$this->settings   = wp_parse_args( get_option( $this->option_key ), $this->defaults );
 
 	}
 
@@ -85,11 +85,8 @@ class Settings extends Singleton {
 
 		$settings = $this->get_settings();
 
-		$status = new View( 'settings/status' );
-
 		$general = new View( 'settings/general', $settings );
-
-		$backup = new View( 'settings/backup', [
+		$backup  = new View( 'settings/backup', [
 			'backup'             => $settings['backup'],
 			'selected_backupper' => $settings['backupper'],
 			'backuppers'         => BackupManager::get()->get_available_objects(),
@@ -99,11 +96,10 @@ class Settings extends Singleton {
 			'roles' => $this->get_roles(),
 		] );
 
-		// phpcs:disable
+		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo new View( 'settings-page', [
-			'status'      => $status,
 			'general'     => $general,
-			'backup'     => $backup,
+			'backup'      => $backup,
 			'permissions' => $permissions,
 		] );
 		// phpcs:enable
@@ -148,6 +144,8 @@ class Settings extends Singleton {
 		} else {
 			$settings['backup'] = false;
 		}
+
+		$settings['filter_srcset'] = ( isset( $settings['filter_srcset'] ) && '1' === $settings['filter_srcset'] );
 
 		if ( isset( $settings['backupper'] ) ) {
 			$settings['backupper'] = sanitize_text_field( $settings['backupper'] );

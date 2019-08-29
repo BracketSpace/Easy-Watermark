@@ -85,28 +85,6 @@ class Hooks {
 	}
 
 	/**
-	 * Adds attachment version to the 'srcset' urls
-	 *
-	 * @filter wp_calculate_image_srcset
-	 *
-	 * @param  array   $sources       One or more arrays of source data to include in the 'srcset'.
-	 * @param  array   $size_array    Array of width and height values in pixels (in that order).
-	 * @param  string  $image_src     The 'src' of the image.
-	 * @param  array   $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
-	 * @param  integer $attachment_id Image attachment ID or 0.
-	 * @return array
-	 */
-	public function wp_calculate_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
-
-		foreach ( $sources as &$source ) {
-			$source['url'] = $this->handler->add_attachment_version( $source['url'], $attachment_id );
-		}
-
-		return $sources;
-
-	}
-
-	/**
 	 * Applies watermarks after upload
 	 *
 	 * @filter wp_generate_attachment_metadata

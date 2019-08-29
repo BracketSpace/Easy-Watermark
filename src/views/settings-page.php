@@ -12,7 +12,7 @@
 		<?php settings_fields( 'easy-watermark-settings' ); ?>
 
 		<?php
-		// phpcs:disable
+		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $general;
 		echo $backup;
 		echo $permissions;

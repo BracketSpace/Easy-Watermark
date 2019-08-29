@@ -82,7 +82,7 @@ class Watermark {
 			$post = get_post( $post );
 		}
 
-		if ( ! $post instanceof \WP_Post ) {
+		if ( ! $post instanceof \WP_Post || 'watermark' !== $post->post_type ) {
 			return false;
 		}
 

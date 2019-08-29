@@ -268,15 +268,19 @@ class Handler {
 					}
 
 					$this->processor->add_watermark( $watermark );
-					$applied_watermarks[] = $watermark->ID;
+
+					if ( ! in_array( $watermark->ID, $applied_watermarks, true ) ) {
+						$applied_watermarks[] = $watermark->ID;
+					}
 				}
 			}
 
 			if ( true === $apply ) {
 				$image_file = str_replace( $baename, wp_basename( $image['file'] ), $filepath );
 
-				$this->processor->set_file( $image_file )
-									->set_param( 'image_type', $image['mime-type'] );
+				$this->processor
+					->set_file( $image_file )
+					->set_param( 'image_type', $image['mime-type'] );
 
 				$results = $this->processor->process();
 
