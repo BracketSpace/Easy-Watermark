@@ -171,7 +171,7 @@ class BulkActions extends Model {
 	}
 
 	actionError( error ) {
-		this.set( { error } );
+		this.status().set( { error } );
 		this.actionDone();
 	}
 

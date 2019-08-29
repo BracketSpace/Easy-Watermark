@@ -1,16 +1,14 @@
 .DS_Store
 Thumbs.db
-build
 wp-cli.local.yml
 dist
 docs
 node_modules
 vendor
 
-pnpm-lock.yaml
-
 *.sql
 *.tar.gz
 *.zip
-*.lock
 *.log
+*.lock
+*-lock.*
