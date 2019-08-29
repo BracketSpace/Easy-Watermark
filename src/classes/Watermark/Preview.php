@@ -39,7 +39,7 @@ class Preview {
 	 * @param  string  $size         Image size.
 	 * @return void
 	 */
-	public function print( $type, $watermark_id, $format, $size ) {
+	public function show( $type, $watermark_id, $format, $size ) {
 
 		$watermark = Watermark::get( $watermark_id );
 

@@ -171,7 +171,7 @@ class Plugin extends Singleton {
 		$format       = $wp->query_vars['format'];
 		$size         = isset( $wp->query_vars['image_size'] ) ? $wp->query_vars['image_size'] : 'full';
 
-		$preview->print( $type, $watermark_id, $format, $size );
+		$preview->show( $type, $watermark_id, $format, $size );
 
 	}
 
