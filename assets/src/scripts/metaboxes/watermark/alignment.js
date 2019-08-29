@@ -1,11 +1,14 @@
-import $ from 'jquery'
+/**
+ * External dependencies
+ */
+import $ from 'jquery';
 
 export default class {
 	constructor() {
-		this.metabox = $( '#alignment' )
+		this.metabox = $( '#alignment' );
 	}
 
-	enable( type ) {
-		this.metabox.fadeIn( 200 )
+	enable() {
+		this.metabox.fadeIn( 200 );
 	}
 }

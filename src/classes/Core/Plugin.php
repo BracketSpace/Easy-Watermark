@@ -8,14 +8,15 @@
 namespace EasyWatermark\Core;
 
 use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
+use EasyWatermark\Backup\Manager as BackupManager;
+use EasyWatermark\Features\AutoWatermarkSwitch;
 use EasyWatermark\Metaboxes;
-use EasyWatermark\PostTypes\Watermark as WatermarkPostType;
+use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\Preview;
 use EasyWatermark\Watermark\Watermark;
-use EasyWatermark\Backup\Manager as BackupManager;
-use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
+use EasyWatermark\Watermark\PostType as WatermarkPostType;
 use underDEV\Utils\Singleton;
 
 /**
@@ -97,7 +98,8 @@ class Plugin extends Singleton {
 		$this->get_watermark_handler();
 
 		new WatermarkPostType();
-		new Assets();
+		new Assets( $this );
+		new AutoWatermarkSwitch();
 
 		$settings = Settings::get();
 
@@ -169,7 +171,7 @@ class Plugin extends Singleton {
 		$format       = $wp->query_vars['format'];
 		$size         = isset( $wp->query_vars['image_size'] ) ? $wp->query_vars['image_size'] : 'full';
 
-		$preview->print( $type, $watermark_id, $format, $size );
+		$preview->show( $type, $watermark_id, $format, $size );
 
 	}
 

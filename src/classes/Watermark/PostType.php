@@ -5,17 +5,16 @@
  * @package easy-watermark
  */
 
-namespace EasyWatermark\PostTypes;
+namespace EasyWatermark\Watermark;
 
 use EasyWatermark\Core\Plugin;
 use EasyWatermark\Core\View;
 use EasyWatermark\Traits\Hookable;
-use EasyWatermark\Watermark\Watermark as WatermarkObject;
 
 /**
  * Watermark post type class
  */
-class Watermark {
+class PostType {
 
 	use Hookable;
 
@@ -234,7 +233,7 @@ class Watermark {
 			}
 
 			$watermark_types = Plugin::get()->get_watermark_handler()->get_watermark_types();
-			$watermark       = WatermarkObject::get( $post );
+			$watermark       = Watermark::get( $post );
 
 			if ( array_key_exists( $watermark->type, $watermark_types ) && false === $watermark_types[ $watermark->type ]['available'] ) {
 				unset( $actions['untrash'] );
@@ -287,6 +286,26 @@ class Watermark {
 	}
 
 	/**
+	 * Adds hidden field for attachment id storage
+	 *
+	 * @action edit_form_top
+	 *
+	 * @param  WP_Post $post Post object.
+	 * @return void
+	 */
+	public function edit_form_top( $post ) {
+		if ( 'watermark' === get_current_screen()->id && ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) ) {
+			$watermark = Watermark::get( $post );
+
+			// phpcs:disable
+			echo new View( 'edit-screen/attachment-id-field', [
+				'attachment_id' => $watermark->attachment_id,
+			] );
+			// phpcs:enable
+		}
+	}
+
+	/**
 	 * Adds watermark type selector
 	 *
 	 * @action edit_form_after_title
@@ -296,7 +315,7 @@ class Watermark {
 	 */
 	public function edit_form_after_title( $post ) {
 		if ( 'watermark' === get_current_screen()->id && ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) ) {
-			$watermark         = WatermarkObject::get( $post );
+			$watermark         = Watermark::get( $post );
 			$watermark_handler = Plugin::get()->get_watermark_handler();
 
  			// phpcs:disable
@@ -356,11 +375,13 @@ class Watermark {
 	 * @return bool
 	 */
 	public function pre_untrash_post( $untrash, $post ) {
+
 		if ( 'watermark' === $post->post_type && 2 <= $this->get_watermarks_count() ) {
 			return true;
 		}
 
 		return $untrash;
+
 	}
 
 	/**
@@ -373,15 +394,53 @@ class Watermark {
 	 * @return array
 	 */
 	public function wp_insert_post_data( $data, $postarr ) {
+
 		if ( 'watermark' === $data['post_type'] && isset( $postarr['watermark'] ) ) {
-			$watermark_data = WatermarkObject::parse_params( $postarr['watermark'] );
+			$watermark_data = Watermark::parse_params( $postarr['watermark'] );
 
 			$data['post_content'] = wp_json_encode( $watermark_data );
+
+			if ( isset( $postarr['ew-previous-attachment-id'] ) && is_numeric( $postarr['ew-previous-attachment-id'] ) ) {
+				$this->reset_attachment_meta( $postarr['ew-previous-attachment-id'], $postarr['watermark']['attachment_id'], $postarr['ID'] );
+			}
 
 			delete_post_meta( $postarr['ID'], '_ew_tmp_params' );
 		}
 
 		return $data;
+
+	}
+
+	/**
+	 * Resets attachment meta
+	 *
+	 * @param  integer $old_attachment_id Old attachment ID.
+	 * @param  integer $attachment_id     New attachment ID.
+	 * @param  integer $watermark_id      Watermark ID.
+	 * @return void
+	 */
+	private function reset_attachment_meta( $old_attachment_id, $attachment_id, $watermark_id ) {
+
+		if ( $old_attachment_id === $attachment_id ) {
+			return;
+		}
+
+		$old_meta = get_post_meta( $old_attachment_id, '_ew_used_as_watermark', true );
+		$meta     = get_post_meta( $attachment_id, '_ew_used_as_watermark', true );
+
+		if ( is_array( $old_meta ) && in_array( $watermark_id, $old_meta, true ) ) {
+			$key = array_search( $watermark_id, $old_meta, true );
+			unset( $old_meta[ $key ] );
+			update_post_meta( $old_attachment_id, '_ew_used_as_watermark', $old_meta );
+		}
+
+		if ( ! is_array( $meta ) ) {
+			$meta = [];
+		}
+
+		$meta[] = $watermark_id;
+		update_post_meta( $attachment_id, '_ew_used_as_watermark', $meta );
+
 	}
 
 	/**

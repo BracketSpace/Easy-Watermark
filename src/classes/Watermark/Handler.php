@@ -7,11 +7,12 @@
 
 namespace EasyWatermark\Watermark;
 
+use EasyWatermark\AttachmentProcessor;
 use EasyWatermark\AttachmentProcessor\Manager as ProcessorManager;
 use EasyWatermark\Backup\BackupperInterface;
 use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Settings;
-use EasyWatermark\AttachmentProcessor;
+use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Metaboxes\Attachment\Watermarks;
 use EasyWatermark\Placeholders\Resolver;
 use WP_Error;
@@ -194,20 +195,32 @@ class Handler {
 	 * @param  integer $attachment_id Attachment ID.
 	 * @param  array   $watermarks    Array of Watermark objects.
 	 * @param  array   $meta          Attachment metadata.
-	 * @return true|WP_Error
+	 * @return bool|WP_Error
 	 */
 	public function apply_watermarks( $attachment_id, $watermarks, $meta = [] ) {
 
 		if ( true === $this->lock ) {
-			return true;
+			return false;
 		}
 
 		if ( empty( $watermarks ) ) {
-			return true;
+			return false;
 		}
 
-		$attachment = get_post( $attachment_id );
-		$error      = new WP_Error();
+		$used_as_watermark = get_post_meta( $attachment_id, '_ew_used_as_watermark', true );
+
+		if ( $used_as_watermark ) {
+			return false;
+		}
+
+		$attachment           = get_post( $attachment_id );
+		$available_mime_types = ImageHelper::get_available_mime_types();
+
+		if ( ! array_key_exists( $attachment->post_mime_type, $available_mime_types ) ) {
+			return false;
+		}
+
+		$error = new WP_Error();
 
 		$this->resolver->reset();
 		$this->resolver->set_attachment( $attachment );
@@ -301,24 +314,24 @@ class Handler {
 	 * Performs attachment backup
 	 *
 	 * @param  integer $attachment_id Attachment ID.
-	 * @return true|WP_Error
+	 * @return bool|WP_Error
 	 */
 	public function do_backup( $attachment_id ) {
 
 		if ( ! $this->backupper instanceof BackupperInterface ) {
-			return;
+			return false;
 		}
 
 		$has_backup = get_post_meta( $attachment_id, '_ew_has_backup', true );
 
 		if ( '1' === $has_backup ) {
-			return;
+			return false;
 		}
 
-		$backed_up = $this->backupper->backup( $attachment_id );
+		$result = $this->backupper->backup( $attachment_id );
 
-		if ( is_wp_error( $backed_up ) ) {
-			return $backed_up;
+		if ( is_wp_error( $result ) ) {
+			return $result;
 		}
 
 		update_post_meta( $attachment_id, '_ew_has_backup', true );
@@ -337,6 +350,12 @@ class Handler {
 	public function restore_backup( $attachment_id, $old_meta ) {
 
 		if ( ! $this->backupper instanceof BackupperInterface ) {
+			return;
+		}
+
+		$has_backup = get_post_meta( $attachment_id, '_ew_has_backup', true );
+
+		if ( '1' !== $has_backup ) {
 			return;
 		}
 

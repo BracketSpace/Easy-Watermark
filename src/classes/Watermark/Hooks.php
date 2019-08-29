@@ -117,6 +117,18 @@ class Hooks {
 	 */
 	public function wp_generate_attachment_metadata( $metadata, $attachment_id ) {
 
+		$auto_watermark = true;
+
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['auto_watermark'] ) ) {
+			$auto_watermark = filter_var( wp_unslash( $_REQUEST['auto_watermark'] ), FILTER_VALIDATE_BOOLEAN );
+		}
+		// phpcs:enable
+
+		if ( ! $auto_watermark ) {
+			return $metadata;
+		}
+
 		$all_watermarks = $this->handler->get_watermarks();
 
 		$watermarks = [];
@@ -155,6 +167,38 @@ class Hooks {
 
 		return $metadata;
 
+	}
+
+	/**
+	 * Filters the attachment data prepared for JavaScript.
+	 *
+	 * @filter wp_prepare_attachment_for_js
+	 *
+	 * @param array       $response   Array of prepared attachment data.
+	 * @param WP_Post     $attachment Attachment object.
+	 * @param array|false $meta       Array of attachment meta data, or false if there is none.
+	 */
+	public function wp_prepare_attachment_for_js( $response, $attachment, $meta ) {
+		$response['nonces']['watermark'] = wp_create_nonce( 'watermark' );
+		$response['usedAsWatermark']     = get_post_meta( $attachment->ID, '_ew_used_as_watermark', true ) ? true : false;
+		$response['hasBackup']           = get_post_meta( $attachment->ID, '_ew_has_backup', true ) ? true : false;
+
+		return $response;
+	}
+
+	/**
+	 * Adds bulk actions
+	 *
+	 * @filter bulk_actions-upload
+	 *
+	 * @param array $bulk_actions Bulk actions.
+	 * @return array
+	 */
+	public function bulk_actions( $bulk_actions ) {
+		$bulk_actions['watermark'] = __( 'Watermark' );
+		$bulk_actions['restore']   = __( 'Restore original images' );
+
+		return $bulk_actions;
 	}
 
 	/**

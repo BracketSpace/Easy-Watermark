@@ -1,7 +1,10 @@
 body {
+
 	&.post-type-watermark,
 	&.settings_page_easy-watermark {
+
 		.actions {
+
 			&.bulkactions {
 				padding-right: 0 !important;
 
@@ -24,7 +27,7 @@ body {
 				margin: 0;
 				position: relative;
 
-				&[type=number] {
+				&[type="number"] {
 					width: 70px;
 				}
 
@@ -51,27 +54,8 @@ body {
 				z-index: 1;
 			}
 
-			button {
-				&:hover {
-					background-color: #ddd;
-					border: 1px solid #aaa;
-					cursor: pointer;
-				}
-
-				&[data-toggle=dropdown] {
-					&:after {
-						content: '';
-						width: 0;
-						height: 0;
-						border: 4px solid transparent;
-						border-top: 4px solid #777;
-						margin-bottom: -4px;
-						margin-left: 10px;
-					}
-				}
-			}
-
 			&-prepend {
+
 				.form-field-text,
 				button,
 				.dropdown-menu {
@@ -82,6 +66,7 @@ body {
 			}
 
 			&-append {
+
 				.form-field-text,
 				button,
 				.dropdown-menu {
@@ -91,10 +76,32 @@ body {
 				}
 			}
 
+			button {
+
+				&:hover {
+					background-color: #ddd;
+					border: 1px solid #aaa;
+					cursor: pointer;
+				}
+
+				&[data-toggle="dropdown"] {
+
+					&::after {
+						content: "";
+						width: 0;
+						height: 0;
+						border: 4px solid transparent;
+						border-top: 4px solid #777;
+						margin-bottom: -4px;
+						margin-left: 10px;
+					}
+				}
+			}
+
 			.dropdown-menu {
 				display: none;
 				position: absolute;
-				min-width: calc( 100% - 2px);
+				min-width: calc(100% - 2px);
 				background: #fff;
 				border: 1px solid #aaa;
 				z-index: 99;

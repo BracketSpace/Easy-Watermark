@@ -21,18 +21,21 @@
 				<td>
 					<ul>
 						<li>
-							<label for="watermark-allow-creation-<?php echo esc_attr( $role ); ?>">
-								<input id="watermark-allow-creation-<?php echo esc_attr( $role ); ?>" name="easy-watermark-settings[permissions][<?php echo esc_attr( $role ); ?>][create]" type="checkbox" value="1" <?php checked( $details['can_create'] ); ?> /> <?php esc_html_e( 'Allow to create watermarks', 'easy-watermark' ); ?>
+							<label class="ew-switch">
+								<input id="watermark-allow-creation-<?php echo esc_attr( $role ); ?>" name="easy-watermark-settings[permissions][<?php echo esc_attr( $role ); ?>][create]" type="checkbox" value="1" <?php checked( $details['can_create'] ); ?> />
+								<span class="switch left-aligned"></span> <?php esc_html_e( 'Allow to create watermarks', 'easy-watermark' ); ?>
 							</label>
 						</li>
 						<li>
-							<label for="watermark-allow-edition-<?php echo esc_attr( $role ); ?>">
-								<input id="watermark-allow-edition-<?php echo esc_attr( $role ); ?>" name="easy-watermark-settings[permissions][<?php echo esc_attr( $role ); ?>][edit]" type="checkbox" value="1" <?php checked( $details['can_edit'] ); ?> /> <?php esc_html_e( 'Allow to edit others watermarks', 'easy-watermark' ); ?>
+							<label class="ew-switch">
+								<input id="watermark-allow-edition-<?php echo esc_attr( $role ); ?>" name="easy-watermark-settings[permissions][<?php echo esc_attr( $role ); ?>][edit]" type="checkbox" value="1" <?php checked( $details['can_edit'] ); ?> />
+								<span class="switch left-aligned"></span> <?php esc_html_e( 'Allow to edit others watermarks', 'easy-watermark' ); ?>
 							</label>
 						</li>
 						<li>
-							<label for="watermark-allow-applying-<?php echo esc_attr( $role ); ?>">
-								<input id="watermark-allow-applying-<?php echo esc_attr( $role ); ?>" name="easy-watermark-settings[permissions][<?php echo esc_attr( $role ); ?>][apply]" type="checkbox" value="1" <?php checked( $details['can_apply'] ); ?> /> <?php esc_html_e( 'Allow to apply watermarks', 'easy-watermark' ); ?>
+							<label class="ew-switch">
+								<input id="watermark-allow-applying-<?php echo esc_attr( $role ); ?>" name="easy-watermark-settings[permissions][<?php echo esc_attr( $role ); ?>][apply]" type="checkbox" value="1" <?php checked( $details['can_apply'] ); ?> />
+								<span class="switch left-aligned"></span> <?php esc_html_e( 'Allow to apply watermarks', 'easy-watermark' ); ?>
 							</label>
 						</li>
 					</ul>

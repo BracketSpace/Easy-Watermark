@@ -1,4 +1,5 @@
 #watermarks {
+
 	table {
 		text-align: left;
 		margin-bottom: 10px;
@@ -20,12 +21,13 @@
 		}
 
 		&::after {
-			content: '';
+			content: "";
 			display: block;
 			clear: both;
 		}
 
-		button, .spinner {
+		button,
+		.spinner {
 			float: left;
 		}
 	}

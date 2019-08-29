@@ -7,8 +7,9 @@
 
 ?>
 <h2><?php esc_html_e( 'Backup', 'easy-watermark' ); ?></h2>
-<label for="ew-backup">
-	<input id="ew-backup" name="easy-watermark-settings[backup]" type="checkbox" value="1" <?php checked( $backup ); ?> /> <?php esc_html_e( 'Enable backup', 'easy-watermark' ); ?>
+<label class="ew-switch">
+	<input id="ew-backup" name="easy-watermark-settings[backup]" type="checkbox" value="1" <?php checked( $backup ); ?> />
+	<span class="switch left-aligned"></span> <?php esc_html_e( 'Enable backup', 'easy-watermark' ); ?>
 </label>
 <table class="form-table hidden" id="backup-settings">
 	<tbody>

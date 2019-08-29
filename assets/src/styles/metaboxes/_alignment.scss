@@ -1,10 +1,11 @@
 #alignment {
+
 	.alignment-selector {
 		width: 240px;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		background-image: url('../images/alignment-background.jpg');
+		background-image: url(../images/alignment-background.jpg);
 		background-size: cover;
 
 		label {
@@ -21,8 +22,8 @@
 				margin-bottom: 0;
 			}
 
-			&:after {
-				content: '';
+			&::after {
+				content: "";
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -33,7 +34,8 @@
 			}
 
 			&:hover {
-				&:after {
+
+				&::after {
 					background-color: rgba(#fff, 0.35);
 				}
 			}
@@ -45,8 +47,10 @@
 			opacity: 0;
 
 			&:checked {
+
 				+ label {
-					&:after {
+
+					&::after {
 						background-color: transparent;
 					}
 				}

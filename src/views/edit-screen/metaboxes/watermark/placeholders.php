@@ -7,6 +7,7 @@
 
 ?>
 <div class="placeholders-metabox">
+	<input type="text" name="ew-search-placeholders" placeholder="<?php esc_attr_e( 'Search placeholders', 'easy-watermark' ); ?>" class="widefat ew-search-placeholders" autocomplete="off" id="ew-search-placeholders">
 	<ul class="placeholders-list">
 		<?php foreach ( $placeholders as $placeholder ) : ?>
 			<li>
