@@ -26,7 +26,7 @@ if ( wp.media && 'function' === typeof wp.media.view.SelectModeToggleButton ) {
 			}
 
 			toolbar.$( '.watermark-selector' ).css( 'display', '' );
-			toolbar.$( '.watermarking-status' ).css( 'display', '' );
+			toolbar.$( '.ew-status' ).css( 'display', '' );
 		}
 	};
 }

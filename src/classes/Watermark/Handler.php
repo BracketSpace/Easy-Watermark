@@ -377,12 +377,10 @@ class Handler {
 
 		foreach ( $old_meta['sizes'] as $size => $image ) {
 			$file = str_replace( $filebasename, wp_basename( $image['file'] ), $current_file );
-			unlink( $file );
+			file_exists( $file ) && unlink( $file );
 		}
 
-		$meta = wp_generate_attachment_metadata( $attachment_id, $current_file );
-
-		wp_update_attachment_metadata( $attachment_id, $meta );
+		wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $current_file ) );
 
 		update_post_meta( $attachment_id, '_ew_attachment_version', time() );
 		delete_post_meta( $attachment_id, '_ew_applied_watermarks' );
@@ -407,8 +405,8 @@ class Handler {
 
 		$result = $this->backupper->clean( $attachment_id );
 
-		if ( is_wp_error( $restored ) ) {
-			return $restored;
+		if ( is_wp_error( $result ) ) {
+			return $result;
 		}
 
 		delete_post_meta( $attachment_id, '_ew_has_backup' );
