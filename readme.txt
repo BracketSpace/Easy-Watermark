@@ -3,7 +3,8 @@ Contributors: szaleq, bracketspace
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wojtek%40szalkiewicz%2epl&lc=GB&item_name=Easy%20Watermark%20Wordpress%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: watermark, image, picture, photo, media, gallery, signature, transparent, upload, admin
 Requires at least: 3.8
-Tested up to: 4.9.8
+Requires PHP: 5.6
+Tested up to: 5.2
 Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -16,23 +17,14 @@ Allows to add watermark to images automatically on upload or manually.
 Easy Watermark can automatically add watermark to images as they are uploaded to wordpress media library. You can also watermark existing images manually (all at once or an every single image). Watermark can be an image, text or both.
 
 = Plugin features =
-* image watermark can be a jpg, png or gif
-* full support for transparency and alpha chanel in png and gif files
-* jpg files, gif files and text can have opacity set (from 0 to 100%)
-* text watermark is created using ttf fonts
-* text color, size and rotation can be set
-* all built-in image sizes can be watermarked (thumbnail, medium, large and fullsize) as well as all additional sizes registered by themes or plugins (since 0.4.3)
-* since 0.6 there is a possibility to remove watermark by restoring the original image
-* fully translatable
 
-= Translations included =
-* Polish
-* French (by Regis Brisard)
-* Spanish ([http://abitworld.com/](http://abitworld.com/ "Translator's home page"))
-* Russian
-* Persian
-
-If you have made a translation and want to contribute with it to Easy Watermark, please e-mail me.
+* Image watermark can be a JPG, PNG or GIF
+* Full support for transparency and alpha chanel in PNG and GIF files
+* JPG and GIF files and text can have opacity set (from 0 to 100%)
+* Text watermark is created using ttf fonts
+* Text color, size and rotation can be set
+* All built-in image sizes can be watermarked (thumbnail, medium, large and fullsize) as well as all additional sizes registered by themes or plugins
+* Plugin can create image backups and allows to easily restore images
 
 == Installation ==
 
@@ -91,6 +83,9 @@ All available placeholders are listed in a box titled 'Placeholders' on the text
 5. Easy Watermark metabox on attachment page
 
 == Changelog ==
+
+= 1.0.0 =
+* The plugin has been rewrote from ground up.
 
 = 0.7.0 =
 * Freemius integration
