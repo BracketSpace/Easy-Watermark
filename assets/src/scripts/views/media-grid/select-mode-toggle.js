@@ -5,11 +5,11 @@ if ( wp.media && 'function' === typeof wp.media.view.SelectModeToggleButton ) {
 		initialize() {
 			super.initialize();
 
-			this.controller.on( 'watermarking:activate watermarking:deactivate', this.toggleDisabled, this );
+			this.controller.on( 'processing:activate processing:deactivate', this.toggleDisabled, this );
 		}
 
 		toggleDisabled() {
-			this.model.set( 'disabled', this.controller.isModeActive( 'watermarking' ) );
+			this.model.set( 'disabled', this.controller.isModeActive( 'processing' ) );
 		}
 
 		toggleBulkEditHandler() {

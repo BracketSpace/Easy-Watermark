@@ -121,6 +121,9 @@ class Assets {
 						'cancelLabel'                    => __( 'Cancel', 'easy-watermark' ),
 						'selectWatermarkLabel'           => __( 'Select Watermark', 'easy-watermark' ),
 						'allWatermarksLabel'             => __( 'All Watermarks', 'easy-watermark' ),
+						'notSupported'                   => _x( 'Not supported', 'label for unsupported attachment type (other than image)', 'easy-watermark' ),
+						'usedAsWatermark'                => _x( 'Used as watermark', 'label for image used as watermark', 'easy-watermark' ),
+						'noBackupAvailable'              => _x( 'No backup available', 'label for attachments which has no backup to restore', 'easy-watermark' ),
 						'genericErrorMessage'            => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
 						/* translators: watermarked images number */
 						'watermarkingStatus'             => sprintf( __( 'Watermarked %s images', 'easy-watermark' ), '{counter}' ),

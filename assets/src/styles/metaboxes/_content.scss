@@ -10,11 +10,11 @@
 	.watermark-image {
 
 		img {
+			background-color: #ddd;
 			cursor: pointer;
-			width: auto;
 			height: auto;
 			max-width: 100%;
-			background-color: #ddd;
+			width: auto;
 		}
 	}
 
@@ -28,8 +28,8 @@
 	.text-preview {
 
 		img {
-			max-width: 100%;
 			height: auto;
+			max-width: 100%;
 		}
 	}
 }

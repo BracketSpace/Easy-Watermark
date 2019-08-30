@@ -1,8 +1,8 @@
 #watermarks {
 
 	table {
-		text-align: left;
 		margin-bottom: 10px;
+		text-align: left;
 
 		td {
 			padding: 5px 10px;
@@ -21,9 +21,9 @@
 		}
 
 		&::after {
+			clear: both;
 			content: "";
 			display: block;
-			clear: both;
 		}
 
 		button,

@@ -2,15 +2,15 @@
 	display: none;
 
 	.media-frame-content {
-		top: 50px;
 		bottom: 0;
 		padding: 16px;
+		top: 50px;
 
 		img {
 			display: block;
-			max-width: 100%;
 			height: auto;
 			margin-bottom: 16px;
+			max-width: 100%;
 		}
 	}
 }
@@ -18,15 +18,15 @@
 #preview {
 
 	img {
-		max-width: 100%;
-		height: auto;
 		cursor: pointer;
+		height: auto;
+		max-width: 100%;
 	}
 
 	.spinner {
-		float: none;
-		visibility: visible;
 		display: none;
+		float: none;
 		margin: 10px 0 0;
+		visibility: visible;
 	}
 }
