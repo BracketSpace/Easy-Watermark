@@ -25,8 +25,9 @@ export default class {
 		this.opacityFieldDesc = this.metabox.find( '.opacity-desc' );
 		this.watermarkTextField = this.metabox.find( 'input.watermark-text' );
 
+		this.attachmentId = this.attachmentIdField.val();
+
 		this.openMediaLibrary = this.openMediaLibrary.bind( this );
-		this.selectImage = this.selectImage.bind( this );
 		this.update = this.update.bind( this );
 		this.watermarkTextChange = this.watermarkTextChange.bind( this );
 
@@ -102,7 +103,7 @@ export default class {
 	}
 
 	createMediaFrame() {
-		this.frame = wp.media.frames.customHeader = wp.media( {
+		this.frame = wp.media.frames.watermarkSelection = wp.media( {
 			title: this.button.data( 'choose' ),
 			library: {
 				type: 'image',
@@ -113,23 +114,60 @@ export default class {
 			},
 		} );
 
-		this.frame.on( 'select', this.selectImage );
+		this.frame
+			.on( 'select', this.selectImage, this )
+			.on( 'open', this.applySelection, this )
+			.on( 'close', this.checkSelectedAttachment, this );
 	}
 
 	selectImage() {
-		const attachment = this.frame.state().get( 'selection' ).first();
+		const
+			attachment = this.frame.state().get( 'selection' ).first(),
+			mime = attachment.get( 'mime' ),
+			url = attachment.get( 'url' );
 
-		this.mimeTypeField.val( attachment.attributes.mime );
-		this.urlField.val( attachment.attributes.url );
-		this.attachmentIdField.val( attachment.id );
+		this.attachmentId = attachment.get( 'id' );
 
-		this.switchOpacityField( attachment.attributes.mime );
+		this.mimeTypeField.val( mime );
+		this.urlField.val( url );
+		this.attachmentIdField.val( this.attachmentId );
 
-		this.image.attr( 'src', attachment.attributes.url );
+		this.switchOpacityField( mime );
+
+		this.image.attr( 'src', url );
 		this.imageWrap.show();
 		this.buttonWrap.hide();
 
 		this.form.trigger( 'ew.save' );
+	}
+
+	applySelection() {
+		if ( this.attachmentId ) {
+			const
+				selection = this.frame.state().get( 'selection' ),
+				attachment = wp.media.attachment( this.attachmentId );
+
+			attachment.fetch();
+
+			if ( attachment ) {
+				selection.add( [ attachment ] );
+			}
+		}
+	}
+
+	checkSelectedAttachment() {
+		const attachment = wp.media.attachment( this.attachmentId );
+
+		attachment.fetch();
+
+		if ( ! attachment || true === attachment.destroyed ) {
+			this.mimeTypeField.val( '' );
+			this.urlField.val( '' );
+			this.attachmentIdField.val( '' );
+
+			this.imageWrap.hide();
+			this.buttonWrap.show();
+		}
 	}
 
 	switchOpacityField( imgType ) {
