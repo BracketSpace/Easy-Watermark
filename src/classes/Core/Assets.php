@@ -109,12 +109,14 @@ class Assets {
 				$this->wp_enqueue_media();
 				$enqueue  = 'media-library';
 				$localize = [
-					'watermarks'         => $this->get_watermarks(),
-					'mime'               => ImageHelper::get_available_mime_types(),
-					'applyAllNonce'      => wp_create_nonce( 'apply_all' ),
-					'applySingleNonces'  => $this->get_watermark_nonces(),
-					'restoreBackupNonce' => wp_create_nonce( 'restore_backup' ),
-					'i18n'               => [
+					'watermarks'           => $this->get_watermarks(),
+					'mime'                 => ImageHelper::get_available_mime_types(),
+					'applyAllNonce'        => wp_create_nonce( 'apply_all' ),
+					'applySingleNonces'    => $this->get_watermark_nonces(),
+					'restoreBackupNonce'   => wp_create_nonce( 'restore_backup' ),
+					'attachmentsInfoNonce' => wp_create_nonce( 'attachments_info' ),
+					'i18n'                 => [
+						'noItemsSelected'                => __( 'No items selected', 'easy-watermark' ),
 						'watermarkModeToggleButtonLabel' => __( 'Watermark Selected', 'easy-watermark' ),
 						'watermarkButtonLabel'           => __( 'Watermark', 'easy-watermark' ),
 						'restoreButtonLabel'             => __( 'Restore original images', 'easy-watermark' ),
@@ -125,6 +127,8 @@ class Assets {
 						'usedAsWatermark'                => _x( 'Used as watermark', 'label for image used as watermark', 'easy-watermark' ),
 						'noBackupAvailable'              => _x( 'No backup available', 'label for attachments which has no backup to restore', 'easy-watermark' ),
 						'genericErrorMessage'            => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
+						'watermarkingNoItems'            => __( 'None from the selected items qualified for watermarking.', 'easy-watermark' ),
+						'restoringNoItems'               => __( 'No backup available for any of selected items.', 'easy-watermark' ),
 						/* translators: watermarked images number */
 						'watermarkingStatus'             => sprintf( __( 'Watermarked %s images', 'easy-watermark' ), '{counter}' ),
 						/* translators: watermarked images number */

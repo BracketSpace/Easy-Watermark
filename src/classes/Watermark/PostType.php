@@ -431,7 +431,12 @@ class PostType {
 		if ( is_array( $old_meta ) && in_array( $watermark_id, $old_meta, true ) ) {
 			$key = array_search( $watermark_id, $old_meta, true );
 			unset( $old_meta[ $key ] );
-			update_post_meta( $old_attachment_id, '_ew_used_as_watermark', $old_meta );
+
+			if ( empty( $old_meta ) ) {
+				delete_post_meta( $old_attachment_id, '_ew_used_as_watermark' );
+			} else {
+				update_post_meta( $old_attachment_id, '_ew_used_as_watermark', $old_meta );
+			}
 		}
 
 		if ( ! is_array( $meta ) ) {

@@ -2,17 +2,20 @@
  * External dependencies
  */
 import $ from 'jquery';
-import { Model } from 'backbone';
+import { Model, Collection } from 'backbone';
 
 /**
  * Internal dependencies
  */
 import WatermarkSelector from '../views/media-list/watermark-selector';
 import Status from '../views/media-list/status';
-/**
- * Internal dependencies
- */
-import { addNotice, imageVersion } from '../utils/functions.js';
+import Attachment from '../views/media-list/attachment';
+
+import {
+	addNotice,
+	imageVersion,
+	filterSelection,
+} from '../utils/functions.js';
 
 /* global ew, ajaxurl */
 
@@ -48,7 +51,22 @@ class BulkActions extends Model {
 			} ).render();
 		} ).val( -1 ).on( 'change', this.selectBulkAction );
 
+		this.set( {
+			attachments: new Collection,
+			selection: new Collection,
+		} );
+
 		this.actionButtons.on( 'click', this.doAction );
+
+		this.on( 'bulkAction:start', () => {
+			this.bulkActionsSelectors.val( -1 ).prop( 'disabled', true );
+			this.actionButtons.prop( 'disabled', true );
+		} );
+
+		this.on( 'bulkAction:finished', () => {
+			this.bulkActionsSelectors.prop( 'disabled', false );
+			this.actionButtons.prop( 'disabled', false );
+		} );
 	}
 
 	selectBulkAction( e ) {
@@ -75,33 +93,103 @@ class BulkActions extends Model {
 			return;
 		}
 
+		const checkedItems = this.form.find( 'input[name="media[]"]:checked' );
+
+		if ( ! checkedItems.length ) {
+			this.status().set( { text: ew.i18n.noItemsSelected } );
+			return;
+		}
+
 		const
-			statusText = 'watermark' === action ? ew.i18n.watermarkingStatus : ew.i18n.restoringStatus,
-			successMessage = 'watermark' === action ? ew.i18n.watermarkingSuccessMessage : ew.i18n.restoringSuccessMessage;
+			attachments = this.get( 'attachments' ),
+			selection = this.get( 'selection' ),
+			attachmentIds = [];
 
-		this.set( {
-			statusText,
-			successMessage,
+		this.trigger( 'bulkAction:start' );
+
+		checkedItems.each( ( n, checkbox ) => {
+			const
+				id = $( checkbox ).val(),
+				model = attachments.get( id );
+
+			if ( model ) {
+				selection.add( model );
+			} else {
+				attachmentIds.push( id );
+			}
 		} );
 
-		const attachments = [];
+		if ( ! attachmentIds.length ) {
+			if ( selection.length ) {
+				this.prepare();
+			}
 
-		this.form.find( 'input[name="media[]"]:checked' ).each( ( n, checkbox ) => {
-			attachments.push( $( checkbox ).val() );
-		} );
-
-		if ( ! attachments.length ) {
 			return;
 		}
 
 		this.status().set( {
-			processing: true,
-			total: attachments.length,
-			processed: 0,
-			success: 0,
+			text: '<span class="spinner ew-spinner"></span>',
 		} );
 
-		this.set( 'attachments', attachments );
+		$.ajax( ajaxurl, { data: {
+			action: 'easy-watermark/attachments-info',
+			nonce: ew.attachmentsInfoNonce,
+			attachments: attachmentIds,
+		} } ).done( ( response ) => {
+			if ( true === response.success ) {
+				for ( const item of response.data ) {
+					const model = new Model( item );
+
+					attachments.push( model );
+					selection.push( model );
+
+					new Attachment( {
+						el: `#post-${ item.id }`,
+						controller: this,
+						model,
+					} );
+				}
+
+				this.prepare();
+			} else {
+				const error = response.data.message ? response.data.message : ew.i18n.genericErrorMessage;
+				this.actionError( error );
+			}
+		} ).fail( () => {
+			this.actionError( ew.i18n.genericErrorMessage );
+		} );
+	}
+
+	prepare() {
+		const
+			action = this.get( 'action' ),
+			selection = this.get( 'selection' ),
+			backup = ( 'restore' === action ),
+			statusText = 'watermark' === action ? ew.i18n.watermarkingStatus : ew.i18n.restoringStatus,
+			successMessage = 'watermark' === action ? ew.i18n.watermarkingSuccessMessage : ew.i18n.restoringSuccessMessage;
+
+		filterSelection( selection, backup );
+
+		if ( ! selection.length ) {
+			this.status().set( {
+				successMessage: 'watermark' === action ? ew.i18n.watermarkingNoItems : ew.i18n.restoringNoItems,
+			} );
+
+			this.actionDone();
+			return;
+		}
+
+		this.status().set( {
+			successMessage,
+			text: statusText,
+			processing: true,
+			total: selection.length,
+			processed: 0,
+		} );
+
+		for ( const model of selection.models ) {
+			model.trigger( 'processing:start' );
+		}
 
 		this.doActionRecursive();
 	}
@@ -127,14 +215,13 @@ class BulkActions extends Model {
 
 		const
 			status = this.status(),
-			attachments = this.get( 'attachments' ),
+			selection = this.get( 'selection' ),
+			model = selection.shift(),
 			data = { action, nonce, watermark };
 
-		let
-			processed = status.get( 'processed' ),
-			success = status.get( 'success' );
+		let processed = status.get( 'processed' );
 
-		data.attachment_id = attachments.shift();
+		data.attachment_id = model.get( 'id' );
 
 		this.set( 'currentAttachmentID', data.attachment_id );
 
@@ -149,14 +236,13 @@ class BulkActions extends Model {
 					img.attr( { src, srcset: '' } );
 				}
 
-				if ( true === response.data.result ) {
-					success++;
-				}
-
 				processed++;
-				status.set( { processed, success } );
+				status.set( { processed } );
 
-				if ( attachments.length ) {
+				model.set( 'hasBackup', response.data.hasBackup ? true : false );
+				model.trigger( 'processing:done' );
+
+				if ( selection.length ) {
 					this.doActionRecursive();
 				} else {
 					this.actionDone();
@@ -176,15 +262,21 @@ class BulkActions extends Model {
 	}
 
 	actionDone() {
+		this.trigger( 'bulkAction:finished' );
+
+		this.bulkActionsSelectors.prop( 'disabled', false );
+
 		const
 			status = this.status(),
-			success = status.get( 'success' ),
+			processed = status.get( 'processed' ),
 			error = status.get( 'error' ),
-			successMessage = this.get( 'successMessage' ),
+			successMessage = status.get( 'successMessage' ),
 			currentID = this.get( 'currentAttachmentID' );
 
-		if ( success > 0 ) {
-			addNotice( successMessage.replace( '{procesed}', success ), 'success' );
+		if ( processed > 0 ) {
+			addNotice( successMessage.replace( '{procesed}', processed ), 'success' );
+		} else {
+			addNotice( successMessage, 'info' );
 		}
 
 		if ( error ) {
@@ -198,7 +290,12 @@ class BulkActions extends Model {
 			addNotice( errorMessage, 'error' );
 		}
 
-		this.status().set( 'processing', false );
+		this.status().set( {
+			processing: false,
+			processed: 0,
+			total: 0,
+			text: '',
+		} );
 	}
 
 	status() {

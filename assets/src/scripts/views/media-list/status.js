@@ -13,24 +13,28 @@ export default class extends View {
 	}
 
 	template() {
-		const
-			processed = this.status.get( 'processed' ),
-			total = this.status.get( 'total' ),
-			counter = `${ processed }/${ total }`;
+		let text = this.status.get( 'text' );
 
-		let
-			status = this.controller.get( 'statusText' ),
-			percent = Math.floor( processed / total * 100 );
+		if ( this.status.get( 'processing' ) ) {
+			const
+				processed = this.status.get( 'processed' ),
+				total = this.status.get( 'total' ),
+				counter = `${ processed }/${ total }`;
 
-		if ( 'string' === typeof status ) {
-			status = status.replace( '{counter}', counter );
+			let percent = Math.floor( processed / total * 100 );
+
+			if ( 'string' === typeof text ) {
+				text = text.replace( '{counter}', counter );
+			}
+
+			if ( isNaN( percent ) ) {
+				percent = 0;
+			}
+
+			text = `${ text } (${ percent }%)`;
 		}
 
-		if ( isNaN( percent ) ) {
-			percent = 0;
-		}
-
-		return `<span class="status">${ status } (${ percent }%)</span><span class="spinner"></span>`;
+		return text;
 	}
 
 	constructor( options ) {
@@ -51,7 +55,7 @@ export default class extends View {
 			return;
 		}
 
-		if ( this.status.get( 'processing' ) ) {
+		if ( this.status.get( 'text' ) ) {
 			this.$el.html( this.template() );
 			this.$el.show();
 		} else {
