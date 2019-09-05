@@ -93,4 +93,11 @@ trait Hookable {
 		unset( $this->called_doc_hooks[ $class_name ] );
 
 	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$this->unhook();
+	}
 }

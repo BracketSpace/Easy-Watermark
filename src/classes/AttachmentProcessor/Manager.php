@@ -22,6 +22,7 @@ class Manager extends AbstractManager {
 	 * @var string
 	 */
 	protected $parent_class = 'EasyWatermark\AttachmentProcessor\AttachmentProcessor';
+
 	/**
 	 * Constructor
 	 */
@@ -44,6 +45,7 @@ class Manager extends AbstractManager {
 			/* translators: %s: object type. */
 			'invalid_type'         => __( 'Attachment processor of type "%s" cannot be created.' ),
 		];
+
 		parent::__construct();
 	}
 }

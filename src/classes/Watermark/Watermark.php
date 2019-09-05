@@ -95,6 +95,25 @@ class Watermark {
 	}
 
 	/**
+	 * Gets all watermarks
+	 *
+	 * @return array
+	 */
+	public static function get_all() {
+
+		$posts = get_posts( [
+			'post_type' => 'watermark',
+		] );
+
+		foreach ( $posts as $post ) {
+			self::get( $post );
+		}
+
+		return self::$instances;
+
+	}
+
+	/**
 	 * Builds complete params array to save in post content
 	 *
 	 * @param  array $params Params array.

@@ -188,7 +188,7 @@ class Installer {
 		}
 
 		if ( isset( $settings['general']['jpg_quality'] ) ) {
-			$defaults['jpeg_quality'] = $settings['general']['jpg_quality'];
+			$defaults['general']['jpeg_quality'] = $settings['general']['jpg_quality'];
 		}
 
 		self::insert_image_watermark( $watermark_defaults, $settings );

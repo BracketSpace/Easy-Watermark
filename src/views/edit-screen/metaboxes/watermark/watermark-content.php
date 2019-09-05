@@ -5,6 +5,8 @@
  * @package easy-watermark
  */
 
+global $post;
+
 ?>
 <div class="watermark-content-metabox">
 

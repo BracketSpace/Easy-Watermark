@@ -69,5 +69,3 @@ if ( ! $requirements->satisfied() ) {
 require 'inc/freemius.php';
 
 $plugin = EasyWatermark::get();
-
-do_action( 'ew_load', $plugin );

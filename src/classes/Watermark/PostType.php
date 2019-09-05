@@ -19,6 +19,13 @@ class PostType {
 	use Hookable;
 
 	/**
+	 * Post type
+	 *
+	 * @var  string
+	 */
+	private $post_type = 'watermark';
+
+	/**
 	 * Is watermark untrashed?
 	 *
 	 * @var  bool
@@ -58,17 +65,19 @@ class PostType {
 		];
 
 		$args = [
-			'labels'        => $labels,
-			'description'   => __( 'Watermarks', 'easy-watermark' ),
-			'public'        => false,
-			'show_ui'       => true,
-			'has_archive'   => false,
-			'hierarchical'  => false,
-			'menu_icon'     => 'dashicons-media-text',
-			'menu_position' => null,
-			'supports'      => [ 'title' ],
-			'map_meta_cap'  => true,
-			'capabilities'  => [
+			'labels'              => $labels,
+			'description'         => __( 'Watermarks', 'easy-watermark' ),
+			'public'              => false,
+			'show_ui'             => true,
+			'exclude_from_search' => true,
+			'has_archive'         => false,
+			'hierarchical'        => false,
+			'menu_icon'           => 'dashicons-media-text',
+			'menu_position'       => null,
+			'supports'            => [ 'title' ],
+			'map_meta_cap'        => true,
+			'show_in_menu'        => false,
+			'capabilities'        => [
 				'edit_post'           => 'edit_watermark',
 				'edit_posts'          => 'edit_watermarks',
 				'edit_others_posts'   => 'edit_others_watermarks',
@@ -77,8 +86,28 @@ class PostType {
 			],
 		];
 
-		register_post_type( 'watermark', $args );
+		register_post_type( $this->post_type, $args );
 
+	}
+
+	/**
+	 * Filters parent file to highlight top level menu item as active
+	 *
+	 * @filter parent_file
+	 *
+	 * @since  [Next]
+	 * @param  string $parent_file Parent file.
+	 * @return string
+	 */
+	public function parent_file( $parent_file ) {
+		global $current_screen, $submenu_file;
+
+		if ( $current_screen->post_type === $this->post_type ) {
+			$parent_file  = 'tools.php';
+			$submenu_file = 'easy-watermark';
+		}
+
+		return $parent_file;
 	}
 
 	/**

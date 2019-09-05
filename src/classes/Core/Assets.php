@@ -59,7 +59,7 @@ class Assets {
 
 		$assets = [
 			'attachment-edit' => [ 'jquery' ],
-			'settings'        => [ 'jquery' ],
+			'dashboard'       => [ 'jquery' ],
 			'uploader'        => [ 'jquery' ],
 			'media-library'   => [ 'jquery', 'backbone' ],
 			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
@@ -103,7 +103,14 @@ class Assets {
 				];
 				break;
 			case 'settings_page_easy-watermark':
-				$enqueue = 'settings';
+			case 'tools_page_easy-watermark':
+				$enqueue  = 'dashboard';
+				$localize = [
+					'i18n' => [
+						/* translators: watermark name */
+						'deleteConfirmation' => __( sprintf( 'You are about to permanently delete "%s". Are you sure?', '{watermarkName}' ), 'easy-watermark' ),
+					],
+				];
 				break;
 			case 'upload':
 				$this->wp_enqueue_media();
@@ -190,9 +197,12 @@ class Assets {
 		wp_enqueue_style( $asset_name );
 		wp_enqueue_script( $asset_name );
 
-		if ( $localize ) {
-			wp_localize_script( $asset_name, 'ew', $localize );
-		}
+		$localize['i18n'] = array_merge( isset( $localize['i18n'] ) ? $localize['i18n'] : [], [
+			'yes' => __( 'Yes', 'easy-watermark' ),
+			'no'  => __( 'Cancel', 'easy-watermark' ),
+		] );
+
+		wp_localize_script( $asset_name, 'ew', $localize );
 
 	}
 

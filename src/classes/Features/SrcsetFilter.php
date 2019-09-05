@@ -9,6 +9,8 @@ namespace EasyWatermark\Features;
 
 use EasyWatermark\Core\Settings;
 use EasyWatermark\Core\Plugin;
+use EasyWatermark\Settings\Section;
+use EasyWatermark\Settings\Fields\SwitchField;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Watermark;
 use EasyWatermark\Watermark\Handler;
@@ -28,6 +30,13 @@ class SrcsetFilter {
 	private $handler;
 
 	/**
+	 * Setting field
+	 *
+	 * @var SwitchField
+	 */
+	private $switch;
+
+	/**
 	 * Constructor
 	 *
 	 * @param Plugin $plugin Plugin instance.
@@ -35,6 +44,39 @@ class SrcsetFilter {
 	public function __construct( Plugin $plugin ) {
 		$this->hook();
 		$this->handler = $plugin->get_watermark_handler();
+	}
+
+	/**
+	 * Registers settings
+	 *
+	 * @action easy-watermark/settings/register/general
+	 *
+	 * @param  Section $section Settings section.
+	 * @return void
+	 */
+	public function register_settings( $section ) {
+
+		$label = sprintf(
+			'%s <p class="description">%s</p>',
+			esc_html__( 'Filter srcset', 'easy-watermark' ),
+			esc_html_x( 'for watermarked images', 'Continuation of "Filter srcset" setting label.', 'easy-watermark' )
+		);
+
+		$description = implode( '<br/>', [
+			esc_html_x( 'Srcset attribute contains information about other image sizes and lets the browser decide which image to display based on the screen size.', '"Filter srcset" setting description line 1', 'easy-watermark' ),
+			esc_html_x( 'This is good in general but it might cause problems if some watermarks are applied only to certain image sizes.', '"Filter srcset" setting description line 2', 'easy-watermark' ),
+			esc_html_x( 'With this option enabled srcset attribute will only contain image sizes watermarked the same way.', '"Filter srcset" setting description line 3', 'easy-watermark' ),
+		] );
+
+		$this->switch = new SwitchField( [
+			'label'       => $label,
+			'slug'        => 'filter_srcset',
+			'default'     => true,
+			'description' => $description,
+		] );
+
+		$section->add_field( $this->switch );
+
 	}
 
 	/**
@@ -50,7 +92,7 @@ class SrcsetFilter {
 	 */
 	public function wp_calculate_image_srcset_meta( $image_meta, $size_array, $image_src, $attachment_id ) {
 
-		if ( true === Settings::get()->filter_srcset && isset( $image_meta['sizes'] ) && is_array( $image_meta['sizes'] ) ) {
+		if ( true === $this->switch->get_value() && isset( $image_meta['sizes'] ) && is_array( $image_meta['sizes'] ) ) {
 			$applied_watermarks = get_post_meta( $attachment_id, '_ew_applied_watermarks', true );
 
 			if ( is_array( $applied_watermarks ) ) {

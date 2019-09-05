@@ -14,6 +14,8 @@
     "postcss-scss": "^2.0.0",
     "selectize": "^0.12.6",
     "stylelint-webpack-plugin": "^0.10.5",
+    "vex-dialog": "^1.1.0",
+    "vex-js": "^4.1.0",
     "webpack": "^4.25.1"
   },
   "scripts": {

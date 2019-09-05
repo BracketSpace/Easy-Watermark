@@ -207,23 +207,12 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 			return new WP_Error( 'gd_error', __( 'Something went wrong while creating output image.', 'easy-watermark' ) );
 		}
 
-		$grid_size   = 6;
-		$color_gray  = imagecolorallocate( $this->output_image, 130, 130, 130 );
-		$color_white = imagecolorallocate( $this->output_image, 200, 200, 200 );
+		imagealphablending( $this->output_image, false );
+		imagesavealpha( $this->output_image, true );
 
-		$start_color = 1;
-		for ( $i = 0; $i < ( $text_size['height'] / $grid_size ); $i++ ) {
-			$current_color = $start_color;
+		$color_transparent = imagecolorallocatealpha( $this->output_image, 255, 255, 255, 127 );
 
-			for ( $n = 0; $n < ( $text_size['width'] / $grid_size ); $n++ ) {
-				$color = ( 1 === $current_color ) ? $color_gray : $color_white;
-
-				imagefilledrectangle( $this->output_image, $grid_size * $n, $grid_size * $i, $grid_size * $n + $grid_size, $grid_size * $i + $grid_size, $color );
-				$current_color = ( 1 === $current_color ) ? 0 : 1;
-			}
-
-			$start_color = ( 1 === $start_color ) ? 0 : 1;
-		}
+		imagefill( $this->output_image, 0, 0, $color_transparent );
 
 		$watermark->alignment = 'top-left';
 		$watermark->offset    = [
