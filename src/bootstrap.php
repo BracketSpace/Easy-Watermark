@@ -44,10 +44,10 @@ require $autoloader;
  * Requirements check
  */
 $requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermark' ), [
-	'php'      => '5.6.0',
-	'wp'       => '4.6',
-	'dochooks' => true,
-	'gd'       => true,
+	'php'            => '5.6.0',
+	'wp'             => '4.6',
+	'dochooks'       => true,
+	'php_extensions' => [ 'gd' ],
 ] );
 
 /**
@@ -55,7 +55,6 @@ $requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermar
  */
 if ( method_exists( $requirements, 'add_check' ) ) {
 	$requirements->add_check( 'dochooks', require 'inc/requirements/dochooks.php' );
-	$requirements->add_check( 'gd', require 'inc/requirements/gd.php' );
 }
 
 if ( ! $requirements->satisfied() ) {
