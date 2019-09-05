@@ -20,7 +20,7 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 
 			this.controller.on( 'selection:toggle', this.update, this );
 			this.controller.on( 'watermark:activate', () => this.$el.html( this.model.get( 'cancelText' ) ) );
-			this.controller.on( 'watermark:deactivate', () => this.$el.html( this.model.get( 'text' ) ) );
+			this.controller.on( 'watermark:deactivate', this.update, this );
 		}
 
 		render() {
@@ -50,6 +50,10 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 		}
 
 		update() {
+			if ( this.controller.isModeActive( 'watermark' ) ) {
+				return;
+			}
+
 			const
 				lastSelectionCount = this.model.get( 'filteredSelectionCount' ),
 				filteredSelectionCount = filterSelection( this.controller.state().get( 'selection' ), false, false );
