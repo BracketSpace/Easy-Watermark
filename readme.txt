@@ -82,7 +82,8 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 4. Easy Watermark settings
 5. Easy Watermark permissions
 6. Watermark control while uploading images
-7. Bulk watermark or restore images
+7. Bulk watermark or restore images on Media screen
+8. Bulk watermark and restore all images
 
 == Changelog ==
 
