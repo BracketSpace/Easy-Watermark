@@ -76,11 +76,13 @@ All available placeholders are listed in a box titled 'Placeholders' on the text
 
 == Screenshots ==
 
-1. General settings page
-2. Image settings page
-3. Text settings page
-4. Easy Watermark Tool
-5. Easy Watermark metabox on attachment page
+1. Image watermark settings
+2. Text watermark settings
+3. All watermarks
+4. Easy Watermark settings
+5. Easy Watermark permissions
+6. Watermark control while uploading images
+7. Bulk watermark or restore images
 
 == Changelog ==
 
