@@ -37,16 +37,16 @@ Note: Easy Watermark requires GD extension installed and enabled on a server to 
 == Frequently asked questions ==
 
 = Can I remove watermark after it was added? =
-Yes, since version 0.6.0 there is an option to "remove" watermark by restorin the original image. Backup feature is disabled by default, you can enable it on the "Settings > Easy Watermark". Note: this will use more space on your server due to the fact that the images will be stored twice.
+Yes, since version 0.6.0 there is an option to "remove" watermark by restoring the original image. Backup feature is enabled by default, you can disable it on the "Tools > Easy Watermark" screen. Note: this will use more space on your server due to the fact that the images will be stored twice.
 Only the fullsize image is stored in backup, thumbnails are regenerated during the restoring process.
-To restore the original image just go to the attachment edit page. In the "Easy Watermark" meta box you can find the "Restore original image" button. Just click it.
+To restore the original image just go to the attachment edit page. In the "Easy Watermark" meta box you can find the "Restore original image" button. You can also do this via Media page and bulk actions.
 
 = How can I restore original images after the plugin was uninstalled? =
 The plugin doesn't restore your images on deactivation/removal. Please consider to install the plugin again and restore your images before uninstalling.
-If you don't have a possibility to do this, you can manually restore your images. Just go to wp-content/ew_backup in your wordpress main directory. You will se there are folders in the same order like in uploads, images are stored as /year/month/imagename.jpg|png|whatever. What you need is to copy all the files from ew_backup to uploads dir (it will ask you if you want to override the existing files, click YES). As mensioned before, this will restore only the fullsize images so you need to use some other plugin to generate the thumbnails again (see Force Regenerate Thumbnails by Pedro Elsner).
+If you don't have a possibility to do this, you can manually restore your images. Just go to wp-content/ew-backup in your wordpress main directory. You will se there are folders in the same order like in uploads, images are stored as /year/month/imagename.jpg|png. What you need is to copy all the files from ew-backup to uploads dir (it will ask you if you want to override the existing files, click YES). As mensioned before, this will restore only the fullsize images so you need to use some other plugin to generate the thumbnails again (see Force Regenerate Thumbnails by Pedro Elsner).
 
 = How can I add watermark to pictures that were uploaded before the plugin was installed? =
-You can go to "Media >> Easy Watermark" and click "Add watermark to all images" button. If you want to add watermark to single images, you can find links titled "Add watermark" in the media library (see screenshots) or "Add watermark" button on image edit page.
+You can go to "Tools > Easy Watermark > Tools" screen and use bulk action options.
 
 = How can I adjust watermark image position? =
 Watermark position can be adjusted vertically and horizontally by selecting alignment (left, center, right, top, middle, bottom). You can also define horizontal and vertical offset.
@@ -55,10 +55,10 @@ Watermark position can be adjusted vertically and horizontally by selecting alig
 Yes, there is a posibility to add only image, only text or both.
 
 = How Can I adjust text watermark? =
-You can choose text font from the list of ten fonts included to this plugin. In future releases you will be able to upload your own font file. You can also set font size, color, angel and opacity. Position of text watermark can be adjusted exactly like image position.
+You can choose text font from the list of ten fonts included to this plugin. You can also set font size, color, angel and opacity. Position of text watermark can be adjusted exactly like the image watermark position.
 
 = Can I use my font for text watermark? =
-There is no user-friendly way to do this, however if you know what you do, you can upload your truetype font file to the %plugin_dir%/fonts. Then edit %plugin_dir%/lib/EasyWatermarkSettings.php and add your font file name to $fonts array.
+Unfortunately no. In PRO version you'll be able to use more fonts.
 
 = How the scaling of the watermark image works? =
 On the watermark image settings page you can se 'Scaling Mode' selection which has 5 options:
@@ -72,7 +72,7 @@ Watermark ratio is always preserved, so it can go beyond the image when the 'Sca
 With 'Fit to Width' or 'Fit to Height' options watermark dimensions can be set as a percentage in relation to the image dimensions.
 
 = What placeholders can I use in text watermark? =
-All available placeholders are listed in a box titled 'Placeholders' on the text watermark settings page, under the 'About' box.
+All available placeholders are listed in a box titled 'Placeholders' displayed while creating the Text Watermark.
 
 == Screenshots ==
 
