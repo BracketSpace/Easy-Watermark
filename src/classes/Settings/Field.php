@@ -172,7 +172,7 @@ abstract class Field {
 	 * @return string
 	 */
 	public function get_layout() {
-		return $this->get( 'layout', 'normal' );
+		return $this->get( 'layout', 'two-column' );
 	}
 
 	/**

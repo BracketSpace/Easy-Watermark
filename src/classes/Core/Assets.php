@@ -59,7 +59,7 @@ class Assets {
 
 		$assets = [
 			'attachment-edit' => [ 'jquery' ],
-			'dashboard'       => [ 'jquery' ],
+			'dashboard'       => [ 'jquery', 'backbone' ],
 			'uploader'        => [ 'jquery' ],
 			'media-library'   => [ 'jquery', 'backbone' ],
 			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
@@ -102,13 +102,25 @@ class Assets {
 					'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
 				];
 				break;
-			case 'settings_page_easy-watermark':
 			case 'tools_page_easy-watermark':
 				$enqueue  = 'dashboard';
 				$localize = [
-					'i18n' => [
+					'nonce' => wp_create_nonce( 'get_attachments' ),
+					'i18n'  => [
 						/* translators: watermark name */
-						'deleteConfirmation' => __( sprintf( 'You are about to permanently delete "%s". Are you sure?', '{watermarkName}' ), 'easy-watermark' ),
+						'deleteConfirmation'         => sprintf( __( 'You are about to permanently delete "%s". Are you sure?', 'easy-watermark' ), '{watermarkName}' ),
+						'noItemsToWatermark'         => __( 'There are no images eligible for watermarking.', 'easy-watermark' ),
+						'noItemsToRestore'           => __( 'There are no backed up images.', 'easy-watermark' ),
+						/* translators: watermarked images number */
+						'watermarkingStatus'         => sprintf( __( 'Watermarked %s images', 'easy-watermark' ), '{counter}' ),
+						/* translators: watermarked images number */
+						'restoringStatus'            => sprintf( __( 'Restored %s images', 'easy-watermark' ), '{counter}' ),
+						/* translators: watermarked images number */
+						'watermarkingSuccessMessage' => sprintf( __( 'Successfully watermarked %s images.', 'easy-watermark' ), '{procesed}' ),
+						/* translators: watermarked images number */
+						'restoringSuccessMessage'    => sprintf( __( 'Successfully restored %s images.', 'easy-watermark' ), '{procesed}' ),
+						/* translators: %1&s - image title, %2&s - error content */
+						'bulkActionErrorMessage'     => sprintf( __( 'An error occured while processing %1$s: %2$s', 'easy-watermark' ), '{imageTitle}', '{error}' ),
 					],
 				];
 				break;
@@ -133,7 +145,6 @@ class Assets {
 						'notSupported'                   => _x( 'Not supported', 'label for unsupported attachment type (other than image)', 'easy-watermark' ),
 						'usedAsWatermark'                => _x( 'Used as watermark', 'label for image used as watermark', 'easy-watermark' ),
 						'noBackupAvailable'              => _x( 'No backup available', 'label for attachments which has no backup to restore', 'easy-watermark' ),
-						'genericErrorMessage'            => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
 						'watermarkingNoItems'            => __( 'None from the selected items qualified for watermarking.', 'easy-watermark' ),
 						'restoringNoItems'               => __( 'No backup available for any of selected items.', 'easy-watermark' ),
 						/* translators: watermarked images number */
@@ -198,8 +209,10 @@ class Assets {
 		wp_enqueue_script( $asset_name );
 
 		$localize['i18n'] = array_merge( isset( $localize['i18n'] ) ? $localize['i18n'] : [], [
-			'yes' => __( 'Yes', 'easy-watermark' ),
-			'no'  => __( 'Cancel', 'easy-watermark' ),
+			'yes'                 => __( 'Yes', 'easy-watermark' ),
+			'ok'                  => __( 'OK', 'easy-watermark' ),
+			'no'                  => __( 'Cancel', 'easy-watermark' ),
+			'genericErrorMessage' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
 		] );
 
 		wp_localize_script( $asset_name, 'ew', $localize );

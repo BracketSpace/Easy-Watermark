@@ -8,33 +8,17 @@
 namespace EasyWatermark\Dashboard;
 
 use EasyWatermark\Core\View;
-use EasyWatermark\Traits\Hookable;
-use EasyWatermark\Watermark\Watermark;
 
 /**
  * Settings class
  */
-class Permissions {
-
-	use Hookable;
-
-	/**
-	 * Dashboard page
-	 *
-	 * @var Page
-	 */
-	private $dashboard;
+class Permissions extends Page {
 
 	/**
 	 * Constructor
-	 *
-	 * @param Page $dashboard Dashboard page.
 	 */
-	public function __construct( Page $dashboard ) {
-
-		$this->hook();
-		$this->dashboard = $dashboard;
-
+	public function __construct() {
+		parent::__construct( __( 'Permissions', 'easy-watermark' ), null, 100 );
 	}
 
 	/**
@@ -89,57 +73,34 @@ class Permissions {
 	/**
 	 * Display admin notices
 	 *
-	 * @action admin_notices
+	 * @action easy-watermark/dashboard/permissions/notices
 	 *
 	 * @return void
 	 */
 	public function admin_notices() {
-		if ( get_current_screen()->id !== $this->dashboard->get_page_hook() ) {
-			return;
-		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET['settings-updated'] ) && isset( $_GET['tab'] ) && 'permissions' === $_GET['tab'] ) {
-			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+		// phpcs:disable WordPress.Security
+		if ( isset( $_GET['settings-updated'] ) ) {
 			echo new View( 'notices/success', [
 				'message' => __( 'Permissions saved.', 'easy-watermark' ),
 			] );
-			// phpcs:enable
 		}
-	}
-
-	/**
-	 * Adds options page
-	 *
-	 * @filter easy-watermark/dashboard/tabs 100
-	 *
-	 * @param  array $tabs Tabs.
-	 * @return array
-	 */
-	public function add_tab( $tabs ) {
-
-		$tabs['permissions'] = __( 'Permissions', 'easy-watermark' );
-		return $tabs;
-
-	}
-
-	/**
-	 * Displats options page content
-	 *
-	 * @action easy-watermark/dashboard/content/permissions
-	 *
-	 * @return void
-	 */
-	public function permissions_page() {
-
-		$watermarks = Watermark::get_all();
-
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo new View( 'dashboard/permissions-page', [
-			'roles' => $this->get_roles(),
-		] );
 		// phpcs:enable
 
+	}
+
+	/**
+	 * Prepares arguments for view
+	 *
+	 * @filter easy-watermark/dashboard/permissions/view-args
+	 *
+	 * @param  array $args View args.
+	 * @return array
+	 */
+	public function view_args( $args ) {
+		return [
+			'roles' => $this->get_roles(),
+		];
 	}
 
 	/**
@@ -168,12 +129,5 @@ class Permissions {
 
 		return $roles;
 
-	}
-
-	/**
-	 * Destructor
-	 */
-	public function __destruct() {
-		$this->unhook();
 	}
 }

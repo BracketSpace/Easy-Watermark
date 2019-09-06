@@ -9,86 +9,47 @@ namespace EasyWatermark\Dashboard;
 
 use EasyWatermark\Core\View;
 use EasyWatermark\Settings\Settings as SettingsAPI;
-use EasyWatermark\Traits\Hookable;
-use EasyWatermark\Watermark\Watermark;
 
 /**
  * Settings class
  */
-class Settings {
-
-	use Hookable;
-
-	/**
-	 * Dashboard page
-	 *
-	 * @var Page
-	 */
-	private $dashboard;
+class Settings extends Page {
 
 	/**
 	 * Constructor
-	 *
-	 * @param Page $dashboard Dashboard page.
 	 */
-	public function __construct( Page $dashboard ) {
-
-		$this->hook();
-		$this->dashboard = $dashboard;
-
+	public function __construct() {
+		parent::__construct( __( 'Settings', 'easy-watermark' ), null, 80 );
 	}
 
 	/**
 	 * Display admin notices
 	 *
-	 * @action admin_notices
+	 * @action easy-watermark/dashboard/settings/notices
 	 *
 	 * @return void
 	 */
 	public function admin_notices() {
-		if ( get_current_screen()->id !== $this->dashboard->get_page_hook() ) {
-			return;
-		}
-
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET['settings-updated'] ) && isset( $_GET['tab'] ) && 'settings' === $_GET['tab'] ) {
-			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+		// phpcs:disable WordPress.Security
+		if ( isset( $_GET['settings-updated'] ) ) {
 			echo new View( 'notices/success', [
 				'message' => __( 'Settings saved.', 'easy-watermark' ),
 			] );
-			// phpcs:enable
 		}
+		// phpcs:enable
 	}
 
 	/**
-	 * Adds options page
+	 * Prepares arguments for view
 	 *
-	 * @filter easy-watermark/dashboard/tabs 100
+	 * @filter easy-watermark/dashboard/settings/view-args
 	 *
-	 * @param  array $tabs Tabs.
+	 * @param  array $args View args.
 	 * @return array
 	 */
-	public function add_tab( $tabs ) {
-
-		$tabs['settings'] = __( 'Settings', 'easy-watermark' );
-		return $tabs;
-
-	}
-
-	/**
-	 * Displats options page content
-	 *
-	 * @action easy-watermark/dashboard/content/settings
-	 *
-	 * @return void
-	 */
-	public function settings_page() {
-
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo new View( 'dashboard/settings-page', [
+	public function view_args( $args ) {
+		return [
 			'sections' => SettingsAPI::get()->get_sections(),
-		] );
-		// phpcs:enable
-
+		];
 	}
 }

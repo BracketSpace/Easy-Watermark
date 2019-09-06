@@ -14,89 +14,48 @@ use EasyWatermark\Watermark\Watermark;
 /**
  * Settings class
  */
-class Watermarks {
+class Watermarks extends Page {
 
 	use Hookable;
 
 	/**
-	 * Dashboard page
-	 *
-	 * @var Page
-	 */
-	private $dashboard;
-
-	/**
 	 * Constructor
-	 *
-	 * @param Page $dashboard Dashboard page.
 	 */
-	public function __construct( Page $dashboard ) {
-
-		$this->hook();
-		$this->dashboard = $dashboard;
-
+	public function __construct() {
+		parent::__construct( __( 'Watermarks', 'easy-watermark' ), null, 10 );
 	}
 
 	/**
 	 * Display admin notices
 	 *
-	 * @action admin_notices
+	 * @action easy-watermark/dashboard/watermarks/notices
 	 *
 	 * @return void
 	 */
 	public function admin_notices() {
-		if ( get_current_screen()->id !== $this->dashboard->get_page_hook() ) {
-			return;
-		}
-
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET['deleted'] ) && '1' === $_GET['deleted'] ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		// phpcs:disable WordPress.Security
+		if ( isset( $_GET['deleted'] ) ) {
 			echo new View( 'notices/success', [
 				'message' => esc_html__( 'Watermark has been deleted.', 'easy-watermark' ),
 			] );
 		}
+		// phpcs:enable
 	}
 
 	/**
-	 * Adds options page
+	 * Prepares arguments for view
 	 *
-	 * @filter easy-watermark/dashboard/tabs 10
+	 * @filter easy-watermark/dashboard/watermarks/view-args
 	 *
-	 * @param  array $tabs Tabs.
+	 * @param  array $args View args.
 	 * @return array
 	 */
-	public function add_tab( $tabs ) {
-
-		$tabs['watermarks'] = __( 'Watermarks', 'easy-watermark' );
-		return $tabs;
-
-	}
-
-	/**
-	 * Displats options page content
-	 *
-	 * @action easy-watermark/dashboard/content/watermarks
-	 *
-	 * @return void
-	 */
-	public function watermarks_page() {
-
+	public function view_args( $args ) {
 		$watermarks = Watermark::get_all();
 
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo new View( 'dashboard/watermarks-page', [
+		return [
 			'watermarks'       => $watermarks,
 			'watermarks_count' => wp_count_posts( 'watermark' )->publish,
-		] );
-		// phpcs:enable
-
-	}
-
-	/**
-	 * Destructor
-	 */
-	public function __destruct() {
-		$this->unhook();
+		];
 	}
 }

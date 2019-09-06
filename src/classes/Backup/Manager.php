@@ -83,7 +83,7 @@ class Manager extends AbstractManager {
 			'label'   => esc_html__( 'Enable backup', 'easy-watermark' ),
 			'slug'    => 'backup',
 			'default' => true,
-			'layout'  => 'simple',
+			'layout'  => 'one-column',
 			'toggle'  => 'backup',
 		] ) );
 
