@@ -3,7 +3,7 @@
 .gitignore
 .gitattributes
 .editorconfig
-.eslint
+.eslintrc
 .eslintrc.prod
 .stylelintrc
 .travis.yml
@@ -16,3 +16,4 @@ webpack.config.js
 yarn.lock
 node_modules
 assets/src
+builds
