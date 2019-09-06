@@ -431,7 +431,11 @@ class Handler {
 			return;
 		}
 
-		$watermark->text = $this->resolver->resolve( $watermark->text );
+		if ( $watermark->text ) {
+			$watermark->text = $this->resolver->resolve( $watermark->text );
+		} else {
+			$watermark->text = sprintf( '{%s}', _x( 'no_text', 'Placeholder for watermark text preview if no text specified.', 'easy-watermark' ) );
+		}
 
 		$result = $this->processor->print_text_preview( $watermark, $format );
 

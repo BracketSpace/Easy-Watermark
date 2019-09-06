@@ -9,7 +9,7 @@ namespace EasyWatermark\Core;
 
 use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
 use EasyWatermark\Backup\Manager as BackupManager;
-use EasyWatermark\Dashboard\Page as DashboardPage;
+use EasyWatermark\Dashboard\Dashboard;
 use EasyWatermark\Features\AutoWatermarkSwitch;
 use EasyWatermark\Features\SrcsetFilter;
 use EasyWatermark\Metaboxes;
@@ -101,7 +101,7 @@ class Plugin extends Singleton {
 		new DefaultPlaceholders();
 		new WatermarkPostType();
 		new AutoWatermarkSwitch();
-		new DashboardPage();
+		new Dashboard();
 		new SrcsetFilter( $this );
 		new Assets( $this );
 

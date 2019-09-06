@@ -52,10 +52,8 @@ class Watermarks extends AttachmentMetabox {
 	 */
 	public static function get_content( $post ) {
 
-		$watermark_handler = Plugin::get()->get_watermark_handler();
-
-		$watermarks = $watermark_handler->get_watermarks();
-
+		$watermark_handler  = Plugin::get()->get_watermark_handler();
+		$watermarks         = $watermark_handler->get_watermarks();
 		$applied_watermarks = get_post_meta( $post->ID, '_ew_applied_watermarks', true );
 		$has_backup         = get_post_meta( $post->ID, '_ew_has_backup', true );
 

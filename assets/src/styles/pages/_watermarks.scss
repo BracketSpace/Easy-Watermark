@@ -1,0 +1,49 @@
+.watermarks {
+
+	.postbox {
+		align-items: stretch;
+		display: flex;
+
+		h3 {
+			margin-top: 0;
+		}
+
+		a {
+			text-decoration: none;
+		}
+	}
+
+	.inside {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: 0;
+		padding: 12px;
+		width: 100%;
+	}
+
+	.button-hero {
+		align-self: center;
+	}
+
+	.watermark-preview {
+		align-items: center;
+		background-color: #c8c8c8;
+		display: flex;
+		flex: 1 1 auto;
+		justify-content: center;
+		margin-bottom: 20px;
+		padding: 20px;
+
+		@include checkered-bg;
+
+		img {
+			height: auto;
+			max-width: 100%;
+		}
+	}
+
+	.row-actions {
+		position: static;
+	}
+}

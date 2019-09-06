@@ -6,9 +6,9 @@
  */
 
 ?>
-<div class="watermarks">
+<div class="watermarks ew-grid">
 	<?php foreach ( $watermarks as $watermark ) : ?>
-		<div class="postbox">
+		<div class="postbox item">
 			<div class="inside">
 				<?php /* translators: watermark name */ ?>
 				<h3><a href="<?php echo esc_url( get_edit_post_link( $watermark->ID ) ); ?>" aria-label="<?php esc_attr_e( sprintf( 'Edit “%s”', $watermark->post_title ) ); ?>"><?php echo esc_html( $watermark->post_title ); ?></a></h3>
@@ -30,7 +30,7 @@
 	<?php endforeach; ?>
 
 	<?php if ( 2 > $watermarks_count ) : ?>
-		<div class="postbox">
+		<div class="postbox item">
 			<div class="inside">
 				<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=watermark' ) ); ?>" class="button button-primary button-hero"><?php esc_html_e( 'Add New Watermark', 'easy-watermark' ); ?></a>
 			</div>

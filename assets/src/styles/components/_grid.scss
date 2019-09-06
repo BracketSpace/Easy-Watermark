@@ -1,0 +1,32 @@
+.ew-grid {
+	align-items: stretch;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin: 0 -8px -8px;
+	padding-top: 2px;
+
+	@media (max-width: 680px) {
+		justify-content: center;
+	}
+
+	.item {
+		flex: 0 0 auto;
+		margin: 8px;
+		max-width: 480px;
+		min-height: 200px;
+		width: calc(25% - 16px);
+
+		@media (max-width: 1500px) {
+			width: calc(100% / 3 - 16px);
+		}
+
+		@media (max-width: 1100px) {
+			width: calc(50% - 18px);
+		}
+
+		@media (max-width: 680px) {
+			width: calc(100% - 16px);
+		}
+	}
+}
