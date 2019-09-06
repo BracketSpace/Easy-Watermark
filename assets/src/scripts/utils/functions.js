@@ -32,8 +32,7 @@ export function filterSelection( selection, backup = false, remove = true ) {
 	let length = selection.length;
 
 	for ( const model of selection.clone().models ) { // eslint-disable-line no-unused-vars
-		if ( ! Object.keys( ew.mime ).includes( model.get( 'mime' ) ) ||
-			model.get( 'usedAsWatermark' ) ||
+		if ( ! isImage( model ) || model.get( 'usedAsWatermark' ) ||
 			( true === backup && ! model.get( 'hasBackup' ) ) ) {
 			if ( true === remove ) {
 				selection.remove( model );
@@ -56,4 +55,13 @@ export function imageVersion( url, version ) {
 	url += '?v=' + version;
 
 	return url;
+}
+
+export function isImage( mime ) {
+	if ( 'object' === typeof mime && mime.get ) {
+		// It's a model.
+		mime = mime.get( 'mime' );
+	}
+
+	return Object.keys( ew.mime ).includes( mime );
 }

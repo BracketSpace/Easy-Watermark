@@ -12,7 +12,11 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 		initialize() {
 			super.initialize();
 
-			this.controller.on( 'selection:toggle', this.toggleDisabled, this );
+			this.model.set( {
+				originalText: this.model.get( 'text' ),
+			} );
+
+			this.controller.on( 'selection:toggle', this.update, this );
 
 			this.controller.on( 'watermark:activate watermark:deactivate', this.render, this );
 			this.controller.on( 'select:activate select:deactivate', this.render, this );
@@ -27,7 +31,7 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 				this.$el.addClass( 'restore-button hidden' );
 			}
 
-			this.toggleDisabled();
+			this.update();
 
 			return this;
 		}
@@ -39,17 +43,22 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 				return;
 			}
 
-			const selection = this.controller.state().get( 'selection' );
-
-			filterSelection( selection, true );
-
-			if ( selection.length ) {
-				this.controller.activateMode( 'restoring' );
-			}
+			this.controller.ewRestoreBackup();
 		}
 
-		toggleDisabled() {
-			this.model.set( 'disabled', ! filterSelection( this.controller.state().get( 'selection' ), true, false ) );
+		update() {
+			const
+				lastSelectionCount = this.model.get( 'filteredSelectionCount' ),
+				filteredSelectionCount = filterSelection( this.controller.state().get( 'selection' ), true, false );
+
+			if ( filteredSelectionCount !== lastSelectionCount ) {
+				this.model.set( {
+					filteredSelectionCount,
+					text: `${ this.model.get( 'originalText' ) } (${ filteredSelectionCount })`,
+				} );
+
+				this.model.set( 'disabled', ! Boolean( filteredSelectionCount ) );
+			}
 		}
 	};
 }

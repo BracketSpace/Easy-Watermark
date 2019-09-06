@@ -17,14 +17,6 @@ import {
 
 if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typeof wp.media.view.MediaFrame.Manage ) {
 	wp.media.view.MediaFrame.Manage = class extends wp.media.view.MediaFrame.Manage {
-		initialize() {
-			super.initialize();
-
-			this.on( 'watermarking:activate', this.ewWatermark, this );
-			this.on( 'restoring:activate', this.ewRestoreBackup, this );
-			this.on( 'watermarking:deactivate restoring:deactivate', this.ewCancelBulkAction, this );
-		}
-
 		browseContent( contentRegion ) {
 			this.state().set( {
 				ewCollection: new Collection,
@@ -37,11 +29,21 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 		ewBulkAction() {
 			const
 				state = this.state(),
-				collection = state.get( 'ewCollection' ),
-				status = state.get( 'ewStatus' ),
-				selection = state.get( 'selection' );
+				selection = state.get( 'selection' ),
+				action = state.get( 'ewAction' ),
+				originalSelection = selection.clone();
 
-			filterSelection( selection );
+			state.set( 'originalSelection', originalSelection );
+
+			filterSelection( selection, ( 'restore' === action ) );
+
+			if ( ! selection.length ) {
+				return;
+			}
+
+			const
+				collection = state.get( 'ewCollection' ),
+				status = state.get( 'ewStatus' );
 
 			collection.reset();
 
@@ -50,12 +52,15 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 				model.trigger( 'ewBulkAction:start' );
 			}
 
-			this.deactivateMode( 'watermark' ).deactivateMode( 'select' ).trigger( 'selection:action:done' );
+			this.deactivateMode( 'watermark' ).trigger( 'selection:action:done' );
+			this.activateMode( 'processing' );
 
 			status.set( {
 				total: collection.length,
 				processed: 0,
 				error: false,
+				visible: true,
+				progress: true,
 			} );
 
 			this.ewBulkActionRecursive();
@@ -130,21 +135,43 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 		}
 
 		ewWatermark() {
-			this.state().set( 'ewAction', 'watermark' );
-			this.state().set( 'ewSuccessMessage', ew.i18n.watermarkingSuccessMessage );
-			this.state().set( 'ewStatusText', ew.i18n.watermarkingStatus );
+			this.state().set( {
+				ewAction: 'watermark',
+				ewSuccessMessage: ew.i18n.watermarkingSuccessMessage,
+			} ).get( 'ewStatus' ).set( {
+				text: ew.i18n.watermarkingStatus,
+			} );
+
+			this.activateMode( 'watermarking' );
 			this.ewBulkAction();
 		}
 
 		ewRestoreBackup() {
-			this.state().set( 'ewAction', 'restore' );
-			this.state().set( 'ewSuccessMessage', ew.i18n.restoringSuccessMessage );
-			this.state().set( 'ewStatusText', ew.i18n.restoringStatus );
+			this.state().set( {
+				ewAction: 'restore',
+				ewSuccessMessage: ew.i18n.restoringSuccessMessage,
+			} ).get( 'ewStatus' ).set( {
+				text: ew.i18n.restoringStatus,
+			} );
+
+			this.activateMode( 'restoring' );
 			this.ewBulkAction();
 		}
 
 		ewBulkActionError( error ) {
-			const status = this.state().get( 'ewStatus' );
+			const
+				state = this.state(),
+				status = state.get( 'ewStatus' ),
+				collection = state.get( 'ewCollection' ),
+				currentModel = state.get( 'ewCurrentModel' );
+
+			if ( currentModel ) {
+				collection.push( currentModel );
+			}
+
+			for ( const model of collection.models ) { // eslint-disable-line no-unused-vars
+				model.trigger( 'ewBulkAction:done' );
+			}
 
 			status.set( { error } );
 
@@ -162,6 +189,7 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 
 			this.deactivateMode( 'watermarking' );
 			this.deactivateMode( 'restoring' );
+			this.deactivateMode( 'processing' );
 
 			if ( procesed > 0 ) {
 				addNotice( successMessage.replace( '{procesed}', procesed ), 'success' );
@@ -173,21 +201,11 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 					.replace( '{error}', error );
 				addNotice( errorMessage, 'error' );
 			}
-		}
 
-		ewCancelBulkAction() {
-			const
-				state = this.state(),
-				collection = state.get( 'ewCollection' ),
-				currentModel = state.get( 'ewCurrentModel' );
-
-			if ( currentModel ) {
-				collection.push( currentModel );
-			}
-
-			for ( const model of collection.models ) { // eslint-disable-line no-unused-vars
-				model.trigger( 'ewBulkAction:canceled' );
-			}
+			status.set( {
+				visible: false,
+				progress: false,
+			} );
 		}
 	};
 }

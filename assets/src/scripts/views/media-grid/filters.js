@@ -6,7 +6,7 @@ if ( wp.media ) {
 			initialize() {
 				super.initialize();
 
-				this.controller.on( 'watermarking:activate watermarking:deactivate', this.toggleDisabled, this );
+				this.controller.on( 'processing:activate processing:deactivate', this.toggleDisabled, this );
 			}
 
 			toggleDisabled() {
@@ -20,7 +20,7 @@ if ( wp.media ) {
 			initialize() {
 				super.initialize();
 
-				this.controller.on( 'watermarking:activate watermarking:deactivate', this.toggleDisabled, this );
+				this.controller.on( 'processing:activate processing:deactivate', this.toggleDisabled, this );
 			}
 
 			toggleDisabled() {
@@ -34,7 +34,7 @@ if ( wp.media ) {
 			initialize() {
 				super.initialize();
 
-				this.controller.on( 'watermarking:activate watermarking:deactivate', this.toggleDisabled, this );
+				this.controller.on( 'processing:activate processing:deactivate', this.toggleDisabled, this );
 			}
 
 			toggleDisabled() {

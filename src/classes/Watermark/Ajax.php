@@ -173,6 +173,70 @@ class Ajax {
 	}
 
 	/**
+	 * Temporarily saves watermark settings
+	 *
+	 * @action wp_ajax_easy-watermark/attachments-info
+	 *
+	 * @return void
+	 */
+	public function get_attachments_info() {
+
+		check_ajax_referer( 'attachments_info', 'nonce' );
+
+		if ( ! isset( $_REQUEST['attachments'] ) || ! is_array( $_REQUEST['attachments'] ) ) {
+			wp_send_json_error( [
+				'message' => __( 'Invalid request.', 'easy-watermark' ),
+			] );
+		}
+
+		$attachment_ids = [];
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		foreach ( $_REQUEST['attachments'] as $id ) {
+			$attachment_ids[] = intval( $id );
+		}
+
+		$placeholders = implode( ',', array_fill( 0, count( $attachment_ids ), '%d' ) );
+
+		global $wpdb;
+
+		$query = "
+			SELECT
+				`{$wpdb->prefix}posts`.`ID` as id,
+				`{$wpdb->prefix}posts`.`post_mime_type` as mime,
+				EXISTS( SELECT `{$wpdb->prefix}postmeta`.`meta_value` FROM wp_postmeta WHERE `{$wpdb->prefix}postmeta`.`post_id` = `{$wpdb->prefix}posts`.`ID` AND `{$wpdb->prefix}postmeta`.`meta_key` = '_ew_used_as_watermark' ) AS 'usedAsWatermark',
+				EXISTS( SELECT `{$wpdb->prefix}postmeta`.`meta_value` FROM wp_postmeta WHERE `{$wpdb->prefix}postmeta`.`post_id` = `{$wpdb->prefix}posts`.`ID` AND `{$wpdb->prefix}postmeta`.`meta_key` = '_ew_has_backup' ) AS 'hasBackup'
+			FROM
+				`{$wpdb->prefix}posts`
+			WHERE	`{$wpdb->prefix}posts`.`ID` IN ({$placeholders})
+		";
+
+		// phpcs:ignore WordPress.DB
+		$results = $wpdb->get_results( $wpdb->prepare( $query, $attachment_ids ), ARRAY_A );
+
+		if ( ! $results ) {
+			wp_send_json_error( [
+				'message' => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
+			] );
+		}
+
+		foreach ( $results as &$row ) {
+			array_walk( $row, function ( &$value, $key ) {
+				if ( 'id' === $key ) {
+					return;
+				}
+
+				if ( is_numeric( $value ) ) {
+					$value = (bool) $value;
+				}
+			} );
+		}
+
+		wp_send_json_success( $results );
+
+	}
+
+	/**
 	 * Sends response
 	 *
 	 * @param  mixed   $result          Watermarking result.

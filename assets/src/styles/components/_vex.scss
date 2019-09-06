@@ -1,0 +1,148 @@
+@import "vex-js/sass/_mixins.sass";
+@import "vex-js/sass/_keyframes.sass";
+@include keyframes-vex-fadein;
+@include keyframes-vex-fadeout;
+@include keyframes-vex-pulse;
+
+.wp-admin .vex {
+	z-index: 999999;
+
+	&-overlay {
+		z-index: 999999;
+	}
+}
+
+$blue: #3288e6;
+
+.vex.vex-theme-ew {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+
+	.vex-content {
+		animation: vex-fadein 0.5s;
+		background: #fff;
+		margin: 0;
+		max-width: 100%;
+		padding: 12px;
+		position: relative;
+		width: 450px;
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p,
+		ul,
+		li {
+			color: inherit;
+		}
+	}
+
+	&.vex-closing .vex-content {
+		animation: vex-fadeout 0.5s forwards;
+	}
+
+	.vex-close {
+		border-radius: 5px;
+		cursor: pointer;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		&::before {
+			background: transparent;
+			border-radius: 3px;
+			color: #bbb;
+			content: "×";
+			font-size: 26px;
+			font-weight: 400;
+			height: 30px;
+			line-height: 31px;
+			position: absolute;
+			right: 3px;
+			text-align: center;
+			top: 3px;
+			width: 30px;
+		}
+
+		&:hover::before,
+		&:active::before {
+			background: #e0e0e0;
+			color: #777;
+		}
+	}
+
+	.vex-dialog-form {
+
+		.vex-dialog-message {
+			margin-bottom: 2em;
+		}
+
+		.vex-dialog-input {
+			margin-bottom: 1em;
+
+			select,
+			textarea,
+			input[type="date"],
+			input[type="datetime"],
+			input[type="datetime-local"],
+			input[type="email"],
+			input[type="month"],
+			input[type="number"],
+			input[type="password"],
+			input[type="search"],
+			input[type="tel"],
+			input[type="text"],
+			input[type="time"],
+			input[type="url"],
+			input[type="week"] {
+				background: #fff;
+				border: 0;
+				border-radius: 3px;
+				font-family: inherit;
+				font-size: inherit;
+				font-weight: inherit;
+				margin: 0 0 0.25em;
+				min-height: 2.5em;
+				padding: 0.25em 0.67em;
+				width: 100%;
+
+				&:focus {
+					box-shadow: inset 0 0 0 2px lighten($blue, 20%);
+					outline: none;
+				}
+			}
+		}
+
+		.vex-dialog-buttons {
+			border-top: 1px solid #eee;
+			margin: 0 -12px -12px;
+			padding: 12px;
+
+			@include pie-clearfix;
+		}
+	}
+
+	.vex-dialog-button {
+		float: right;
+		margin: 0 0 0 8px;
+
+		&.vex-last {
+			margin-left: 0;
+		}
+	}
+}
+
+.vex-loading-spinner.vex-theme-ew {
+	background: #f0f0f0;
+	border: 0.2em solid transparent;
+	border-radius: 100%;
+	border-top-color: #bbb;
+	bottom: auto;
+	box-shadow: 0 0 0 0.5em #f0f0f0, 0 0 1px 0.5em rgba(0, 0, 0, 0.3);
+	top: -1.1em;
+}

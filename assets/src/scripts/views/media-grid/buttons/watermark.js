@@ -39,7 +39,7 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 				return;
 			}
 
-			this.controller.activateMode( 'watermarking' );
+			this.controller.ewWatermark();
 		}
 
 		toggleDisabled( watermark ) {

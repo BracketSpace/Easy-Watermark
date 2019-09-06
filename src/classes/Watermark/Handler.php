@@ -11,7 +11,7 @@ use EasyWatermark\AttachmentProcessor;
 use EasyWatermark\AttachmentProcessor\Manager as ProcessorManager;
 use EasyWatermark\Backup\BackupperInterface;
 use EasyWatermark\Backup\Manager as BackupManager;
-use EasyWatermark\Core\Settings;
+use EasyWatermark\Settings\Settings;
 use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Metaboxes\Attachment\Watermarks;
 use EasyWatermark\Placeholders\Resolver;
@@ -74,9 +74,10 @@ class Handler {
 
 		$this->settings = Settings::get();
 
-		if ( true === $this->settings->backup && $this->settings->backupper ) {
-			$backupper = $this->settings->backupper;
-		} else {
+		$backup    = $this->settings->get_setting( 'backup/backup' );
+		$backupper = $this->settings->get_setting( 'backup/backupper' );
+
+		if ( false === $backup || ! $backupper ) {
 			// If backup is not enabled load local backuper for temporary backups.
 			$backupper = 'local';
 		}
@@ -84,6 +85,8 @@ class Handler {
 		$this->backupper = BackupManager::get()->get_object( $backupper );
 		$this->processor = ProcessorManager::get()->get_object( 'gd' );
 		$this->resolver  = Resolver::get();
+
+		$this->processor->set_param( 'jpeg_quality', $this->settings->get_setting( 'general/jpeg_quality' ) );
 
 	}
 
@@ -297,7 +300,7 @@ class Handler {
 
 		$error_messages = $error->get_error_messages();
 		$has_error      = ! empty( $error_messages );
-		if ( false === $this->settings->backup || true === $has_error ) {
+		if ( false === $this->settings->get_setting( 'backup/backup' ) || true === $has_error ) {
 			$this->clean_backup( $attachment_id );
 		}
 

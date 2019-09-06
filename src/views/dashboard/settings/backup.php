@@ -7,12 +7,17 @@
 
 ?>
 <h2><?php esc_html_e( 'Backup', 'easy-watermark' ); ?></h2>
-<label class="ew-switch">
-	<input id="ew-backup" name="easy-watermark-settings[backup]" type="checkbox" value="1" <?php checked( $backup ); ?> />
-	<span class="switch left-aligned"></span> <?php esc_html_e( 'Enable backup', 'easy-watermark' ); ?>
-</label>
+
 <table class="form-table hidden" id="backup-settings">
 	<tbody>
+		<tr valign="top">
+			<td colspan="2">
+				<label class="ew-switch">
+					<input id="ew-backup" name="easy-watermark-settings[backup]" type="checkbox" value="1" <?php checked( $backup ); ?> />
+					<span class="switch left-aligned"></span> <?php esc_html_e( 'Enable backup', 'easy-watermark' ); ?>
+				</label>
+			</td>
+		</tr>
 		<tr valign="top">
 			<th scope="row">
 				<label for="ew-backupper"><?php esc_html_e( 'Backupper', 'easy-watermark' ); ?></label>

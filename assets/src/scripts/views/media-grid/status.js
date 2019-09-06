@@ -12,18 +12,24 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 			return 'ew-status';
 		}
 
-		template( processed, total ) {
-			const
-				counter = `${ processed }/${ total }`,
-				percent = Math.floor( processed / total * 100 );
+		template() {
+			let statusText = this.status.get( 'text' );
 
-			let status = this.controller.state().get( 'ewStatusText' );
+			if ( this.status.get( 'progress' ) ) {
+				const
+					processed = this.status.get( 'processed' ),
+					total = this.status.get( 'total' ),
+					counter = `${ processed }/${ total }`,
+					percent = Math.floor( processed / total * 100 );
 
-			if ( 'string' === typeof status ) {
-				status = status.replace( '{counter}', counter );
+				if ( 'string' === typeof status ) {
+					statusText = statusText.replace( '{counter}', counter );
+				}
+
+				statusText += `  (${ percent }%)`;
 			}
 
-			return `<span class="status">${ status } (${ percent }%)</span>`;
+			return `<span class="status">${ statusText }</span>`;
 		}
 
 		constructor( options ) {
@@ -31,31 +37,21 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 
 			this.status = this.controller.state().get( 'ewStatus' );
 			this.status.on( 'change', this.update, this );
-
-			this.controller.on( 'watermarking:activate watermarking:deactivate', this.toggleVisibility, this );
-			this.controller.on( 'restoring:activate restoring:deactivate', this.toggleVisibility, this );
 		}
 
 		render() {
-			this.toggleVisibility();
+			this.update();
 
 			return this;
 		}
 
-		toggleVisibility() {
-			if ( this.controller.isModeActive( 'watermarking' ) || this.controller.isModeActive( 'restoring' ) ) {
-				this.$el.removeClass( 'hidden' );
-			} else {
-				this.$el.addClass( 'hidden' );
-			}
-		}
-
 		update() {
-			const
-				processed = this.status.get( 'processed' ),
-				total = this.status.get( 'total' );
+			if ( ! this.status.get( 'visible' ) ) {
+				this.$el.addClass( 'hidden' );
+				return;
+			}
 
-			this.$el.html( this.template( processed, total ) );
+			this.$el.removeClass( 'hidden' ).html( this.template() );
 		}
 
 		cancel( e ) {

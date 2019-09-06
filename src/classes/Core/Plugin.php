@@ -9,10 +9,12 @@ namespace EasyWatermark\Core;
 
 use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
 use EasyWatermark\Backup\Manager as BackupManager;
+use EasyWatermark\Dashboard\Page as DashboardPage;
 use EasyWatermark\Features\AutoWatermarkSwitch;
 use EasyWatermark\Features\SrcsetFilter;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
+use EasyWatermark\Settings\Settings;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\Preview;
@@ -83,6 +85,8 @@ class Plugin extends Singleton {
 
 		BackupManager::get();
 
+		do_action( 'ew_load', $this );
+
 	}
 
 	/**
@@ -95,13 +99,13 @@ class Plugin extends Singleton {
 	public function setup() {
 
 		new DefaultPlaceholders();
+		new WatermarkPostType();
+		new AutoWatermarkSwitch();
+		new DashboardPage();
+		new SrcsetFilter( $this );
+		new Assets( $this );
 
 		$this->get_watermark_handler();
-
-		new WatermarkPostType();
-		new Assets( $this );
-		new AutoWatermarkSwitch();
-		new SrcsetFilter( $this );
 
 		$settings = Settings::get();
 

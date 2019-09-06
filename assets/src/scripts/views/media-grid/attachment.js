@@ -6,7 +6,7 @@ import $ from 'jquery';
 /**
  * Internal dependencies
  */
-import { filterSelection } from '../../utils/functions.js';
+import { filterSelection, isImage } from '../../utils/functions.js';
 
 /* global wp, ew */
 
@@ -16,7 +16,10 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 			super.initialize();
 
 			this.listenTo( this.model, 'ewBulkAction:start', this.showLoader );
-			this.listenTo( this.model, 'ewBulkAction:done ewBulkAction:canceled', this.render );
+			this.listenTo( this.model, 'ewBulkAction:done', this.render );
+
+			this.controller.on( 'selection:toggle watermark:activate processing:activate', this.disable, this );
+			this.controller.on( 'watermark:deactivate processing:deactivate', this.enable, this );
 		}
 
 		render() {
@@ -29,13 +32,13 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 			const { method } = options;
 
 			if ( ! this.controller.isModeActive( 'watermark' ) ||
-				( ( this.isImage() && ! this.model.get( 'usedAsWatermark' ) ) || 'between' === method ) ) {
+				( ( isImage( this.model ) && ! this.model.get( 'usedAsWatermark' ) ) || 'between' === method ) ) {
 				// In watermark mode only select images.
 				super.toggleSelection( options );
 			}
 
 			if ( this.controller.isModeActive( 'watermark' ) ) {
-				if ( ! this.isImage() || this.model.get( 'usedAsWatermark' ) ) {
+				if ( ! isImage( this.model ) || this.model.get( 'usedAsWatermark' ) ) {
 					this.$el.blur();
 				}
 
@@ -45,12 +48,54 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 			}
 		}
 
-		isImage() {
-			return Object.keys( ew.mime ).includes( this.model.get( 'mime' ) );
-		}
-
 		showLoader() {
 			this.$el.find( '.spinner' ).css( { visibility: 'visible' } );
+		}
+
+		disable() {
+			if ( ! this.controller.isModeActive( 'watermark' ) && ! this.controller.isModeActive( 'processing' ) ) {
+				return;
+			}
+
+			if ( this.hasBadge ) {
+				return;
+			}
+
+			if ( this.controller.isModeActive( 'processing' ) && ! this.wasSelected() ) {
+				return;
+			}
+
+			let text;
+
+			if ( ! isImage( this.model ) ) {
+				text = ew.i18n.notSupported;
+			} else if ( this.model.get( 'usedAsWatermark' ) ) {
+				text = ew.i18n.usedAsWatermark;
+			} else if ( this.controller.isModeActive( 'restoring' ) && ! this.model.get( 'hasBackup' ) ) {
+				text = ew.i18n.noBackupAvailable;
+			} else {
+				return;
+			}
+
+			const badge = $( '<div>', { class: 'badge' } ).text( text );
+
+			this.$el.addClass( 'disabled' ).append( badge );
+			this.hasBadge = true;
+		}
+
+		enable() {
+			if ( ! this.controller.isModeActive( 'watermark' ) && ! this.controller.isModeActive( 'processing' ) ) {
+				this.$el.removeClass( 'disabled' ).find( '.badge' ).remove();
+				this.hasBadge = false;
+			}
+		}
+
+		wasSelected() {
+			const selection = this.controller.state().get( 'originalSelection' );
+
+			if ( selection ) {
+				return !! selection.get( this.model.cid );
+			}
 		}
 	};
 }

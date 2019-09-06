@@ -48,7 +48,7 @@ if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
 			this.controller.on( 'select:deactivate', () => this.controller.deactivateMode( 'watermark' ) );
 			this.controller.on( 'watermark:activate', this.hideButtons, this );
 			this.controller.on( 'watermark:deactivate', this.showButtons, this );
-			this.controller.on( 'watermarking:activate watermarking:deactivate', this.disableViewSwitch, this );
+			this.controller.on( 'processing:activate processing:deactivate', this.disableViewSwitch, this );
 		}
 
 		hideButtons() {

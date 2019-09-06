@@ -8,7 +8,7 @@ module.exports = ( env, argv ) => {
 	return {
 		mode: argv.mode,
 		entry: {
-			settings: './assets/src/scripts/settings.js',
+			dashboard: './assets/src/scripts/dashboard.js',
 			uploader: './assets/src/scripts/uploader.js',
 			'attachment-edit': './assets/src/scripts/attachment-edit.js',
 			'media-library': './assets/src/scripts/media-library.js',
@@ -43,6 +43,10 @@ module.exports = ( env, argv ) => {
 					use: {
 						loader: 'babel-loader',
 					},
+				},
+				{
+					test: /\.css$/,
+					loader: 'style-loader!css-loader',
 				},
 				{
 					test: /\.scss$/,

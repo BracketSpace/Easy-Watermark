@@ -2,27 +2,27 @@ label.ew-switch {
 	line-height: 20px;
 
 	span.switch {
-		display: inline-block;
-		width: 30px;
-		height: 14px;
 		background-color: #ccc;
 		border-radius: 7px;
+		display: inline-block;
+		height: 14px;
 		position: relative;
 		transition: all 0.3s;
 		vertical-align: sub;
+		width: 30px;
 
 		&::before {
+			background: #fff;
+			border-radius: 50%;
+			box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 			content: "";
 			display: block;
-			width: 18px;
 			height: 18px;
-			border-radius: 50%;
-			background: #fff;
-			box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+			left: -2px;
 			position: absolute;
 			top: -2px;
-			left: -2px;
 			transition: all 0.3s;
+			width: 18px;
 		}
 
 		&.left-aligned {
@@ -35,8 +35,8 @@ label.ew-switch {
 	}
 
 	input {
-		visibility: hidden;
 		position: absolute;
+		visibility: hidden;
 
 		&:checked {
 

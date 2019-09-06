@@ -12,18 +12,15 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 		initialize() {
 			super.initialize();
 
-			this.model.set( 'cancelText', this.options.cancelText );
+			this.model.set( {
+				originalText: this.model.get( 'text' ),
+				cancelText: this.options.cancelText,
+			} );
 			delete this.options.cancelText;
 
-			this.controller.on( 'selection:toggle', this.toggleDisabled, this );
-
-			this.controller.on( 'watermark:activate', () => {
-				this.$el.html( this.model.get( 'cancelText' ) );
-			} );
-
-			this.controller.on( 'watermark:deactivate', () => {
-				this.$el.html( this.model.get( 'text' ) );
-			} );
+			this.controller.on( 'selection:toggle', this.update, this );
+			this.controller.on( 'watermark:activate', () => this.$el.html( this.model.get( 'cancelText' ) ) );
+			this.controller.on( 'watermark:deactivate', this.update, this );
 		}
 
 		render() {
@@ -35,7 +32,7 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 				this.$el.addClass( 'watermark-mode-toggle-button hidden' );
 			}
 
-			this.toggleDisabled();
+			this.update();
 
 			return this;
 		}
@@ -52,11 +49,26 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 			}
 		}
 
-		toggleDisabled() {
-			this.model.set( 'disabled', ! filterSelection( this.controller.state().get( 'selection' ), false, false ) );
+		update() {
+			if ( this.controller.isModeActive( 'watermark' ) ) {
+				return;
+			}
 
-			if ( ! this.controller.state().get( 'selection' ).length ) {
-				this.controller.deactivateMode( 'watermark' );
+			const
+				lastSelectionCount = this.model.get( 'filteredSelectionCount' ),
+				filteredSelectionCount = filterSelection( this.controller.state().get( 'selection' ), false, false );
+
+			if ( filteredSelectionCount !== lastSelectionCount ) {
+				this.model.set( {
+					filteredSelectionCount,
+					text: `${ this.model.get( 'originalText' ) } (${ filteredSelectionCount })`,
+				} );
+
+				this.model.set( 'disabled', ! Boolean( filteredSelectionCount ) );
+
+				if ( ! this.controller.state().get( 'selection' ).length ) {
+					this.controller.deactivateMode( 'watermark' );
+				}
 			}
 		}
 	}

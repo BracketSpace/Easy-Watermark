@@ -59,7 +59,7 @@ class Assets {
 
 		$assets = [
 			'attachment-edit' => [ 'jquery' ],
-			'settings'        => [ 'jquery' ],
+			'dashboard'       => [ 'jquery' ],
 			'uploader'        => [ 'jquery' ],
 			'media-library'   => [ 'jquery', 'backbone' ],
 			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
@@ -103,25 +103,39 @@ class Assets {
 				];
 				break;
 			case 'settings_page_easy-watermark':
-				$enqueue = 'settings';
+			case 'tools_page_easy-watermark':
+				$enqueue  = 'dashboard';
+				$localize = [
+					'i18n' => [
+						/* translators: watermark name */
+						'deleteConfirmation' => __( sprintf( 'You are about to permanently delete "%s". Are you sure?', '{watermarkName}' ), 'easy-watermark' ),
+					],
+				];
 				break;
 			case 'upload':
 				$this->wp_enqueue_media();
 				$enqueue  = 'media-library';
 				$localize = [
-					'watermarks'         => $this->get_watermarks(),
-					'mime'               => ImageHelper::get_available_mime_types(),
-					'applyAllNonce'      => wp_create_nonce( 'apply_all' ),
-					'applySingleNonces'  => $this->get_watermark_nonces(),
-					'restoreBackupNonce' => wp_create_nonce( 'restore_backup' ),
-					'i18n'               => [
+					'watermarks'           => $this->get_watermarks(),
+					'mime'                 => ImageHelper::get_available_mime_types(),
+					'applyAllNonce'        => wp_create_nonce( 'apply_all' ),
+					'applySingleNonces'    => $this->get_watermark_nonces(),
+					'restoreBackupNonce'   => wp_create_nonce( 'restore_backup' ),
+					'attachmentsInfoNonce' => wp_create_nonce( 'attachments_info' ),
+					'i18n'                 => [
+						'noItemsSelected'                => __( 'No items selected', 'easy-watermark' ),
 						'watermarkModeToggleButtonLabel' => __( 'Watermark Selected', 'easy-watermark' ),
 						'watermarkButtonLabel'           => __( 'Watermark', 'easy-watermark' ),
 						'restoreButtonLabel'             => __( 'Restore original images', 'easy-watermark' ),
 						'cancelLabel'                    => __( 'Cancel', 'easy-watermark' ),
 						'selectWatermarkLabel'           => __( 'Select Watermark', 'easy-watermark' ),
 						'allWatermarksLabel'             => __( 'All Watermarks', 'easy-watermark' ),
+						'notSupported'                   => _x( 'Not supported', 'label for unsupported attachment type (other than image)', 'easy-watermark' ),
+						'usedAsWatermark'                => _x( 'Used as watermark', 'label for image used as watermark', 'easy-watermark' ),
+						'noBackupAvailable'              => _x( 'No backup available', 'label for attachments which has no backup to restore', 'easy-watermark' ),
 						'genericErrorMessage'            => __( 'Something went wrong. Please refresh the page and try again.', 'easy-watermark' ),
+						'watermarkingNoItems'            => __( 'None from the selected items qualified for watermarking.', 'easy-watermark' ),
+						'restoringNoItems'               => __( 'No backup available for any of selected items.', 'easy-watermark' ),
 						/* translators: watermarked images number */
 						'watermarkingStatus'             => sprintf( __( 'Watermarked %s images', 'easy-watermark' ), '{counter}' ),
 						/* translators: watermarked images number */
@@ -183,9 +197,12 @@ class Assets {
 		wp_enqueue_style( $asset_name );
 		wp_enqueue_script( $asset_name );
 
-		if ( $localize ) {
-			wp_localize_script( $asset_name, 'ew', $localize );
-		}
+		$localize['i18n'] = array_merge( isset( $localize['i18n'] ) ? $localize['i18n'] : [], [
+			'yes' => __( 'Yes', 'easy-watermark' ),
+			'no'  => __( 'Cancel', 'easy-watermark' ),
+		] );
+
+		wp_localize_script( $asset_name, 'ew', $localize );
 
 	}
 

@@ -10,15 +10,16 @@
 	.watermark-image {
 
 		img {
+			background-color: #ddd;
 			cursor: pointer;
-			width: auto;
 			height: auto;
 			max-width: 100%;
-			background-color: #ddd;
+			width: auto;
 		}
 	}
 
 	.text-content {
+		overflow: hidden;
 
 		input {
 			width: 100%;
@@ -26,10 +27,14 @@
 	}
 
 	.text-preview {
+		float: left;
+
+		@include checkered-bg( 6px, #ddd, #999);
 
 		img {
-			max-width: 100%;
+			display: block;
 			height: auto;
+			max-width: 100%;
 		}
 	}
 }

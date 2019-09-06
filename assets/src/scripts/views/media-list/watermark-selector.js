@@ -28,9 +28,8 @@ export default class extends View {
 	constructor( options ) {
 		super( options );
 
-		if ( this.controller ) {
-			this.listenTo( this.controller, 'change', this.update );
-		}
+		this.listenTo( this.controller, 'change', this.update );
+		this.listenTo( this.controller, 'bulkAction:start', this.reset );
 	}
 
 	render() {
@@ -54,11 +53,15 @@ export default class extends View {
 			return;
 		}
 
-		if ( 'watermark' === this.controller.get( 'action' ) ) {
+		if ( 'watermark' === this.controller.get( 'action' ) && ! this.controller.status().get( 'processing' ) ) {
 			this.$el.show();
 		} else {
 			this.$el.hide();
 		}
+	}
+
+	reset() {
+		this.$el.val( 'all' ).hide();
 	}
 
 	attach() {

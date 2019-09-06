@@ -8,15 +8,17 @@ import $ from 'jquery';
  */
 import '../styles/watermark-edit.scss';
 
-/* global ew, ajaxurl */
+import ContentMetabox from './metaboxes/watermark/content';
+import AlignmentMetabox from './metaboxes/watermark/alignment';
+import ApplyingRules from './metaboxes/watermark/applying-rules';
+import Scaling from './metaboxes/watermark/scaling';
+import TextOptions from './metaboxes/watermark/text-options';
+import Preview from './metaboxes/watermark/preview';
+import Placeholders from './metaboxes/watermark/placeholders';
 
-import ContentMetabox from './metaboxes/watermark/content.js';
-import AlignmentMetabox from './metaboxes/watermark/alignment.js';
-import ApplyingRules from './metaboxes/watermark/applying-rules.js';
-import Scaling from './metaboxes/watermark/scaling.js';
-import TextOptions from './metaboxes/watermark/text-options.js';
-import Preview from './metaboxes/watermark/preview.js';
-import Placeholders from './metaboxes/watermark/placeholders.js';
+import FormFields from './utils/form-fields';
+
+/* global ew, ajaxurl */
 
 class WatermarkEdit {
 	constructor() {
@@ -27,14 +29,16 @@ class WatermarkEdit {
 		this.selector = this.form.find( 'input.watermark-type' );
 
 		this.metaboxes = [
-			new ContentMetabox(),
-			new AlignmentMetabox(),
-			new ApplyingRules(),
-			new Scaling(),
-			new TextOptions(),
-			new Preview(),
-			new Placeholders(),
+			new ContentMetabox,
+			new AlignmentMetabox,
+			new ApplyingRules,
+			new Scaling,
+			new TextOptions,
+			new Preview,
+			new Placeholders,
 		];
+
+		new FormFields;
 
 		const selected = this.selector.filter( '[checked]' );
 
