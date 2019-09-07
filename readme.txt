@@ -16,7 +16,13 @@ Allows to add watermark to images automatically on upload or manually.
 
 Easy Watermark can automatically add watermark to images as they are uploaded to wordpress media library. You can also watermark existing images manually (all at once or an every single image). Watermark can be an image, text or both.
 
+= See the demo =
+
+[youtube https://www.youtube.com/watch?v=xM_0Y0oX4o0]
+
 = Plugin features =
+
+On one image you can have two watermarks! One of them can be text watermark and the other image watermark. You can control their position and size and apply them to your media independently.
 
 * Image watermark can be a JPG, PNG or GIF
 * Full support for transparency and alpha chanel in PNG and GIF files
@@ -26,13 +32,38 @@ Easy Watermark can automatically add watermark to images as they are uploaded to
 * All built-in image sizes can be watermarked (thumbnail, medium, large and fullsize) as well as all additional sizes registered by themes or plugins
 * Plugin can create image backups and allows to easily restore images
 
+= Image watermark =
+
+Easy Watermark supports three most popular image formats for watermark: JPG, PNG and GIF. For JPG watermarks you can control the opacity as well.
+
+Watermark can be applied in on of the 9 positions on the image and you can controll the exact sizing of it.
+
+= Text watermark =
+
+Text watermark have a powerful feature of placeholders, which can be dynamically applied to the image. Ie. you can put the name of user who uploaded the image as well as the upload date. Watermark text will be automatically generated and applied.
+
+The plugin supports a few fonts:
+
+* Arial
+* Arial Black
+* Comic Sans MS
+* Courier New
+* Georgia
+* Impact
+* Tahoma
+* Times New Roman
+* Trebuchet MS
+* Verdana
+
+You can also place the text watermark in one of the 9 positions on the image, control the angle, color, opacity and size.
+
 == Installation ==
 
 Note: Easy Watermark requires GD extension installed and enabled on a server to work.
 
-1. Unpack easy-watermark.zip and upload its content to the `/wp-content/plugins/` directory
+1. Install via Plugin installation screen in WordPress dashboard or download and unpack plugin zip and upload its content to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Plugin is working. Go to "Settings > Easy Watermark" to set up your watermark.
+1. Plugin is working. Go to "Tools > Easy Watermark" to set up your watermarks.
 
 == Frequently asked questions ==
 
