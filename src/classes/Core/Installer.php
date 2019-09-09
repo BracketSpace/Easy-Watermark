@@ -64,7 +64,6 @@ class Installer {
 	 * @return void
 	 */
 	public static function deactivate() {
-
 		flush_rewrite_rules();
 	}
 
@@ -198,8 +197,33 @@ class Installer {
 		}
 
 		update_option( Plugin::get()->get_slug() . '-settings', $defaults );
-
 		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
+
+		self::update_backup_info();
+
+	}
+
+	/**
+	 * Updates backup info
+	 *
+	 * @return void
+	 */
+	private static function update_backup_info() {
+
+		$attachments = get_posts( [
+			'posts_per_page' => -1,
+			'post_type'      => 'attachment',
+			'meta_query'     => [
+				[
+					'key'     => '_ew_backup_file',
+					'compare' => 'EXISTS',
+				],
+			],
+		] );
+
+		foreach ( $attachments as $attachment ) {
+			update_post_meta( $attachment->ID, '_ew_has_backup', true );
+		}
 
 	}
 

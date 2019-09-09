@@ -105,7 +105,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	/**
 	 * Filters available watermark types
 	 *
-	 * @filter easy_watermark/watermark_types
+	 * @filter easy-watermark/watermark-types
 	 *
 	 * @param  array $types Available watermark types.
 	 * @return array

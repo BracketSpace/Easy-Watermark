@@ -33,7 +33,7 @@ class LocalBackupper implements BackupperInterface {
 
 		$backup_dir = 'ew-backup';
 
-		$this->backup_dir = apply_filters( 'easy_watermark/local_backupper_dir', $backup_dir );
+		$this->backup_dir = apply_filters( 'easy-watermark/local-backupper-dir', $backup_dir );
 
 	}
 
@@ -83,7 +83,6 @@ class LocalBackupper implements BackupperInterface {
 		}
 
 		delete_post_meta( $attachment_id, '_ew_backup_file' );
-		delete_post_meta( $attachment_id, '_ew_has_backup' );
 
 		return true;
 

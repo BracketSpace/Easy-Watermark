@@ -49,7 +49,7 @@ class Text {
 			}
 		}
 
-		return apply_filters( 'easy_watermark/font_path', $path, $font );
+		return apply_filters( 'easy-watermark/font-path', $path, $font );
 
 	}
 }

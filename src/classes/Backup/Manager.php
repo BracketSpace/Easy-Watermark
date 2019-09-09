@@ -43,7 +43,7 @@ class Manager extends AbstractManager {
 			],
 		];
 
-		$this->default_classes = apply_filters( 'easy_watermark/available_backuppers', $backuppers );
+		$this->default_classes = apply_filters( 'easy-watermark/available-backuppers', $backuppers );
 
 		$this->error_messages = [
 			/* translators: %s: class name. */

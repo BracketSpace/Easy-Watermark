@@ -33,7 +33,7 @@ class Defaults {
 	/**
 	 * Returns placeholder slug
 	 *
-	 * @action easy_watermark/placeholders/load
+	 * @action easy-watermark/placeholders/load
 	 *
 	 * @param  Resolver $resolver Placeholders resolver instance.
 	 * @return void

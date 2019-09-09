@@ -54,7 +54,7 @@ class Preview {
 				break;
 		}
 
-		do_action( 'easy_watermark/print_preview', $type, $format, $size );
+		do_action( 'easy-watermark/print-preview', $type, $format, $size );
 
 	}
 

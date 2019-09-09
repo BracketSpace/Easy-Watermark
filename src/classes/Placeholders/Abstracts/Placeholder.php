@@ -168,7 +168,7 @@ abstract class Placeholder {
 				trigger_error( 'Resolved value is a wrong type', $error_type );
 			}
 
-			$this->value = apply_filters( 'easy_watermark/placeholder/resolve', $this->sanitize( $value ) );
+			$this->value = apply_filters( 'easy-watermark/placeholder/resolve', $this->sanitize( $value ) );
 		}
 
 		return $this->value;

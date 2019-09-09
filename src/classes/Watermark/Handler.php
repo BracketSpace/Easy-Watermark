@@ -133,7 +133,7 @@ class Handler {
 			],
 		];
 
-		$types = apply_filters( 'easy_watermark/watermark_types', $types );
+		$types = apply_filters( 'easy-watermark/watermark-types', $types );
 
 		$watermarks = $this->get_watermarks();
 
@@ -387,6 +387,7 @@ class Handler {
 
 		update_post_meta( $attachment_id, '_ew_attachment_version', time() );
 		delete_post_meta( $attachment_id, '_ew_applied_watermarks' );
+		delete_post_meta( $attachment_id, '_ew_has_backup' );
 
 		$this->lock = false;
 

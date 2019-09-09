@@ -54,7 +54,7 @@ class Resolver extends Singleton {
 	 * @return void
 	 */
 	public function load_placeholders() {
-		do_action( 'easy_watermark/placeholders/load', $this );
+		do_action( 'easy-watermark/placeholders/load', $this );
 	}
 
 	/**
@@ -90,11 +90,11 @@ class Resolver extends Singleton {
 	 */
 	public function resolve( $value ) {
 
-		$value = apply_filters( 'easy_watermark/placeholders/resolving', $value, $this );
+		$value = apply_filters( 'easy-watermark/placeholders/resolving', $value, $this );
 
 		$resolved = preg_replace_callback( $this->placeholder_pattern, array( $this, 'resolve_match' ), $value );
 
-		$resolved = apply_filters( 'easy_watermark/placeholders/resolved', $resolved, $this );
+		$resolved = apply_filters( 'easy-watermark/placeholders/resolved', $resolved, $this );
 
 		return $resolved;
 
@@ -114,7 +114,7 @@ class Resolver extends Singleton {
 			return $matches[0];
 		}
 
-		$resolved = apply_filters( 'easy_watermark/placeholder/resolved', $this->placeholders[ $placeholder_slug ]->get_value( $this ), $this->placeholders[ $placeholder_slug ] );
+		$resolved = apply_filters( 'easy-watermark/placeholder/resolved', $this->placeholders[ $placeholder_slug ]->get_value( $this ), $this->placeholders[ $placeholder_slug ] );
 
 		return $resolved;
 
