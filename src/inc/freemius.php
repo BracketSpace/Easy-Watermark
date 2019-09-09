@@ -23,15 +23,6 @@ function ew_fs() {
 			'is_premium'     => false,
 			'has_addons'     => false,
 			'has_paid_plans' => false,
-			'menu'           => array(
-				'slug'    => 'easy-watermark',
-				'account' => false,
-				'support' => false,
-				'contact' => false,
-				'parent'  => array(
-					'slug' => 'options-general.php',
-				),
-			),
 		) );
 	}
 

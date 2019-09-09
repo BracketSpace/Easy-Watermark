@@ -13,6 +13,14 @@ use EasyWatermark\Watermark\Watermark;
  * Helper class providing install, uninstall, update methods
  */
 class Installer {
+
+	/**
+	 * Watermarked attachments
+	 *
+	 * @var array
+	 */
+	private static $watermarked_attachments = [];
+
 	/**
 	 * Activates plugin
 	 *
@@ -190,7 +198,9 @@ class Installer {
 			$defaults['general']['jpeg_quality'] = $settings['general']['jpg_quality'];
 		}
 
-		self::insert_image_watermark( $watermark_defaults, $settings );
+		if ( isset( $settings['image']['watermark_id'] ) && ! empty( $settings['image']['watermark_id'] ) ) {
+			self::insert_image_watermark( $watermark_defaults, $settings );
+		}
 
 		if ( ! empty( $settings['text']['text'] ) ) {
 			self::insert_text_watermark( $watermark_defaults, $settings );
@@ -224,6 +234,26 @@ class Installer {
 		foreach ( $attachments as $attachment ) {
 			update_post_meta( $attachment->ID, '_ew_has_backup', true );
 		}
+
+	}
+
+	/**
+	 * Updates backup info
+	 *
+	 * @return array
+	 */
+	private static function get_watermarked_attachments() {
+
+		if ( ! self::$watermarked_attachments ) {
+			self::$watermarked_attachments = get_posts( [
+				'posts_per_page' => -1,
+				'post_type'      => 'attachment',
+				'meta_key'       => '_ew_watermarked',
+				'meta_value'     => '1',
+			] );
+		}
+
+		return self::$watermarked_attachments;
 
 	}
 
@@ -277,12 +307,22 @@ class Installer {
 
 		$image_settings = array_merge( $defaults, $image_settings );
 
-		return wp_insert_post( [
+		$watermark_id = wp_insert_post( [
 			'post_title'  => __( 'Image Watermark', 'easy-watermark' ),
 			'post_type'   => 'watermark',
 			'post_status' => 'publish',
 			'watermark'   => $image_settings,
 		] );
+
+		if ( in_array( $settings['general']['watermark_type'], [ '1', '3' ], true ) ) {
+			$attachments = self::get_watermarked_attachments();
+
+			foreach ( $attachments as $attachment ) {
+				self::add_applied_watermark( $attachment->ID, $watermark_id );
+			}
+		}
+
+		return $watermark_id;
 
 	}
 
@@ -318,12 +358,44 @@ class Installer {
 
 		$text_settings = array_merge( $defaults, $text_settings );
 
-		return wp_insert_post( [
+		$watermark_id = wp_insert_post( [
 			'post_title'  => __( 'Text Watermark', 'easy-watermark' ),
 			'post_type'   => 'watermark',
 			'post_status' => 'publish',
 			'watermark'   => $text_settings,
 		] );
+
+		if ( in_array( $settings['general']['watermark_type'], [ '2', '3' ], true ) ) {
+			$attachments = self::get_watermarked_attachments();
+
+			foreach ( $attachments as $attachment ) {
+				self::add_applied_watermark( $attachment->ID, $watermark_id );
+			}
+		}
+
+		return $watermark_id;
+
+	}
+
+	/**
+	 * Add watermark to attachment meta
+	 *
+	 * @param  integer $attachment_id Attachment ID.
+	 * @param  integer $watermark_id  Watermark ID.
+	 * @return void
+	 */
+	private static function add_applied_watermark( $attachment_id, $watermark_id ) {
+
+		$meta = get_post_meta( $attachment_id, '_ew_applied_watermarks', true );
+
+		if ( ! is_array( $meta ) ) {
+			$meta = [];
+		}
+
+		if ( ! in_array( $watermark_id, $meta, true ) ) {
+			$meta[] = $watermark_id;
+			update_post_meta( $attachment_id, '_ew_applied_watermarks', $meta );
+		}
 
 	}
 
