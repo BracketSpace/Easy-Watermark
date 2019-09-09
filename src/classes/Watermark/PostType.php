@@ -119,11 +119,11 @@ class PostType {
 	 */
 	public function current_screen() {
 		if ( 'watermark' === get_current_screen()->id ) {
-			// phpcs:ignore
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_REQUEST['post'] ) && isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] ) {
-				// phpcs:ignore
 				delete_post_meta( intval( $_REQUEST['post'] ), '_ew_tmp_params' );
 			}
+			// phpcs:enable
 		}
 	}
 
@@ -199,6 +199,26 @@ class PostType {
 
 		if ( 'watermark' === $post->post_type ) {
 			$this->untrashed = true;
+		}
+	}
+
+	/**
+	 * Removes watermark ID from attachment meta
+	 *
+	 * @action delete_post
+	 *
+	 * @param  integer $post_id Post ID.
+	 * @return void
+	 */
+	public function delete_post( $post_id ) {
+		global $post;
+
+		if ( 'watermark' === $post->post_type ) {
+			$watermark = Watermark::get( $post );
+
+			if ( $watermark->attachment_id ) {
+				$this->remove_watrmark_from_meta( $watermark->attachment_id, $post_id );
+			}
 		}
 	}
 
@@ -429,8 +449,15 @@ class PostType {
 
 			$data['post_content'] = wp_json_encode( $watermark_data );
 
-			if ( isset( $postarr['ew-previous-attachment-id'] ) && is_numeric( $postarr['ew-previous-attachment-id'] ) ) {
-				$this->reset_attachment_meta( $postarr['ew-previous-attachment-id'], $postarr['watermark']['attachment_id'], $postarr['ID'] );
+			$old_attachment_id = isset( $postarr['ew-previous-attachment-id'] ) ? $postarr['ew-previous-attachment-id'] : false;
+			$new_attachment_id = $postarr['watermark']['attachment_id'];
+
+			if ( $old_attachment_id !== $new_attachment_id ) {
+				if ( is_numeric( $old_attachment_id ) ) {
+					$this->remove_watrmark_from_meta( $old_attachment_id, $postarr['ID'] );
+				}
+
+				$this->add_watrmark_to_meta( $new_attachment_id, $postarr['ID'] );
 			}
 
 			delete_post_meta( $postarr['ID'], '_ew_tmp_params' );
@@ -441,46 +468,48 @@ class PostType {
 	}
 
 	/**
-	 * Resets attachment meta
+	 * Add watermark to attachment meta
 	 *
-	 * @param  integer $old_attachment_id Old attachment ID.
-	 * @param  integer $attachment_id     New attachment ID.
-	 * @param  integer $watermark_id      Watermark ID.
+	 * @param  integer $attachment_id Attachment ID.
+	 * @param  integer $watermark_id  Watermark ID.
 	 * @return void
 	 */
-	private function reset_attachment_meta( $old_attachment_id, $attachment_id, $watermark_id ) {
+	private function add_watrmark_to_meta( $attachment_id, $watermark_id ) {
 
-		if ( $old_attachment_id === $attachment_id ) {
-			return;
-		}
-
-		$old_meta = get_post_meta( $old_attachment_id, '_ew_used_as_watermark', true );
-		$meta     = get_post_meta( $attachment_id, '_ew_used_as_watermark', true );
-
-		if ( is_array( $old_meta ) && in_array( $watermark_id, $old_meta, true ) ) {
-			$key = array_search( $watermark_id, $old_meta, true );
-			unset( $old_meta[ $key ] );
-
-			if ( empty( $old_meta ) ) {
-				delete_post_meta( $old_attachment_id, '_ew_used_as_watermark' );
-			} else {
-				update_post_meta( $old_attachment_id, '_ew_used_as_watermark', $old_meta );
-			}
-		}
+		$meta = get_post_meta( $attachment_id, '_ew_used_as_watermark', true );
 
 		if ( ! is_array( $meta ) ) {
 			$meta = [];
 		}
 
-		$meta[] = $watermark_id;
-		update_post_meta( $attachment_id, '_ew_used_as_watermark', $meta );
+		if ( ! in_array( $watermark_id, $meta, true ) ) {
+			$meta[] = $watermark_id;
+			update_post_meta( $attachment_id, '_ew_used_as_watermark', $meta );
+		}
 
 	}
 
 	/**
-	 * Destructor
+	 * Remove watermark to attachment meta
+	 *
+	 * @param  integer $attachment_id Attachment ID.
+	 * @param  integer $watermark_id  Watermark ID.
+	 * @return void
 	 */
-	public function __destruct() {
-		$this->unhook();
+	private function remove_watrmark_from_meta( $attachment_id, $watermark_id ) {
+
+		$meta = get_post_meta( $attachment_id, '_ew_used_as_watermark', true );
+
+		if ( is_array( $meta ) && in_array( $watermark_id, $meta, true ) ) {
+			$key = array_search( $watermark_id, $meta, true );
+			unset( $meta[ $key ] );
+
+			if ( empty( $meta ) ) {
+				delete_post_meta( $attachment_id, '_ew_used_as_watermark' );
+			} else {
+				update_post_meta( $attachment_id, '_ew_used_as_watermark', $meta );
+			}
+		}
+
 	}
 }
