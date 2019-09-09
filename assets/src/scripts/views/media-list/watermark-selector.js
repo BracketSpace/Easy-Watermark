@@ -35,9 +35,11 @@ export default class extends View {
 	render() {
 		super.render();
 
-		this.$el
-			.append( $( '<option>', { value: '' } ).html( ew.i18n.selectWatermarkLabel ) )
-			.append( $( '<option>', { value: 'all' } ).html( ew.i18n.allWatermarksLabel ) );
+		this.$el.append( $( '<option>', { value: '' } ).html( ew.i18n.selectWatermarkLabel ) );
+
+		if ( 1 < Object.keys( ew.watermarks ).length ) {
+			this.$el.append( $( '<option>', { value: 'all' } ).html( ew.i18n.allWatermarksLabel ) );
+		}
 
 		for ( const id in ew.watermarks ) { // eslint-disable-line no-unused-vars
 			this.$el.append( $( '<option>', { value: id } ).html( ew.watermarks[ id ] ) );

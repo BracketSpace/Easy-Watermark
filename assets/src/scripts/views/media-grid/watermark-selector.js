@@ -42,12 +42,16 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 		render() {
 			super.render();
 
-			this.$el
-				.append( $( '<option>', { value: '' } ).html( ew.i18n.selectWatermarkLabel ) )
-				.append( $( '<option>', { value: 'all' } ).html( ew.i18n.allWatermarksLabel ) );
+			this.$el.append( $( '<option>', { value: '' } ).html( ew.i18n.selectWatermarkLabel ) );
 
-			for ( const id in ew.watermarks ) { // eslint-disable-line no-unused-vars
-				this.$el.append( $( '<option>', { value: id } ).html( ew.watermarks[ id ] ) );
+			if ( ew.watermarks ) {
+				if ( 1 < Object.keys( ew.watermarks ).length ) {
+					this.$el.append( $( '<option>', { value: 'all' } ).html( ew.i18n.allWatermarksLabel ) );
+				}
+
+				for ( const id in ew.watermarks ) { // eslint-disable-line no-unused-vars
+					this.$el.append( $( '<option>', { value: id } ).html( ew.watermarks[ id ] ) );
+				}
 			}
 
 			if ( this.controller.isModeActive( 'select' ) ) {

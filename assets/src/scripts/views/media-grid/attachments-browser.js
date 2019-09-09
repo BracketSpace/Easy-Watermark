@@ -14,24 +14,26 @@ if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
 		createToolbar() {
 			super.createToolbar();
 
-			this.toolbar.set( 'watermarkModeToggleButton', new WatermarkModeToggleButton( {
-				text: ew.i18n.watermarkModeToggleButtonLabel,
-				cancelText: ew.i18n.cancelLabel,
-				controller: this.controller,
-				priority: -60,
-			} ).render() );
+			if ( Object.keys( ew.watermarks ).length ) {
+				this.toolbar.set( 'watermarkModeToggleButton', new WatermarkModeToggleButton( {
+					text: ew.i18n.watermarkModeToggleButtonLabel,
+					cancelText: ew.i18n.cancelLabel,
+					controller: this.controller,
+					priority: -60,
+				} ).render() );
 
-			this.toolbar.set( 'watermarkSelector', new WatermarkSelector( {
-				controller: this.controller,
-				priority: -50,
-			} ).render() );
+				this.toolbar.set( 'watermarkSelector', new WatermarkSelector( {
+					controller: this.controller,
+					priority: -50,
+				} ).render() );
 
-			this.toolbar.set( 'watermarkButton', new WatermarkButton( {
-				text: ew.i18n.watermarkButtonLabel,
-				style: 'primary',
-				controller: this.controller,
-				priority: -40,
-			} ).render() );
+				this.toolbar.set( 'watermarkButton', new WatermarkButton( {
+					text: ew.i18n.watermarkButtonLabel,
+					style: 'primary',
+					controller: this.controller,
+					priority: -40,
+				} ).render() );
+			}
 
 			this.toolbar.set( 'restoreButton', new RestoreButton( {
 				text: ew.i18n.restoreButtonLabel,
