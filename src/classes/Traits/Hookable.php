@@ -7,14 +7,16 @@
 
 namespace EasyWatermark\Traits;
 
+use EasyWatermark\Core\Hooks;
+
 trait Hookable {
 
 	/**
-	 * Called doc hooks array
+	 * Whether current object is hooked
 	 *
-	 * @var array
+	 * @var boolean
 	 */
-	protected $called_doc_hooks = [];
+	protected $hooked = false;
 
 	/**
 	 * Pattern for doc hooks
@@ -28,14 +30,16 @@ trait Hookable {
 	 */
 	public function hook() {
 
-		$class_name = get_class( $this );
-
-		if ( isset( $this->called_doc_hooks[ $class_name ] ) ) {
+		if ( true === $this->hooked ) {
 			return;
 		}
 
-		$this->called_doc_hooks[ $class_name ] = true;
-		$reflector                             = new \ReflectionObject( $this );
+		$this->hooked = true;
+
+		$reflector = new \ReflectionObject( $this );
+		$hooks     = Hooks::get();
+
+		$hooks->add_object( $this );
 
 		foreach ( $reflector->getMethods() as $method ) {
 
@@ -50,12 +54,19 @@ trait Hookable {
 					$name = $match['name'];
 
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
-					$callback = array( $this, $method->getName() );
+					$callback = [ $this, $method->getName() ];
 
 					$function = sprintf( '\add_%s', $type );
 
 					$retval = \call_user_func( $function, $name, $callback, $priority, $arg_count );
 
+					$hooks->add_hook( $this, [
+						'name'      => $name,
+						'type'      => $type,
+						'callback'  => $method->getName(),
+						'priority'  => $priority,
+						'arg_count' => $arg_count,
+					] );
 				}
 			}
 		}
@@ -90,7 +101,7 @@ trait Hookable {
 			}
 		}
 
-		unset( $this->called_doc_hooks[ $class_name ] );
+		$this->hooked = false;
 
 	}
 

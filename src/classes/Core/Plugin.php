@@ -75,6 +75,10 @@ class Plugin extends Singleton {
 		register_deactivation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'deactivate' ] );
 		register_uninstall_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
+		if ( ! ew_dochooks_enabled() ) {
+			add_action( 'plugins_loaded', [ $this, 'setup' ] );
+		}
+
 		$this->hook();
 
 		// Init Freemius.
@@ -116,6 +120,10 @@ class Plugin extends Singleton {
 		}
 
 		$this->setup_metaboxes();
+
+		if ( ! ew_dochooks_enabled() ) {
+			Hooks::get()->load_hooks();
+		}
 
 	}
 

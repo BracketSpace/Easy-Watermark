@@ -23,10 +23,12 @@ $ew_error = function( $message, $subtitle = '', $title = '' ) {
 	wp_die( $message, $title ); // phpcs:ignore
 };
 
+require EW_DIR_PATH . '/src/inc/functions.php';
+
 /**
  * Composer autoloader file
  */
-$autoloader = dirname( __FILE__ ) . '/../vendor/autoload.php';
+$autoloader = EW_DIR_PATH . '/vendor/autoload.php';
 
 /**
  * Check if the composer vendors are installed
@@ -46,16 +48,8 @@ require $autoloader;
 $requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermark' ), [
 	'php'            => '5.6.0',
 	'wp'             => '4.6',
-	'dochooks'       => true,
 	'php_extensions' => [ 'gd' ],
 ] );
-
-/**
- * Check if ReflectionObject returns proper docblock comments for methods.
- */
-if ( method_exists( $requirements, 'add_check' ) ) {
-	$requirements->add_check( 'dochooks', require 'inc/requirements/dochooks.php' );
-}
 
 if ( ! $requirements->satisfied() ) {
 	add_action( 'admin_notices', array( $requirements, 'notice' ) );
