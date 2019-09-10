@@ -1,0 +1,49 @@
+{
+  "name": "easy-watermark",
+  "version": "1.0.0",
+  "description": "Easy Watermark Wordpress Plugin",
+  "main": "main.js",
+  "repository": "https://github.com/BracketSpace/Easy-Watermark.git",
+  "author": "Wojtek Szałkiewicz <wojtek@underdev.it>",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "clipboard": "^2.0.4",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "postcss-scss": "^2.0.0",
+    "selectize": "^0.12.6",
+    "stylelint-webpack-plugin": "^0.10.5",
+    "vex-dialog": "^1.1.0",
+    "vex-js": "^4.1.0",
+    "webpack": "^4.25.1"
+  },
+  "scripts": {
+    "start": "webpack --watch --progress --mode development",
+    "build": "webpack --mode development",
+    "build:production": "webpack --mode production",
+    "lint:js": "eslint -c .eslintrc.prod ./assets/src/scripts/**/*.js",
+    "lint:css": "stylelint ./assets/src/styles/**/*.scss"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@wordpress/eslint-plugin": "^2.4.0",
+    "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^5.0.2",
+    "css-loader": "^1.0.1",
+    "eslint": "^6.2.1",
+    "eslint-loader": "^3.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^3.0.1",
+    "node-sass": "^4.10.0",
+    "remove-files-webpack-plugin": "^1.1.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "stylelint": "^10.1.0",
+    "stylelint-config-wordpress": "^14.0.0",
+    "stylelint-order": "^3.0.1",
+    "url-loader": "^1.1.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

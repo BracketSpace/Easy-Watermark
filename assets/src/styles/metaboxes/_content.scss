@@ -1,0 +1,40 @@
+#watermark-content {
+
+	.image-content,
+	.text-content,
+	.select-image-button,
+	.watermark-image {
+		display: none;
+	}
+
+	.watermark-image {
+
+		img {
+			background-color: #ddd;
+			cursor: pointer;
+			height: auto;
+			max-width: 100%;
+			width: auto;
+		}
+	}
+
+	.text-content {
+		overflow: hidden;
+
+		input {
+			width: 100%;
+		}
+	}
+
+	.text-preview {
+		float: left;
+
+		@include checkered-bg( 6px, #ddd, #999);
+
+		img {
+			display: block;
+			height: auto;
+			max-width: 100%;
+		}
+	}
+}

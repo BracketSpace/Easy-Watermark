@@ -1,0 +1,52 @@
+label.ew-switch {
+	line-height: 20px;
+
+	span.switch {
+		background-color: #ccc;
+		border-radius: 7px;
+		display: inline-block;
+		height: 14px;
+		position: relative;
+		transition: all 0.3s;
+		vertical-align: sub;
+		width: 30px;
+
+		&::before {
+			background: #fff;
+			border-radius: 50%;
+			box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+			content: "";
+			display: block;
+			height: 18px;
+			left: -2px;
+			position: absolute;
+			top: -2px;
+			transition: all 0.3s;
+			width: 18px;
+		}
+
+		&.left-aligned {
+			margin-right: 8px;
+		}
+
+		&.right-aligned {
+			margin-left: 8px;
+		}
+	}
+
+	input {
+		position: absolute;
+		visibility: hidden;
+
+		&:checked {
+
+			+ span.switch {
+				background-color: #0073aa;
+
+				&::before {
+					left: 14px;
+				}
+			}
+		}
+	}
+}

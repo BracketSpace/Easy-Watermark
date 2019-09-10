@@ -1,0 +1,11 @@
+---
+extends:
+- stylelint-config-wordpress/scss
+plugins:
+- stylelint-order
+rules:
+  order/order:
+  - custom-properties
+  - declarations
+  - rules
+  order/properties-alphabetical-order: true
