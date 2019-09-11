@@ -18,6 +18,7 @@ class Permissions extends Page {
 	 * Constructor
 	 */
 	public function __construct() {
+		$this->permission = 'manage_options';
 		parent::__construct( __( 'Permissions', 'easy-watermark' ), null, 100 );
 	}
 

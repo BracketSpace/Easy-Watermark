@@ -125,6 +125,10 @@ class Assets {
 				];
 				break;
 			case 'upload':
+				if ( ! current_user_can( 'apply_watermark' ) ) {
+					break;
+				}
+
 				$this->wp_enqueue_media();
 				$enqueue  = 'media-library';
 				$localize = [
