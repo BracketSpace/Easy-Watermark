@@ -233,7 +233,7 @@ class PostType {
 	public function redirect( $location ) {
 		global $post;
 
-		if ( 'watermark' === $post->post_type ) {
+		if ( $post && 'watermark' === $post->post_type ) {
 			if ( false !== strpos( $location, 'untrashed=1' ) && ! $this->untrashed ) {
 				$location = add_query_arg( [
 					'ew-limited' => '1',
