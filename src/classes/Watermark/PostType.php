@@ -233,7 +233,7 @@ class PostType {
 	public function redirect( $location ) {
 		global $post;
 
-		if ( 'watermark' === $post->post_type ) {
+		if ( $post && 'watermark' === $post->post_type ) {
 			if ( false !== strpos( $location, 'untrashed=1' ) && ! $this->untrashed ) {
 				$location = add_query_arg( [
 					'ew-limited' => '1',
@@ -447,7 +447,7 @@ class PostType {
 		if ( 'watermark' === $data['post_type'] && isset( $postarr['watermark'] ) ) {
 			$watermark_data = Watermark::parse_params( $postarr['watermark'] );
 
-			$data['post_content'] = wp_json_encode( $watermark_data );
+			$data['post_content'] = wp_json_encode( $watermark_data, JSON_UNESCAPED_UNICODE );
 
 			$old_attachment_id = isset( $postarr['ew-previous-attachment-id'] ) ? $postarr['ew-previous-attachment-id'] : false;
 			$new_attachment_id = $postarr['watermark']['attachment_id'];

@@ -38,6 +38,13 @@ abstract class Page {
 	protected $priority;
 
 	/**
+	 * Permission
+	 *
+	 * @var string
+	 */
+	protected $permission = 'apply_watermark';
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $title    Page title.
@@ -66,10 +73,12 @@ abstract class Page {
 	 */
 	public function add_tab( $tabs ) {
 
-		$tabs[ $this->slug ] = [
-			'title'    => $this->title,
-			'priority' => $this->priority,
-		];
+		if ( current_user_can( $this->permission ) ) {
+			$tabs[ $this->slug ] = [
+				'title'    => $this->title,
+				'priority' => $this->priority,
+			];
+		}
 
 		return $tabs;
 

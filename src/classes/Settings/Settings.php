@@ -44,7 +44,7 @@ class Settings extends Singleton {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	protected function __construct() {
 		$this->hook();
 		$this->register_sections();
 		$this->load_settings();

@@ -5,7 +5,7 @@ Tags: watermark, image, picture, photo, media, gallery, signature, transparent, 
 Requires at least: 3.8
 Requires PHP: 5.6
 Tested up to: 5.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: easy-watermark
@@ -86,7 +86,7 @@ Watermark position can be adjusted vertically and horizontally by selecting alig
 Yes, there is a posibility to add only image, only text or both.
 
 = How Can I adjust text watermark? =
-You can choose text font from the list of ten fonts included to this plugin. You can also set font size, color, angel and opacity. Position of text watermark can be adjusted exactly like the image watermark position.
+You can choose text font from the list of ten fonts included to this plugin. You can also set font size, color, angle and opacity. Position of text watermark can be adjusted exactly like the image watermark position.
 
 = Can I use my font for text watermark? =
 Unfortunately no. In PRO version you'll be able to use more fonts.
@@ -117,6 +117,14 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 8. Bulk watermark and restore all images
 
 == Changelog ==
+
+= 1.0.1 =
+* [Fixed] Freemius screen displayed incorrectly after activation
+* [Fixed] Permission settings now actualy works
+* [Fixed] Config is now saved in unicode so you can use other character sets, like cyrylic
+* [Fixed] Incompatibilities with caching plugins
+* [Fixed] Srcset fatal error edge case
+* [Fixed] Watermark deleting
 
 = 1.0.0 =
 * The plugin has been rewrote from ground up.

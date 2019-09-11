@@ -60,32 +60,25 @@ class Tools extends Page {
 		return [
 			'watermarks'   => $handler->get_watermarks(),
 			'backup_count' => $backup_count,
+			'attachments'  => $this->get_attachments(),
 		];
 	}
 
 	/**
-	 * Prepares arguments for view
+	 * Gets attachments available for watermarking
 	 *
-	 * @action wp_ajax_easy-watermark/tools/get-attachments
-	 *
-	 * @return void
+	 * @param  string $mode Mode (watermark|restore).
+	 * @return array
 	 */
-	public function get_attachments() {
-
-		check_ajax_referer( 'get_attachments', 'nonce' );
+	private function get_attachments( $mode = 'watermark' ) {
 
 		$mime_types = ImageHelper::get_available_mime_types();
-
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-		$mode = isset( $_REQUEST['mode'] ) ? $_REQUEST['mode'] : null;
-
-		$posts = get_posts( [
+		$result     = [];
+		$posts      = get_posts( [
 			'post_type'      => 'attachment',
 			'post_mime_type' => array_keys( $mime_types ),
 			'numberposts'    => -1,
 		] );
-
-		$result = [];
 
 		foreach ( $posts as $post ) {
 			if ( get_post_meta( $post->ID, '_ew_used_as_watermark', true ) ) {
@@ -104,6 +97,26 @@ class Tools extends Page {
 			];
 		}
 
+		return $result;
+
+	}
+
+	/**
+	 * Prepares arguments for view
+	 *
+	 * @action wp_ajax_easy-watermark/tools/get-attachments
+	 *
+	 * @return void
+	 */
+	public function ajax_get_attachments() {
+
+		check_ajax_referer( 'get_attachments', 'nonce' );
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		$mode   = isset( $_REQUEST['mode'] ) ? $_REQUEST['mode'] : null;
+		$result = $this->get_attachments( $mode );
+
 		wp_send_json_success( $result );
+
 	}
 }

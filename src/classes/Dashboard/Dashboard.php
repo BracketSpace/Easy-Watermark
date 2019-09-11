@@ -64,7 +64,7 @@ class Dashboard {
 		$this->page_hook = add_management_page(
 			__( 'Easy Watermark', 'easy-watermark' ),
 			__( 'Easy Watermark', 'easy-watermark' ),
-			'manage_options',
+			'apply_watermark',
 			'easy-watermark',
 			[ $this, 'page_content' ]
 		);

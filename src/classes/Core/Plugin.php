@@ -73,7 +73,6 @@ class Plugin extends Singleton {
 
 		register_activation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'activate' ] );
 		register_deactivation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'deactivate' ] );
-		register_uninstall_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
 		if ( ! ew_dochooks_enabled() ) {
 			add_action( 'plugins_loaded', [ $this, 'setup' ] );
@@ -82,7 +81,10 @@ class Plugin extends Singleton {
 		$this->hook();
 
 		// Init Freemius.
-		ew_fs();
+		$fs = ew_fs();
+
+		// Register uninstall hook with freemius.
+		$fs->add_action( 'after_uninstall', [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
 		// Signal that SDK was initiated.
 		do_action( 'ew_fs_loaded' );
@@ -111,13 +113,7 @@ class Plugin extends Singleton {
 
 		$this->get_watermark_handler();
 
-		$settings = Settings::get();
-
-		$last_version = get_option( $this->slug . '-version' );
-		if ( $this->version !== $last_version ) {
-			// Version has changed. Update.
-			Installer::update( $last_version, $settings->get_settings() );
-		}
+		Settings::get();
 
 		$this->setup_metaboxes();
 
@@ -162,6 +158,13 @@ class Plugin extends Singleton {
 		add_rewrite_tag( '%format%', '(jpg|png)' );
 		add_rewrite_tag( '%watermark_id%', '([0-9]+)' );
 		add_rewrite_tag( '%image_size%', '([^./-]+)' );
+
+		$last_version = get_option( $this->slug . '-version' );
+		if ( $this->version !== $last_version ) {
+			// Version has changed. Update.
+			$settings = Settings::get();
+			Installer::update( $last_version, $settings->get_settings() );
+		}
 
 	}
 

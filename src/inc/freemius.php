@@ -15,7 +15,7 @@ function ew_fs() {
 		// Include Freemius SDK.
 		require_once EW_DIR_PATH . '/freemius/start.php';
 
-		$ew_fs = fs_dynamic_init( array(
+		$ew_fs = fs_dynamic_init( [
 			'id'             => '2801',
 			'slug'           => 'easy-watermark',
 			'type'           => 'plugin',
@@ -23,7 +23,16 @@ function ew_fs() {
 			'is_premium'     => false,
 			'has_addons'     => false,
 			'has_paid_plans' => false,
-		) );
+			'menu'           => [
+				'slug'    => 'easy-watermark',
+				'account' => false,
+				'contact' => false,
+				'support' => false,
+				'parent'  => [
+					'slug' => 'tools.php',
+				],
+			],
+		] );
 	}
 
 	return $ew_fs;
