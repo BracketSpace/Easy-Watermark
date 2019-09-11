@@ -111,13 +111,7 @@ class Plugin extends Singleton {
 
 		$this->get_watermark_handler();
 
-		$settings = Settings::get();
-
-		$last_version = get_option( $this->slug . '-version' );
-		if ( $this->version !== $last_version ) {
-			// Version has changed. Update.
-			Installer::update( $last_version, $settings->get_settings() );
-		}
+		Settings::get();
 
 		$this->setup_metaboxes();
 
@@ -162,6 +156,13 @@ class Plugin extends Singleton {
 		add_rewrite_tag( '%format%', '(jpg|png)' );
 		add_rewrite_tag( '%watermark_id%', '([0-9]+)' );
 		add_rewrite_tag( '%image_size%', '([^./-]+)' );
+
+		$last_version = get_option( $this->slug . '-version' );
+		if ( $this->version !== $last_version ) {
+			// Version has changed. Update.
+			$settings = Settings::get();
+			Installer::update( $last_version, $settings->get_settings() );
+		}
 
 	}
 

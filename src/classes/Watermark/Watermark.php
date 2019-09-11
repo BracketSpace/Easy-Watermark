@@ -102,7 +102,8 @@ class Watermark {
 	public static function get_all() {
 
 		$posts = get_posts( [
-			'post_type' => 'watermark',
+			'post_type'   => 'watermark',
+			'numberposts' => 2,
 		] );
 
 		foreach ( $posts as $post ) {
