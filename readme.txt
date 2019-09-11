@@ -86,7 +86,7 @@ Watermark position can be adjusted vertically and horizontally by selecting alig
 Yes, there is a posibility to add only image, only text or both.
 
 = How Can I adjust text watermark? =
-You can choose text font from the list of ten fonts included to this plugin. You can also set font size, color, angel and opacity. Position of text watermark can be adjusted exactly like the image watermark position.
+You can choose text font from the list of ten fonts included to this plugin. You can also set font size, color, angle and opacity. Position of text watermark can be adjusted exactly like the image watermark position.
 
 = Can I use my font for text watermark? =
 Unfortunately no. In PRO version you'll be able to use more fonts.
