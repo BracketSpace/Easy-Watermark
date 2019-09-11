@@ -92,6 +92,11 @@ class SrcsetFilter {
 	 */
 	public function wp_calculate_image_srcset_meta( $image_meta, $size_array, $image_src, $attachment_id ) {
 
+		if ( ! $this->switch ) {
+			// Don't do anything if settings have not been loaded yet.
+			return $image_meta;
+		}
+
 		if ( true === $this->switch->get_value() && isset( $image_meta['sizes'] ) && is_array( $image_meta['sizes'] ) ) {
 			$applied_watermarks = get_post_meta( $attachment_id, '_ew_applied_watermarks', true );
 
