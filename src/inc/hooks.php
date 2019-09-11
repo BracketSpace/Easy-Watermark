@@ -49,7 +49,7 @@ add_filter( 'easy-watermark/dashboard/permissions/view-args', [ $this->objects['
 add_filter( 'easy-watermark/dashboard/tabs', [ $this->objects['EasyWatermark\Dashboard\Permissions']['instance'], 'add_tab' ], 10, 1 );
 add_action( 'easy-watermark/dashboard/settings/notices', [ $this->objects['EasyWatermark\Dashboard\Tools']['instance'], 'admin_notices' ], 10, 0 );
 add_filter( 'easy-watermark/dashboard/tools/view-args', [ $this->objects['EasyWatermark\Dashboard\Tools']['instance'], 'view_args' ], 10, 1 );
-add_action( 'wp_ajax_easy-watermark/tools/get-attachments', [ $this->objects['EasyWatermark\Dashboard\Tools']['instance'], 'get_attachments' ], 10, 0 );
+add_action( 'wp_ajax_easy-watermark/tools/get-attachments', [ $this->objects['EasyWatermark\Dashboard\Tools']['instance'], 'ajax_get_attachments' ], 10, 0 );
 add_filter( 'easy-watermark/dashboard/tabs', [ $this->objects['EasyWatermark\Dashboard\Tools']['instance'], 'add_tab' ], 10, 1 );
 add_action( 'easy-watermark/settings/register/general', [ $this->objects['EasyWatermark\Features\SrcsetFilter']['instance'], 'register_settings' ], 10, 1 );
 add_filter( 'wp_calculate_image_srcset_meta', [ $this->objects['EasyWatermark\Features\SrcsetFilter']['instance'], 'wp_calculate_image_srcset_meta' ], 1000, 4 );
