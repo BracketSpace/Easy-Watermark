@@ -107,6 +107,12 @@ class Installer {
 			$role->remove_cap( 'apply_watermark' );
 		}
 
+		$watermarks = Watermark::get_all();
+
+		foreach ( $watermarks as $watermark ) {
+			$result = wp_delete_post( $watermark->ID, true );
+		}
+
 	}
 
 	/**
@@ -198,6 +204,9 @@ class Installer {
 			$defaults['general']['jpeg_quality'] = $settings['general']['jpg_quality'];
 		}
 
+		update_option( Plugin::get()->get_slug() . '-settings', $defaults );
+		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
+
 		if ( isset( $settings['image']['watermark_id'] ) && ! empty( $settings['image']['watermark_id'] ) ) {
 			self::insert_image_watermark( $watermark_defaults, $settings );
 		}
@@ -205,9 +214,6 @@ class Installer {
 		if ( ! empty( $settings['text']['text'] ) ) {
 			self::insert_text_watermark( $watermark_defaults, $settings );
 		}
-
-		update_option( Plugin::get()->get_slug() . '-settings', $defaults );
-		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
 
 		self::update_backup_info();
 

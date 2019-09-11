@@ -103,7 +103,7 @@ class Watermark {
 
 		$posts = get_posts( [
 			'post_type'   => 'watermark',
-			'numberposts' => 2,
+			'numberposts' => -1,
 		] );
 
 		foreach ( $posts as $post ) {
