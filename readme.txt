@@ -119,7 +119,8 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
-* [Fixed] Media library not working with ACF plugin enabled
+* [Fixed] FileBird compatibility
+* [Fixed] ACF compatibility
 
 = 1.0.1 =
 * [Fixed] Freemius screen displayed incorrectly after activation

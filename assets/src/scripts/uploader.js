@@ -10,35 +10,40 @@ import '../styles/uploader.scss';
 
 /* global wp, ew */
 
-if ( typeof wp !== 'undefined' && typeof wp.Uploader === 'function' && typeof wp.media.view.UploaderInline === 'function' ) {
-	class Uploader extends wp.Uploader {
-		init() {
-			super.init();
+$( document ).ready( () => {
+	if ( typeof wp !== 'undefined' && typeof wp.Uploader === 'function' ) {
+		const	Uploader = wp.Uploader;
 
-			this.updateAutoWatermarkParam = this.updateAutoWatermarkParam.bind( this );
+		wp.Uploader = class extends Uploader {
+			init() {
+				super.init();
 
-			$( 'body' ).on( 'change', '.ew-watermark-all-switch input', this.updateAutoWatermarkParam );
+				this.updateAutoWatermarkParam = this.updateAutoWatermarkParam.bind( this );
 
-			this.param( 'auto_watermark', ew.autoWatermark );
-		}
+				$( 'body' ).on( 'change', '.ew-watermark-all-switch input', this.updateAutoWatermarkParam );
 
-		updateAutoWatermarkParam( e ) {
-			ew.autoWatermark = $( e.target ).is( ':checked' );
-
-			this.param( 'auto_watermark', ew.autoWatermark );
-		}
-	}
-
-	class UploaderInline extends wp.media.view.UploaderInline {
-		render() {
-			super.render();
-
-			if ( ! this.$el.hasClass( 'hidden' ) ) {
-				this.$el.find( '.ew-watermark-all-switch input' ).prop( 'checked', ew.autoWatermark );
+				this.param( 'auto_watermark', ew.autoWatermark );
 			}
-		}
+
+			updateAutoWatermarkParam( e ) {
+				ew.autoWatermark = $( e.target ).is( ':checked' );
+
+				this.param( 'auto_watermark', ew.autoWatermark );
+			}
+		};
 	}
 
-	wp.Uploader = Uploader;
-	wp.media.view.UploaderInline = UploaderInline;
-}
+	if ( typeof wp !== 'undefined' && typeof wp.media.view.UploaderInline === 'function' ) {
+		const UploaderInline = wp.media.view.UploaderInline;
+
+		wp.media.view.UploaderInline = UploaderInline.extend( {
+			render() {
+				UploaderInline.prototype.render.apply( this, arguments );
+
+				if ( ! this.$el.hasClass( 'hidden' ) ) {
+					this.$el.find( '.ew-watermark-all-switch input' ).prop( 'checked', ew.autoWatermark );
+				}
+			},
+		} );
+	}
+} );
