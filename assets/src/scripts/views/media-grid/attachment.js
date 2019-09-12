@@ -11,30 +11,29 @@ import { filterSelection, isImage } from '../../utils/functions.js';
 /* global wp, ew */
 
 if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
-	wp.media.view.Attachment.Library = class extends wp.media.view.Attachment.Library {
+	const Library = wp.media.view.Attachment.Library;
+	wp.media.view.Attachment.Library = Library.extend( {
 		initialize() {
-			super.initialize();
+			Library.prototype.initialize.apply( this, arguments );
 
 			this.listenTo( this.model, 'ewBulkAction:start', this.showLoader );
 			this.listenTo( this.model, 'ewBulkAction:done', this.render );
 
 			this.controller.on( 'selection:toggle watermark:activate processing:activate', this.disable, this );
 			this.controller.on( 'watermark:deactivate processing:deactivate', this.enable, this );
-		}
+		},
 
 		render() {
-			super.render();
+			Library.prototype.render.apply( this, arguments );
 
 			this.$el.append( $( '<span></span>' ).addClass( 'spinner' ) );
-		}
+		},
 
-		toggleSelection( options ) {
-			const { method } = options;
-
+		toggleSelection( { method } ) {
 			if ( ! this.controller.isModeActive( 'watermark' ) ||
 				( ( isImage( this.model ) && ! this.model.get( 'usedAsWatermark' ) ) || 'between' === method ) ) {
 				// In watermark mode only select images.
-				super.toggleSelection( options );
+				Library.prototype.toggleSelection.apply( this, arguments );
 			}
 
 			if ( this.controller.isModeActive( 'watermark' ) ) {
@@ -46,11 +45,11 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 					filterSelection( this.options.selection );
 				}
 			}
-		}
+		},
 
 		showLoader() {
 			this.$el.find( '.spinner' ).css( { visibility: 'visible' } );
-		}
+		},
 
 		disable() {
 			if ( ! this.controller.isModeActive( 'watermark' ) && ! this.controller.isModeActive( 'processing' ) ) {
@@ -81,14 +80,14 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 
 			this.$el.addClass( 'disabled' ).append( badge );
 			this.hasBadge = true;
-		}
+		},
 
 		enable() {
 			if ( ! this.controller.isModeActive( 'watermark' ) && ! this.controller.isModeActive( 'processing' ) ) {
 				this.$el.removeClass( 'disabled' ).find( '.badge' ).remove();
 				this.hasBadge = false;
 			}
-		}
+		},
 
 		wasSelected() {
 			const selection = this.controller.state().get( 'originalSelection' );
@@ -96,6 +95,6 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 			if ( selection ) {
 				return !! selection.get( this.model.cid );
 			}
-		}
-	};
+		},
+	} );
 }
