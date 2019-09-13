@@ -65,12 +65,21 @@ class Assets {
 			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
 		];
 
+		if ( class_exists( 'FileBird' ) ) {
+			$assets['uploader'][] = 'njt-filebird-upload-libray-scripts';
+		}
+
 		foreach ( $assets as $filename => $deps ) {
 			$script_version = $this->asset_version( 'scripts', $filename . '.js' );
 			$style_version  = $this->asset_version( 'styles', $filename . '.css' );
+			$in_footer      = true;
+
+			if ( 'uploader' === $filename ) {
+				$in_footer = false;
+			}
 
 			if ( false !== $script_version ) {
-				wp_register_script( 'ew-' . $filename, $this->asset_url( 'scripts', $filename . '.js' ), $deps, $script_version, true );
+				wp_register_script( 'ew-' . $filename, $this->asset_url( 'scripts', $filename . '.js' ), $deps, $script_version, $in_footer );
 			}
 
 			if ( false !== $style_version ) {
