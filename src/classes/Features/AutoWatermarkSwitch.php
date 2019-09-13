@@ -33,7 +33,7 @@ class AutoWatermarkSwitch {
 	 */
 	public function pre_plupload_upload_ui() {
 
-		if ( 'media' !== get_current_screen()->id ) {
+		if ( ! is_admin() || 'media' !== get_current_screen()->id ) {
 			// phpcs:ignore
 			echo new View( 'upload/switch' );
 		}
