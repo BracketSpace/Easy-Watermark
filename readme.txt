@@ -120,6 +120,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 = [next] =
 * [Fixed] FileBird compatibility
+* [Fixed] Frontend content builders compatibility
 
 = 1.0.2 =
 * [Fixed] Media library not working with ACF plugin enabled
