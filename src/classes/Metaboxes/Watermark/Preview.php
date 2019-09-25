@@ -132,7 +132,7 @@ class Preview extends WatermarkMetabox {
 
 		$preview_image_id = get_option( '_ew_preview_image_id' );
 
-		$base_image_src  = site_url( 'easy-watermark-preview/image-%s-%s.png?t =%s' );
+		$base_image_src  = site_url( 'easy-watermark-preview/image-%s-%s.png?t=%s' );
 		$images          = [];
 		$sizes           = [];
 		$available_sizes = ImageHelper::get_available_sizes();

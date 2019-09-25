@@ -159,6 +159,18 @@ class Plugin extends Singleton {
 		add_rewrite_tag( '%watermark_id%', '([0-9]+)' );
 		add_rewrite_tag( '%image_size%', '([^./-]+)' );
 
+		add_rewrite_rule(
+			'easy-watermark-preview/([^/.-]+)-([0-9]+)-([^/.]+).(jpg|png)?',
+			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&image_size=$matches[3]&format=$matches[4]',
+			'top'
+		);
+
+		add_rewrite_rule(
+			'easy-watermark-preview/([^/.-]+)-([0-9]+).(jpg|png)?',
+			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&format=$matches[3]',
+			'top'
+		);
+
 		$last_version = get_option( $this->slug . '-version' );
 		if ( $this->version !== $last_version ) {
 			// Version has changed. Update.
@@ -166,6 +178,20 @@ class Plugin extends Singleton {
 			Installer::update( $last_version, $settings->get_settings() );
 		}
 
+	}
+
+	/**
+	 * Performs actions on shutdown
+	 *
+	 * @action  shutdown
+	 *
+	 * @return void
+	 */
+	public function shutdown() {
+		if ( ! get_option( 'easy-watermark-first-booted' ) ) {
+			flush_rewrite_rules();
+			update_option( 'easy-watermark-first-booted', true );
+		}
 	}
 
 	/**

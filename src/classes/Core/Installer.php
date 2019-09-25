@@ -60,10 +60,6 @@ class Installer {
 		$admin->add_cap( 'delete_watermarks' );
 		$admin->add_cap( 'apply_watermark' );
 
-		add_rewrite_rule( 'easy-watermark-preview/([^/.-]+)-([0-9]+)-([^/.]+).(jpg|png)?', 'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&image_size=$matches[3]&format=$matches[4]', 'top' );
-		add_rewrite_rule( 'easy-watermark-preview/([^/.-]+)-([0-9]+).(jpg|png)?', 'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&format=$matches[3]', 'top' );
-		flush_rewrite_rules();
-
 	}
 
 	/**
@@ -72,6 +68,7 @@ class Installer {
 	 * @return void
 	 */
 	public static function deactivate() {
+		delete_option( 'easy-watermark-first-booted' );
 		flush_rewrite_rules();
 	}
 

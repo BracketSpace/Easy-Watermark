@@ -63,9 +63,21 @@ class SrcsetFilter {
 		);
 
 		$description = implode( '<br/>', [
-			esc_html_x( 'Srcset attribute contains information about other image sizes and lets the browser decide which image to display based on the screen size.', '"Filter srcset" setting description line 1', 'easy-watermark' ),
-			esc_html_x( 'This is good in general but it might cause problems if some watermarks are applied only to certain image sizes.', '"Filter srcset" setting description line 2', 'easy-watermark' ),
-			esc_html_x( 'With this option enabled srcset attribute will only contain image sizes watermarked the same way.', '"Filter srcset" setting description line 3', 'easy-watermark' ),
+			esc_html_x(
+				'Srcset attribute contains information about other image sizes and lets the browser decide which image to display based on the screen size.',
+				'"Filter srcset" setting description line 1',
+				'easy-watermark'
+			),
+			esc_html_x(
+				'This is good in general but it might cause problems if some watermarks are applied only to certain image sizes.',
+				'"Filter srcset" setting description line 2',
+				'easy-watermark'
+			),
+			esc_html_x(
+				'With this option enabled srcset attribute will only contain image sizes watermarked the same way.',
+				'"Filter srcset" setting description line 3',
+				'easy-watermark'
+			),
 		] );
 
 		$this->switch = new SwitchField( [
@@ -101,7 +113,7 @@ class SrcsetFilter {
 			$applied_watermarks = get_post_meta( $attachment_id, '_ew_applied_watermarks', true );
 
 			if ( is_array( $applied_watermarks ) ) {
-				$current_size  = $this->get_current_size( $image_src, $image_meta['sizes'] );
+				$current_size  = $this->get_current_size( $image_src, $image_meta );
 				$allowed_sizes = $this->get_allowed_sizes( $applied_watermarks, $current_size );
 
 				$image_meta['sizes'] = array_filter( $image_meta['sizes'], function( $key ) use ( $allowed_sizes ) {
@@ -140,14 +152,23 @@ class SrcsetFilter {
 	 * Gets image size for the image src
 	 *
 	 * @param  string $image_src The 'src' of the image.
-	 * @param  array  $sizes     Image sizes.
+	 * @param  array  $meta      Image meta.
 	 * @return string|false
 	 */
-	private function get_current_size( $image_src, $sizes ) {
+	private function get_current_size( $image_src, $meta ) {
 
 		$image_src = basename( $image_src );
+		$pos       = strpos( $image_src, '?v=' );
 
-		foreach ( $sizes as $size => $params ) {
+		if ( $pos ) {
+			$image_src = substr( $image_src, 0, $pos );
+		}
+
+		if ( false !== strpos( $meta['file'], $image_src ) ) {
+			return 'full';
+		}
+
+		foreach ( $meta['sizes'] as $size => $params ) {
 			if ( $image_src === $params['file'] ) {
 				return $size;
 			}
@@ -158,7 +179,7 @@ class SrcsetFilter {
 	}
 
 	/**
-	 * Filters applied watermarks to return only ones applied to the image size
+	 * Filters image sizes
 	 *
 	 * @param  array  $watermarks   Applied watermarks.
 	 * @param  string $current_size Currently displayed image size.
@@ -166,21 +187,27 @@ class SrcsetFilter {
 	 */
 	private function get_allowed_sizes( $watermarks, $current_size ) {
 
-		$sizes = [];
+		$sizes = get_intermediate_image_sizes();
 
 		foreach ( $watermarks as $watermark_id ) {
 			$watermark = Watermark::get( $watermark_id );
 
-			if ( in_array( $current_size, $watermark->image_sizes, true ) ) {
-				$sizes[] = $watermark->image_sizes;
+			if ( ! $watermark ) {
+				continue;
+			}
+
+			$should_be = in_array( $current_size, $watermark->image_sizes, true );
+
+			foreach ( $sizes as $key => $size ) {
+				$is = in_array( $size, $watermark->image_sizes, true );
+
+				if ( ! ( $is * $should_be ) && ( $is || $should_be ) ) {
+					unset( $sizes[ $key ] );
+				}
 			}
 		}
 
-		if ( 1 === count( $sizes ) ) {
-			return $sizes[0];
-		}
-
-		return $sizes ? call_user_func_array( 'array_intersect', $sizes ) : [];
+		return $sizes;
 
 	}
 }

@@ -118,6 +118,9 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
+= [next] =
+* [Fixed] Source set filtering improved
+
 = 1.0.3 =
 * [Fixed] FileBird compatibility
 * [Fixed] Frontend content builders compatibility

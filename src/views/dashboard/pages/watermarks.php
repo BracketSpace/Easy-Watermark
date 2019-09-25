@@ -13,6 +13,7 @@
 				<?php /* translators: watermark name */ ?>
 				<h3>
 					<?php if ( current_user_can( 'edit_others_watermarks' ) || get_current_user_id() === (int) $watermark->post_author ) : ?>
+						<?php /* translators: %s is watermark title */ ?>
 						<a href="<?php echo esc_url( get_edit_post_link( $watermark->ID ) ); ?>" aria-label="<?php esc_attr_e( sprintf( 'Edit “%s”', $watermark->post_title ) ); ?>"><?php echo esc_html( $watermark->post_title ); ?></a>
 					<?php else : ?>
 						<?php echo esc_html( $watermark->post_title ); ?>
