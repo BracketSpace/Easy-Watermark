@@ -95,7 +95,7 @@ class PostType {
 	 *
 	 * @filter parent_file
 	 *
-	 * @since  [Next]
+	 * @since  1.0.4
 	 * @param  string $parent_file Parent file.
 	 * @return string
 	 */
