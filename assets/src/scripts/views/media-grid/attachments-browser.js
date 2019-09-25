@@ -14,6 +14,18 @@ if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
 		createToolbar() {
 			super.createToolbar();
 
+			if ( ! this.controller.state().get( 'ewStatus' ) ) {
+				/**
+				 * If there is no 'ewStatus' in controller, Media Library has been
+				 * obviously replaced by some plugin (and not extended, as we do in EW).
+				 * This is the case with Enhanced Media Library plugin.
+				 *
+				 * In this situation our modifications are not present in controller,
+				 * so our views loaded below might cause errors.
+				 */
+				return;
+			}
+
 			if ( Object.keys( ew.watermarks ).length ) {
 				this.toolbar.set( 'watermarkModeToggleButton', new WatermarkModeToggleButton( {
 					text: ew.i18n.watermarkModeToggleButtonLabel,

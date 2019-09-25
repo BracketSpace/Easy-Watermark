@@ -95,7 +95,7 @@ class PostType {
 	 *
 	 * @filter parent_file
 	 *
-	 * @since  [Next]
+	 * @since  1.0.4
 	 * @param  string $parent_file Parent file.
 	 * @return string
 	 */
@@ -211,7 +211,7 @@ class PostType {
 	 * @return void
 	 */
 	public function delete_post( $post_id ) {
-		global $post;
+		$post = get_post( $post_id );
 
 		if ( 'watermark' === $post->post_type ) {
 			$watermark = Watermark::get( $post );
