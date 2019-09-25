@@ -204,7 +204,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 		$this->output_image = imagecreatetruecolor( $text_size['width'], $text_size['height'] );
 
 		if ( false === $this->output_image ) {
-			return new WP_Error( 'gd_error', __( 'Something went wrong while creating output image.', 'easy-watermark' ) );
+			return new WP_Error( 'gd_error', __( 'Could not create output image.', 'easy-watermark' ) );
 		}
 
 		imagealphablending( $this->output_image, false );
@@ -278,6 +278,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 
 				// Create blank image.
 				$this->output_image = imagecreatetruecolor( $image_size['width'], $image_size['height'] );
+
+				if ( ! $this->output_image ) {
+					return false;
+				}
 
 				if ( 'png' === $this->image_type && $this->is_alpha_png( $this->image_file ) ) {
 					// Preserve opacity for png images.
@@ -364,6 +368,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 
 		$output_image = $this->get_output_image();
 
+		if ( ! $output_image ) {
+			return new WP_Error( 'gd_error', __( 'Could not create output image. Please check your server configuration.', 'easy-watermark' ) );
+		}
+
 		$watermark_file = get_attached_file( $watermark->attachment_id );
 
 		if ( ! $watermark_file || ! is_file( $watermark_file ) ) {
@@ -410,6 +418,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 
 		if ( isset( $new_width ) ) {
 			$tmp_image = imagecreatetruecolor( $new_width, $new_height );
+
+			if ( ! $tmp_image ) {
+				return new WP_Error( 'gd_error', __( 'Could not create temporary image. Please check your server configuration.', 'easy-watermark' ) );
+			}
 
 			if ( 'png' === $watermark_type && $this->is_alpha_png( $watermark_file ) ) {
 				imagealphablending( $tmp_image, false );
@@ -480,6 +492,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 
 		$output_image = $this->get_output_image();
 
+		if ( ! $output_image ) {
+			return new WP_Error( 'gd_error', __( 'Could not create output image. Please check your server configuration.', 'easy-watermark' ) );
+		}
+
 		$font = Text::get_font_path( $watermark->font );
 
 		if ( ! $font ) {
@@ -536,8 +552,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 		if ( empty( $type ) && $file_path ) {
 			// Get finfo object to detect mime types.
 			$finfo = $this->get_finfo();
-
-			$type = $finfo->file( $file_path );
+			$type  = $finfo->file( $file_path );
 		}
 
 		if ( ! $type ) {
