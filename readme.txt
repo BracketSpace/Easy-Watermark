@@ -119,6 +119,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
+* [Fixed] "Enhanced Media Library" plugin compatibility (and possibly some other plugins which replace media library components)
 * [Fixed] Watermark delete error fixed
 * [Fixed] Source set filtering improved
 
