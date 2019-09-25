@@ -211,7 +211,7 @@ class PostType {
 	 * @return void
 	 */
 	public function delete_post( $post_id ) {
-		global $post;
+		$post = get_post( $post_id );
 
 		if ( 'watermark' === $post->post_type ) {
 			$watermark = Watermark::get( $post );
