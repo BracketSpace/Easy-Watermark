@@ -7,7 +7,7 @@
  * Text Domain:     easy-watermark
  * Domain Path:     /languages
  * Version:         1.0.4
- * License:         GPLv2 or later
+ * License:         GPLv3 or later
  *
  * @package         easy-watermark
  */
