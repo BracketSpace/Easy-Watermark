@@ -119,6 +119,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
+* [Fixed] Missing FileBird dependency
 * [Fixed] Database query error in bulk actions
 
 = 1.0.4 =
