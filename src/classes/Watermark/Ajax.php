@@ -202,13 +202,13 @@ class Ajax {
 
 		$query = "
 			SELECT
-				`{$wpdb->prefix}posts`.`ID` as id,
-				`{$wpdb->prefix}posts`.`post_mime_type` as mime,
-				EXISTS( SELECT `{$wpdb->prefix}postmeta`.`meta_value` FROM wp_postmeta WHERE `{$wpdb->prefix}postmeta`.`post_id` = `{$wpdb->prefix}posts`.`ID` AND `{$wpdb->prefix}postmeta`.`meta_key` = '_ew_used_as_watermark' ) AS 'usedAsWatermark',
-				EXISTS( SELECT `{$wpdb->prefix}postmeta`.`meta_value` FROM wp_postmeta WHERE `{$wpdb->prefix}postmeta`.`post_id` = `{$wpdb->prefix}posts`.`ID` AND `{$wpdb->prefix}postmeta`.`meta_key` = '_ew_has_backup' ) AS 'hasBackup'
+				`{$wpdb->posts}`.`ID` as id,
+				`{$wpdb->posts}`.`post_mime_type` as mime,
+				EXISTS( SELECT `{$wpdb->postmeta}`.`meta_value` FROM `{$wpdb->postmeta}` WHERE `{$wpdb->postmeta}`.`post_id` = `{$wpdb->posts}`.`ID` AND `{$wpdb->postmeta}`.`meta_key` = '_ew_used_as_watermark' ) AS 'usedAsWatermark',
+				EXISTS( SELECT `{$wpdb->postmeta}`.`meta_value` FROM `{$wpdb->postmeta}` WHERE `{$wpdb->postmeta}`.`post_id` = `{$wpdb->posts}`.`ID` AND `{$wpdb->postmeta}`.`meta_key` = '_ew_has_backup' ) AS 'hasBackup'
 			FROM
-				`{$wpdb->prefix}posts`
-			WHERE	`{$wpdb->prefix}posts`.`ID` IN ({$placeholders})
+				`{$wpdb->posts}`
+			WHERE	`{$wpdb->posts}`.`ID` IN ({$placeholders})
 		";
 
 		// phpcs:ignore WordPress.DB

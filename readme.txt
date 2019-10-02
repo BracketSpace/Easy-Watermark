@@ -5,9 +5,9 @@ Tags: watermark, image, picture, photo, media, gallery, signature, transparent, 
 Requires at least: 3.8
 Requires PHP: 5.6
 Tested up to: 5.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: easy-watermark
 
 Allows to add watermark to images automatically on upload or manually.
@@ -117,6 +117,11 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 8. Bulk watermark and restore all images
 
 == Changelog ==
+
+= 1.0.5 =
+* Images will now hold information about applied watermarks which has been removed
+* [Fixed] Missing FileBird dependency
+* [Fixed] Database query error in bulk actions
 
 = 1.0.4 =
 * [Fixed] Improved error handling

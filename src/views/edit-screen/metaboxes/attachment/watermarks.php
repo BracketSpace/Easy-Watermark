@@ -48,5 +48,14 @@
 		<p><a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=watermark' ) ); ?>"><?php esc_html_e( 'Create watermark', 'easy-watermark' ); ?></a></p>
 	<?php endif; ?>
 
+	<?php if ( $removed_watermarks ) : ?>
+		<p class="description"><?php esc_html_e( 'This image contains watermarks which has been removed:', 'easy-watermark' ); ?></p>
+		<ul class="removed-watermarks">
+			<?php foreach ( $removed_watermarks as $watermark_name ) : ?>
+				<li><?php echo esc_html( $watermark_name ); ?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
 	<?php do_action( 'easy-watermark/attachment-metabox-content', $watermarks ); ?>
 </div>

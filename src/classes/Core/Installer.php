@@ -121,6 +121,13 @@ class Installer {
 	 */
 	public static function update( $from, $defaults ) {
 
+		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
+
+		if ( version_compare( $from, '1.0.0', '>=' ) ) {
+			self::update_attachment_meta();
+			return;
+		}
+
 		$plugin_slug = Plugin::get()->get_slug();
 		$settings    = [];
 
@@ -128,8 +135,14 @@ class Installer {
 			$settings['general'] = get_option( $plugin_slug . '-settings-general' );
 			$settings['image']   = get_option( $plugin_slug . '-settings-image' );
 			$settings['text']    = get_option( $plugin_slug . '-settings-text' );
+
+			delete_option( $plugin_slug . '-settings-general' );
+			delete_option( $plugin_slug . '-settings-image' );
+			delete_option( $plugin_slug . '-settings-text' );
 		} else {
 			$old_settings = get_option( $plugin_slug . '-settings' );
+
+			delete_option( $plugin_slug . '-settings' );
 
 			$general = [
 				'auto_add'    => $old_settings['auto_add'],
@@ -202,7 +215,6 @@ class Installer {
 		}
 
 		update_option( Plugin::get()->get_slug() . '-settings', $defaults );
-		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
 
 		if ( isset( $settings['image']['watermark_id'] ) && ! empty( $settings['image']['watermark_id'] ) ) {
 			self::insert_image_watermark( $watermark_defaults, $settings );
@@ -214,6 +226,40 @@ class Installer {
 
 		self::update_backup_info();
 
+	}
+
+	/**
+	 * Update attachment meta
+	 *
+	 * @return void
+	 */
+	private static function update_attachment_meta() {
+		global $wpdb;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$meta = $wpdb->get_results( $wpdb->prepare( "SELECT `post_id`, `meta_value` FROM {$wpdb->postmeta} WHERE `meta_key` = %s", '_ew_applied_watermarks' ) );
+
+		foreach ( $meta as $entry ) {
+			$value = maybe_unserialize( $entry->meta_value );
+
+			if ( is_array( $value ) ) {
+				$new_value = [];
+
+				foreach ( $value as $watermark_id ) {
+					$watermark = Watermark::get( $watermark_id );
+
+					if ( $watermark ) {
+						$new_value[ $watermark_id ] = $watermark->post_title;
+					}
+				}
+
+				if ( $new_value ) {
+					update_post_meta( $entry->post_id, '_ew_applied_watermarks', $new_value );
+				} else {
+					delete_post_meta( $entry->post_id, '_ew_applied_watermarks' );
+				}
+			}
+		}
 	}
 
 	/**

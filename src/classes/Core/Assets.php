@@ -65,7 +65,12 @@ class Assets {
 			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
 		];
 
-		if ( class_exists( 'FileBird' ) ) {
+		if ( class_exists( 'FileBird' ) && wp_script_is( 'njt-filebird-upload-libray-scripts' ) ) {
+			/**
+			 * Add dependency to load FileBird script before ours.
+			 *
+			 * This script is not used in list mode, so we need to check if it is enqueued first.
+			 */
 			$assets['uploader'][] = 'njt-filebird-upload-libray-scripts';
 		}
 
