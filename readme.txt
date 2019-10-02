@@ -118,6 +118,9 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
+= [next] =
+* [Fixed] Database query error in bulk actions
+
 = 1.0.4 =
 * [Fixed] Improved error handling
 * [Fixed] "Enhanced Media Library" plugin compatibility (and possibly some other plugins which replace media library components)
