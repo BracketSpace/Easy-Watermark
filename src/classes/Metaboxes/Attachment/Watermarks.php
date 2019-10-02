@@ -61,14 +61,25 @@ class Watermarks extends AttachmentMetabox {
 			$applied_watermarks = [];
 		}
 
-		$all_applied = true;
+		$all_applied   = true;
+		$watermark_ids = [];
 
 		foreach ( $watermarks as $watermark ) {
-			if ( in_array( $watermark->ID, $applied_watermarks, true ) ) {
+			$watermark_ids[] = $watermark->ID;
+
+			if ( array_key_exists( $watermark->ID, $applied_watermarks ) ) {
 				$watermark->is_applied = true;
 			} else {
 				$watermark->is_applied = false;
 				$all_applied           = false;
+			}
+		}
+
+		$removed_watermarks = [];
+
+		foreach ( $applied_watermarks as $id => $name ) {
+			if ( ! in_array( $id, $watermark_ids, true ) ) {
+				$removed_watermarks[] = $name;
 			}
 		}
 
@@ -85,6 +96,7 @@ class Watermarks extends AttachmentMetabox {
 			'post'               => $post,
 			'watermarks'         => $watermarks,
 			'applied_watermarks' => $applied_watermarks,
+			'removed_watermarks' => $removed_watermarks,
 			'all_applied'        => $all_applied,
 			'has_backup'         => $has_backup,
 		] );

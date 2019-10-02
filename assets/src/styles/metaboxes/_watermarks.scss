@@ -35,4 +35,14 @@
 	.error-message {
 		display: none;
 	}
+
+	p.description {
+		margin-top: 20px;
+	}
+
+	.removed-watermarks {
+		list-style: initial;
+		margin: 0;
+		padding-left: 30px;
+	}
 }

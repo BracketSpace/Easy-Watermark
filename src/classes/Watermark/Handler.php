@@ -235,7 +235,7 @@ class Handler {
 		}
 
 		$watermarks = array_filter( $watermarks, function( $watermark ) use ( $applied_watermarks ) {
-			return ! in_array( $watermark->ID, $applied_watermarks, true );
+			return ! array_key_exists( $watermark->ID, $applied_watermarks );
 		} );
 
 		if ( empty( $meta ) ) {
@@ -272,8 +272,8 @@ class Handler {
 
 					$this->processor->add_watermark( $watermark );
 
-					if ( ! in_array( $watermark->ID, $applied_watermarks, true ) ) {
-						$applied_watermarks[] = $watermark->ID;
+					if ( ! array_key_exists( $watermark->ID, $applied_watermarks ) ) {
+						$applied_watermarks[ $watermark->ID ] = $watermark->post_title;
 					}
 				}
 			}

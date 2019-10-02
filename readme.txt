@@ -119,6 +119,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
+* Images will now hold information about applied watermarks which has been removed
 * [Fixed] Missing FileBird dependency
 * [Fixed] Database query error in bulk actions
 
