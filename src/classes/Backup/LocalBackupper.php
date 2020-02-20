@@ -59,7 +59,7 @@ class LocalBackupper implements BackupperInterface {
 			return new WP_Error( 'backup_error', __( 'Could not copy attachment file to backup directory.', 'easy-watermark' ) );
 		}
 
-		update_post_meta( $attachment_id, '_ew_backup_file', $new_filepath );
+		update_post_meta( $attachment_id, '_ew_backup_file', esc_sql( $new_filepath ) );
 
 		return true;
 

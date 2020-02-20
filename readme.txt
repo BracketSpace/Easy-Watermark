@@ -119,6 +119,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
+* [Fixed] Backup file paths on Windows
 * [Fixed] Bulk actions in media library list view
 
 = 1.0.5 =
