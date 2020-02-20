@@ -5,7 +5,7 @@ Tags: watermark, image, picture, photo, media, gallery, signature, transparent, 
 Requires at least: 3.8
 Requires PHP: 5.6
 Tested up to: 5.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: easy-watermark
@@ -118,7 +118,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
-= [next] =
+= 1.0.5 =
 * Images will now hold information about applied watermarks which has been removed
 * [Fixed] Missing FileBird dependency
 * [Fixed] Database query error in bulk actions
