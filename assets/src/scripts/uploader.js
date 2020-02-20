@@ -33,7 +33,7 @@ $( document ).ready( () => {
 		};
 	}
 
-	if ( typeof wp !== 'undefined' && typeof wp.media.view.UploaderInline === 'function' ) {
+	if ( typeof wp !== 'undefined' && wp.media && typeof wp.media.view.UploaderInline === 'function' ) {
 		const UploaderInline = wp.media.view.UploaderInline;
 
 		wp.media.view.UploaderInline = UploaderInline.extend( {
