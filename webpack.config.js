@@ -24,6 +24,7 @@ module.exports = ( env, argv ) => {
 			maxEntrypointSize: 512000,
 			maxAssetSize: 512000,
 		},
+		devtool: 'development' === argv.mode ? 'source-maps' : false,
 		module: {
 			rules: [
 				...( ! argv.watch ? [
