@@ -131,7 +131,7 @@ class LocalBackupper implements BackupperInterface {
 			return $backup_dir;
 		}
 
-		return $backup_dir . $filename;
+		return wp_normalize_path( $backup_dir . $filename );
 
 	}
 
