@@ -616,7 +616,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	 */
 	private function calculate_text_size( $font_size, $angle, $font, $text ) {
 
-		$bb = imagettfbbox( $font_size, $angle, $font, $text );
+		$bb = imagettfbbox( (float) $font_size, $angle, $font, $text );
 
 		$max_x = max( $bb[0], $bb[2], $bb[4], $bb[6] );
 		$min_x = min( $bb[0], $bb[2], $bb[4], $bb[6] );
