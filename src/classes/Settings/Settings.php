@@ -11,7 +11,7 @@ use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Plugin;
 use EasyWatermark\Core\View;
 use EasyWatermark\Traits\Hookable;
-use underDEV\Utils\Singleton;
+use Micropackage\Singleton\Singleton;
 
 /**
  * Settings class

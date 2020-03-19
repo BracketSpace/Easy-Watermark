@@ -7,7 +7,7 @@
 
 namespace EasyWatermark\Core;
 
-use underDEV\Utils\Singleton;
+use Micropackage\Singleton\Singleton;
 
 /**
  * View class

@@ -20,7 +20,7 @@ use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\Preview;
 use EasyWatermark\Watermark\Watermark;
 use EasyWatermark\Watermark\PostType as WatermarkPostType;
-use underDEV\Utils\Singleton;
+use Micropackage\Singleton\Singleton;
 
 /**
  * Main plugin class

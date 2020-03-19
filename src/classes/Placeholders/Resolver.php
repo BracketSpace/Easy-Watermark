@@ -8,7 +8,7 @@
 namespace EasyWatermark\Placeholders;
 
 use EasyWatermark\Placeholders\Abstracts\Placeholder;
-use underDEV\Utils\Singleton;
+use Micropackage\Singleton\Singleton;
 use WP_Error;
 
 /**

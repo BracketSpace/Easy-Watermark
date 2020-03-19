@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f6811151044a388c44cb6b8c31ba529",
+    "content-hash": "a93545a50c1c5c5b8b22e40c505a70c4",
     "packages": [
         {
             "name": "composer/installers",
@@ -80,6 +80,47 @@
             "time": "2013-08-20T04:37:09+00:00"
         },
         {
+            "name": "micropackage/singleton",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/micropackage/singleton.git",
+                "reference": "bc69d8ff767cfcfad9a80729c5dc4dcfc89aaf6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/micropackage/singleton/zipball/bc69d8ff767cfcfad9a80729c5dc4dcfc89aaf6c",
+                "reference": "bc69d8ff767cfcfad9a80729c5dc4dcfc89aaf6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "phpcompatibility/php-compatibility": "^9.1",
+                "wp-coding-standards/wpcs": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Micropackage\\Singleton\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Mikita",
+                    "email": "jakub@bracketspace.com"
+                }
+            ],
+            "description": "Singleton implementation",
+            "time": "2020-01-28T14:10:39+00:00"
+        },
+        {
             "name": "underdev/requirements",
             "version": "1.3.2",
             "source": {
@@ -108,36 +149,6 @@
             ],
             "description": "WordPress drop-in to check requirements",
             "time": "2018-12-13T10:57:24+00:00"
-        },
-        {
-            "name": "underdev/singleton",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Kubitomakita/singleton.git",
-                "reference": "31a6625e118b94bd954a76a5d7395143a5d2a014"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Kubitomakita/singleton/zipball/31a6625e118b94bd954a76a5d7395143a5d2a014",
-                "reference": "31a6625e118b94bd954a76a5d7395143a5d2a014",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "underDEV\\Utils\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Kuba Mikita",
-                    "email": "jakub@underdev.it"
-                }
-            ],
-            "description": "Singleton class",
-            "time": "2017-06-08T12:20:37+00:00"
         }
     ],
     "packages-dev": [
@@ -321,12 +332,12 @@
             "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
+                "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
                 "reference": "c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce",
                 "reference": "c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce",
                 "shasum": ""
             },
@@ -368,7 +379,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=5.6.0"
     },
     "platform-dev": []
 }

@@ -13,7 +13,7 @@ use EasyWatermark\Settings\Section;
 use EasyWatermark\Settings\Fields\SwitchField;
 use EasyWatermark\Settings\Fields\Dropdown;
 use EasyWatermark\Traits\Hookable;
-use underDEV\Utils\Singleton;
+use Micropackage\Singleton\Singleton;
 use WP_Error;
 
 /**
