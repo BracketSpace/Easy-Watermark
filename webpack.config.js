@@ -5,7 +5,7 @@ const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const path = require( 'path' );
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const { defaultRequestToExternal, defaultRequestToHandle } = require( '@wordpress/dependency-extraction-webpack-plugin/util' );
+const { defaultRequestToExternal, defaultRequestToHandle } = require( '@wordpress/dependency-extraction-webpack-plugin/lib/util' );
 const globImporter = require( 'node-sass-glob-importer' );
 const {
 	lstatSync,
@@ -43,7 +43,6 @@ module.exports = ( env, argv ) => {
 			maxEntrypointSize: 512000,
 			maxAssetSize: 512000,
 		},
-		devtool: 'development' === argv.mode ? 'source-maps' : false,
 		module: {
 			rules: [
 				...( ! argv.watch ? [
