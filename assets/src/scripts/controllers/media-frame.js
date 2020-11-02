@@ -13,8 +13,6 @@ import {
 	filterSelection,
 } from '../utils/functions.js';
 
-/* global wp, ew, ajaxurl */
-
 if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typeof wp.media.view.MediaFrame.Manage ) {
 	wp.media.view.MediaFrame.Manage = class extends wp.media.view.MediaFrame.Manage {
 		browseContent( contentRegion ) {

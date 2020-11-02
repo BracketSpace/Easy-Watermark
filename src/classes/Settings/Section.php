@@ -8,6 +8,8 @@
 namespace EasyWatermark\Settings;
 
 use EasyWatermark\Core\View;
+use EasyWatermark\Settings\Field;
+use EasyWatermark\Settings\Settings;
 
 /**
  * Section class
@@ -160,11 +162,9 @@ class Section {
 	 * @return void
 	 */
 	public function render() {
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo new View( 'dashboard/settings/section', [
+		View::get( 'dashboard/settings/section', [
 			'name'   => $this->get_name(),
 			'fields' => $this->get_fields(),
-		] );
-		// phpcs:enable
+		] )->display();
 	}
 }

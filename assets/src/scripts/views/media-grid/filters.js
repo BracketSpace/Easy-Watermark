@@ -1,4 +1,3 @@
-/* global wp */
 
 if ( wp.media ) {
 	if ( 'function' === typeof wp.media.view.AttachmentFilters.All ) {

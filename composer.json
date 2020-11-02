@@ -3,7 +3,8 @@
   "type": "wordpress-plugin",
   "scripts": {
     "phpcs": "phpcs",
-    "phpcbf": "phpcbf"
+    "phpcbf": "phpcbf",
+		"analyse": "phpstan analyse"
   },
   "require": {
     "php": ">=5.6.0",
@@ -14,7 +15,9 @@
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
     "phpcompatibility/php-compatibility": "^9.1",
-    "wp-coding-standards/wpcs": "^2.0"
+    "wp-coding-standards/wpcs": "^2.0",
+    "sirbrillig/phpcs-variable-analysis": "^2.8",
+    "sirbrillig/phpcs-import-detection": "^1.2"
   },
   "autoload": {
     "psr-4": {

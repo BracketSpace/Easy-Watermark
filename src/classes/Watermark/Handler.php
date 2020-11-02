@@ -7,14 +7,15 @@
 
 namespace EasyWatermark\Watermark;
 
-use EasyWatermark\AttachmentProcessor;
 use EasyWatermark\AttachmentProcessor\Manager as ProcessorManager;
 use EasyWatermark\Backup\BackupperInterface;
 use EasyWatermark\Backup\Manager as BackupManager;
-use EasyWatermark\Settings\Settings;
 use EasyWatermark\Helpers\Image as ImageHelper;
-use EasyWatermark\Metaboxes\Attachment\Watermarks;
 use EasyWatermark\Placeholders\Resolver;
+use EasyWatermark\Settings\Settings;
+use EasyWatermark\Watermark\Ajax;
+use EasyWatermark\Watermark\Hooks;
+use EasyWatermark\Watermark\Watermark;
 use WP_Error;
 
 /**
@@ -32,37 +33,30 @@ class Handler {
 	/**
 	 * AttachmentProcessor instance
 	 *
-	 * @var AttachmentProcessor
+	 * @var \EasyWatermark\AttachmentProcessor\AttachmentProcessor
 	 */
 	private $processor;
 
 	/**
 	 * Backupper instance
 	 *
-	 * @var Backupper
+	 * @var \EasyWatermark\Backup\Backupper
 	 */
 	private $backupper;
 
 	/**
 	 * Placeholders Resolver instance
 	 *
-	 * @var Resolver
+	 * @var \EasyWatermark\Placeholders\Resolver
 	 */
 	private $resolver;
 
 	/**
 	 * Settings instance
 	 *
-	 * @var Settings
+	 * @var \EasyWatermark\Settings\Settings
 	 */
 	private $settings;
-
-	/**
-	 * Temporarily stored meta for newly uploaded attachment
-	 *
-	 * @var Settings
-	 */
-	private $tmp_meta;
 
 	/**
 	 * Constructor

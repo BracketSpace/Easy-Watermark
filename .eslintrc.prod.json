@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "plugin:@wordpress/eslint-plugin/recommended",
+    "plugin:jsdoc/recommended"
+  ],
+  "plugins": [
+    "jsdoc"
+  ],
+  "globals": {
+    "wp": "readonly",
+    "ew": "readonly",
+    "ajaxurl": "readonly"
+  },
+	"rules": {
+		"valid-jsdoc": 0,
+		"jsdoc/no-undefined-types": 0
+  },
+	"settings": {
+		"jsdoc": {
+			"preferredTypes": {
+				"object": "Object"
+			}
+		}
+	}
+}

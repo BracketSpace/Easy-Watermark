@@ -7,6 +7,8 @@
 
 namespace EasyWatermark\Helpers;
 
+use const EW_DIR_PATH;
+
 /**
  * Text helper
  */

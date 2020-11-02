@@ -8,6 +8,8 @@
 namespace EasyWatermark;
 
 use EasyWatermark\Core\Plugin as EasyWatermark;
+use Micropackage\Requirements\Requirements;
+use const EW_DIR_PATH;
 
 /**
  * Helper function for startup errors
@@ -34,7 +36,20 @@ $autoloader = EW_DIR_PATH . '/vendor/autoload.php';
  * Check if the composer vendors are installed
  */
 if ( ! file_exists( $autoloader ) ) {
-	$ew_error( 'If you are a developer, please run: `<code>composer install</code>`. Otherwies contact us for help.', 'The plugin vendors are missing.' );
+	$title       = esc_html__( 'Easy Watermark &rsaquo; Error', 'easy-watermark' );
+	$support_url = 'https://wordpress.org/support/plugin/easy-watermark';
+
+	wp_die( sprintf(
+		'<h1>%s<br><small>%s</small></h1><p>%s</p><p>%s</p>',
+		$title, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		esc_html__( 'The plugin vendors are missing.', 'easy-watermark' ),
+		esc_html__( 'If you are a developer, please run: `<code>composer install</code>`. Otherwies contact us for help.', 'easy-watermark' ),
+		sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( $support_url ),
+			esc_html__( 'Support', 'easy-watermark' )
+		)
+	), $title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -45,14 +60,14 @@ require $autoloader;
 /**
  * Requirements check
  */
-$requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermark' ), [
+$requirements = new Requirements( __( 'Easy Watermark', 'easy-watermark' ), [
 	'php'            => '5.6.0',
-	'wp'             => '4.6',
+	'wp'             => '5.0',
 	'php_extensions' => [ 'gd' ],
 ] );
 
 if ( ! $requirements->satisfied() ) {
-	add_action( 'admin_notices', array( $requirements, 'notice' ) );
+	$requirements->print_notice();
 	return;
 }
 

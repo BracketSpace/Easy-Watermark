@@ -15,7 +15,6 @@ use EasyWatermark\Watermark\Watermark;
  * Settings class
  */
 class Watermarks extends Page {
-
 	use Hookable;
 
 	/**
@@ -33,13 +32,14 @@ class Watermarks extends Page {
 	 * @return void
 	 */
 	public function admin_notices() {
-		// phpcs:disable WordPress.Security
+
+		// phpcs:disable WordPress.Security.NonceVerification
 		if ( isset( $_GET['deleted'] ) ) {
-			echo new View( 'notices/success', [
+			View::get( 'notices/success', [
 				'message' => esc_html__( 'Watermark has been deleted.', 'easy-watermark' ),
-			] );
+			] )->display();
 		}
-		// phpcs:enable
+
 	}
 
 	/**
@@ -47,15 +47,11 @@ class Watermarks extends Page {
 	 *
 	 * @filter easy-watermark/dashboard/watermarks/view-args
 	 *
-	 * @param  array $args View args.
 	 * @return array
 	 */
-	public function view_args( $args ) {
-		$watermarks = Watermark::get_all();
-
+	public function view_args() {
 		return [
-			'watermarks'       => $watermarks,
-			'watermarks_count' => wp_count_posts( 'watermark' )->publish,
+			'watermarks' => Watermark::get_all(),
 		];
 	}
 }

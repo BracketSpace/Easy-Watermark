@@ -5,13 +5,15 @@
  * @package easy-watermark
  */
 
+namespace EasyWatermark;
+
 /**
  * Checks if the DocHooks are enabled and working.
  *
  * @return boolean
  */
 function ew_dochooks_enabled() {
-	if ( ! class_exists( 'EasyWatermarkDocHookTest' ) ) {
+	if ( ! class_exists( 'EasyWatermark\EasyWatermarkDocHookTest' ) ) {
 		/**
 		 * EasyWatermarkDocHookTest class
 		 */

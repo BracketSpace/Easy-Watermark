@@ -3,8 +3,6 @@
  */
 import { filterSelection } from '../../../utils/functions';
 
-/* global wp */
-
 let WatermarkModeExport = null;
 
 if ( wp.media && 'function' === typeof wp.media.view.Button ) {

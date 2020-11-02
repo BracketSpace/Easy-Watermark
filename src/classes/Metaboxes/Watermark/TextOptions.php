@@ -7,7 +7,6 @@
 
 namespace EasyWatermark\Metaboxes\Watermark;
 
-use EasyWatermark\Core\View;
 use EasyWatermark\Helpers\Text;
 use EasyWatermark\Metaboxes\WatermarkMetabox;
 use EasyWatermark\Watermark\Watermark;

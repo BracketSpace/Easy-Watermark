@@ -3,8 +3,10 @@
  */
 import $ from 'jquery';
 
-/* global ew */
-
+/**
+ * @param content
+ * @param type
+ */
 export function addNotice( content, type = 'info' ) {
 	const notice = $( document.createElement( 'div' ) ),
 		p = $( document.createElement( 'p' ) ),
@@ -28,6 +30,11 @@ export function addNotice( content, type = 'info' ) {
 	notice.fadeIn( 200 );
 }
 
+/**
+ * @param selection
+ * @param backup
+ * @param remove
+ */
 export function filterSelection( selection, backup = false, remove = true ) {
 	let length = selection.length;
 
@@ -45,6 +52,10 @@ export function filterSelection( selection, backup = false, remove = true ) {
 	return length;
 }
 
+/**
+ * @param url
+ * @param version
+ */
 export function imageVersion( url, version ) {
 	const	index = url.indexOf( '?' );
 
@@ -57,6 +68,9 @@ export function imageVersion( url, version ) {
 	return url;
 }
 
+/**
+ * @param mime
+ */
 export function isImage( mime ) {
 	if ( 'object' === typeof mime && mime.get ) {
 		// It's a model.

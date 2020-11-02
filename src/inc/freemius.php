@@ -5,6 +5,11 @@
  * @package easy-watermark
  */
 
+namespace EasyWatermark;
+
+use const EW_DIR_PATH;
+use function fs_dynamic_init;
+
 /**
  * Helper function for easy Freemius SDK access.
  */

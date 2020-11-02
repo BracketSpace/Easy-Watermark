@@ -8,8 +8,6 @@ import $ from 'jquery';
  */
 import { imageVersion } from '../../utils/functions';
 
-/* global wp, ew, ajaxurl */
-
 export default class {
 	constructor() {
 		this.metabox = $( '#preview' );

@@ -18,44 +18,20 @@ class Watermark {
 	 * @var array
 	 */
 	private static $defaults = [
-		'type'            => null,
-		'attachment_id'   => null,
-		'mime_type'       => null,
-		'url'             => null,
-		'text'            => '',
-		'auto_add'        => true,
-		'auto_add_all'    => true,
-		'scaling_mode'    => 'none',
-		'scale_down_only' => false,
-		'scale'           => 100,
-		'font'            => null,
-		'text_color'      => '#000000',
-		'text_size'       => 24,
-		'text_angle'      => 0,
-		'opacity'         => 100,
-		'alignment'       => 'center',
-		'offset'          => [
-			'x' => [
-				'value' => 0,
-				'unit'  => 'px',
-			],
-			'y' => [
-				'value' => 0,
-				'unit'  => 'px',
-			],
-		],
-		'image_types'     => [
+		'auto_add'     => true,
+		'auto_add_all' => true,
+		'image_types'  => [
 			'image/jpeg',
 			'image/png',
 			'image/gif',
 		],
-		'image_sizes'     => [
+		'image_sizes'  => [
 			'medium',
 			'medium_large',
 			'large',
 			'full',
 		],
-		'post_types'      => [
+		'post_types'   => [
 			'unattached',
 			'post',
 			'page',

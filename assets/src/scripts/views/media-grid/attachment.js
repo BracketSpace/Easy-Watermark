@@ -8,8 +8,6 @@ import $ from 'jquery';
  */
 import { filterSelection, isImage } from '../../utils/functions.js';
 
-/* global wp, ew */
-
 if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 	const Library = wp.media.view.Attachment.Library;
 	wp.media.view.Attachment.Library = Library.extend( {

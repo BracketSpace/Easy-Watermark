@@ -33,7 +33,7 @@ class BlogUrl extends UrlPlaceholder {
 	 * @param  Resolver $resolver Placeholders resolver instance.
 	 * @return string
 	 */
-	public function resolve( $resolver ) {
+	public function resolve( $resolver ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		return home_url();
 	}
 }

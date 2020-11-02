@@ -9,7 +9,6 @@ namespace EasyWatermark\Metaboxes;
 
 use EasyWatermark\Core\View;
 use EasyWatermark\Traits\Hookable;
-use EasyWatermark\Watermark\Watermark;
 
 /**
  * Metabox class
@@ -114,7 +113,7 @@ abstract class Metabox {
 	 * @param  object $post Current post.
 	 * @return array
 	 */
-	public function prepare_params( $params, $post ) {
+	public function prepare_params( $params, $post ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		return $params;
 	}
 
@@ -130,8 +129,7 @@ abstract class Metabox {
 			'post' => $post,
 		], $post );
 
-		// phpcs:ignore
-		echo new View( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, $params );
+		View::get( 'edit-screen/metaboxes/' . $this->post_type . '/' . $this->id, $params )->display();
 
 	}
 

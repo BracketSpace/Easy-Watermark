@@ -33,7 +33,7 @@ class Time extends StringPlaceholder {
 	 * @param  Resolver $resolver Placeholders resolver instance.
 	 * @return string
 	 */
-	public function resolve( $resolver ) {
+	public function resolve( $resolver ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		return date_i18n( get_option( 'time_format' ) );
 	}
 }

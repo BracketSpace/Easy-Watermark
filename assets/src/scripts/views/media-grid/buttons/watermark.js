@@ -1,4 +1,3 @@
-/* global wp */
 
 let WatermarkButton = null;
 

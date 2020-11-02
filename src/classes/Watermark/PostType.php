@@ -9,7 +9,9 @@ namespace EasyWatermark\Watermark;
 
 use EasyWatermark\Core\Plugin;
 use EasyWatermark\Core\View;
+use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Traits\Hookable;
+use EasyWatermark\Watermark\Watermark;
 
 /**
  * Watermark post type class
@@ -65,19 +67,14 @@ class PostType {
 		];
 
 		$args = [
-			'labels'              => $labels,
-			'description'         => __( 'Watermarks', 'easy-watermark' ),
-			'public'              => false,
-			'show_ui'             => true,
-			'exclude_from_search' => true,
-			'has_archive'         => false,
-			'hierarchical'        => false,
-			'menu_icon'           => 'dashicons-media-text',
-			'menu_position'       => null,
-			'supports'            => [ 'title' ],
-			'map_meta_cap'        => true,
-			'show_in_menu'        => false,
-			'capabilities'        => [
+			'labels'       => $labels,
+			'description'  => __( 'Watermarks', 'easy-watermark' ),
+			'public'       => false,
+			'hierarchical' => false,
+			'map_meta_cap' => true,
+			'show_in_rest' => true,
+			'rest_base'    => 'watermarks',
+			'capabilities' => [
 				'edit_post'           => 'edit_watermark',
 				'edit_posts'          => 'edit_watermarks',
 				'edit_others_posts'   => 'edit_others_watermarks',
@@ -86,8 +83,125 @@ class PostType {
 			],
 		];
 
+		// phpcs:ignore WordPress.NamingConventions.ValidPostTypeSlug.NotStringLiteral
 		register_post_type( $this->post_type, $args );
 
+		register_rest_field( 'watermark', 'config', [
+			'get_callback' => [ $this, 'config_get_callback' ],
+		] );
+
+		register_rest_field( 'watermark', 'objects', [
+			'get_callback' => [ $this, 'objects_get_callback' ],
+		] );
+
+	}
+
+	/**
+	 * Prepares watermark config field for REST API response
+	 *
+	 * @since 1.0.0
+	 * @param  array $data Response data.
+	 * @return array
+	 */
+	public function config_get_callback( $data ) {
+		$defaults = Watermark::get_defaults();
+
+		if ( null === $data['content']['raw'] ) {
+			return $defaults;
+		}
+
+		$data = json_decode( $data['content']['raw'], true );
+
+		if ( ! is_array( $data ) ) {
+			return $defaults;
+		}
+
+		if ( array_key_exists( 'config', $data ) ) {
+			$config = $data['config'];
+		} else {
+			$config = $this->get_config( $data );
+		}
+
+		return $config;
+	}
+
+	/**
+	 * Parses watermark image sizes
+	 *
+	 * @since 1.0.0
+	 * @param  array $sizes Image sizes.
+	 * @return array
+	 */
+	private function parse_image_sizes( $sizes ) {
+		$result = ImageHelper::get_available_sizes();
+
+		array_walk( $result, function( &$item, $key ) use ( $sizes ) {
+			$item = [
+				'label'   => $item,
+				'checked' => in_array( $key, $sizes, true ),
+			];
+		} );
+
+		return $result;
+	}
+
+	/**
+	 * Gets watermark config
+	 *
+	 * @since 1.0.0
+	 * @param  array $data Response data.
+	 * @return array
+	 */
+	public function get_config( $data ) {
+		$defaults = Watermark::get_defaults();
+		$config   = array_intersect_key( $data, $defaults );
+
+		return array_merge( $defaults, $config );
+	}
+
+	/**
+	 * Prepares watermark config field for REST API response
+	 *
+	 * @since 1.0.0
+	 * @param  array $data Response data.
+	 * @return array
+	 */
+	public function objects_get_callback( $data ) {
+		$data = json_decode( $data['content']['raw'], true );
+
+		if ( array_key_exists( 'objects', $data ) ) {
+			$objects = $data['objects'];
+		} else {
+			$objects = $this->get_objects( $data );
+		}
+
+		return $objects;
+	}
+
+	/**
+	 * Gets watermark objects
+	 *
+	 * @since 1.0.0
+	 * @param  array $data Response data.
+	 * @return array
+	 */
+	public function get_objects( $data ) {
+		if ( ! array_key_exists( 'type', $data ) ) {
+			return [];
+		}
+
+		$defaults = Watermark::get_defaults();
+		$exclude  = [];
+
+		if ( 'image' === $data['type'] ) {
+			$exclude = [ 'text', 'font', 'text_color', 'text_size', 'text_angle' ];
+		} else {
+			$exclude = [ 'attachment_id', 'mime_type', 'url' ];
+		}
+
+		$object = array_diff_key( $data, $defaults, array_flip( $exclude ) );
+
+		return [ $object ];
 	}
 
 	/**
@@ -95,7 +209,7 @@ class PostType {
 	 *
 	 * @filter parent_file
 	 *
-	 * @since  1.0.4
+	 * @since 1.0.0
 	 * @param  string $parent_file Parent file.
 	 * @return string
 	 */
@@ -131,6 +245,7 @@ class PostType {
 	 * Sets watermark update messages
 	 *
 	 * @filter post_updated_messages
+	 *
 	 * @param  array $messages Watermark update messages.
 	 * @return array
 	 */
@@ -167,8 +282,6 @@ class PostType {
 	 * @return array
 	 */
 	public function bulk_post_updated_messages( $messages, $counts ) {
-		global $post;
-
 		$messages['watermark'] = [
 			/* translators: updated watermarks number */
 			'updated'   => _n( '%s watermark updated.', '%s watermarks updated.', $counts['updated'], 'easy-watermark' ),
@@ -255,14 +368,12 @@ class PostType {
 		global $post;
 
 		if ( 'watermark' === get_current_screen()->id && 2 <= $this->get_watermarks_count() && 'publish' !== $post->post_status ) {
-			echo new View( 'notices/watermarks-number-exceeded-error' ); // phpcs:ignore
+			View::get( 'notices/watermarks-number-exceeded-error' )->display();
 		}
 
-		if ( isset( $_REQUEST['ew-limited'] ) && $_REQUEST['ew-limited'] ) { // phpcs:ignore
-
-			echo new View( 'notices/untrash-error' ); // phpcs:ignore
-
-			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'ew-limited' ], $_SERVER['REQUEST_URI'] ); // phpcs:ignore
+		// phpcs:ignore WordPress.Security
+		if ( isset( $_REQUEST['ew-limited'] ) && $_REQUEST['ew-limited'] ) {
+			View::get( 'notices/untrash-error' )->display();
 		}
 	}
 
@@ -346,11 +457,9 @@ class PostType {
 		if ( 'watermark' === get_current_screen()->id && ( 2 > $this->get_watermarks_count() || 'publish' === $post->post_status ) ) {
 			$watermark = Watermark::get( $post );
 
-			// phpcs:disable
-			echo new View( 'edit-screen/attachment-id-field', [
+			View::get( 'edit-screen/attachment-id-field', [
 				'attachment_id' => $watermark->attachment_id,
-			] );
-			// phpcs:enable
+			] )->display();
 		}
 	}
 
@@ -367,12 +476,10 @@ class PostType {
 			$watermark         = Watermark::get( $post );
 			$watermark_handler = Plugin::get()->get_watermark_handler();
 
- 			// phpcs:disable
-			echo new View( 'edit-screen/watermark-type-selector', [
+			View::get( 'edit-screen/watermark-type-selector', [
 				'watermark_types' => $watermark_handler->get_watermark_types(),
 				'selected_type'   => $watermark->type,
-			] );
-			// phpcs:enable
+			] )->display();
 		}
 	}
 
@@ -465,6 +572,52 @@ class PostType {
 
 		return $data;
 
+	}
+
+	/**
+	 * Prepares watermark content for REST API response
+	 *
+	 * @filter rest_prepare_watermark
+	 *
+	 * @since 1.0.0
+	 * @param WP_REST_Response $response The response object.
+	 * @param WP_Post          $post     Post object.
+	 * @param WP_REST_Request  $request  Request object.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function rest_prepare_watermark( $response, $post, $request ) {
+		if ( 'edit' !== $request->get_param( 'context' ) ) {
+			return new \WP_Error( 'rest_no_route', __( 'No route was found matching the URL and request method' ), [ 'status' => 404 ] );
+		}
+
+		$data = $response->get_data();
+
+		unset( $data['content'] );
+
+		$response->set_data( $data );
+
+		return $response;
+	}
+
+	/**
+	 * Prepares watermark for database.
+	 *
+	 * @filter rest_pre_insert_watermark
+	 *
+	 * @since 1.0.0
+	 * @param  stdClass        $prepared_post    Post data.
+	 * @param  WP_REST_Request $request  Request object.
+	 * @return stdClass
+	 */
+	public function rest_pre_insert_watermark( $prepared_post, $request ) {
+		$watermark_data = [
+			'config'  => $request->get_param( 'config' ),
+			'objects' => $request->get_param( 'objects' ),
+		];
+
+		$prepared_post->post_content = wp_json_encode( $watermark_data, JSON_UNESCAPED_UNICODE );
+
+		return $prepared_post;
 	}
 
 	/**

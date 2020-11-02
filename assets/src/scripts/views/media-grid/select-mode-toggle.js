@@ -1,4 +1,3 @@
-/* global wp */
 
 if ( wp.media && 'function' === typeof wp.media.view.SelectModeToggleButton ) {
 	wp.media.view.SelectModeToggleButton = class extends wp.media.view.SelectModeToggleButton {

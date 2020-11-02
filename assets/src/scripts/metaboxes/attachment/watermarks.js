@@ -8,8 +8,6 @@ import $ from 'jquery';
  */
 import { addNotice, imageVersion } from '../../utils/functions.js';
 
-/* global ew, ajaxurl */
-
 export default class {
 	constructor() {
 		this.handleClick = this.handleClick.bind( this );

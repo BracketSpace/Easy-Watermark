@@ -7,8 +7,8 @@
 
 namespace EasyWatermark\Watermark;
 
-use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Metaboxes\Attachment\Watermarks;
+use EasyWatermark\Traits\Hookable;
 
 /**
  * AjaxHandler class

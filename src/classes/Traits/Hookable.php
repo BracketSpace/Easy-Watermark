@@ -29,7 +29,6 @@ trait Hookable {
 	 * Add actions/filters/shortcodes from the methods of a class based on DocBlocks
 	 */
 	public function hook() {
-
 		if ( true === $this->hooked ) {
 			return;
 		}
@@ -58,7 +57,7 @@ trait Hookable {
 
 					$function = sprintf( '\add_%s', $type );
 
-					$retval = \call_user_func( $function, $name, $callback, $priority, $arg_count );
+					call_user_func( $function, $name, $callback, $priority, $arg_count );
 
 					$hooks->add_hook( $this, [
 						'name'      => $name,
@@ -70,16 +69,13 @@ trait Hookable {
 				}
 			}
 		}
-
 	}
 
 	/**
 	 * Removes the added DocBlock hooks
 	 */
 	public function unhook() {
-
-		$class_name = get_class( $this );
-		$reflector  = new \ReflectionObject( $this );
+		$reflector = new \ReflectionObject( $this );
 
 		foreach ( $reflector->getMethods() as $method ) {
 
@@ -93,16 +89,14 @@ trait Hookable {
 					$name = $match['name'];
 
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
-					$callback = array( $this, $method->getName() );
+					$callback = [ $this, $method->getName() ];
 
 					call_user_func( "remove_{$type}", $name, $callback, $priority );
-
 				}
 			}
 		}
 
 		$this->hooked = false;
-
 	}
 
 	/**

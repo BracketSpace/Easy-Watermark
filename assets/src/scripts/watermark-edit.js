@@ -18,8 +18,6 @@ import Placeholders from './metaboxes/watermark/placeholders';
 
 import FormFields from './utils/form-fields';
 
-/* global ew, ajaxurl */
-
 class WatermarkEdit {
 	constructor() {
 		this.selectWatermarkType = this.selectWatermarkType.bind( this );

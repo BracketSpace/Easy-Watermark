@@ -3,8 +3,6 @@
  */
 import $ from 'jquery';
 
-/* global wp */
-
 export default class {
 	constructor() {
 		this.metabox = $( '#watermark-content' );

@@ -3,8 +3,6 @@
  */
 import $ from 'jquery';
 
-/* global wp, ew */
-
 let WatermarkSelectorExport = null;
 
 if ( wp.media && 'function' === typeof wp.media.View ) {

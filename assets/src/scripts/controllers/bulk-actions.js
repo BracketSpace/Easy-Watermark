@@ -17,8 +17,6 @@ import {
 	filterSelection,
 } from '../utils/functions.js';
 
-/* global ew, ajaxurl */
-
 class BulkActions extends Model {
 	constructor() {
 		super();

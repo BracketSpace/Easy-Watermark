@@ -9,7 +9,8 @@ namespace EasyWatermark\Core;
 
 use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Traits\Hookable;
-use EasyWatermark\Watermark\Handler;
+use const EW_DIR_URL;
+use const EW_DIR_PATH;
 
 /**
  * Assets class
@@ -26,9 +27,16 @@ class Assets {
 	private $registered = false;
 
 	/**
+	 * Plugin slug
+	 *
+	 * @var string
+	 */
+	private $plugin_slug;
+
+	/**
 	 * Watermark handler instance
 	 *
-	 * @var Handler
+	 * @var \EasyWatermark\Watermark\Handler
 	 */
 	private $handler;
 
@@ -37,10 +45,12 @@ class Assets {
 	 *
 	 * @param Plugin $plugin Plugin instance.
 	 */
-	public function __construct( $plugin ) {
+	public function __construct( Plugin $plugin ) {
 
 		$this->hook();
-		$this->handler = $plugin->get_watermark_handler();
+
+		$this->handler     = $plugin->get_watermark_handler();
+		$this->plugin_slug = $plugin->get_slug();
 
 	}
 
@@ -57,13 +67,7 @@ class Assets {
 			return;
 		}
 
-		$assets = [
-			'attachment-edit' => [ 'jquery' ],
-			'dashboard'       => [ 'jquery', 'backbone' ],
-			'uploader'        => [ 'jquery' ],
-			'media-library'   => [ 'jquery', 'backbone' ],
-			'watermark-edit'  => [ 'jquery', 'wp-color-picker' ],
-		];
+		$assets = $this->get_assets_list();
 
 		if ( class_exists( 'FileBird' ) && wp_script_is( 'njt-filebird-upload-libray-scripts' ) ) {
 			/**
@@ -71,24 +75,22 @@ class Assets {
 			 *
 			 * This script is not used in list mode, so we need to check if it is enqueued first.
 			 */
-			$assets['uploader'][] = 'njt-filebird-upload-libray-scripts';
+			 $assets['uploader']['dependencies'][] = 'njt-filebird-upload-libray-scripts';
 		}
 
-		foreach ( $assets as $filename => $deps ) {
-			$script_version = $this->asset_version( 'scripts', $filename . '.js' );
-			$style_version  = $this->asset_version( 'styles', $filename . '.css' );
-			$in_footer      = true;
+		foreach ( $assets as $asset => $data ) {
+			$in_footer = true;
 
-			if ( 'uploader' === $filename ) {
+			if ( 'uploader' === $asset ) {
 				$in_footer = false;
 			}
 
-			if ( false !== $script_version ) {
-				wp_register_script( 'ew-' . $filename, $this->asset_url( 'scripts', $filename . '.js' ), $deps, $script_version, $in_footer );
+			if ( false !== $this->asset_path( 'scripts', "{$asset}.js" ) ) {
+				wp_register_script( "ew-{$asset}", $this->asset_url( 'scripts', "{$asset}.js" ), $data['dependencies'], $data['version'], $in_footer );
 			}
 
-			if ( false !== $style_version ) {
-				wp_register_style( 'ew-' . $filename, $this->asset_url( 'styles', $filename . '.css' ), [], $style_version );
+			if ( false !== $this->asset_path( 'styles', "{$asset}.css" ) ) {
+				wp_register_style( "ew-{$asset}", $this->asset_url( 'styles', "{$asset}.css" ), [], $data['version'] );
 			}
 		}
 
@@ -117,6 +119,52 @@ class Assets {
 				];
 				break;
 			case 'tools_page_easy-watermark':
+				// phpcs:disable WordPress.Security.NonceVerification
+				if ( isset( $_GET['watermark'] ) || ( isset( $_GET['action'] ) && 'new' === $_GET['action'] ) ) {
+					wp_enqueue_media();
+
+					if ( isset( $_GET['watermark'] ) ) {
+						$watermark_id = intval( $_GET['watermark'] );
+						// phpcs:enable
+					} else {
+						$watermark    = get_default_post_to_edit( 'watermark', true );
+						$watermark_id = $watermark->ID;
+					}
+
+					$post_types = array_merge(
+						[
+							'unattached' => [
+								'name'  => 'unattached',
+								'label' => __( 'Unattached', 'easy-watermark' ),
+							],
+						],
+						array_filter(
+							get_post_types( [ 'public' => true ], 'objects' ),
+							function( $key ) {
+								return 'attachment' !== $key;
+							},
+							ARRAY_FILTER_USE_KEY
+						)
+					);
+
+					$permission_settings_url = add_query_arg( [
+						'page' => $this->plugin_slug,
+						'tab'  => 'permissions',
+					], admin_url( 'tools.php' ) );
+
+					$enqueue  = 'watermark-editor';
+					$localize = [
+						'watermarkID'           => $watermark_id,
+						'namespace'             => $this->plugin_slug,
+						'imageSizes'            => ImageHelper::get_available_sizes(),
+						'mimeTypes'             => ImageHelper::get_available_mime_types(),
+						'postTypes'             => $post_types,
+						'editorSettings'        => apply_filters( 'easy-watermark/get-editor-settings', get_option( "{$this->plugin_slug}-editor-settings", [] ) ),
+						'permissionSettingsURL' => $permission_settings_url,
+					];
+					break;
+				}
+
 				$enqueue  = 'dashboard';
 				$localize = [
 					'nonce' => wp_create_nonce( 'get_attachments' ),
@@ -249,6 +297,33 @@ class Assets {
 	}
 
 	/**
+	 * Returns asset path
+	 *
+	 * @param  string $type Asset type.
+	 * @param  string $file Filename.
+	 * @return string
+	 */
+	private function asset_path( $type = null, $file = null ) {
+
+		$path = EW_DIR_PATH . 'assets/dist/';
+
+		if ( is_string( $type ) ) {
+			$path .= "$type/";
+		}
+
+		if ( is_string( $file ) ) {
+			$path .= $file;
+		}
+
+		if ( ! file_exists( $path ) ) {
+			return false;
+		}
+
+		return $path;
+
+	}
+
+	/**
 	 * Returns asset version
 	 *
 	 * @param  string $type Asset type.
@@ -257,13 +332,42 @@ class Assets {
 	 */
 	private function asset_version( $type, $file ) {
 
-		$path = EW_DIR_PATH . 'assets/dist/' . $type . '/' . $file;
+		$path = $this->asset_path( $type, $file );
 
-		if ( is_file( $path ) ) {
+		if ( $path ) {
 			return filemtime( $path );
 		}
 
 		return false;
+
+	}
+
+	/**
+	 * Returns assets array
+	 *
+	 * @return array
+	 */
+	private function get_assets_list() {
+
+		$path   = $this->asset_path( 'scripts' );
+		$files  = scandir( $path );
+		$assets = [];
+
+		foreach ( $files as $file ) {
+			if ( in_array( $file, [ '.', '..' ], true ) ) {
+				continue;
+			}
+
+			$parts = explode( '.', $file );
+
+			if ( 3 !== count( $parts ) || 'asset' !== $parts[1] || 'php' !== $parts[2] ) {
+				continue;
+			}
+
+			$assets[ $parts[0] ] = include $this->asset_path( 'scripts', $file );
+		}
+
+		return $assets;
 
 	}
 

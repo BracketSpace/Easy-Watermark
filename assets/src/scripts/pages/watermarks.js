@@ -8,8 +8,6 @@ import $ from 'jquery';
  */
 import { confirm } from '../includes/vex';
 
-/* global ew */
-
 export default class {
 	constructor() {
 		this.wrap = $( '.watermarks' );

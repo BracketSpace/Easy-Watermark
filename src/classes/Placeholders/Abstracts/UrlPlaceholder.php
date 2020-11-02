@@ -7,6 +7,8 @@
 
 namespace EasyWatermark\Placeholders\Abstracts;
 
+use EasyWatermark\Placeholders\Abstracts\Placeholder;
+
 /**
  * String placeholder class
  */

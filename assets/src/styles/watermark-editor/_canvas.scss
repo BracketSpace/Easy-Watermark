@@ -1,0 +1,19 @@
+.pan-scale-handler {
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+.watermark-editor-canvas {
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+	&-wrap {
+		height: 100%;
+		overflow: visible;
+		position: relative;
+		width: 100%;
+	}
+}

@@ -8,6 +8,10 @@
 namespace EasyWatermark\Dashboard;
 
 use EasyWatermark\Core\View;
+use EasyWatermark\Dashboard\Permissions;
+use EasyWatermark\Dashboard\Settings;
+use EasyWatermark\Dashboard\Tools;
+use EasyWatermark\Dashboard\Watermarks;
 use EasyWatermark\Traits\Hookable;
 
 /**
@@ -39,17 +43,64 @@ class Dashboard {
 	private $current_tab;
 
 	/**
+	 * Watermark ID
+	 *
+	 * @var int
+	 */
+	private $watermark_id;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( isset( $_GET['watermark'] ) ) {
+			$watermark_id = intval( $_GET['watermark'] );
+			// phpcs:enable
 
-		$this->hook();
+			if ( get_post( $watermark_id ) ) {
+				$this->watermark_id = $watermark_id;
+			} else {
+				wp_die( esc_html__( 'You attempted to edit an item that doesn&#8217;t exist. Perhaps it was deleted?' ) );
+			}
+		}
 
 		new Watermarks();
 		new Settings();
 		new Permissions();
 		new Tools();
 
+		$this->hook();
+	}
+
+	/**
+	 * Filters admin body class
+	 *
+	 * @filter admin_body_class
+	 *
+	 * @param  string $classes Body classes.
+	 * @return string
+	 */
+	public function admin_body_class( $classes ) {
+		if ( $this->watermark_id ) {
+			return "{$classes} block-editor-page";
+		}
+		wp_enqueue_style( 'wp-edit-post' );
+
+		return $classes;
+	}
+
+	/**
+	 * Filters admin body class
+	 *
+	 * @action admin_enqueue_scripts
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_scripts() {
+		if ( $this->watermark_id ) {
+			wp_enqueue_style( 'wp-edit-post' );
+		}
 	}
 
 	/**
@@ -87,18 +138,22 @@ class Dashboard {
 	 */
 	public function page_content() {
 
+		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( $this->watermark_id || ( isset( $_GET['action'] ) && 'new' === $_GET['action'] ) ) {
+			View::get( 'dashboard/watermark-editor' )->display();
+			return;
+		}
+
 		$current_tab = $this->get_current_tab();
 		$tabs        = $this->get_tabs();
 		$args        = apply_filters( "easy-watermark/dashboard/{$current_tab}/view-args", [] );
 		$content     = new View( "dashboard/pages/{$current_tab}", $args );
 
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo new View( 'dashboard/wrap', [
+		View::get( 'dashboard/wrap', [
 			'tabs'        => $tabs,
 			'current_tab' => $current_tab,
 			'content'     => $content,
-		] );
-		// phpcs:enable
+		] )->display();
 
 	}
 

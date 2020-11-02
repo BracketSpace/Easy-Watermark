@@ -1,4 +1,3 @@
-/* global wp */
 
 let StatusExport = null;
 

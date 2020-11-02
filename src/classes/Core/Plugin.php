@@ -7,20 +7,26 @@
 
 namespace EasyWatermark\Core;
 
-use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
 use EasyWatermark\Backup\Manager as BackupManager;
+use EasyWatermark\Core\Assets;
+use EasyWatermark\Core\Hooks;
+use EasyWatermark\Core\Installer;
+use EasyWatermark\Core\View;
 use EasyWatermark\Dashboard\Dashboard;
 use EasyWatermark\Features\AutoWatermarkSwitch;
 use EasyWatermark\Features\SrcsetFilter;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
+use EasyWatermark\RestApi\EditorSettings;
 use EasyWatermark\Settings\Settings;
 use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
-use EasyWatermark\Watermark\Preview;
-use EasyWatermark\Watermark\Watermark;
 use EasyWatermark\Watermark\PostType as WatermarkPostType;
+use EasyWatermark\Watermark\Preview;
 use Micropackage\Singleton\Singleton;
+use const EW_FILE_PATH;
+use function EasyWatermark\ew_dochooks_enabled;
+use function EasyWatermark\ew_fs;
 
 /**
  * Main plugin class
@@ -110,6 +116,7 @@ class Plugin extends Singleton {
 		new Dashboard();
 		new SrcsetFilter( $this );
 		new Assets( $this );
+		new EditorSettings( $this );
 
 		$this->get_watermark_handler();
 
@@ -129,20 +136,9 @@ class Plugin extends Singleton {
 	 * @return  void
 	 */
 	private function setup_metaboxes() {
-
-		new Metaboxes\Watermark\Submitdiv();
-		new Metaboxes\Watermark\WatermarkContent();
-		new Metaboxes\Watermark\TextOptions();
-		new Metaboxes\Watermark\Alignment();
-		new Metaboxes\Watermark\Scaling();
-		new Metaboxes\Watermark\ApplyingRules();
-		new Metaboxes\Watermark\Preview();
-		new Metaboxes\Watermark\Placeholders();
-
 		if ( current_user_can( 'apply_watermark' ) ) {
 			new Metaboxes\Attachment\Watermarks();
 		}
-
 	}
 
 	/**

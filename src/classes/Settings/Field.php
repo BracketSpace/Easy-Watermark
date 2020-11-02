@@ -8,6 +8,7 @@
 namespace EasyWatermark\Settings;
 
 use EasyWatermark\Core\View;
+use EasyWatermark\Settings\Section;
 
 /**
  * Field class
@@ -215,13 +216,13 @@ abstract class Field {
 	 * @return void
 	 */
 	public function render() {
+
 		$layout = $this->get_layout();
 
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo new View( "dashboard/settings/field-{$layout}", [
+		View::get( "dashboard/settings/field-{$layout}", [
 			'field' => $this,
-		] );
-		// phpcs:enable
+		] )->display();
+
 	}
 
 	/**

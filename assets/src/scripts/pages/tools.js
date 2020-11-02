@@ -11,7 +11,6 @@ import BulkWatermarkTool from '../views/tools/bulk-watermark';
 import RestoreTool from '../views/tools/restore';
 import { addNotice } from '../utils/functions.js';
 import { alert } from '../includes/vex.js';
-/* global ew, ajaxurl */
 
 export default class {
 	constructor() {

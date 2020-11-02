@@ -7,8 +7,6 @@ import WatermarkModeToggleButton from './buttons/watermark-mode-toggle.js';
 import WatermarkSelector from './watermark-selector.js';
 import Status from './status.js';
 
-/* global wp, ew */
-
 if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
 	wp.media.view.AttachmentsBrowser = class extends wp.media.view.AttachmentsBrowser {
 		createToolbar() {

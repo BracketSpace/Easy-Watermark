@@ -8,6 +8,7 @@
 namespace EasyWatermark\Settings\Fields;
 
 use EasyWatermark\Core\View;
+use EasyWatermark\Settings\Fields\Checkbox;
 
 /**
  * SwitchField class

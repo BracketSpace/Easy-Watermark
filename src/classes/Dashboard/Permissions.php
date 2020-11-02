@@ -80,13 +80,12 @@ class Permissions extends Page {
 	 */
 	public function admin_notices() {
 
-		// phpcs:disable WordPress.Security
+		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( isset( $_GET['settings-updated'] ) ) {
-			echo new View( 'notices/success', [
+			View::get( 'notices/success', [
 				'message' => __( 'Permissions saved.', 'easy-watermark' ),
-			] );
+			] )->display();
 		}
-		// phpcs:enable
 
 	}
 
@@ -95,10 +94,9 @@ class Permissions extends Page {
 	 *
 	 * @filter easy-watermark/dashboard/permissions/view-args
 	 *
-	 * @param  array $args View args.
 	 * @return array
 	 */
-	public function view_args( $args ) {
+	public function view_args() {
 		return [
 			'roles' => $this->get_roles(),
 		];

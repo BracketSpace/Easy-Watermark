@@ -7,9 +7,9 @@
 
 namespace EasyWatermark\Settings;
 
-use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Plugin;
-use EasyWatermark\Core\View;
+use EasyWatermark\Settings\Fields\Number as NumberField;
+use EasyWatermark\Settings\Section;
 use EasyWatermark\Traits\Hookable;
 use Micropackage\Singleton\Singleton;
 
@@ -66,7 +66,6 @@ class Settings extends Singleton {
 	 * @return void
 	 */
 	public function load_settings() {
-
 		if ( null === $this->settings ) {
 			$settings_raw = get_option( $this->get_option_key() );
 			$settings     = [];
@@ -83,7 +82,6 @@ class Settings extends Singleton {
 
 			$this->settings = $settings;
 		}
-
 	}
 
 	/**
@@ -95,8 +93,7 @@ class Settings extends Singleton {
 	 * @return void
 	 */
 	public function register_fields( $section ) {
-
-		$section->add_field( new Fields\Number( [
+		$section->add_field( new NumberField( [
 			'label'       => __( 'Jpeg Quality', 'easy-watermark' ),
 			'slug'        => 'jpeg_quality',
 			'description' => __( 'Set jpeg quality from 0 (worst quality, smaller file) to 100 (best quality, biggest file). Set -1 for default quality.', 'easy-watermark' ),
@@ -105,7 +102,6 @@ class Settings extends Singleton {
 			'max'         => 100,
 			'step'        => 1,
 		] ) );
-
 	}
 
 	/**
@@ -165,13 +161,11 @@ class Settings extends Singleton {
 	 * @return void
 	 */
 	public function register_settings() {
-
 		register_setting(
 			$this->option_key,
 			$this->option_key,
 			[ $this, 'sanitize_settings' ]
 		);
-
 	}
 
 	/**
@@ -181,7 +175,6 @@ class Settings extends Singleton {
 	 * @return array
 	 */
 	public function sanitize_settings( $settings ) {
-
 		$sanitized = [];
 
 		foreach ( $this->get_sections() as $section_slug => $section ) {
@@ -193,7 +186,6 @@ class Settings extends Singleton {
 		}
 
 		return $sanitized;
-
 	}
 
 	/**
@@ -210,16 +202,13 @@ class Settings extends Singleton {
 	 *
 	 * @filter plugin_action_links_easy-watermark/easy-watermark.php
 	 *
-	 * @param  array  $links Action links.
-	 * @param  string $file  Plugin file.
+	 * @param  array $links Action links.
 	 * @return array
 	 */
-	public function plugin_action_links( $links, $file ) {
-
+	public function plugin_action_links( $links ) {
 		return array_merge( [
 			'<a href="tools.php?page=easy-watermark&tab=settings">' . __( 'Settings' ) . '</a>',
 		], $links );
-
 	}
 
 	/**
@@ -229,7 +218,6 @@ class Settings extends Singleton {
 	 * @return mixed
 	 */
 	public function get_setting( $key ) {
-
 		$parts = explode( '/', $key );
 
 		if ( 2 === count( $parts ) ) {
@@ -240,6 +228,5 @@ class Settings extends Singleton {
 				return $this->settings[ $section ][ $field ];
 			}
 		}
-
 	}
 }

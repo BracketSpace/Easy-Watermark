@@ -10,7 +10,8 @@
  */
 
 use EasyWatermark\Core\Hooks;
-use EasyWatermark\Core\Plugin;
+use WP_CLI;
+use const EW_DIR_PATH;
 
 $hooks   = Hooks::get();
 $objects = $hooks->get_hooked_objects();

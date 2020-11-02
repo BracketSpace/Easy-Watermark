@@ -8,8 +8,6 @@ import $ from 'jquery';
  */
 import '../styles/uploader.scss';
 
-/* global wp, ew */
-
 $( document ).ready( () => {
 	if ( typeof wp !== 'undefined' && typeof wp.Uploader === 'function' ) {
 		const	Uploader = wp.Uploader;
@@ -18,11 +16,15 @@ $( document ).ready( () => {
 			init() {
 				super.init();
 
-				this.updateAutoWatermarkParam = this.updateAutoWatermarkParam.bind( this );
+				this.switch = $( '.ew-watermark-all-switch' );
 
-				$( 'body' ).on( 'change', '.ew-watermark-all-switch input', this.updateAutoWatermarkParam );
+				if ( this.switch.length ) {
+					$( 'body' ).on( 'change', '.ew-watermark-all-switch input', this.updateAutoWatermarkParam.bind( this ) );
 
-				this.param( 'auto_watermark', ew.autoWatermark );
+					this.param( 'auto_watermark', ew.autoWatermark );
+				} else {
+					this.param( 'auto_watermark', false );
+				}
 			}
 
 			updateAutoWatermarkParam( e ) {

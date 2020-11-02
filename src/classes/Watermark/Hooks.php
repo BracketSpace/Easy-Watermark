@@ -7,8 +7,7 @@
 
 namespace EasyWatermark\Watermark;
 
-use EasyWatermark\AttachmentProcessor;
-use EasyWatermark\Metaboxes\Attachment\Watermarks;
+use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Traits\Hookable;
 
 /**
@@ -61,14 +60,11 @@ class Hooks {
 	 *
 	 * @filter wp_get_attachment_image_src
 	 *
-	 * @param  array|false  $image         Either array with src, width & height, icon src, or false.
-	 * @param  integer      $attachment_id Image attachment ID.
-	 * @param  string|array $size          Size of image. Image size or array of width and height values
-	 *                                    (in that order). Default 'thumbnail'.
-	 * @param  bool         $icon          Whether the image should be treated as an icon. Default false.
+	 * @param  array|false $image         Either array with src, width & height, icon src, or false.
+	 * @param  integer     $attachment_id Image attachment ID.
 	 * @return array|false
 	 */
-	public function wp_get_attachment_image_src( $image, $attachment_id, $size, $icon ) {
+	public function wp_get_attachment_image_src( $image, $attachment_id ) {
 
 		if ( false === $image ) {
 			return false;
@@ -157,9 +153,54 @@ class Hooks {
 	 * @param array|false $meta       Array of attachment meta data, or false if there is none.
 	 */
 	public function wp_prepare_attachment_for_js( $response, $attachment, $meta ) {
+		if ( false !== strpos( $attachment->post_mime_type, '/' ) ) {
+			list( $type ) = explode( '/', $attachment->post_mime_type );
+		} else {
+			$type = $attachment->post_mime_type;
+		}
+
+		if ( 'image' !== $type ) {
+			return $response;
+		}
+
 		$response['nonces']['watermark'] = wp_create_nonce( 'watermark' );
 		$response['usedAsWatermark']     = get_post_meta( $attachment->ID, '_ew_used_as_watermark', true ) ? true : false;
 		$response['hasBackup']           = get_post_meta( $attachment->ID, '_ew_has_backup', true ) ? true : false;
+
+		$meta            = wp_get_attachment_metadata( $attachment->ID );
+		$available_sizes = ImageHelper::get_available_sizes();
+		$has_all_sizes   = true;
+		$real_sizes      = [];
+
+		foreach ( $available_sizes as $size => $label ) {
+			if ( 'full' === $size ) {
+				continue;
+			}
+
+			if ( ! array_key_exists( $size, $meta['sizes'] ) ) {
+				$has_all_sizes = false;
+				break;
+			}
+
+			$size_meta      = $meta['sizes'][ $size ];
+			$attachment_url = wp_get_attachment_url( $attachment->ID );
+			$base_url       = str_replace( wp_basename( $attachment_url ), '', $attachment_url );
+
+			$real_sizes[ $size ] = [
+				'height'      => $size_meta['height'],
+				'width'       => $size_meta['width'],
+				'url'         => $base_url . $size_meta['file'],
+				'orientation' => $size_meta['height'] > $size_meta['width'] ? 'portrait' : 'landscape',
+			];
+		}
+
+		$response['hasAllSizes'] = $has_all_sizes;
+
+		if ( $has_all_sizes ) {
+			$real_sizes['full'] = $response['sizes']['full'];
+
+			$response['realSizes'] = $real_sizes;
+		}
 
 		return $response;
 	}

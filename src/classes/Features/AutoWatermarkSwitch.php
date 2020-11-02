@@ -34,8 +34,7 @@ class AutoWatermarkSwitch {
 	public function pre_plupload_upload_ui() {
 
 		if ( ! is_admin() || 'media' !== get_current_screen()->id ) {
-			// phpcs:ignore
-			echo new View( 'upload/switch' );
+			View::get( 'upload/switch' )->display();
 		}
 
 	}
@@ -50,8 +49,7 @@ class AutoWatermarkSwitch {
 	public function admin_notices() {
 
 		if ( 'media' === get_current_screen()->id ) {
-			// phpcs:ignore
-			echo new View( 'notices/auto-watermark-warning' );
+			View::get( 'notices/auto-watermark-warning' )->display();
 		}
 
 	}

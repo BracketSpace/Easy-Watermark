@@ -9,8 +9,6 @@ import { isImage } from '../../utils/functions.js';
  */
 import $ from 'jquery';
 
-/* global ew */
-
 export default class extends View {
 	constructor( options ) {
 		super( options );

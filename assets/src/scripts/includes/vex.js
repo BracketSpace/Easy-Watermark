@@ -9,8 +9,6 @@ import 'vex-js/dist/css/vex.css';
  */
 import '../../styles/components/_vex.scss';
 
-/* global ew */
-
 vex.defaultOptions.className = 'vex-theme-ew';
 vex.defaultOptions.contentClassName = 'postbox';
 
@@ -34,6 +32,10 @@ vex.dialog.buttons.NO = {
 
 export default vex;
 
+/**
+ * @param message
+ * @param callback
+ */
 export function confirm( message = '', callback = () => {} ) {
 	return vex.dialog.confirm( {
 		message,
@@ -45,6 +47,10 @@ export function confirm( message = '', callback = () => {} ) {
 	} );
 }
 
+/**
+ * @param message
+ * @param callback
+ */
 export function alert( message = '', callback = () => {} ) {
 	return vex.dialog.alert( {
 		message,

@@ -31,13 +31,14 @@ class Tools extends Page {
 	 * @return void
 	 */
 	public function admin_notices() {
-		// phpcs:disable WordPress.Security
+
+		// phpcs:disable WordPress.Security.NonceVerification
 		if ( isset( $_GET['settings-updated'] ) ) {
-			echo new View( 'notices/success', [
+			View::get( 'notices/success', [
 				'message' => __( 'Settings saved.', 'easy-watermark' ),
-			] );
+			] )->display();
 		}
-		// phpcs:enable
+
 	}
 
 	/**

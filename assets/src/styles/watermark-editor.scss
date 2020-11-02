@@ -1,0 +1,19 @@
+/**
+ * WordPress Base Styles
+ */
+@import "~@wordpress/base-styles/variables";
+@import "~@wordpress/base-styles/mixins";
+@import "~@wordpress/base-styles/breakpoints";
+
+/**
+ * Main Styles
+ */
+@import "watermark-editor/background-selector";
+@import "watermark-editor/canvas";
+@import "watermark-editor/objects";
+@import "watermark-editor/wrapper";
+
+/**
+ * Components Styles
+ */
+@import "watermark-editor/components/**/*.scss";

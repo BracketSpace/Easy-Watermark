@@ -8,6 +8,7 @@
 namespace EasyWatermark\Watermark;
 
 use EasyWatermark\Helpers\Image as ImageHelper;
+use EasyWatermark\Watermark\Watermark;
 
 /**
  * Watermark class

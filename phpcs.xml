@@ -4,22 +4,23 @@
 
 	<rule ref="WordPress">
 		<exclude name="Generic.Files.LowercasedFilename" />
-		<exclude name="WordPress.Files.FileName" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
+		<exclude name="WordPress.CSRF.NonceVerification.NoNonceVerification" />
+		<exclude name="WordPress.DB.SlowDBQuery" />
 		<exclude name="WordPress.Files.FileName.UnderscoresNotAllowed" />
+		<exclude name="WordPress.Files.FileName" />
 		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
 		<exclude name="WordPress.PHP.DevelopmentFunctions.error_log_trigger_error" />
-		<exclude name="WordPress.VIP.SuperGlobalInputUsage.AccessDetected" />
-		<exclude name="WordPress.CSRF.NonceVerification.NoNonceVerification" />
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
 		<exclude name="WordPress.Security.NonceVerification.NoNonceVerification" />
-		<exclude name="WordPress.DB.SlowDBQuery" />
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
 		<exclude name="WordPress.VIP.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__" />
+		<exclude name="WordPress.VIP.SuperGlobalInputUsage.AccessDetected" />
 		<exclude name="WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents" />
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralDomain" />
 		<exclude name="WordPress.WP.GlobalVariablesOverride" />
-		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
-		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralDomain" />
+		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
 	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment">
 	    <exclude name="Squiz.Commenting.FunctionComment.InvalidTypeHint" />
@@ -27,6 +28,22 @@
 	<rule ref="PSR2.Methods.MethodDeclaration">
 	    <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
 	</rule>
+
+	<rule ref="VariableAnalysis">
+    <exclude-pattern>/src/views</exclude-pattern>
+	</rule>
+
+ 	<rule ref="ImportDetection">
+		<properties>
+ 			<property name="ignoreWordPressSymbols" value="true"/>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress-Extra"><!-- Includes WordPress-Core -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+	</rule>
+
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found" />
 
 	<!-- PHPCompatibility -->
 	<rule ref="PHPCompatibility" />

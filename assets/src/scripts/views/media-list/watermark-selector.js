@@ -8,8 +8,6 @@ import $ from 'jquery';
  */
 import View from './view';
 
-/* global ew */
-
 export default class extends View {
 	tagName() {
 		return 'select';
