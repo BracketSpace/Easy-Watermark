@@ -34,8 +34,8 @@ const Header = ( {
 
 	return (
 		<div className="edit-post-header">
+			<FullscreenModeClose />
 			<div className="edit-post-header__toolbar">
-				<FullscreenModeClose />
 				<NavigableToolbar
 					className="edit-post-header-toolbar"
 					aria-label={ __( 'Watermark tools', 'easy-watermark' ) }

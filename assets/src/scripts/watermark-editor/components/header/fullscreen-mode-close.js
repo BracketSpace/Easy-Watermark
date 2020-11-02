@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { withSelect } from '@wordpress/data';
-import { IconButton, Toolbar } from '@wordpress/components';
+import { IconButton } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 
@@ -17,13 +17,12 @@ function FullscreenModeClose( { isActive } ) {
 	}
 
 	return (
-		<Toolbar className="edit-post-fullscreen-mode-close__toolbar">
-			<IconButton
-				icon="arrow-left-alt2"
-				href={ addQueryArgs( 'tools.php', { page: 'easy-watermark' } ) }
-				label={ __( 'View Watermarks' ) }
-			/>
-		</Toolbar>
+		<IconButton
+			className="edit-post-fullscreen-mode-close has-icon"
+			icon="arrow-left-alt2"
+			href={ addQueryArgs( 'tools.php', { page: 'easy-watermark' } ) }
+			label={ __( 'View Watermarks' ) }
+		/>
 	);
 }
 
