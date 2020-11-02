@@ -73,6 +73,8 @@ class PostType {
 			'hierarchical' => false,
 			'map_meta_cap' => true,
 			'show_in_rest' => true,
+			'show_ui'      => true,
+			'show_in_menu' => false,
 			'rest_base'    => 'watermarks',
 			'capabilities' => [
 				'edit_post'           => 'edit_watermark',
