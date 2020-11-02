@@ -8,8 +8,6 @@
 namespace EasyWatermark\AttachmentProcessor;
 
 use EasyWatermark\Core\Manager as AbstractManager;
-use Micropackage\Singleton\Singleton;
-use WP_Error;
 
 /**
  * Manager class

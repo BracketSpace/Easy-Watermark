@@ -7,6 +7,8 @@
 
 namespace EasyWatermark\Core;
 
+use const EW_DIR_PATH;
+
 /**
  * View class
  */
@@ -104,7 +106,10 @@ class View {
 
 		ob_start();
 
-		extract( $this->params ); // phpcs:ignore
+		if ( is_array( $this->params ) ) {
+			// phpcs:ignore WordPress.PHP.DontExtract
+			extract( $this->params );
+		}
 
 		include $filename;
 
@@ -118,6 +123,17 @@ class View {
 	 */
 	public function display() {
 		echo $this->render(); // phpcs:ignore
+	}
+
+	/**
+	 * Creates view instance
+	 *
+	 * @param string $name    View name.
+	 * @param array  $params  View params.
+	 * @return View
+	 */
+	public static function get( $name = '', $params = [] ) {
+		return new self( $name, $params );
 	}
 
 	/**

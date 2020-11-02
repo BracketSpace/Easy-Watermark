@@ -8,6 +8,7 @@
 namespace EasyWatermark\Core;
 
 use Micropackage\Singleton\Singleton;
+use EW_DIR_PATH;
 
 /**
  * View class

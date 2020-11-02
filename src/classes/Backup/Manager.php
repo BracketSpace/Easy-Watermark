@@ -13,8 +13,6 @@ use EasyWatermark\Settings\Section;
 use EasyWatermark\Settings\Fields\SwitchField;
 use EasyWatermark\Settings\Fields\Dropdown;
 use EasyWatermark\Traits\Hookable;
-use Micropackage\Singleton\Singleton;
-use WP_Error;
 
 /**
  * BackupperFactory class
@@ -65,7 +63,7 @@ class Manager extends AbstractManager {
 	 * @param  Settings $settings Settings object.
 	 * @return void
 	 */
-	public function register_settings_section( $settings ) {
+	public function register_settings_section( Settings $settings ) {
 		$settings->add_section( new Section( __( 'Backup', 'easy-watermark' ), 'backup' ) );
 	}
 
@@ -77,7 +75,7 @@ class Manager extends AbstractManager {
 	 * @param  Section $section Settings section.
 	 * @return void
 	 */
-	public function register_settings_fields( $section ) {
+	public function register_settings_fields( Section $section ) {
 
 		$section->add_field( new SwitchField( [
 			'label'   => esc_html__( 'Enable backup', 'easy-watermark' ),

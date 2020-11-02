@@ -181,7 +181,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	public function print_text_preview( $watermark, $format = 'png' ) {
 
 		if ( ! $watermark instanceof Watermark ) {
-			return new WP_Error( 'invalid_watermark_type', __( 'Watermark should be instance of Easywatermark\Watermark\Watermark.', 'easy-watermark' ) );
+			return new WP_Error( 'invalid_watermark_type', __( 'Watermark should be instance of EasyWatermark\Watermark\Watermark.', 'easy-watermark' ) );
 		}
 
 		if ( 'text' !== $watermark->type ) {
@@ -443,7 +443,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 			$watermark_size['width']  = $new_width;
 			$watermark_size['height'] = $new_height;
 
-			unset( $tmp_image, $new_width, $nwe_height );
+			unset( $tmp_image, $new_width, $new_height );
 		}
 
 		// Compute watermark offset.
