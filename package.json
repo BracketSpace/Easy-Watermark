@@ -1,10 +1,10 @@
 {
   "name": "easy-watermark",
   "version": "1.0.0",
-  "description": "Easy Watermark Wordpress Plugin",
+  "description": "Easy Watermark WordPress Plugin",
   "main": "main.js",
   "repository": "https://github.com/BracketSpace/easy-watermark.git",
-  "author": "Wojtek Szałkiewicz <wojtek@underdev.it>",
+  "author": "Wojtek Szałkiewicz <wojtek@bracketspace.com>",
   "license": "GPL-3.0-or-later",
   "scripts": {
     "start": "webpack --watch --mode development",
