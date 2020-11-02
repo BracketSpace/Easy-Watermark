@@ -1,5 +1,5 @@
 {
-  "name": "szaleq/easy-watermark",
+  "name": "bracketspace/easy-watermark",
   "type": "wordpress-plugin",
   "scripts": {
     "phpcs": "phpcs",
