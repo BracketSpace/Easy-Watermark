@@ -2,10 +2,10 @@
 Contributors: szaleq, bracketspace
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wojtek%40szalkiewicz%2epl&lc=GB&item_name=Easy%20Watermark%20Wordpress%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: watermark, image, picture, photo, media, gallery, signature, transparent, upload, admin
-Requires at least: 3.8
+Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: easy-watermark
@@ -118,7 +118,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
-= [Next] =
+= 1.0.7 =
 * [Removed] Freemius library.
 * [Fixed] Potential PHP 8 issue.
 
