@@ -74,7 +74,7 @@ To restore the original image just go to the attachment edit page. In the "Easy 
 
 = How can I restore original images after the plugin was uninstalled? =
 The plugin doesn't restore your images on deactivation/removal. Please consider to install the plugin again and restore your images before uninstalling.
-If you don't have a possibility to do this, you can manually restore your images. Just go to wp-content/ew-backup in your wordpress main directory. You will se there are folders in the same order like in uploads, images are stored as /year/month/imagename.jpg|png. What you need is to copy all the files from ew-backup to uploads dir (it will ask you if you want to override the existing files, click YES). As mensioned before, this will restore only the fullsize images so you need to use some other plugin to generate the thumbnails again (see Force Regenerate Thumbnails by Pedro Elsner).
+If you don't have a possibility to do this, you can manually restore your images. Just go to wp-content/ew-backup in your wordpress main directory. You will see there are folders in the same order like in uploads, images are stored as /year/month/imagename.jpg|png. What you need is to copy all the files from ew-backup to uploads dir (it will ask you if you want to override the existing files, click YES). As mensioned before, this will restore only the fullsize images so you need to use some other plugin to generate the thumbnails again (see Force Regenerate Thumbnails by Pedro Elsner).
 
 = How can I add watermark to pictures that were uploaded before the plugin was installed? =
 You can go to "Tools > Easy Watermark > Tools" screen and use bulk action options.
@@ -94,11 +94,11 @@ Unfortunately no. In PRO version you'll be able to use more fonts.
 = How the scaling of the watermark image works? =
 On the watermark image settings page you can se 'Scaling Mode' selection which has 5 options:
 * 'None' - watermark scaling is off
-* 'Fill' - watermark will fill the entire image
-* 'Fit' - watermark width or height will be adjusted to image width or height in such a way that it will be all visible
+* 'Cover' - watermark will fill the entire image
+* 'Contain' - watermark width or height will be adjusted to image width or height in such a way that it will be all visible
 * 'Fit to Width' - watermark width will always be adjusted to image width
 * 'Fit to Height' - watermark height will always be adjusted to image height
-If 'Scale to Smaller' checkbox is checked, any scaling will be done only for images smaller than watermark image.
+If 'Scale down only' checkbox is checked, any scaling will be done only for images smaller than watermark image.
 Watermark ratio is always preserved, so it can go beyond the image when the 'Scaling Mode' is set to 'Fill'.
 With 'Fit to Width' or 'Fit to Height' options watermark dimensions can be set as a percentage in relation to the image dimensions.
 
