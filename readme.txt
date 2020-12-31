@@ -120,6 +120,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 = [Next] =
 * [Removed] Freemius library.
+* [Fixed] Potential PHP 8 issue.
 
 = 1.0.6 =
 * [Fixed] Compatibility with other media-related plugins

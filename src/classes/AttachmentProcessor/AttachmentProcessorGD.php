@@ -594,7 +594,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	 */
 	private function calculate_image_size( $image ) {
 
-		if ( ! is_resource( $image ) ) {
+		if ( ! is_resource( $image ) && ! $image instanceof \GdImage ) {
 			return false;
 		}
 
