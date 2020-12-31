@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wojte
 Tags: watermark, image, picture, photo, media, gallery, signature, transparent, upload, admin
 Requires at least: 3.8
 Requires PHP: 5.6
-Tested up to: 5.2
+Tested up to: 5.6
 Stable tag: 1.0.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
