@@ -11,6 +11,7 @@
 
 add_action( 'plugins_loaded', [ $this->objects['EasyWatermark\Core\Plugin']['instance'], 'setup' ], 10, 0 );
 add_action( 'init', [ $this->objects['EasyWatermark\Core\Plugin']['instance'], 'init' ], 10, 0 );
+add_action( 'shutdown', [ $this->objects['EasyWatermark\Core\Plugin']['instance'], 'shutdown' ], 10, 0 );
 add_action( 'parse_request', [ $this->objects['EasyWatermark\Core\Plugin']['instance'], 'parse_request' ], 10, 1 );
 add_action( 'easy-watermark/settings/register', [ $this->objects['EasyWatermark\Backup\Manager']['instance'], 'register_settings_section' ], 10, 1 );
 add_action( 'easy-watermark/settings/register/backup', [ $this->objects['EasyWatermark\Backup\Manager']['instance'], 'register_settings_fields' ], 10, 1 );

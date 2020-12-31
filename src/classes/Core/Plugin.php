@@ -80,15 +80,6 @@ class Plugin extends Singleton {
 
 		$this->hook();
 
-		// Init Freemius.
-		$fs = ew_fs();
-
-		// Register uninstall hook with freemius.
-		$fs->add_action( 'after_uninstall', [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
-
-		// Signal that SDK was initiated.
-		do_action( 'ew_fs_loaded' );
-
 		BackupManager::get();
 
 		do_action( 'ew_load', $this );
