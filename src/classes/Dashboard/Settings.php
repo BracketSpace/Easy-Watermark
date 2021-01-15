@@ -24,23 +24,6 @@ class Settings extends Page {
 	}
 
 	/**
-	 * Display admin notices
-	 *
-	 * @action easy-watermark/dashboard/settings/notices
-	 *
-	 * @return void
-	 */
-	public function admin_notices() {
-		// phpcs:disable WordPress.Security
-		if ( isset( $_GET['settings-updated'] ) ) {
-			echo new View( 'notices/success', [
-				'message' => __( 'Settings saved.', 'easy-watermark' ),
-			] );
-		}
-		// phpcs:enable
-	}
-
-	/**
 	 * Prepares arguments for view
 	 *
 	 * @filter easy-watermark/dashboard/settings/view-args
