@@ -21,7 +21,10 @@
 				</h3>
 				<div class="watermark-preview">
 					<?php if ( 'image' === $watermark->type ) : ?>
-						<?php echo wp_get_attachment_image( $watermark->attachment_id, 'full' ); ?>
+						<?php $opacity = $watermark->opacity / 100; ?>
+						<div class="image-wrap" style="opacity: <?php echo esc_attr( $opacity ); ?>">
+							<?php echo wp_get_attachment_image( $watermark->attachment_id, 'full' ); ?>
+						</div>
 					<?php else : ?>
 						<img src="<?php echo esc_attr( site_url( sprintf( 'easy-watermark-preview/text-%s.png', $watermark->ID ) ) ); ?>" />
 					<?php endif; ?>
