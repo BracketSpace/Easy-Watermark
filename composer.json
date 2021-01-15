@@ -12,7 +12,7 @@
     "micropackage/singleton": "^1.1"
   },
   "require-dev": {
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
     "phpcompatibility/php-compatibility": "^9.1",
     "wp-coding-standards/wpcs": "^2.0"
   },

@@ -8,6 +8,7 @@
 namespace EasyWatermark\AttachmentProcessor;
 
 use EasyWatermark\Watermark\Watermark;
+
 /**
  * AttachmentProcessor abstract class
  */
