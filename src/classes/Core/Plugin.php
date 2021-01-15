@@ -10,8 +10,7 @@ namespace EasyWatermark\Core;
 use EasyWatermark\AttachmentProcessor\AttachmentProcessorGD;
 use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Dashboard\Dashboard;
-use EasyWatermark\Features\AutoWatermarkSwitch;
-use EasyWatermark\Features\SrcsetFilter;
+use EasyWatermark\Features;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
 use EasyWatermark\Settings\Settings;
@@ -104,11 +103,13 @@ class Plugin extends Singleton {
 	 */
 	public function setup() {
 
+		new Features\AutoWatermarkSwitch();
+		new Features\SrcsetFilter();
+		new Features\CacheBusting();
+
 		new DefaultPlaceholders();
 		new WatermarkPostType();
-		new AutoWatermarkSwitch();
 		new Dashboard();
-		new SrcsetFilter( $this );
 		new Assets( $this );
 
 		$this->get_watermark_handler();
