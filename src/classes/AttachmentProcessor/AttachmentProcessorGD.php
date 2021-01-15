@@ -136,8 +136,10 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 
 		$result = [];
 
-		foreach ( $this->watermarks as $watermark ) {
-			$result[ $watermark->ID ] = $this->apply_watermark( $watermark );
+		if ( $this->watermarks ) {
+			foreach ( $this->watermarks as $watermark ) {
+				$result[ $watermark->ID ] = $this->apply_watermark( $watermark );
+			}
 		}
 
 		$output = ( true === $save ) ? $this->image_file : null;
@@ -552,7 +554,8 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 		if ( empty( $type ) && $file_path ) {
 			// Get finfo object to detect mime types.
 			$finfo = $this->get_finfo();
-			$type  = $finfo->file( $file_path );
+			$type  = $finfo ?
+				$finfo->file( $file_path ) : pathinfo( $file_path, PATHINFO_EXTENSION );
 		}
 
 		if ( ! $type ) {
@@ -642,7 +645,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 	 */
 	private function get_finfo() {
 
-		if ( ! $this->finfo instanceof \finfo ) {
+		if ( class_exists( 'finfo' ) && ! $this->finfo instanceof \finfo ) {
 			$this->finfo = new \finfo( FILEINFO_MIME_TYPE );
 		}
 
