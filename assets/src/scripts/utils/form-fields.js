@@ -29,6 +29,8 @@ export default class {
 		const button = $( e.target ),
 			position = button.position();
 
+		button.toggleClass( 'is-open' );
+
 		button.next( '.dropdown-menu' ).css( {
 			left: position.left,
 			top: position.top + button.height(),
@@ -54,6 +56,8 @@ export default class {
 		if ( item.is( this.buttons ) ) {
 			return;
 		}
+
+		this.buttons.removeClass( 'is-open' );
 
 		this.dropdowns.hide();
 	}

@@ -49,7 +49,7 @@ body {
 				border: 1px solid #ddd;
 				border-radius: 3px;
 				display: flex;
-				padding: 0 5px;
+				padding: 0 8px;
 				position: relative;
 				z-index: 1;
 			}
@@ -118,6 +118,90 @@ body {
 					&:hover {
 						background-color: #eee;
 					}
+				}
+			}
+		}
+	}
+
+
+	/* stylelint-disable no-descending-specificity */
+	&.ew-new-form-style .form-field {
+
+		input:not(:last-child) {
+			border-bottom-right-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		.dropdown-menu {
+			border: 1px solid #7e8993;
+			border-radius: 4px;
+			color: #007cba;
+
+			.dropdown-item:hover {
+				background-color: #0078d7;
+				color: #fff;
+			}
+		}
+
+		&-text,
+		button {
+			background-color: #f0f2f3;
+			border: 1px solid #7e8993;
+			color: #32373c;
+		}
+
+		&-prepend {
+
+			+ input {
+				border-bottom-left-radius: 0;
+				border-top-left-radius: 0;
+			}
+
+			.form-field-text,
+			button {
+				border-radius: 4px 0 0 4px;
+				border-right: 0 !important;
+				margin-right: 0;
+			}
+		}
+
+		&-append {
+
+			.form-field-text,
+			button {
+				border-left: 0 !important;
+				border-radius: 0 4px 4px 0;
+				margin-left: 0;
+			}
+		}
+
+		button {
+			background: #f0f2f3 url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E) no-repeat right 5px top 55%;
+			background-size: 16px 16px;
+			cursor: pointer;
+			padding-right: 24px;
+
+			&::after {
+				display: none;
+			}
+
+			&:focus,
+			&:active {
+				box-shadow: 0 0 0 1px #007cba;
+				outline: none;
+			}
+
+			&.is-open,
+			&:hover {
+				background-color: #fff;
+				border: 1px solid #7e8993;
+				color: #007cba;
+			}
+
+			&[data-toggle="dropdown"] {
+
+				&::after {
+					border-top: 4px solid #7e8993;
 				}
 			}
 		}

@@ -38,10 +38,29 @@ class Assets {
 	 * @param Plugin $plugin Plugin instance.
 	 */
 	public function __construct( $plugin ) {
+		global $wp_version;
 
 		$this->hook();
 		$this->handler = $plugin->get_watermark_handler();
 
+	}
+
+	/**
+	 * Filter body classes
+	 *
+	 * @filter admin_body_class
+	 *
+	 * @param  array $classes Classes array.
+	 * @return array          Filtered classes array.
+	 */
+	public function body_class( $classes ) {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.3', '>=' ) ) {
+			$classes .= ' ew-new-form-style ';
+		}
+
+		return $classes;
 	}
 
 	/**
