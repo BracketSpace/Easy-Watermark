@@ -44,8 +44,20 @@
 			<h3><?php esc_html_e( 'Restore Backup', 'easy-watermark' ); ?></h3>
 			<div class="content">
 				<p><?php esc_html_e( 'Here you can quickly restore backup for all images in Media Library.', 'easy-watermark' ); ?></p>
-				<?php /* translators: %s is backed up images count */ ?>
-				<p class="hidden has-backup"><?php printf( esc_html__( 'There are %s backed up images in your Media Library.', 'easy-watermark' ), "<span class=\"backup-count\">{$backup_count}</span>" ); // phpcs:ignore ?></p>
+				<p class="hidden has-backup">
+					<?php
+					printf(
+						/* translators: %s is backed up images count */
+						esc_html( _n(
+							'There is %s backed up image in your Media Library.',
+							'There are %s backed up images in your Media Library.',
+							$backup_count,
+							'easy-watermark'
+						) ),
+						"<span class=\"backup-count\">{$backup_count}</span>" // phpcs:ignore
+					);
+					?>
+				</p>
 				<p class="hidden has-backup"><a href="#" class="button-primary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'restore_backup' ) ); ?>"><?php esc_html_e( 'Restore', 'easy-watermark' ); ?></a><span class="spinner"></span></p>
 				<p class="hidden no-backup"><?php esc_html_e( 'There are no backed up images in your Media Library.', 'easy-watermark' ); ?></p>
 			</div>
