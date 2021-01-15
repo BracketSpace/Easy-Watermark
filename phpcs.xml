@@ -20,6 +20,7 @@
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment">
 	    <exclude name="Squiz.Commenting.FunctionComment.InvalidTypeHint" />
@@ -27,6 +28,10 @@
 	<rule ref="PSR2.Methods.MethodDeclaration">
 	    <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
 	</rule>
+
+	<!-- Check that PHP short array syntax is used. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
 
 	<!-- PHPCompatibility -->
 	<rule ref="PHPCompatibility" />
