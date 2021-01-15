@@ -28,7 +28,6 @@ class CacheBusting {
 
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		$this->hook();
