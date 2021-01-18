@@ -94,12 +94,13 @@ class Plugin extends Singleton {
 	 */
 	public function setup() {
 
+		new DefaultPlaceholders();
+
 		new Features\AutoWatermarkSwitch();
 		new Features\CacheBusting();
 		new Features\SrcsetFilter();
 		new Features\WatermarkPreview( $this );
 
-		new DefaultPlaceholders();
 		new WatermarkPostType();
 		new Dashboard();
 		new Assets( $this );
