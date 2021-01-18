@@ -5,6 +5,8 @@
  * @package easy-watermark
  */
 
+use EasyWatermark\Features\WatermarkPreview;
+
 ?>
 <div class="watermarks ew-grid">
 	<?php foreach ( $watermarks as $watermark ) : ?>
@@ -26,7 +28,7 @@
 							<?php echo wp_get_attachment_image( $watermark->attachment_id, 'full' ); ?>
 						</div>
 					<?php else : ?>
-						<img src="<?php echo esc_attr( site_url( sprintf( 'easy-watermark-preview/text-%s.png', $watermark->ID ) ) ); ?>" />
+						<img src="<?php echo esc_url( WatermarkPreview::get_url( 'text', $watermark->ID ) ); ?>" />
 					<?php endif; ?>
 				</div>
 				<div class="row-actions">

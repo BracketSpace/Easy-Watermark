@@ -95,8 +95,9 @@ class Plugin extends Singleton {
 	public function setup() {
 
 		new Features\AutoWatermarkSwitch();
-		new Features\SrcsetFilter();
 		new Features\CacheBusting();
+		new Features\SrcsetFilter();
+		new Features\WatermarkPreview( $this );
 
 		new DefaultPlaceholders();
 		new WatermarkPostType();
@@ -152,14 +153,14 @@ class Plugin extends Singleton {
 		add_rewrite_tag( '%image_size%', '([^./-]+)' );
 
 		add_rewrite_rule(
-			'easy-watermark-preview/([^/.-]+)-([0-9]+)-([^/.]+).(jpg|png)?',
-			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&image_size=$matches[3]&format=$matches[4]',
+			'easy-watermark-preview/([^/.-]+)-([0-9]+)-([^/.]+)?',
+			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&image_size=$matches[3]',
 			'top'
 		);
 
 		add_rewrite_rule(
-			'easy-watermark-preview/([^/.-]+)-([0-9]+).(jpg|png)?',
-			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&format=$matches[3]',
+			'easy-watermark-preview/([^/.-]+)-([0-9]+)?',
+			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]',
 			'top'
 		);
 
@@ -170,43 +171,10 @@ class Plugin extends Singleton {
 			Installer::update( $last_version, $settings->get_settings() );
 		}
 
-	}
-
-	/**
-	 * Performs actions on shutdown
-	 *
-	 * @action  shutdown
-	 *
-	 * @return void
-	 */
-	public function shutdown() {
 		if ( ! get_option( 'easy-watermark-first-booted' ) ) {
 			flush_rewrite_rules();
 			update_option( 'easy-watermark-first-booted', true );
 		}
-	}
-
-	/**
-	 * Initiates plugin
-	 *
-	 * @action  parse_request
-	 *
-	 * @param   WP $wp WP object.
-	 * @return  void
-	 */
-	public function parse_request( $wp ) {
-
-		if ( ! array_key_exists( 'easy_watermark_preview', $wp->query_vars ) ) {
-			return;
-		}
-
-		$preview      = new Preview( $this->get_watermark_handler() );
-		$type         = $wp->query_vars['easy_watermark_preview'];
-		$watermark_id = $wp->query_vars['watermark_id'];
-		$format       = $wp->query_vars['format'];
-		$size         = isset( $wp->query_vars['image_size'] ) ? $wp->query_vars['image_size'] : 'full';
-
-		$preview->show( $type, $watermark_id, $format, $size );
 
 	}
 

@@ -8,6 +8,7 @@
 namespace EasyWatermark\Metaboxes\Watermark;
 
 use EasyWatermark\Core\View;
+use EasyWatermark\Features\WatermarkPreview;
 use EasyWatermark\Helpers\Image as ImageHelper;
 use EasyWatermark\Metaboxes\WatermarkMetabox;
 use EasyWatermark\Traits\Hookable;
@@ -66,13 +67,11 @@ class Preview extends WatermarkMetabox {
 		$params['link_label']   = $preview_image_id ? $params['change_label'] : $params['select_label'];
 		$params['has_image']    = (bool) $preview_image_id;
 
-		$base_image_src  = site_url( 'easy-watermark-preview/image-%s-%s.png?t=%s' );
 		$images          = [];
 		$available_sizes = ImageHelper::get_available_sizes();
-		$timestamp       = time();
 
 		foreach ( $available_sizes as $size => $label ) {
-			$src            = sprintf( $base_image_src, $post->ID, $size, $timestamp );
+			$src            = WatermarkPreview::get_url( 'image', $post->ID, $size );
 			$images[ $src ] = $label;
 		}
 
@@ -132,11 +131,9 @@ class Preview extends WatermarkMetabox {
 
 		$preview_image_id = get_option( '_ew_preview_image_id' );
 
-		$base_image_src  = site_url( 'easy-watermark-preview/image-%s-%s.png?t=%s' );
 		$images          = [];
 		$sizes           = [];
 		$available_sizes = ImageHelper::get_available_sizes();
-		$timestamp       = time();
 
 		if ( $preview_image_id ) {
 			$meta  = get_post_meta( $preview_image_id, '_wp_attachment_metadata', true );
@@ -145,7 +142,7 @@ class Preview extends WatermarkMetabox {
 
 		foreach ( $available_sizes as $size => $label ) {
 			if ( 'full' === $size || array_key_exists( $size, $sizes ) ) {
-				$src            = sprintf( $base_image_src, $watermark_id, $size, $timestamp );
+				$src            = WatermarkPreview::get_url( 'image', $watermark_id, $size );
 				$images[ $src ] = $label;
 			}
 		}
