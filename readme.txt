@@ -118,6 +118,11 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
+= [next] =
+* [Added] New form styles compatible with new WordPress form styles.
+* [Added] Option to disable cache buster responsible for adding version param to image urls.
+* [Fixed] Watermark preview.
+
 = 1.0.7 =
 * [Removed] Freemius library.
 * [Fixed] Potential PHP 8 issue.
