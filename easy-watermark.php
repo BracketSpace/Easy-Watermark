@@ -6,7 +6,7 @@
  * Author URI:      https://bracketspace.com/
  * Text Domain:     easy-watermark
  * Domain Path:     /languages
- * Version:         1.0.7
+ * Version:         1.0.8
  * License:         GPLv3 or later
  *
  * @package         easy-watermark
