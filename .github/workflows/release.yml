@@ -31,9 +31,9 @@ jobs:
           git config --local user.name "${{ secrets.WORKER_NAME }}"
       - name: Init git-flow
         run: |
-        	git flow init -d
-        	git config gitflow.branch.develop legacy_develop
-        	git config gitflow.branch.master legacy_master
+          git flow init -d
+          git config gitflow.branch.develop legacy_develop
+          git config gitflow.branch.master legacy_master
       - name: Start release
         run: git flow release start ${{ github.event.inputs.new_version }}
       - name: Replace [Next] tags with new version number
