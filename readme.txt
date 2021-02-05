@@ -118,6 +118,9 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
+= [next] =
+* [Fixed] Translated view file names causing `missing view` errors
+
 = 1.0.8 =
 * [Added] New form styles compatible with new WordPress form styles.
 * [Added] Option to disable cache buster responsible for adding version param to image urls.

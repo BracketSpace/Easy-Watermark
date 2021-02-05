@@ -20,7 +20,7 @@ class Settings extends Page {
 	 */
 	public function __construct() {
 		$this->permission = 'manage_options';
-		parent::__construct( __( 'Settings', 'easy-watermark' ), null, 80 );
+		parent::__construct( __( 'Settings', 'easy-watermark' ), 'settings', 80 );
 	}
 
 	/**
