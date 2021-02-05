@@ -92,7 +92,7 @@ class Resolver extends Singleton {
 
 		$value = apply_filters( 'easy-watermark/placeholders/resolving', $value, $this );
 
-		$resolved = preg_replace_callback( $this->placeholder_pattern, array( $this, 'resolve_match' ), $value );
+		$resolved = preg_replace_callback( $this->placeholder_pattern, [ $this, 'resolve_match' ], $value );
 
 		$resolved = apply_filters( 'easy-watermark/placeholders/resolved', $resolved, $this );
 

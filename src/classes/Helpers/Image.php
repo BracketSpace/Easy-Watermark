@@ -19,13 +19,13 @@ class Image {
 	public static function get_available_sizes() {
 		global $_wp_additional_image_sizes;
 
-		$size_names = apply_filters( 'image_size_names_choose', array(
+		$size_names = apply_filters( 'image_size_names_choose', [
 			'thumbnail'    => __( 'Thumbnail' ),
 			'medium'       => __( 'Medium' ),
 			'medium_large' => __( 'Intermediate' ),
 			'large'        => __( 'Large' ),
 			'full'         => __( 'Full Size' ),
-		) );
+		] );
 
 		$available_sizes = get_intermediate_image_sizes();
 		array_push( $available_sizes, 'full' );
