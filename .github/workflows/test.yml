@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '11'
       - name: Setup variables
         id: vars
         run: |
@@ -58,7 +58,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '11'
       - name: Setup variables
         id: vars
         run: |
