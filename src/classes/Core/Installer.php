@@ -123,110 +123,112 @@ class Installer {
 
 		flush_rewrite_rules();
 
-		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
-
 		if ( version_compare( $from, '1.0.0', '>=' ) ) {
 			self::update_attachment_meta();
 			return;
 		}
 
-		$plugin_slug = Plugin::get()->get_slug();
-		$settings    = [];
+		if ( $from ) {
+			$plugin_slug = Plugin::get()->get_slug();
+			$settings    = [];
 
-		if ( version_compare( $from, '0.1.1', '>' ) ) {
-			$settings['general'] = get_option( $plugin_slug . '-settings-general' );
-			$settings['image']   = get_option( $plugin_slug . '-settings-image' );
-			$settings['text']    = get_option( $plugin_slug . '-settings-text' );
+			if ( version_compare( $from, '0.1.1', '>' ) ) {
+				$settings['general'] = get_option( $plugin_slug . '-settings-general' );
+				$settings['image']   = get_option( $plugin_slug . '-settings-image' );
+				$settings['text']    = get_option( $plugin_slug . '-settings-text' );
 
-			delete_option( $plugin_slug . '-settings-general' );
-			delete_option( $plugin_slug . '-settings-image' );
-			delete_option( $plugin_slug . '-settings-text' );
-		} else {
-			$old_settings = get_option( $plugin_slug . '-settings' );
+				delete_option( $plugin_slug . '-settings-general' );
+				delete_option( $plugin_slug . '-settings-image' );
+				delete_option( $plugin_slug . '-settings-text' );
+			} else {
+				$old_settings = get_option( $plugin_slug . '-settings' );
 
-			delete_option( $plugin_slug . '-settings' );
+				delete_option( $plugin_slug . '-settings' );
 
-			$general = [
-				'auto_add'    => $old_settings['auto_add'],
-				'image_types' => $old_settings['image_types'],
-			];
+				$general = [
+					'auto_add'    => $old_settings['auto_add'],
+					'image_types' => $old_settings['image_types'],
+				];
 
-			switch ( $from ) {
-				case '0.1.1':
-					$image = [
-						'watermark_url'  => $old_settings['image']['url'],
-						'watermark_id'   => $old_settings['image']['id'],
-						'watermark_path' => $old_settings['image']['path'],
-						'watermark_mime' => $old_settings['image']['mime'],
-						'position_x'     => $old_settings['image']['position_x'],
-						'position_y'     => $old_settings['image']['position_y'],
-						'offset_x'       => $old_settings['image']['offset_x'],
-						'offset_y'       => $old_settings['image']['offset_y'],
-						'opacity'        => $old_settings['image']['opacity'],
-					];
-					break;
-				default:
-					$image = [
-						'watermark_url'  => $old_settings['image']['url'],
-						'watermark_id'   => $old_settings['image']['id'],
-						'watermark_path' => $old_settings['image']['path'],
-						'watermark_mime' => $old_settings['image']['mime'],
-						'position_x'     => $old_settings['image']['position-horizontal'],
-						'position_y'     => $old_settings['image']['position-vert'],
-						'offset_x'       => $old_settings['image']['offset-horizontal'],
-						'offset_y'       => $old_settings['image']['offset-vert'],
-						'opacity'        => $old_settings['image']['alpha'],
-					];
-					break;
+				switch ( $from ) {
+					case '0.1.1':
+						$image = [
+							'watermark_url'  => $old_settings['image']['url'],
+							'watermark_id'   => $old_settings['image']['id'],
+							'watermark_path' => $old_settings['image']['path'],
+							'watermark_mime' => $old_settings['image']['mime'],
+							'position_x'     => $old_settings['image']['position_x'],
+							'position_y'     => $old_settings['image']['position_y'],
+							'offset_x'       => $old_settings['image']['offset_x'],
+							'offset_y'       => $old_settings['image']['offset_y'],
+							'opacity'        => $old_settings['image']['opacity'],
+						];
+						break;
+					default:
+						$image = [
+							'watermark_url'  => $old_settings['image']['url'],
+							'watermark_id'   => $old_settings['image']['id'],
+							'watermark_path' => $old_settings['image']['path'],
+							'watermark_mime' => $old_settings['image']['mime'],
+							'position_x'     => $old_settings['image']['position-horizontal'],
+							'position_y'     => $old_settings['image']['position-vert'],
+							'offset_x'       => $old_settings['image']['offset-horizontal'],
+							'offset_y'       => $old_settings['image']['offset-vert'],
+							'opacity'        => $old_settings['image']['alpha'],
+						];
+						break;
+				}
+
+				$settings = [
+					'general' => $general,
+					'image'   => $image,
+					'text'    => [],
+				];
+
+				delete_option( $plugin_slug . '-settings' );
 			}
 
-			$settings = [
-				'general' => $general,
-				'image'   => $image,
-				'text'    => [],
-			];
+			$settings['image']['alignment'] = self::get_alignment( $settings['image']['position_x'], $settings['image']['position_y'] );
+			$settings['text']['alignment']  = self::get_alignment( $settings['text']['position_x'], $settings['text']['position_y'] );
 
-			delete_option( $plugin_slug . '-settings' );
-		}
+			$watermark_defaults = Watermark::get_defaults();
 
-		$settings['image']['alignment'] = self::get_alignment( $settings['image']['position_x'], $settings['image']['position_y'] );
-		$settings['text']['alignment']  = self::get_alignment( $settings['text']['position_x'], $settings['text']['position_y'] );
+			$watermark_defaults['auto_add'] = $settings['general']['auto_add'];
 
-		$watermark_defaults = Watermark::get_defaults();
+			if ( isset( $settings['general']['auto_add_perm'] ) ) {
+				$watermark_defaults['auto_add_all'] = $settings['general']['auto_add_perm'];
+			}
 
-		$watermark_defaults['auto_add'] = $settings['general']['auto_add'];
+			if ( isset( $settings['general']['image_types'] ) ) {
+				$watermark_defaults['image_types'] = $settings['general']['image_types'];
+			}
 
-		if ( isset( $settings['general']['auto_add_perm'] ) ) {
-			$watermark_defaults['auto_add_all'] = $settings['general']['auto_add_perm'];
-		}
+			if ( isset( $settings['general']['image_sizes'] ) ) {
+				$watermark_defaults['image_sizes'] = $settings['general']['image_sizes'];
+			}
 
-		if ( isset( $settings['general']['image_types'] ) ) {
-			$watermark_defaults['image_types'] = $settings['general']['image_types'];
-		}
+			if ( isset( $settings['general']['allowed_post_types'] ) ) {
+				$watermark_defaults['post_types'] = $settings['general']['allowed_post_types'];
+			}
 
-		if ( isset( $settings['general']['image_sizes'] ) ) {
-			$watermark_defaults['image_sizes'] = $settings['general']['image_sizes'];
-		}
+			if ( isset( $settings['general']['jpg_quality'] ) ) {
+				$defaults['general']['jpeg_quality'] = $settings['general']['jpg_quality'];
+			}
 
-		if ( isset( $settings['general']['allowed_post_types'] ) ) {
-			$watermark_defaults['post_types'] = $settings['general']['allowed_post_types'];
-		}
+			update_option( Plugin::get()->get_slug() . '-settings', $defaults );
 
-		if ( isset( $settings['general']['jpg_quality'] ) ) {
-			$defaults['general']['jpeg_quality'] = $settings['general']['jpg_quality'];
-		}
+			if ( isset( $settings['image']['watermark_id'] ) && ! empty( $settings['image']['watermark_id'] ) ) {
+				self::insert_image_watermark( $watermark_defaults, $settings );
+			}
 
-		update_option( Plugin::get()->get_slug() . '-settings', $defaults );
-
-		if ( isset( $settings['image']['watermark_id'] ) && ! empty( $settings['image']['watermark_id'] ) ) {
-			self::insert_image_watermark( $watermark_defaults, $settings );
-		}
-
-		if ( ! empty( $settings['text']['text'] ) ) {
-			self::insert_text_watermark( $watermark_defaults, $settings );
+			if ( ! empty( $settings['text']['text'] ) ) {
+				self::insert_text_watermark( $watermark_defaults, $settings );
+			}
 		}
 
 		self::update_backup_info();
+
+		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
 
 	}
 
