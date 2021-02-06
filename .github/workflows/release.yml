@@ -1,0 +1,69 @@
+name: Legacy Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      new_version:
+        description: 'New version'
+        required: true
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set PHP version
+        run: sudo update-alternatives --set php /usr/bin/php7.4
+      - name: Checkout legacy master
+        uses: actions/checkout@v1
+        with:
+          ref: 'legacy_master'
+      - name: Checkout legacy develop
+        uses: actions/checkout@v1
+        with:
+          ref: 'legacy_develop'
+          clean: false
+      - name: Install git-flow
+        run: sudo apt-get install git-flow -y
+      - name: Configure commiter
+        run: |
+          git config --local user.email "${{ secrets.WORKER_EMAIL }}"
+          git config --local user.name "${{ secrets.WORKER_NAME }}"
+      - name: Init git flow
+        run: |
+          git config gitflow.branch.develop legacy_develop
+          git config gitflow.branch.master legacy_master
+          git flow init -d
+      - name: Start release
+        run: git flow release start ${{ github.event.inputs.new_version }}
+      - name: Replace [Next] tags with new version number
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "(?i)\\[Next\\]"
+          replace: "${{ github.event.inputs.new_version }}"
+      - name: Replace stable tag in readme
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "Stable tag: [0-9]+.[0-9]+.[0-9]+"
+          replace: "Stable tag: ${{ github.event.inputs.new_version }}"
+          include: "readme.txt"
+      - name: Replace version tag in main file
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "Version: [0-9]+.[0-9]+.[0-9]+"
+          replace: "Version: ${{ github.event.inputs.new_version }}"
+          include: "${{ secrets.SLUG }}.php"
+      - name: Commit version bump
+        run: git commit -am "Version bump"
+      - name: Finish release
+        run: git flow release finish ${{ github.event.inputs.new_version }} -m "v${{ github.event.inputs.new_version }}"
+      - name: Push legacy develop and tags
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.WORKER_TOKEN }}
+          branch: 'legacy_develop'
+      - name: Push legacy master
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.WORKER_TOKEN }}
+          branch: 'legacy_master'

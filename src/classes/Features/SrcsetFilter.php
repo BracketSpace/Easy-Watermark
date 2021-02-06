@@ -30,7 +30,6 @@ class SrcsetFilter {
 
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		$this->hook();

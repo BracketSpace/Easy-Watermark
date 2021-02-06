@@ -93,7 +93,7 @@ trait Hookable {
 					$name = $match['name'];
 
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
-					$callback = array( $this, $method->getName() );
+					$callback = [ $this, $method->getName() ];
 
 					call_user_func( "remove_{$type}", $name, $callback, $priority );
 

@@ -42,6 +42,6 @@ class Checkbox extends Field {
 	 * @return mixed
 	 */
 	public function sanitize( $value ) {
-		return ( '1' === $value );
+		return boolval( $value );
 	}
 }

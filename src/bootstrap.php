@@ -52,7 +52,7 @@ $requirements = new \underDEV_Requirements( __( 'Easy Watermark', 'easy-watermar
 ] );
 
 if ( ! $requirements->satisfied() ) {
-	add_action( 'admin_notices', array( $requirements, 'notice' ) );
+	add_action( 'admin_notices', [ $requirements, 'notice' ] );
 	return;
 }
 

@@ -20,7 +20,7 @@ class Tools extends Page {
 	 * Constructor
 	 */
 	public function __construct() {
-		parent::__construct( __( 'Tools', 'easy-watermark' ), null, 20 );
+		parent::__construct( __( 'Tools', 'easy-watermark' ), 'tools', 20 );
 	}
 
 	/**

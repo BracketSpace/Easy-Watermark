@@ -5,7 +5,7 @@ Tags: watermark, image, picture, photo, media, gallery, signature, transparent, 
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: easy-watermark
@@ -117,6 +117,10 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 8. Bulk watermark and restore all images
 
 == Changelog ==
+
+= 1.0.9 =
+* [Fixed] Translated view file names causing `missing view` errors.
+* [Fixed] Errors occuring on the first plugin activation.
 
 = 1.0.8 =
 * [Added] New form styles compatible with new WordPress form styles.
