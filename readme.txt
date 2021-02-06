@@ -119,8 +119,8 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
-* [Fixed] Translated view file names causing `missing view` errors
-* [Fixed] Errors after first activation
+* [Fixed] Translated view file names causing `missing view` errors.
+* [Fixed] Errors occuring on the first plugin activation.
 
 = 1.0.8 =
 * [Added] New form styles compatible with new WordPress form styles.
