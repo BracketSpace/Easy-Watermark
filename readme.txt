@@ -118,6 +118,9 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
+= [next] =
+* [Added] Role existence checks during plugin activation.
+
 = 1.0.9 =
 * [Fixed] Translated view file names causing `missing view` errors.
 * [Fixed] Errors occuring on the first plugin activation.
