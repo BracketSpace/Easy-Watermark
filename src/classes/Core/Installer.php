@@ -126,6 +126,8 @@ class Installer {
 	 */
 	public static function update( $from, $defaults ) {
 
+		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
+
 		flush_rewrite_rules();
 
 		if ( version_compare( $from, '1.0.0', '>=' ) ) {
@@ -232,8 +234,6 @@ class Installer {
 		}
 
 		self::update_backup_info();
-
-		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
 
 	}
 
