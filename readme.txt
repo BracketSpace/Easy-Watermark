@@ -120,6 +120,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 = [next] =
 * [Added] Role existence checks during plugin activation.
+* [Added] Filter to prevent applying certain watermark.
 
 = 1.0.9 =
 * [Fixed] Translated view file names causing `missing view` errors.
