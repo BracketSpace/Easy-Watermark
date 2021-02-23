@@ -37,29 +37,34 @@ class Installer {
 
 		$admin = get_role( 'administrator' );
 
-		$admin->add_cap( 'edit_watermark' );
-		$admin->add_cap( 'edit_watermarks' );
-		$admin->add_cap( 'edit_others_watermarks' );
-		$admin->add_cap( 'delete_watermarks' );
-		$admin->add_cap( 'delete_others_watermarks' );
-		$admin->add_cap( 'apply_watermark' );
+		if ( $admin ) {
+			$admin->add_cap( 'edit_watermark' );
+			$admin->add_cap( 'edit_watermarks' );
+			$admin->add_cap( 'edit_others_watermarks' );
+			$admin->add_cap( 'delete_watermarks' );
+			$admin->add_cap( 'delete_others_watermarks' );
+			$admin->add_cap( 'apply_watermark' );
+		}
 
 		$editor = get_role( 'editor' );
 
-		$editor->add_cap( 'edit_watermark' );
-		$editor->add_cap( 'edit_watermarks' );
-		$editor->add_cap( 'edit_others_watermarks' );
-		$editor->add_cap( 'delete_watermarks' );
-		$editor->add_cap( 'delete_others_watermarks' );
-		$editor->add_cap( 'apply_watermark' );
+		if ( $editor ) {
+			$editor->add_cap( 'edit_watermark' );
+			$editor->add_cap( 'edit_watermarks' );
+			$editor->add_cap( 'edit_others_watermarks' );
+			$editor->add_cap( 'delete_watermarks' );
+			$editor->add_cap( 'delete_others_watermarks' );
+			$editor->add_cap( 'apply_watermark' );
+		}
 
 		$author = get_role( 'author' );
 
-		$author->add_cap( 'edit_watermark' );
-		$author->add_cap( 'edit_watermarks' );
-		$author->add_cap( 'delete_watermarks' );
-		$author->add_cap( 'apply_watermark' );
-
+		if ( $author ) {
+			$author->add_cap( 'edit_watermark' );
+			$author->add_cap( 'edit_watermarks' );
+			$author->add_cap( 'delete_watermarks' );
+			$author->add_cap( 'apply_watermark' );
+		}
 	}
 
 	/**
@@ -120,6 +125,8 @@ class Installer {
 	 * @return void
 	 */
 	public static function update( $from, $defaults ) {
+
+		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
 
 		flush_rewrite_rules();
 
@@ -227,8 +234,6 @@ class Installer {
 		}
 
 		self::update_backup_info();
-
-		update_option( Plugin::get()->get_slug() . '-version', Plugin::get()->get_version() );
 
 	}
 
