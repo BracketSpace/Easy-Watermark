@@ -54,7 +54,7 @@ jobs:
         options: '--exclude-from=".build-excludes"'
         src: '.'
         dest: 'build'
-    - name: Fix permissiong
+    - name: Fix permissions
       run: sudo chown -R $USER:$USER ./
     - name: Upload artifact
       uses: actions/upload-artifact@v1
