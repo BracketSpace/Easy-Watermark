@@ -1,0 +1,10 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+	level: 0
+	inferPrivatePropertyTypeFromConstructor: true
+	bootstrapFiles:
+		- src/inc/constants.php
+	paths:
+		- easy-watermark.php
+		- src/
