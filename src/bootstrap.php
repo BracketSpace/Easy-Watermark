@@ -25,8 +25,6 @@ $ew_error = function( $message, $subtitle = '', $title = '' ) {
 	wp_die( $message, $title ); // phpcs:ignore
 };
 
-require EW_DIR_PATH . '/src/inc/functions.php';
-
 /**
  * Composer autoloader file
  */

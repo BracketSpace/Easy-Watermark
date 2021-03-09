@@ -7,6 +7,7 @@
 
 namespace EasyWatermark\Core;
 
+use const EW_FILE_PATH;
 use EasyWatermark\Backup\Manager as BackupManager;
 use EasyWatermark\Core\Assets;
 use EasyWatermark\Core\Hooks;
@@ -15,17 +16,16 @@ use EasyWatermark\Core\View;
 use EasyWatermark\Dashboard\Dashboard;
 use EasyWatermark\Features\AutoWatermarkSwitch;
 use EasyWatermark\Features\SrcsetFilter;
+use EasyWatermark\Helpers\DocHooksTest;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
 use EasyWatermark\RestApi\EditorSettings;
 use EasyWatermark\Settings\Settings;
 use EasyWatermark\Traits\Hookable;
+use EasyWatermark\Vendor\Micropackage\Singleton\Singleton;
 use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\PostType as WatermarkPostType;
 use EasyWatermark\Watermark\Preview;
-use EasyWatermark\Vendor\Micropackage\Singleton\Singleton;
-use const EW_FILE_PATH;
-use function EasyWatermark\ew_dochooks_enabled;
 
 /**
  * Main plugin class
@@ -80,7 +80,7 @@ class Plugin extends Singleton {
 		register_deactivation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'deactivate' ] );
 		register_uninstall_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
-		if ( ! ew_dochooks_enabled() ) {
+		if ( ! DocHooksTest::enabled() ) {
 			add_action( 'plugins_loaded', [ $this, 'setup' ] );
 		}
 
@@ -115,7 +115,7 @@ class Plugin extends Singleton {
 
 		$this->setup_metaboxes();
 
-		if ( ! ew_dochooks_enabled() ) {
+		if ( ! DocHooksTest::enabled() ) {
 			Hooks::get()->load_hooks();
 		}
 
