@@ -23,7 +23,7 @@ use EasyWatermark\Traits\Hookable;
 use EasyWatermark\Watermark\Handler;
 use EasyWatermark\Watermark\PostType as WatermarkPostType;
 use EasyWatermark\Watermark\Preview;
-use Micropackage\Singleton\Singleton;
+use EasyWatermark\Vendor\Micropackage\Singleton\Singleton;
 use const EW_FILE_PATH;
 use function EasyWatermark\ew_dochooks_enabled;
 use function EasyWatermark\ew_fs;

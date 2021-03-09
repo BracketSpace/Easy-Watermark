@@ -8,7 +8,7 @@
 namespace EasyWatermark;
 
 use EasyWatermark\Core\Plugin as EasyWatermark;
-use Micropackage\Requirements\Requirements;
+use EasyWatermark\Vendor\Micropackage\Requirements\Requirements;
 use const EW_DIR_PATH;
 
 /**

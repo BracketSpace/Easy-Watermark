@@ -11,7 +11,7 @@ use EasyWatermark\Core\Plugin;
 use EasyWatermark\Settings\Fields\Number as NumberField;
 use EasyWatermark\Settings\Section;
 use EasyWatermark\Traits\Hookable;
-use Micropackage\Singleton\Singleton;
+use EasyWatermark\Vendor\Micropackage\Singleton\Singleton;
 
 /**
  * Settings class

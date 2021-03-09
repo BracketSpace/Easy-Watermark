@@ -7,7 +7,7 @@
 
 namespace EasyWatermark\Core;
 
-use Micropackage\Singleton\Singleton;
+use EasyWatermark\Vendor\Micropackage\Singleton\Singleton;
 use WP_Error;
 
 /**
