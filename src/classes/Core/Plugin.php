@@ -26,7 +26,6 @@ use EasyWatermark\Watermark\Preview;
 use EasyWatermark\Vendor\Micropackage\Singleton\Singleton;
 use const EW_FILE_PATH;
 use function EasyWatermark\ew_dochooks_enabled;
-use function EasyWatermark\ew_fs;
 
 /**
  * Main plugin class
@@ -79,21 +78,13 @@ class Plugin extends Singleton {
 
 		register_activation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'activate' ] );
 		register_deactivation_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'deactivate' ] );
+		register_uninstall_hook( EW_FILE_PATH, [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
 
 		if ( ! ew_dochooks_enabled() ) {
 			add_action( 'plugins_loaded', [ $this, 'setup' ] );
 		}
 
 		$this->hook();
-
-		// Init Freemius.
-		$fs = ew_fs();
-
-		// Register uninstall hook with freemius.
-		$fs->add_action( 'after_uninstall', [ 'EasyWatermark\Core\Installer', 'uninstall' ] );
-
-		// Signal that SDK was initiated.
-		do_action( 'ew_fs_loaded' );
 
 		BackupManager::get();
 
