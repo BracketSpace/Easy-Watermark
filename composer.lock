@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84ee5b3c892a153f2b809e9e497de46d",
+    "content-hash": "a7d5e3fbd93dcafcd40e5fca6510ac6e",
     "packages": [
         {
             "name": "composer/installers",
@@ -594,97 +594,6 @@
                 }
             ],
             "time": "2021-03-08T22:03:02+00:00"
-        },
-        {
-            "name": "sirbrillig/phpcs-import-detection",
-            "version": "v1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sirbrillig/phpcs-import-detection.git",
-                "reference": "572bb1dd8a6b0d15c18abef60695a049e02fac8c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-import-detection/zipball/572bb1dd8a6b0d15c18abef60695a049e02fac8c",
-                "reference": "572bb1dd8a6b0d15c18abef60695a049e02fac8c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
-                "limedeck/phpunit-detailed-printer": "^3.1",
-                "phpunit/phpunit": "^6.4",
-                "sirbrillig/phpcs-variable-analysis": "^2.0.1",
-                "squizlabs/php_codesniffer": "3.3.0"
-            },
-            "type": "phpcodesniffer-standard",
-            "autoload": {
-                "psr-4": {
-                    "ImportDetection\\": "ImportDetection/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Payton Swick",
-                    "email": "payton@foolord.com"
-                }
-            ],
-            "description": "A set of phpcs sniffs to look for unused or unimported symbols.",
-            "time": "2019-12-06T21:41:10+00:00"
-        },
-        {
-            "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "ff54d4ec7f2bd152d526fdabfeff639aa9b8be01"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/ff54d4ec7f2bd152d526fdabfeff639aa9b8be01",
-                "reference": "ff54d4ec7f2bd152d526fdabfeff639aa9b8be01",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "squizlabs/php_codesniffer": "^3.1"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4 || ^0.5 || ^0.6",
-                "limedeck/phpunit-detailed-printer": "^3.1 || ^4.0 || ^5.0",
-                "phpstan/phpstan": "^0.11.8",
-                "phpunit/phpunit": "^5.0 || ^6.5 || ^7.0 || ^8.0",
-                "sirbrillig/phpcs-import-detection": "^1.1"
-            },
-            "type": "phpcodesniffer-standard",
-            "autoload": {
-                "psr-4": {
-                    "VariableAnalysis\\": "VariableAnalysis/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sam Graham",
-                    "email": "php-codesniffer-variableanalysis@illusori.co.uk"
-                },
-                {
-                    "name": "Payton Swick",
-                    "email": "payton@foolord.com"
-                }
-            ],
-            "description": "A PHPCS sniff to detect problems with variables.",
-            "time": "2020-10-07T23:32:29+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

@@ -29,16 +29,6 @@
 	    <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
 	</rule>
 
-	<rule ref="VariableAnalysis">
-    <exclude-pattern>/src/views</exclude-pattern>
-	</rule>
-
- 	<rule ref="ImportDetection">
-		<properties>
- 			<property name="ignoreWordPressSymbols" value="true"/>
-		</properties>
-	</rule>
-
 	<rule ref="WordPress-Extra"><!-- Includes WordPress-Core -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 	</rule>
@@ -47,7 +37,7 @@
 
 	<!-- PHPCompatibility -->
 	<rule ref="PHPCompatibility" />
-	<config name="testVersion" value="5.6-" />
+	<config name="testVersion" value="8.0-" />
 
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
