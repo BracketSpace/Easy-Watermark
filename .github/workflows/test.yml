@@ -45,8 +45,8 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Install Composer dependencies
         run: composer install --no-progress
-      - name: Analyze
-        run: composer analyze
+      - name: Analyse
+        run: composer analyse
   stylelint:
     name: Stylelint
     runs-on: ubuntu-latest
