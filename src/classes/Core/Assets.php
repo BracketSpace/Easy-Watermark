@@ -75,7 +75,7 @@ class Assets {
 			 *
 			 * This script is not used in list mode, so we need to check if it is enqueued first.
 			 */
-			 $assets['uploader']['dependencies'][] = 'njt-filebird-upload-libray-scripts';
+			$assets['uploader']['dependencies'][] = 'njt-filebird-upload-libray-scripts';
 		}
 
 		foreach ( $assets as $asset => $data ) {
