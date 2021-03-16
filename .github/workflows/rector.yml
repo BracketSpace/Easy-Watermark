@@ -1,0 +1,36 @@
+name: "Rectorize"
+
+on: workflow_dispatch
+
+jobs:
+  rector:
+    name: "Rector"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set PHP version
+        run: sudo update-alternatives --set php /usr/bin/php8.0
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache Composer
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.vars.outputs.composer-cache-path }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress
+
+      - name: Rectify project
+        run: |
+          vendor/bin/rector process
+          tar -cf build.tar .
+
+      - name: Upload rectified source code
+        uses: actions/upload-artifact@v2
+        with:
+          name: results
+          path: build.tar
+          retention-days: 1
