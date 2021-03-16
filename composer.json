@@ -2,26 +2,26 @@
   "name": "bracketspace/easy-watermark",
   "type": "wordpress-plugin",
   "scripts": {
-    "phpcs": "phpcs",
-    "phpcbf": "phpcbf",
 		"analyse": "phpstan analyse",
 		"phpcompat": "phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0 easy-watermark.php src/",
-		"phplint": "parallel-lint --exclude node_modules --exclude vendor --exclude assets ."
+		"phplint": "parallel-lint --exclude node_modules --exclude vendor --exclude assets .",
+    "phpcbf": "phpcbf",
+    "phpcs": "phpcs"
   },
   "require": {
-    "php": ">=5.6.0",
     "composer/installers": "v1.0.6",
-    "micropackage/singleton": "^1.1",
     "micropackage/requirements": "^1.0",
-    "typisttech/imposter-plugin": "^0.6.2"
+    "micropackage/singleton": "^1.1",
+    "php": ">=5.6.0"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "php-parallel-lint/php-parallel-lint": "^1.2",
     "phpcompatibility/php-compatibility": "^9.1",
-    "wp-coding-standards/wpcs": "^2.0",
-    "szepeviktor/phpstan-wordpress": "^0.7.4",
     "rector/rector": "^0.9.31",
-    "php-parallel-lint/php-parallel-lint": "^1.2"
+    "szepeviktor/phpstan-wordpress": "^0.7.4",
+    "typisttech/imposter-plugin": "^0.6.2",
+    "wp-coding-standards/wpcs": "^2.0"
   },
   "autoload": {
     "psr-4": {
