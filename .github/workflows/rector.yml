@@ -21,12 +21,26 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer install --no-progress
+        run: composer install --no-progress --no-interaction
 
       - name: Rectify project
-        run: |
-          vendor/bin/rector process
-          tar -cf build.tar .
+        run: vendor/bin/rector process easy-watermark.php src
+
+      - name: Fix code style
+        continue-on-error: true
+        run: composer phpcbf
+
+      - name: Check Code Compatibility
+        run: composer phpcompat
+
+      - name: Lint Code
+        run: composer phplint
+
+      - name: Remove dev dependencies
+        run: composer install --no-dev --no-progress --no-interaction
+
+      - name: Build tar archive
+        run: tar -cf build.tar .
 
       - name: Upload rectified source code
         uses: actions/upload-artifact@v2
