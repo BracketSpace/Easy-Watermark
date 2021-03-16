@@ -4,7 +4,9 @@
   "scripts": {
     "phpcs": "phpcs",
     "phpcbf": "phpcbf",
-		"analyse": "phpstan analyse"
+		"analyse": "phpstan analyse",
+		"phpcompat": "phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0 easy-watermark.php src/",
+		"phplint": "parallel-lint --exclude node_modules --exclude vendor --exclude assets ."
   },
   "require": {
     "php": ">=5.6.0",
@@ -18,7 +20,8 @@
     "phpcompatibility/php-compatibility": "^9.1",
     "wp-coding-standards/wpcs": "^2.0",
     "szepeviktor/phpstan-wordpress": "^0.7.4",
-    "rector/rector": "^0.9.31"
+    "rector/rector": "^0.9.31",
+    "php-parallel-lint/php-parallel-lint": "^1.2"
   },
   "autoload": {
     "psr-4": {
