@@ -462,7 +462,7 @@ class Handler {
 
 		$attachment = get_post( $attachment_id );
 
-		if ( 'text' === $watermark->type ) {
+		if ( $watermark && 'text' === $watermark->type ) {
 			$this->resolver->set_attachment( $attachment );
 			$watermark->text = $this->resolver->resolve( $watermark->text );
 		}
