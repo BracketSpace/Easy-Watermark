@@ -494,23 +494,4 @@ class Handler {
 		}
 
 	}
-
-	/**
-	 * Adds attachment version to the URL
-	 *
-	 * @param  string  $url Attachment url.
-	 * @param  integer $attachment_id Attachment ID.
-	 * @return string
-	 */
-	public function add_attachment_version( $url, $attachment_id ) {
-
-		$version = get_post_meta( $attachment_id, '_ew_attachment_version', true );
-
-		if ( ! $version ) {
-			return $url;
-		}
-
-		return $url . '?v=' . $version;
-
-	}
 }
