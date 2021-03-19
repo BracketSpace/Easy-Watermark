@@ -168,43 +168,10 @@ class Plugin extends Singleton {
 			Installer::update( $last_version, $settings->get_settings() );
 		}
 
-	}
-
-	/**
-	 * Performs actions on shutdown
-	 *
-	 * @action  shutdown
-	 *
-	 * @return void
-	 */
-	public function shutdown() {
 		if ( ! get_option( 'easy-watermark-first-booted' ) ) {
 			flush_rewrite_rules();
 			update_option( 'easy-watermark-first-booted', true );
 		}
-	}
-
-	/**
-	 * Initiates plugin
-	 *
-	 * @action  parse_request
-	 *
-	 * @param   WP $wp WP object.
-	 * @return  void
-	 */
-	public function parse_request( $wp ) {
-
-		if ( ! array_key_exists( 'easy_watermark_preview', $wp->query_vars ) ) {
-			return;
-		}
-
-		$preview      = new Preview( $this->get_watermark_handler() );
-		$type         = $wp->query_vars['easy_watermark_preview'];
-		$watermark_id = $wp->query_vars['watermark_id'];
-		$format       = $wp->query_vars['format'];
-		$size         = isset( $wp->query_vars['image_size'] ) ? $wp->query_vars['image_size'] : 'full';
-
-		$preview->show( $type, $watermark_id, $format, $size );
 
 	}
 
