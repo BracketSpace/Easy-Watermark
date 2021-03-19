@@ -56,31 +56,6 @@ class Hooks {
 	}
 
 	/**
-	 * Adds attachment version to the url
-	 *
-	 * @filter wp_get_attachment_image_src
-	 *
-	 * @param  array|false $image         Either array with src, width & height, icon src, or false.
-	 * @param  integer     $attachment_id Image attachment ID.
-	 * @return array|false
-	 */
-	public function wp_get_attachment_image_src( $image, $attachment_id ) {
-
-		if ( false === $image ) {
-			return false;
-		}
-
-		if ( is_array( $image ) && ! empty( $image ) && is_string( $image[0] ) ) {
-			$image[0] = $this->handler->add_attachment_version( $image[0], $attachment_id );
-		} elseif ( is_string( $image ) ) {
-			$image = $this->handler->add_attachment_version( $image, $attachment_id );
-		}
-
-		return $image;
-
-	}
-
-	/**
 	 * Applies watermarks after upload
 	 *
 	 * @filter wp_generate_attachment_metadata
