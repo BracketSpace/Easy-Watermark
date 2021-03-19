@@ -56,16 +56,28 @@ export function filterSelection( selection, backup = false, remove = true ) {
  * @param url
  * @param version
  */
-export function imageVersion( url, version ) {
+export function imageVersion( url ) {
 	const	index = url.indexOf( '?' );
+	const version = `t=${ Date.now() }`;
+
+	let query;
 
 	if ( -1 !== index ) {
+		query = url.substr( index );
 		url = url.substr( 0, index );
+
+		const regex = /([^\s])t=[0-9]+/;
+
+		if ( query.match( regex ) ) {
+			query = query.replace( regex, `$1${ version }` );
+		} else {
+			query += `&${ version }`;
+		}
+	} else {
+		query = `?${ version }`;
 	}
 
-	url += '?v=' + version;
-
-	return url;
+	return url + query;
 }
 
 /**

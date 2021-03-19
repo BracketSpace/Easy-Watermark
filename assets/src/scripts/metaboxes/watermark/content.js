@@ -3,6 +3,11 @@
  */
 import $ from 'jquery';
 
+/**
+ * Internal dependencies
+ */
+import { imageVersion } from '../../utils/functions';
+
 export default class {
 	constructor() {
 		this.metabox = $( '#watermark-content' );
@@ -81,7 +86,7 @@ export default class {
 
 	refreshPreview() {
 		if ( this.watermarkTextField.val().length ) {
-			const src = this.previewWrap.data( 'src' ) + '?t=' + Date.now();
+			const src = imageVersion( this.previewWrap.data( 'src' ) );
 
 			this.preview.attr( 'src', src );
 			this.previewWrap.show();

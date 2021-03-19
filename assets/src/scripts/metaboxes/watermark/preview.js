@@ -119,14 +119,12 @@ export default class {
 			this.imageSelector.hide();
 			this.spinner.css( 'display', 'block' );
 
-			const
-				time = Date.now(),
-				src = imageVersion( this.previewWrap.data( 'src' ), time );
+			const src = imageVersion( this.previewWrap.data( 'src' ) );
 
 			this.popup.find( 'img' ).each( ( i, e ) => {
 				const
 					img = $( e ),
-					psrc = imageVersion( img.attr( 'src' ), time );
+					psrc = imageVersion( img.attr( 'src' ) );
 
 				img.attr( 'src', psrc );
 			} );
