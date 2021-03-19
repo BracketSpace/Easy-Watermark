@@ -21,7 +21,7 @@ class Watermarks extends Page {
 	 * Constructor
 	 */
 	public function __construct() {
-		parent::__construct( __( 'Watermarks', 'easy-watermark' ), null, 10 );
+		parent::__construct( __( 'Watermarks', 'easy-watermark' ), 'watermarks', 10 );
 	}
 
 	/**

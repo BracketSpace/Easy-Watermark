@@ -20,25 +20,7 @@ class Settings extends Page {
 	 */
 	public function __construct() {
 		$this->permission = 'manage_options';
-		parent::__construct( __( 'Settings', 'easy-watermark' ), null, 80 );
-	}
-
-	/**
-	 * Display admin notices
-	 *
-	 * @action easy-watermark/dashboard/settings/notices
-	 *
-	 * @return void
-	 */
-	public function admin_notices() {
-
-		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( isset( $_GET['settings-updated'] ) ) {
-			View::get( 'notices/success', [
-				'message' => __( 'Settings saved.', 'easy-watermark' ),
-			] )->display();
-		}
-
+		parent::__construct( __( 'Settings', 'easy-watermark' ), 'settings', 80 );
 	}
 
 	/**
