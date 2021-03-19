@@ -55,6 +55,24 @@ class Assets {
 	}
 
 	/**
+	 * Filter body classes
+	 *
+	 * @filter admin_body_class
+	 *
+	 * @param  array $classes Classes array.
+	 * @return array          Filtered classes array.
+	 */
+	public function body_class( $classes ) {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.3', '>=' ) ) {
+			$classes .= ' ew-new-form-style ';
+		}
+
+		return $classes;
+	}
+
+	/**
 	 * Registers admin scripts/styles
 	 *
 	 * @action admin_enqueue_scripts 20
