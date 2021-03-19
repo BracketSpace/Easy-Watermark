@@ -14,8 +14,7 @@ use EasyWatermark\Core\Hooks;
 use EasyWatermark\Core\Installer;
 use EasyWatermark\Core\View;
 use EasyWatermark\Dashboard\Dashboard;
-use EasyWatermark\Features\AutoWatermarkSwitch;
-use EasyWatermark\Features\SrcsetFilter;
+use EasyWatermark\Features;
 use EasyWatermark\Helpers\DocHooksTest;
 use EasyWatermark\Metaboxes;
 use EasyWatermark\Placeholders\Defaults as DefaultPlaceholders;
@@ -102,10 +101,14 @@ class Plugin extends Singleton {
 	public function setup() {
 
 		new DefaultPlaceholders();
+
+		new Features\AutoWatermarkSwitch();
+		new Features\CacheBusting();
+		new Features\SrcsetFilter();
+		new Features\WatermarkPreview( $this );
+
 		new WatermarkPostType();
-		new AutoWatermarkSwitch();
 		new Dashboard();
-		new SrcsetFilter( $this );
 		new Assets( $this );
 		new EditorSettings( $this );
 
