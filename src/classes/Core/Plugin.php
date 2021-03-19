@@ -150,14 +150,14 @@ class Plugin extends Singleton {
 		add_rewrite_tag( '%image_size%', '([^./-]+)' );
 
 		add_rewrite_rule(
-			'easy-watermark-preview/([^/.-]+)-([0-9]+)-([^/.]+).(jpg|png)?',
-			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&image_size=$matches[3]&format=$matches[4]',
+			'easy-watermark-preview/([^/.-]+)-([0-9]+)-([^/.]+)?',
+			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&image_size=$matches[3]',
 			'top'
 		);
 
 		add_rewrite_rule(
-			'easy-watermark-preview/([^/.-]+)-([0-9]+).(jpg|png)?',
-			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]&format=$matches[3]',
+			'easy-watermark-preview/([^/.-]+)-([0-9]+)?',
+			'index.php?easy_watermark_preview=$matches[1]&watermark_id=$matches[2]',
 			'top'
 		);
 
