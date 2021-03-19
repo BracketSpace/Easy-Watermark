@@ -73,6 +73,22 @@ class CacheBusting {
 	}
 
 	/**
+	 * Check if this feature is active
+	 *
+	 * @return boolean
+	 */
+	private function is_active() {
+		/**
+		 * The SwitchField object should be always available by the time this method
+		 * is used. Hovewer there has been an issue reported that the
+		 * `wp_get_attachment_image_src` method caused a fatal error because
+		 * $this->switch was null. Just for safety, check if the SwitchField object
+		 * is created, if not return `true` - the default value.
+		 */
+		return $this->switch ? true === $this->switch->get_value() : true;
+	}
+
+	/**
 	 * Adds attachment version to the URL
 	 *
 	 * @param  string  $url Attachment url.
@@ -109,7 +125,7 @@ class CacheBusting {
 			return false;
 		}
 
-		if ( true === $this->switch->get_value() ) {
+		if ( $this->is_active() ) {
 			if ( is_array( $image ) && ! empty( $image ) && is_string( $image[0] ) ) {
 				$image[0] = $this->add_attachment_version( $image[0], $attachment_id );
 			} elseif ( is_string( $image ) ) {
@@ -135,7 +151,7 @@ class CacheBusting {
 	 */
 	public function wp_calculate_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
 
-		if ( true === $this->switch->get_value() ) {
+		if ( $this->is_active() ) {
 			foreach ( $sources as &$source ) {
 				$source['url'] = $this->add_attachment_version( $source['url'], $attachment_id );
 			}

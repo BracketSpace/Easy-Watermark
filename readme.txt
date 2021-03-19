@@ -118,6 +118,9 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
+= [next] =
+* [Fixed] Error in Cache Busting feature.
+
 = 1.0.10 =
 * [Added] Role existence checks during plugin activation.
 * [Added] Filter to prevent applying certain watermark.
