@@ -217,30 +217,42 @@ class Handler {
 			return false;
 		}
 
-		$error = new WP_Error();
-
-		$this->resolver->reset();
-		$this->resolver->set_attachment( $attachment );
-
 		$applied_watermarks = get_post_meta( $attachment_id, '_ew_applied_watermarks', true );
 
 		if ( ! is_array( $applied_watermarks ) ) {
 			$applied_watermarks = [];
 		}
 
-		$watermarks = array_filter( $watermarks, function( $watermark ) use ( $applied_watermarks ) {
-			return ! array_key_exists( $watermark->ID, $applied_watermarks );
-		} );
-
 		if ( empty( $meta ) ) {
 			$meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
 		}
+
+		$error = new WP_Error();
 
 		if ( ! $meta ) {
 			$error->add( 'empty_metadata', __( 'You try to watermark an item that doesn\'t exist. Please refresh the page and try again.', 'easy-watermark' ) );
 
 			return $error;
 		}
+
+		$watermarks = array_filter( $watermarks, function( $watermark ) use ( $attachment_id, $attachment, $meta, $applied_watermarks ) {
+			if ( array_key_exists( $watermark->ID, $applied_watermarks ) ) {
+				return false;
+			}
+
+			/**
+			 * This filter allows to programatically prevent watermarking certain
+			 * attachment if `false` returned from attached function.
+			 *
+			 * @param boolean   $should_apply       Whether the image should be watermarked. Return false to prevent watermarking.
+			 * @param Watermark $watermark          Watermark object.
+			 * @param integer   $attachment_id      Attachment ID.
+			 * @param WP_Post   $attachment         Attachment post.
+			 * @param array     $meta               Attachment metadata.
+			 * @param array     $applied_watermarks Array containing all watermarks applied to this attaachment.
+			 */
+			return apply_filters( 'easy-watermark/should-apply-watermark', true, $watermark, $attachment_id, $attachment, $meta, $applied_watermarks );
+		} );
 
 		$filepath = get_attached_file( $attachment_id );
 		$sizes    = $meta['sizes'];
@@ -250,6 +262,9 @@ class Handler {
 			'file'      => $meta['file'],
 			'mime-type' => $attachment->post_mime_type,
 		];
+
+		$this->resolver->reset();
+		$this->resolver->set_attachment( $attachment );
 
 		$this->do_backup( $attachment_id );
 
