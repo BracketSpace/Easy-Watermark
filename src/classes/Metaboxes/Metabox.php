@@ -113,7 +113,7 @@ abstract class Metabox {
 	 * @param  object $post Current post.
 	 * @return array
 	 */
-	public function prepare_params( $params, $post ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function prepare_params( $params, $post ) {
 		return $params;
 	}
 

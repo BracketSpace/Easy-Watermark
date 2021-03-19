@@ -33,7 +33,7 @@ class AdminEmail extends EmailPlaceholder {
 	 * @param  Resolver $resolver Placeholders resolver instance.
 	 * @return string
 	 */
-	public function resolve( $resolver ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function resolve( $resolver ) {
 		return get_bloginfo( 'admin_email' );
 	}
 }

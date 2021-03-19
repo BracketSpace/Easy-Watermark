@@ -130,7 +130,7 @@ abstract class Placeholder {
 	 * @param  Resolver $resolver Placeholders resolver instance.
 	 * @return boolean
 	 */
-	public function is_valid( $resolver ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function is_valid( $resolver ) {
 		return true;
 	}
 
