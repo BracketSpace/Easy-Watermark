@@ -119,6 +119,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 == Changelog ==
 
 = [next] =
+* [Fixed] Watermark preview url fixed to work with non-standard WordPress installations
 * [Fixed] Error in Cache Busting feature.
 
 = 1.0.10 =
