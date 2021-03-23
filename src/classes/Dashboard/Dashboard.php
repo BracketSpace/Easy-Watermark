@@ -81,7 +81,7 @@ class Dashboard {
 	}
 
 	/**
-	 * Displats options page content
+	 * Displays options page content
 	 *
 	 * @return void
 	 */

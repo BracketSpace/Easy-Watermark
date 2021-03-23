@@ -143,7 +143,6 @@ abstract class Placeholder {
 
 		if ( $this->is_resetable() ) {
 			$this->value = null;
-			$this->data  = [];
 		}
 
 	}
