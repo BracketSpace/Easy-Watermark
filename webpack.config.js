@@ -5,12 +5,12 @@ const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const path = require( 'path' );
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const { defaultRequestToExternal, defaultRequestToHandle } = require( '@wordpress/dependency-extraction-webpack-plugin/lib/util' );
-const globImporter = require( 'node-sass-glob-importer' );
 const {
-	lstatSync,
-	readdirSync,
-} = require( 'fs' );
+	defaultRequestToExternal,
+	defaultRequestToHandle,
+} = require( '@wordpress/dependency-extraction-webpack-plugin/lib/util' );
+const globImporter = require( 'node-sass-glob-importer' );
+const { lstatSync, readdirSync } = require( 'fs' );
 
 const srcPath = 'assets/src/scripts';
 const entry = {};
@@ -45,17 +45,22 @@ module.exports = ( env, argv ) => {
 		},
 		module: {
 			rules: [
-				...( ! argv.watch ? [
-					{
-						enforce: 'pre',
-						test: /\.js$/,
-						exclude: /node_modules/,
-						loader: 'eslint-loader',
-						options: {
-							configFile: ( 'production' === argv.mode ) ? '.eslintrc.prod.json' : '.eslintrc.json',
-						},
-					},
-				] : [] ),
+				...( ! argv.watch
+					? [
+							{
+								enforce: 'pre',
+								test: /\.js$/,
+								exclude: /node_modules/,
+								loader: 'eslint-loader',
+								options: {
+									configFile:
+										'production' === argv.mode
+											? '.eslintrc.prod.json'
+											: '.eslintrc.json',
+								},
+							},
+					  ]
+					: [] ),
 				{
 					test: /\.jsx?$/,
 					exclude: /node_modules/,
@@ -129,9 +134,7 @@ module.exports = ( env, argv ) => {
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
-			new CopyPlugin( [
-				{ from: 'assets/src/fonts', to: 'fonts' },
-			] ),
+			new CopyPlugin( [ { from: 'assets/src/fonts', to: 'fonts' } ] ),
 			new DependencyExtractionWebpackPlugin( {
 				injectPolyfill: true,
 				useDefaults: false,
@@ -146,12 +149,14 @@ module.exports = ( env, argv ) => {
 			} ),
 			new ExtractTextPlugin( 'styles/[name].css' ),
 			new FriendlyErrorsWebpackPlugin(),
-			...( ! argv.watch ? [
-				new StyleLintPlugin( {
-					configFile: '.stylelintrc',
-					context: 'assets/src/styles',
-				} ),
-			] : [] ),
+			...( ! argv.watch
+				? [
+						new StyleLintPlugin( {
+							configFile: '.stylelintrc',
+							context: 'assets/src/styles',
+						} ),
+				  ]
+				: [] ),
 		],
 		externals: {
 			backbone: 'Backbone',
