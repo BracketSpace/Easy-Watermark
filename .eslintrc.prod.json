@@ -20,6 +20,11 @@
 			"preferredTypes": {
 				"object": "Object"
 			}
+		},
+		"import/resolver": {
+			"webpack": {
+				"config": "webpack.eslint.config.js"
+			}
 		}
 	}
 }

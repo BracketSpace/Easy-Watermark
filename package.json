@@ -41,6 +41,7 @@
     "css-loader": "^1.0.1",
     "es-abstract": "^1.17.4",
     "eslint": "^7.21.0",
+		"eslint-import-resolver-webpack": "^0.13.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
