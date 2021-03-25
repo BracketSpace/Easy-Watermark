@@ -46,7 +46,9 @@ class Inserter extends Component {
 			type: 'image',
 			attachment_id: attachment.get( 'id' ),
 			url: attachment.get( 'url' ),
-			mime_type: `${ attachment.get( 'type' ) }/${ attachment.get( 'subtype' ) }`,
+			mime_type: `${ attachment.get( 'type' ) }/${ attachment.get(
+				'subtype'
+			) }`,
 		} );
 	}
 
@@ -78,7 +80,8 @@ class Inserter extends Component {
 					onClick={ () => {
 						onClose();
 						this.openMediaFrame();
-					} } >
+					} }
+				>
 					{ __( 'Image', 'easy-watermark' ) }
 				</MenuItem>
 				<MenuItem
@@ -86,7 +89,8 @@ class Inserter extends Component {
 					onClick={ () => {
 						onClose();
 						this.createTextObject();
-					} } >
+					} }
+				>
 					{ __( 'Text', 'easy-watermark' ) }
 				</MenuItem>
 			</>

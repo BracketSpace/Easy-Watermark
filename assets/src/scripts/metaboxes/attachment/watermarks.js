@@ -48,34 +48,47 @@ export default class {
 
 		$.ajax( ajaxurl, {
 			data,
-		} ).done( ( response ) => {
-			if ( true === response.success ) {
-				this.metaboxContent.replaceWith( response.data.metaboxContent );
+		} )
+			.done( ( response ) => {
+				if ( true === response.success ) {
+					this.metaboxContent.replaceWith(
+						response.data.metaboxContent
+					);
 
-				this.metaboxContent = this.metabox.find( '.watermarks-metabox' );
-				this.errorMessage = this.metabox.find( '.error-message' );
-				this.spinners = this.metabox.find( '.spinner' );
-				this.buttons = this.metabox.find( 'button' );
+					this.metaboxContent = this.metabox.find(
+						'.watermarks-metabox'
+					);
+					this.errorMessage = this.metabox.find( '.error-message' );
+					this.spinners = this.metabox.find( '.spinner' );
+					this.buttons = this.metabox.find( 'button' );
 
-				if ( response.data.attachmentVersion ) {
-					const src = imageVersion( this.image.attr( 'src' ), response.data.attachmentVersion );
+					if ( response.data.attachmentVersion ) {
+						const src = imageVersion(
+							this.image.attr( 'src' ),
+							response.data.attachmentVersion
+						);
 
-					this.image.attr( 'src', src );
+						this.image.attr( 'src', src );
 
-					if ( 'string' === typeof response.data.message ) {
-						addNotice( response.data.message, 'success' );
+						if ( 'string' === typeof response.data.message ) {
+							addNotice( response.data.message, 'success' );
+						}
 					}
-				}
-			} else {
-				const notice = ( 'string' === typeof response.data.message ) ? response.data.message : ew.genericErrorMessage;
+				} else {
+					const notice =
+						'string' === typeof response.data.message
+							? response.data.message
+							: ew.genericErrorMessage;
 
-				addNotice( notice, 'error' );
-			}
-		} ).fail( () => {
-			addNotice( ew.genericErrorMessage, 'error' );
-		} ).complete( () => {
-			this.spinners.css( 'visibility', 'hidden' );
-			this.buttons.prop( 'disabled', false );
-		} );
+					addNotice( notice, 'error' );
+				}
+			} )
+			.fail( () => {
+				addNotice( ew.genericErrorMessage, 'error' );
+			} )
+			.complete( () => {
+				this.spinners.css( 'visibility', 'hidden' );
+				this.buttons.prop( 'disabled', false );
+			} );
 	}
 }

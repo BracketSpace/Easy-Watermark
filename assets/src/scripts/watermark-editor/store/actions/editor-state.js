@@ -10,8 +10,11 @@ import {
 } from '../action-types';
 
 /**
- * @param key
- * @param value
+ * Set editor state action.
+ *
+ * @param {string} key   Editor state key.
+ * @param {mixed}  value Editor state value.
+ * @return {Object}      Action object.
  */
 export function setEditorState( key, value ) {
 	return {
@@ -22,7 +25,10 @@ export function setEditorState( key, value ) {
 }
 
 /**
- * @param position
+ * Set editor position action.
+ *
+ * @param {Object} position Editor postion { x: number, y: number}.
+ * @return {Object}         Action object.
  */
 export function setEditorPosition( position ) {
 	return {
@@ -32,7 +38,13 @@ export function setEditorPosition( position ) {
 }
 
 /**
+ * Set editor position action.
  *
+ * @param {Object} params       Editor postion and scale.
+ * @param {number} params.x     Editor X position.
+ * @param {number} params.y     Editor Y position.
+ * @param {number} params.scale Editor Scale.
+ * @return {Object}             Action object.
  */
 export function setEditorPositionScale( { x, y, scale } ) {
 	return {
@@ -43,7 +55,10 @@ export function setEditorPositionScale( { x, y, scale } ) {
 }
 
 /**
- * @param scale
+ * Set editor scale action.
+ *
+ * @param {number} scale Editor scale.
+ * @return {Object}      Action object.
  */
 export function setEditorScale( scale ) {
 	return {
@@ -53,7 +68,10 @@ export function setEditorScale( scale ) {
 }
 
 /**
- * @param attachment
+ * Set editor preview image action.
+ *
+ * @param {Object} attachment Attachment selected as editor image.
+ * @return {Object}           Action object.
  */
 export function setEditorPreviewImage( attachment ) {
 	return {

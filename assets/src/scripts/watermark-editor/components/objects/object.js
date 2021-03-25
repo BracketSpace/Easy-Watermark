@@ -3,6 +3,12 @@
  */
 import { Component } from '@wordpress/element';
 
+/**
+ * Higher Order Component for a watermark object.
+ *
+ * @param  {React.Component|React.FunctionComponent} WrappedComponent Wrapped component.
+ * @return {React.Component}                                          React component.
+ */
 function objectHOC( WrappedComponent ) {
 	return class extends Component {
 		render() {

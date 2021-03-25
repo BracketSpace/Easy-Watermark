@@ -4,12 +4,17 @@
 import { TOGGLE_FEATURE } from '../action-types';
 
 /**
- * @param state
- * @param action
+ * TOGGLE_FEATURE action reducer
+ *
+ * @param  {mixed}  state  State.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function features( state, action ) {
 	if ( TOGGLE_FEATURE === action.type ) {
-		const isFeatureOn = action.isFeatureOn ? action.isFeatureOn : ! state[ action.feature ];
+		const isFeatureOn = action.isFeatureOn
+			? action.isFeatureOn
+			: ! state[ action.feature ];
 
 		return {
 			...state,

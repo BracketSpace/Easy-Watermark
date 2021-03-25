@@ -21,8 +21,7 @@ export default class extends Tool {
 	}
 
 	selectWatermark() {
-		const
-			watermark = this.select.val(),
+		const watermark = this.select.val(),
 			nonce = this.select.find( 'option:selected' ).data( 'nonce' );
 
 		this.state.set( {

@@ -11,8 +11,11 @@ import {
 } from '../action-types';
 
 /**
- * @param state
- * @param action
+ * Reducer for editor state actions.
+ *
+ * @param  {mixed}  state  State.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function editorState( state, action ) {
 	if ( SET_EDITOR_STATE === action.type ) {
@@ -60,7 +63,10 @@ export function editorState( state, action ) {
 		};
 	}
 
-	if ( LOAD_EDITOR_SETTINGS === action.type && undefined !== action.settings.preview_image ) {
+	if (
+		LOAD_EDITOR_SETTINGS === action.type &&
+		undefined !== action.settings.preview_image
+	) {
 		return {
 			...state,
 			previewImageID: action.settings.preview_image,

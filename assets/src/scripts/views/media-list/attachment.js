@@ -40,7 +40,10 @@ export default class extends View {
 		}
 
 		this.getStatus().text( '' );
-		this.$el.find( 'input[type="checkbox"]' ).click().prop( 'checked', false );
+		this.$el
+			.find( 'input[type="checkbox"]' )
+			.click()
+			.prop( 'checked', false );
 	}
 
 	deselect() {
@@ -48,7 +51,10 @@ export default class extends View {
 			return;
 		}
 
-		this.$el.find( 'input[type="checkbox"]' ).click().prop( 'checked', false );
+		this.$el
+			.find( 'input[type="checkbox"]' )
+			.click()
+			.prop( 'checked', false );
 
 		let text;
 
@@ -56,7 +62,10 @@ export default class extends View {
 			text = ew.i18n.notSupported;
 		} else if ( this.model.get( 'usedAsWatermark' ) ) {
 			text = ew.i18n.usedAsWatermark;
-		} else if ( 'restore' === this.controller.get( 'action' ) && ! this.model.get( 'hasBackup' ) ) {
+		} else if (
+			'restore' === this.controller.get( 'action' ) &&
+			! this.model.get( 'hasBackup' )
+		) {
 			text = ew.i18n.noBackupAvailable;
 		}
 

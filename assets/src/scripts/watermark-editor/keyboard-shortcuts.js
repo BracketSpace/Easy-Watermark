@@ -1,7 +1,11 @@
 /**
  * WordPress dependencies
  */
-import { rawShortcut, displayShortcut, shortcutAriaLabel } from '@wordpress/keycodes';
+import {
+	rawShortcut,
+	displayShortcut,
+	shortcutAriaLabel,
+} from '@wordpress/keycodes';
 
 export default {
 	toggleSidebar: {

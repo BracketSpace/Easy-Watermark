@@ -124,8 +124,7 @@ export default class {
 	}
 
 	selectImage() {
-		const
-			attachment = this.frame.state().get( 'selection' ).first(),
+		const attachment = this.frame.state().get( 'selection' ).first(),
 			mime = attachment.get( 'mime' ),
 			url = attachment.get( 'url' );
 
@@ -146,8 +145,7 @@ export default class {
 
 	applySelection() {
 		if ( this.attachmentId ) {
-			const
-				selection = this.frame.state().get( 'selection' ),
+			const selection = this.frame.state().get( 'selection' ),
 				attachment = wp.media.attachment( this.attachmentId );
 
 			attachment.fetch();
@@ -184,7 +182,9 @@ export default class {
 	}
 
 	update() {
-		if ( 'text' === this.form.find( 'input.watermark-type:checked' ).val() ) {
+		if (
+			'text' === this.form.find( 'input.watermark-type:checked' ).val()
+		) {
 			this.refreshPreview();
 		}
 	}

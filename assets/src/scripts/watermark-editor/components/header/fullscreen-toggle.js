@@ -27,13 +27,18 @@ const FullscreenToggle = ( { toggleFullscreenMode, isFullscreenMode } ) => {
 	);
 };
 
-export default ifViewportMatches( 'medium' )( compose(
-	withDispatch( ( dispatch, ownProps ) => ( {
-		...ownProps,
-		toggleFullscreenMode: () => dispatch( 'easy-watermark' ).toggleFeature( 'fullscreenMode' ),
-	} ) ),
-	withSelect( ( select, ownProps ) => ( {
-		...ownProps,
-		isFullscreenMode: select( 'easy-watermark' ).isFeatureActive( 'fullscreenMode' ),
-	} ) )
-)( FullscreenToggle ) );
+export default ifViewportMatches( 'medium' )(
+	compose(
+		withDispatch( ( dispatch, ownProps ) => ( {
+			...ownProps,
+			toggleFullscreenMode: () =>
+				dispatch( 'easy-watermark' ).toggleFeature( 'fullscreenMode' ),
+		} ) ),
+		withSelect( ( select, ownProps ) => ( {
+			...ownProps,
+			isFullscreenMode: select( 'easy-watermark' ).isFeatureActive(
+				'fullscreenMode'
+			),
+		} ) )
+	)( FullscreenToggle )
+);

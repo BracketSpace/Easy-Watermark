@@ -27,16 +27,16 @@ class WatermarkEdit {
 		this.selector = this.form.find( 'input.watermark-type' );
 
 		this.metaboxes = [
-			new ContentMetabox,
-			new AlignmentMetabox,
-			new ApplyingRules,
-			new Scaling,
-			new TextOptions,
-			new Preview,
-			new Placeholders,
+			new ContentMetabox(),
+			new AlignmentMetabox(),
+			new ApplyingRules(),
+			new Scaling(),
+			new TextOptions(),
+			new Preview(),
+			new Placeholders(),
 		];
 
-		new FormFields;
+		new FormFields();
 
 		const selected = this.selector.filter( '[checked]' );
 
@@ -54,7 +54,8 @@ class WatermarkEdit {
 	}
 
 	selectWatermarkType( type ) {
-		for ( const metabox of this.metaboxes ) { // eslint-disable-line no-unused-vars
+		for ( const metabox of this.metaboxes ) {
+			// eslint-disable-line no-unused-vars
 			metabox.enable( type );
 		}
 	}
@@ -65,24 +66,33 @@ class WatermarkEdit {
 			nonce: ew.autosaveNonce,
 		};
 
-		let data = this.form.find( '[name^=watermark], [name=post_ID]' ).serialize();
+		let data = this.form
+			.find( '[name^=watermark], [name=post_ID]' )
+			.serialize();
 
-		for ( const key in params ) { // eslint-disable-line no-unused-vars
-			data += '&' + encodeURIComponent( key ) + '=' + encodeURIComponent( params[ key ] );
+		for ( const key in params ) {
+			// eslint-disable-line no-unused-vars
+			data +=
+				'&' +
+				encodeURIComponent( key ) +
+				'=' +
+				encodeURIComponent( params[ key ] );
 		}
 
 		$.ajax( {
 			type: 'post',
 			url: ajaxurl,
 			data,
-		} ).done( ( response ) => {
-			if ( true === response.success ) {
-				this.form.trigger( 'ew.update' );
-			}
-		} ).fail( () => {
-			// TODO: handle errors.
-		} );
+		} )
+			.done( ( response ) => {
+				if ( true === response.success ) {
+					this.form.trigger( 'ew.update' );
+				}
+			} )
+			.fail( () => {
+				// TODO: handle errors.
+			} );
 	}
 }
 
-$( document ).ready( () => new WatermarkEdit );
+$( document ).ready( () => new WatermarkEdit() );

@@ -11,13 +11,8 @@ import objectHOC from './object';
 
 class ImageObject extends Component {
 	render() {
-		return (
-			<div className="image-object">
-			</div>
-		);
+		return <div className="image-object"></div>;
 	}
 }
 
-export default compose(
-	objectHOC
-)( ImageObject );
+export default compose( objectHOC )( ImageObject );

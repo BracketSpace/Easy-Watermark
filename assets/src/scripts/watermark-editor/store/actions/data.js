@@ -20,13 +20,13 @@ import {
 	SET_ACTIVE_OBJECT,
 } from '../action-types';
 
-import {
-	IMAGE_OBJECT_DEFAULTS,
-	TEXT_OBJECT_DEFAULTS,
-} from '../defaults';
+import { IMAGE_OBJECT_DEFAULTS, TEXT_OBJECT_DEFAULTS } from '../defaults';
 
 /**
- * @param watermarkID
+ * Load watermark data action.
+ *
+ * @param  {number} watermarkID Watermark ID.
+ * @return {Object}             Action object.
  */
 export function loadWatermarkData( watermarkID ) {
 	return {
@@ -36,8 +36,11 @@ export function loadWatermarkData( watermarkID ) {
 }
 
 /**
- * @param watermark
- * @param initial
+ * Load watermark success action.
+ *
+ * @param  {Object}  watermark       Watermark object.
+ * @param  {boolean} [initial=false] Flag if this is an initial load.
+ * @return {Object}                  Action object.
  */
 export function loadWatermarkSuccess( watermark, initial = false ) {
 	return {
@@ -48,7 +51,10 @@ export function loadWatermarkSuccess( watermark, initial = false ) {
 }
 
 /**
- * @param error
+ * Load watermark error action.
+ *
+ * @param  {Object} error Error object.
+ * @return {Object}       Action object.
  */
 export function loadWatermarkError( error ) {
 	return {
@@ -58,8 +64,11 @@ export function loadWatermarkError( error ) {
 }
 
 /**
- * @param key
- * @param value
+ * Edit attribute action.
+ *
+ * @param  {string} key   Attribute key.
+ * @param  {mixed} value  Attribute value.
+ * @return {Object}       Action object.
  */
 export function editAttribute( key, value ) {
 	return {
@@ -70,11 +79,14 @@ export function editAttribute( key, value ) {
 }
 
 /**
- * @param key
- * @param value
+ * Edit config key action.
+ *
+ * @param  {string} key          Config key.
+ * @param  {mixed} [value=null]  Config value.
+ * @return {Object}              Action object.
  */
 export function editConfig( key, value = null ) {
-	const config = ( 'string' === typeof key ) ? { [ key ]: value } : key;
+	const config = 'string' === typeof key ? { [ key ]: value } : key;
 
 	return {
 		type: EDIT_WATERMARK_CONFIG,
@@ -83,7 +95,10 @@ export function editConfig( key, value = null ) {
 }
 
 /**
- * @param imageSizes
+ * Set image sizes action.
+ *
+ * @param {Array} imageSizes Selected mage sizes.
+ * @return {Object}          Action object.
  */
 export function setImageSizes( imageSizes ) {
 	return {
@@ -93,7 +108,10 @@ export function setImageSizes( imageSizes ) {
 }
 
 /**
- * @param imageTypes
+ * Set image types action.
+ *
+ * @param {Array} imageTypes Selected image types.
+ * @return {Object}          Action object.
  */
 export function setImageTypes( imageTypes ) {
 	return {
@@ -103,7 +121,10 @@ export function setImageTypes( imageTypes ) {
 }
 
 /**
- * @param postTypes
+ * Set post types action.
+ *
+ * @param {Array} postTypes Selected post types.
+ * @return {Object}         Action object.
  */
 export function setPostTypes( postTypes ) {
 	return {
@@ -113,10 +134,14 @@ export function setPostTypes( postTypes ) {
 }
 
 /**
- * @param object
+ * Create watermark object action.
+ *
+ * @param  {Object} object Watermark object data.
+ * @return {Object}        Action object.
  */
 export function createObject( object ) {
-	const defaults = 'image' === object.type ? IMAGE_OBJECT_DEFAULTS : TEXT_OBJECT_DEFAULTS;
+	const defaults =
+		'image' === object.type ? IMAGE_OBJECT_DEFAULTS : TEXT_OBJECT_DEFAULTS;
 
 	return {
 		type: CREATE_OBJECT,
@@ -129,12 +154,15 @@ export function createObject( object ) {
 }
 
 /**
- * @param id
- * @param key
- * @param value
+ * Edit watermark object action.
+ *
+ * @param  {number}       id           Object id.
+ * @param  {string|Oject} key          Object attribute key or { key: value } object for multiple keys.
+ * @param  {mixed}        [value=null] Attribute value if single string key passed as previous param.
+ * @return {Object}                    Action object.
  */
 export function editObject( id, key, value = null ) {
-	const data = ( 'string' === typeof key ) ? { [ key ]: value } : key;
+	const data = 'string' === typeof key ? { [ key ]: value } : key;
 
 	return {
 		type: EDIT_OBJECT,
@@ -144,7 +172,10 @@ export function editObject( id, key, value = null ) {
 }
 
 /**
- * @param id
+ * Set active object action.
+ *
+ * @param {number} id Object id.
+ * @return {Object}   Action object.
  */
 export function setActiveObject( id ) {
 	return {

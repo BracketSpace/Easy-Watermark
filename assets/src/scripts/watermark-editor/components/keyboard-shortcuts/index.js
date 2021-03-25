@@ -19,11 +19,7 @@ import shortcuts from '../../keyboard-shortcuts';
 class EditorShortcuts extends Component {
 	@boundMethod
 	toggleSidebar() {
-		const {
-			isSidebarOpened,
-			openSidebar,
-			closeSidebar,
-		} = this.props;
+		const { isSidebarOpened, openSidebar, closeSidebar } = this.props;
 
 		if ( isSidebarOpened ) {
 			closeSidebar();
@@ -49,7 +45,9 @@ class EditorShortcuts extends Component {
 
 export default compose(
 	withDispatch( ( dispatch ) => {
-		const { toggleFeature, openSidebar, closeSidebar } = dispatch( 'easy-watermark' );
+		const { toggleFeature, openSidebar, closeSidebar } = dispatch(
+			'easy-watermark'
+		);
 
 		return {
 			toggleFullscreenMode: () => toggleFeature( 'fullscreenMode' ),

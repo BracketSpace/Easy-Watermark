@@ -17,8 +17,11 @@ import {
 } from '../action-types';
 
 /**
- * @param state
- * @param action
+ * Reducer for LOAD_WATERMARK_SUCCESS action.
+ *
+ * @param  {mixed}  state  State.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function initialData( state, action ) {
 	if ( LOAD_WATERMARK_SUCCESS === action.type ) {
@@ -35,15 +38,20 @@ export function initialData( state, action ) {
 		}
 
 		const result = Object.keys( action.watermark )
-			.filter( ( key ) => [ 'id', 'status', 'config', 'objects' ].includes( key ) )
-			.reduce( ( accumulator, key ) => {
-				return {
-					...accumulator,
-					[ key ]: action.watermark[ key ],
-				};
-			}, {
-				title: action.watermark.title.raw,
-			} );
+			.filter( ( key ) =>
+				[ 'id', 'status', 'config', 'objects' ].includes( key )
+			)
+			.reduce(
+				( accumulator, key ) => {
+					return {
+						...accumulator,
+						[ key ]: action.watermark[ key ],
+					};
+				},
+				{
+					title: action.watermark.title.raw,
+				}
+			);
 
 		return result;
 	}
@@ -52,26 +60,29 @@ export function initialData( state, action ) {
 }
 
 /**
- * @param state
- * @param action
+ * Reducer for LOAD_WATERMARK_SUCCESS action.
+ *
+ * @param  {mixed}  state  State.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function editedData( state, action ) {
 	switch ( action.type ) {
-		case LOAD_WATERMARK_SUCCESS :
+		case LOAD_WATERMARK_SUCCESS:
 			return {};
-		case EDIT_WATERMARK_ATTRIBUTE :
+		case EDIT_WATERMARK_ATTRIBUTE:
 			return {
 				...state,
 				[ action.key ]: action.value,
 			};
-		case EDIT_WATERMARK_CONFIG :
+		case EDIT_WATERMARK_CONFIG:
 			return {
 				...state,
 				config: {
 					...action.config,
 				},
 			};
-		case SET_IMAGE_SIZES :
+		case SET_IMAGE_SIZES:
 			const sizes = [];
 
 			for ( const key in action.imageSizes ) {
@@ -87,7 +98,7 @@ export function editedData( state, action ) {
 					image_sizes: sizes,
 				},
 			};
-		case SET_IMAGE_TYPES :
+		case SET_IMAGE_TYPES:
 			const selectedImageTypes = [];
 
 			for ( const key in action.imageTypes ) {
@@ -103,7 +114,7 @@ export function editedData( state, action ) {
 					image_types: selectedImageTypes,
 				},
 			};
-		case SET_POST_TYPES :
+		case SET_POST_TYPES:
 			const selectedPostTypes = [];
 
 			for ( const key in action.postTypes ) {
@@ -125,29 +136,41 @@ export function editedData( state, action ) {
 }
 
 /**
- * @param state
+ * Reducer for imageSize store prop
+ *
+ * @param  {mixed} state State.
+ * @return {mixed}       Copmuted state.
  */
 export function imageSizes( state ) {
 	return state;
 }
 
 /**
- * @param state
+ * Reducer for mimeTypes.
+ *
+ * @param  {mixed} state State.
+ * @return {mixed}       Copmuted state.
  */
 export function mimeTypes( state ) {
 	return state;
 }
 
 /**
- * @param state
+ * Reducer for postTypes
+ *
+ * @param  {mixed} state State.
+ * @return {mixed}       Copmuted state.
  */
 export function postTypes( state ) {
 	return state;
 }
 
 /**
- * @param state
- * @param action
+ * Reducer for active object
+ *
+ * @param  {mixed} state   State.
+ * @param  {Object} action Action data.
+ * @return {mixed}         Copmuted state.
  */
 export function activeObject( state, action ) {
 	if ( SET_ACTIVE_OBJECT === action.type ) {

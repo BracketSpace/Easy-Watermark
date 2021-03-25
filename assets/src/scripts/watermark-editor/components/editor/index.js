@@ -25,17 +25,14 @@ class Editor extends Component {
 	}
 
 	render() {
-		return (
-			<Layout />
-		);
+		return <Layout />;
 	}
 }
 
 export default withDispatch( ( dispatch ) => {
-	const {
-		loadEditorSettings,
-		loadWatermarkData,
-	} = dispatch( 'easy-watermark' );
+	const { loadEditorSettings, loadWatermarkData } = dispatch(
+		'easy-watermark'
+	);
 
 	return {
 		loadEditorSettings,

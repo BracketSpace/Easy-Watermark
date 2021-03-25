@@ -57,7 +57,7 @@ class EditorContent extends Component {
 		initialized: false,
 		width: 0,
 		height: 0,
-	}
+	};
 
 	/**
 	 * @function constructor
@@ -77,7 +77,7 @@ class EditorContent extends Component {
 	 *
 	 * @function loadPreviewImage
 	 * @param    {integer} id Attachment ID
-	 * @returns  {void}
+	 * @return  {void}
 	 */
 	loadPreviewImage( id ) {
 		const attachment = wp.media.attachment( id );
@@ -89,8 +89,9 @@ class EditorContent extends Component {
 		if ( ! attachment.get( 'url' ) ) {
 			this.setState( { loading: true } );
 
-			attachment.fetch()
-				.then( () => this.attachment = attachment )
+			attachment
+				.fetch()
+				.then( () => ( this.attachment = attachment ) )
 				.fail( this.handleInvalidAttachment )
 				.always( () => this.setState( { loading: false } ) );
 		}
@@ -102,14 +103,17 @@ class EditorContent extends Component {
 	 * been removed from WordPress Media Library in the meantime.
 	 *
 	 * @function handleInvalidAttachment
-	 * @returns {void}
+	 * @return {void}
 	 */
 	@boundMethod
 	handleInvalidAttachment() {
 		const id = uniqueId( 'ew_notice_' );
 
 		this.props.createErrorNotice(
-			__( 'Selected background image is no longer available. Please choose another image.', 'easy-watermark' ),
+			__(
+				'Selected background image is no longer available. Please choose another image.',
+				'easy-watermark'
+			),
 			{
 				id,
 				isDismissible: false,
@@ -126,7 +130,7 @@ class EditorContent extends Component {
 	 * @param  {number}         x     X coordinate
 	 * @param  {number}         y     Y coordinate
 	 * @param  {number}         scale Scale
-	 * @returns {void}
+	 * @return {void}
 	 */
 	@boundMethod
 	handlePanAndZoom( x, y, scale ) {
@@ -139,7 +143,7 @@ class EditorContent extends Component {
 	 * @function handlePanMove
 	 * @param  {number}         x     X coordinate
 	 * @param  {number}         y     Y coordinate
-	 * @returns {void}
+	 * @return {void}
 	 */
 	@boundMethod
 	handlePanMove( x, y ) {
@@ -151,7 +155,7 @@ class EditorContent extends Component {
 	 *
 	 * @function handleBackgroundSelect
 	 * @param  {number}               id Attachment ID
-	 * @returns {void}
+	 * @return {void}
 	 */
 	@boundMethod
 	handleBackgroundSelect( { id: attachmentId } ) {
@@ -160,7 +164,10 @@ class EditorContent extends Component {
 
 		if ( ! attachment.get( 'hasAllSizes' ) ) {
 			this.props.createErrorNotice(
-				__( 'Selected image is not available in every size. Please choose larger image.', 'easy-watermark' ),
+				__(
+					'Selected image is not available in every size. Please choose larger image.',
+					'easy-watermark'
+				),
 				{
 					id: noticeId,
 					isDismissible: false,
@@ -179,7 +186,7 @@ class EditorContent extends Component {
 	 * Removes notices
 	 *
 	 * @function removeNotices
-	 * @returns {void}
+	 * @return {void}
 	 */
 	@boundMethod
 	removeNotices() {
@@ -198,18 +205,12 @@ class EditorContent extends Component {
 	 * Renders component
 	 *
 	 * @function render
-	 * @returns {React.ReactNode} Rendered node
+	 * @return {React.ReactNode} Rendered node
 	 */
 	render() {
-		const {
-			initialized,
-			loading,
-		} = this.state;
+		const { initialized, loading } = this.state;
 
-		const {
-			position,
-			scale,
-		} = this.props;
+		const { position, scale } = this.props;
 
 		const content = initialized ? (
 			<>
@@ -228,7 +229,7 @@ class EditorContent extends Component {
 						passOnProps={ true }
 					/>
 				) }
-				{ ( ! this.attachment && ! loading ) && (
+				{ ! this.attachment && ! loading && (
 					<MediaUpload
 						onSelect={ this.handleBackgroundSelect }
 						allowedTypes={ [ 'image' ] }
@@ -239,7 +240,8 @@ class EditorContent extends Component {
 									onClick={ () => {
 										this.removeNotices();
 										open();
-									} } >
+									} }
+								>
 									{ 'Select Preview Image' }
 								</Button>
 							</div>
@@ -250,10 +252,7 @@ class EditorContent extends Component {
 		) : null;
 
 		return (
-			<div
-				className="watermark-editor-wrapper"
-				ref={ this.ref }
-			>
+			<div className="watermark-editor-wrapper" ref={ this.ref }>
 				{ content }
 			</div>
 		);
@@ -268,10 +267,7 @@ export default compose(
 			setEditorPreviewImage,
 		} = dispatch( 'easy-watermark' );
 
-		const {
-			createErrorNotice,
-			removeNotice,
-		} = dispatch( 'core/notices' );
+		const { createErrorNotice, removeNotice } = dispatch( 'core/notices' );
 
 		return {
 			setEditorPosition,
@@ -293,5 +289,5 @@ export default compose(
 			scale: getEditorScale(),
 			previewImageID: getEditorPreviewImageID(),
 		};
-	} ),
+	} )
 )( EditorContent );

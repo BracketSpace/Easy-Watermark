@@ -1,6 +1,9 @@
 /**
- * @param state
- * @param key
+ * Get editor state
+ *
+ * @param  {Object} state      State object.
+ * @param  {string|null} [key=null] State param key (optional).
+ * @return {mixed}            State object or param.
  */
 export function getEditorState( state, key = null ) {
 	if ( null !== key && undefined !== state.editorState[ key ] ) {
@@ -11,42 +14,60 @@ export function getEditorState( state, key = null ) {
 }
 
 /**
- * @param state
+ * Get position X
+ *
+ * @param  {Object} state State object.
+ * @return {number}       Position X.
  */
 export function getEditorPositionX( state ) {
 	return getEditorState( state, 'positionX' );
 }
 
 /**
- * @param state
+ * Get position Y
+ *
+ * @param  {Object} state State object.
+ * @return {number}       Position Y.
  */
 export function getEditorPositionY( state ) {
 	return getEditorState( state, 'positionY' );
 }
 
 /**
- * @param state
+ * Get editor scale
+ *
+ * @param  {Object} state State object.
+ * @return {number}       Scale.
  */
 export function getEditorScale( state ) {
 	return getEditorState( state, 'scale' );
 }
 
 /**
- * @param state
+ * Get preview image ID
+ *
+ * @param  {Object} state State object.
+ * @return {number}       Preview image ID.
  */
 export function getEditorPreviewImageID( state ) {
 	return getEditorState( state, 'previewImageID' );
 }
 
 /**
- * @param state
+ * Get preview image size.
+ *
+ * @param  {Object} state State object.
+ * @return {number}       Preview image size..
  */
 export function getEditorPreviewImageSize( state ) {
 	return getEditorState( state, 'previewImageSize' );
 }
 
 /**
- * @param state
+ * Get editor position.
+ *
+ * @param  {Object} state State object.
+ * @return {Object}       Editor position (x, y).
  */
 export function getEditorPosition( state ) {
 	return {

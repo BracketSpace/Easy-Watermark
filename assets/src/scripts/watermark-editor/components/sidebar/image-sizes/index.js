@@ -11,10 +11,7 @@ import { CheckboxControl } from '@wordpress/components';
  */
 import EnhancedPanelBody from '../enhanced-panel-body';
 
-const ImageSizes = ( {
-	setImageSizes,
-	imageSizes,
-} ) => {
+const ImageSizes = ( { setImageSizes, imageSizes } ) => {
 	const onChange = ( size, checked ) => {
 		if ( checked ) {
 			imageSizes[ size ].selected = true;
@@ -43,8 +40,14 @@ const ImageSizes = ( {
 	return (
 		<EnhancedPanelBody
 			title={ __( 'Image Sizes', 'easy-watermark' ) }
-			id="imageSizes" >
-			<p>{ __( 'Select image sizes which should be watermarked:', 'easy-watermark' ) }</p>
+			id="imageSizes"
+		>
+			<p>
+				{ __(
+					'Select image sizes which should be watermarked:',
+					'easy-watermark'
+				) }
+			</p>
 			{ items }
 		</EnhancedPanelBody>
 	);
@@ -56,5 +59,5 @@ export default compose(
 	} ) ),
 	withSelect( ( select ) => ( {
 		imageSizes: select( 'easy-watermark' ).getImageSizes(),
-	} ) ),
+	} ) )
 )( ImageSizes );

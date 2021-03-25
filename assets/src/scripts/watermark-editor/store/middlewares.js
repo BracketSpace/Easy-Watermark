@@ -13,13 +13,13 @@ import effects from './effects';
  *
  * @param {Object} store Store Object.
  *
- * @returns {Object} Update Store Object.
+ * @return {Object} Update Store Object.
  */
-export default function( store ) {
+export default function ( store ) {
 	let enhancedDispatch = () => {
 		throw new Error(
 			'Dispatching while constructing your middleware is not allowed. ' +
-			'Other middleware would not be applied to this dispatch.'
+				'Other middleware would not be applied to this dispatch.'
 		);
 	};
 

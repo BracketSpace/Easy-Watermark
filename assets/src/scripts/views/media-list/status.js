@@ -16,12 +16,11 @@ export default class extends View {
 		let text = this.status.get( 'text' );
 
 		if ( this.status.get( 'processing' ) ) {
-			const
-				processed = this.status.get( 'processed' ),
+			const processed = this.status.get( 'processed' ),
 				total = this.status.get( 'total' ),
 				counter = `${ processed }/${ total }`;
 
-			let percent = Math.floor( processed / total * 100 );
+			let percent = Math.floor( ( processed / total ) * 100 );
 
 			if ( 'string' === typeof text ) {
 				text = text.replace( '{counter}', counter );

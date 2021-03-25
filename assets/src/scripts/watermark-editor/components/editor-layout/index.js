@@ -33,12 +33,12 @@ const Layout = ( { isSidebarOpened } ) => {
 				className={ className }
 				header={ <Header /> }
 				sidebar={ <Sidebar /> }
-				content={ (
+				content={
 					<>
 						<EditorNotices />
 						<EditorContent />
 					</>
-				) }
+				}
 			/>
 		</FocusReturnProvider>
 	);

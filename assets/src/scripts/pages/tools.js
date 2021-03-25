@@ -25,7 +25,7 @@ export default class {
 		this.bulkWatermark = this.bulkWatermark.bind( this );
 		this.restore = this.restore.bind( this );
 
-		this.state = new Model;
+		this.state = new Model();
 		this.state.set( {
 			mode: 'none',
 		} );
@@ -66,23 +66,27 @@ export default class {
 			mode: 'loading',
 		} );
 
-		$.ajax( ajaxurl, { data: {
-			action: 'easy-watermark/tools/get-attachments',
-			nonce: ew.nonce,
-			mode: this.state.get( 'action' ),
-		} } ).done( ( response ) => {
-			if ( response.success ) {
-				this.state.set( {
-					items: response.data,
-				} );
+		$.ajax( ajaxurl, {
+			data: {
+				action: 'easy-watermark/tools/get-attachments',
+				nonce: ew.nonce,
+				mode: this.state.get( 'action' ),
+			},
+		} )
+			.done( ( response ) => {
+				if ( response.success ) {
+					this.state.set( {
+						items: response.data,
+					} );
 
-				this.start();
-			} else {
+					this.start();
+				} else {
+					addNotice( ew.i18n.genericErrorMessage, 'error' );
+				}
+			} )
+			.fail( () => {
 				addNotice( ew.i18n.genericErrorMessage, 'error' );
-			}
-		} ).fail( () => {
-			addNotice( ew.i18n.genericErrorMessage, 'error' );
-		} );
+			} );
 	}
 
 	start() {
@@ -106,18 +110,16 @@ export default class {
 	}
 
 	doActionRecursive( items ) {
-		const
-			attachment = items.shift(),
+		const attachment = items.shift(),
 			nonce = this.state.get( 'nonce' ),
 			watermark = this.state.get( 'watermark' );
 
-		let
-			action = 'easy-watermark/',
+		let action = 'easy-watermark/',
 			processed = this.state.get( 'processed' ),
 			backupCount = this.state.get( 'backupCount' );
 
 		if ( 'watermark' === this.state.get( 'action' ) ) {
-			action += ( ( 'all' === watermark ) ? 'apply_all' : 'apply_single' );
+			action += 'all' === watermark ? 'apply_all' : 'apply_single';
 		} else {
 			action += 'restore_backup';
 		}
@@ -126,40 +128,43 @@ export default class {
 			attachment,
 		} );
 
-		$.ajax( ajaxurl, { data: {
-			action,
-			nonce,
-			watermark,
-			attachment_id: attachment.id,
-		} } ).done( ( response ) => {
-			if ( true === response.success ) {
-				processed++;
+		$.ajax( ajaxurl, {
+			data: {
+				action,
+				nonce,
+				watermark,
+				attachment_id: attachment.id,
+			},
+		} )
+			.done( ( response ) => {
+				if ( true === response.success ) {
+					processed++;
 
-				if ( response.data.hasBackup ) {
-					backupCount++;
-				}
+					if ( response.data.hasBackup ) {
+						backupCount++;
+					}
 
-				this.state.set( {
-					processed,
-					backupCount,
-				} );
+					this.state.set( {
+						processed,
+						backupCount,
+					} );
 
-				if ( items.length ) {
-					this.doActionRecursive( items );
+					if ( items.length ) {
+						this.doActionRecursive( items );
+					} else {
+						this.finish();
+					}
 				} else {
-					this.finish();
+					this.fail( response.data );
 				}
-			} else {
-				this.fail( response.data );
-			}
-		} ).fail( () => {
-			this.fail( ew.i18n.genericErrorMessage );
-		} );
+			} )
+			.fail( () => {
+				this.fail( ew.i18n.genericErrorMessage );
+			} );
 	}
 
 	fail( errorMessage ) {
-		const
-			attachment = this.state.get( 'attachment' ),
+		const attachment = this.state.get( 'attachment' ),
 			imageTitle = attachment.title,
 			error = ew.i18n.bulkActionErrorMessage
 				.replace( '{imageTitle}', imageTitle )
@@ -173,15 +178,17 @@ export default class {
 	}
 
 	finish() {
-		const
-			error = this.state.get( 'error' ),
+		const error = this.state.get( 'error' ),
 			processed = this.state.get( 'processed' ),
 			successMessage = this.state.get( 'successMessage' );
 
 		if ( error ) {
 			addNotice( error, 'error' );
 		} else {
-			addNotice( successMessage.replace( '{procesed}', processed ), 'success' );
+			addNotice(
+				successMessage.replace( '{procesed}', processed ),
+				'success'
+			);
 		}
 
 		this.state.set( {

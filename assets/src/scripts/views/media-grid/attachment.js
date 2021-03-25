@@ -17,8 +17,16 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 			this.listenTo( this.model, 'ewBulkAction:start', this.showLoader );
 			this.listenTo( this.model, 'ewBulkAction:done', this.render );
 
-			this.controller.on( 'selection:toggle watermark:activate processing:activate', this.disable, this );
-			this.controller.on( 'watermark:deactivate processing:deactivate', this.enable, this );
+			this.controller.on(
+				'selection:toggle watermark:activate processing:activate',
+				this.disable,
+				this
+			);
+			this.controller.on(
+				'watermark:deactivate processing:deactivate',
+				this.enable,
+				this
+			);
 		},
 
 		render() {
@@ -28,14 +36,21 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 		},
 
 		toggleSelection( { method } ) {
-			if ( ! this.controller.isModeActive( 'watermark' ) ||
-				( ( isImage( this.model ) && ! this.model.get( 'usedAsWatermark' ) ) || 'between' === method ) ) {
+			if (
+				! this.controller.isModeActive( 'watermark' ) ||
+				( isImage( this.model ) &&
+					! this.model.get( 'usedAsWatermark' ) ) ||
+				'between' === method
+			) {
 				// In watermark mode only select images.
 				Library.prototype.toggleSelection.apply( this, arguments );
 			}
 
 			if ( this.controller.isModeActive( 'watermark' ) ) {
-				if ( ! isImage( this.model ) || this.model.get( 'usedAsWatermark' ) ) {
+				if (
+					! isImage( this.model ) ||
+					this.model.get( 'usedAsWatermark' )
+				) {
 					this.$el.blur();
 				}
 
@@ -50,7 +65,10 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 		},
 
 		disable() {
-			if ( ! this.controller.isModeActive( 'watermark' ) && ! this.controller.isModeActive( 'processing' ) ) {
+			if (
+				! this.controller.isModeActive( 'watermark' ) &&
+				! this.controller.isModeActive( 'processing' )
+			) {
 				return;
 			}
 
@@ -58,7 +76,10 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 				return;
 			}
 
-			if ( this.controller.isModeActive( 'processing' ) && ! this.wasSelected() ) {
+			if (
+				this.controller.isModeActive( 'processing' ) &&
+				! this.wasSelected()
+			) {
 				return;
 			}
 
@@ -68,7 +89,10 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 				text = ew.i18n.notSupported;
 			} else if ( this.model.get( 'usedAsWatermark' ) ) {
 				text = ew.i18n.usedAsWatermark;
-			} else if ( this.controller.isModeActive( 'restoring' ) && ! this.model.get( 'hasBackup' ) ) {
+			} else if (
+				this.controller.isModeActive( 'restoring' ) &&
+				! this.model.get( 'hasBackup' )
+			) {
 				text = ew.i18n.noBackupAvailable;
 			} else {
 				return;
@@ -81,14 +105,19 @@ if ( wp.media && 'function' === typeof wp.media.view.Attachment.Library ) {
 		},
 
 		enable() {
-			if ( ! this.controller.isModeActive( 'watermark' ) && ! this.controller.isModeActive( 'processing' ) ) {
+			if (
+				! this.controller.isModeActive( 'watermark' ) &&
+				! this.controller.isModeActive( 'processing' )
+			) {
 				this.$el.removeClass( 'disabled' ).find( '.badge' ).remove();
 				this.hasBadge = false;
 			}
 		},
 
 		wasSelected() {
-			const selection = this.controller.state().get( 'originalSelection' );
+			const selection = this.controller
+				.state()
+				.get( 'originalSelection' );
 
 			if ( selection ) {
 				return !! selection.get( this.model.cid );

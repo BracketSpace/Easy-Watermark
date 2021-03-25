@@ -21,8 +21,7 @@ export default class {
 	}
 
 	toggleGroup( e ) {
-		const
-			checkbox = $( e.target ),
+		const checkbox = $( e.target ),
 			group = checkbox.data( 'toggle' ),
 			rows = this.form.find( `.group-${ group }` ),
 			fields = rows.find( 'input, textarea, select' );

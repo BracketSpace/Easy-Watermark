@@ -6,21 +6,28 @@ import { __ } from '@wordpress/i18n';
 import { Button, IconButton } from '@wordpress/components';
 import { withDispatch, withSelect } from '@wordpress/data';
 
-const SidebarHeader = ( { name, closeSidebar, toggleSidebarTab, activeTab } ) => {
+const SidebarHeader = ( {
+	name,
+	closeSidebar,
+	toggleSidebarTab,
+	activeTab,
+} ) => {
 	const closeLabel = __( 'Close Settings' );
 	const objectLabel = __( 'Object' );
 
-	const [ generalAriaLabel, generalActiveClass ] = activeTab === 'general' ?
-		// translators: ARIA label for the General sidebar tab, selected.
-		[ __( 'General (selected)' ), 'is-active' ] :
-		// translators: ARIA label for the General sidebar tab, not selected.
-		[ __( 'General' ), '' ];
+	const [ generalAriaLabel, generalActiveClass ] =
+		activeTab === 'general'
+			? // translators: ARIA label for the General sidebar tab, selected.
+			  [ __( 'General (selected)' ), 'is-active' ]
+			: // translators: ARIA label for the General sidebar tab, not selected.
+			  [ __( 'General' ), '' ];
 
-	const [ objectAriaLabel, objectActiveClass ] = activeTab === 'object' ?
-		// translators: ARIA label for the Object sidebar tab, selected.
-		[ __( 'Object (selected)' ), 'is-active' ] :
-		// translators: ARIA label for the Object sidebar tab, not selected.
-		[ __( 'Object' ), '' ];
+	const [ objectAriaLabel, objectActiveClass ] =
+		activeTab === 'object'
+			? // translators: ARIA label for the Object sidebar tab, selected.
+			  [ __( 'Object (selected)' ), 'is-active' ]
+			: // translators: ARIA label for the Object sidebar tab, not selected.
+			  [ __( 'Object' ), '' ];
 
 	return (
 		<>
@@ -64,7 +71,9 @@ const SidebarHeader = ( { name, closeSidebar, toggleSidebarTab, activeTab } ) =>
 
 export default compose(
 	withSelect( ( select ) => {
-		const { getAttribute, getActiveSidebarTab, isSidebarOpened } = select( 'easy-watermark' );
+		const { getAttribute, getActiveSidebarTab, isSidebarOpened } = select(
+			'easy-watermark'
+		);
 
 		return {
 			name: getAttribute( 'title' ),
@@ -79,5 +88,5 @@ export default compose(
 			closeSidebar,
 			toggleSidebarTab,
 		};
-	} ),
+	} )
 )( SidebarHeader );

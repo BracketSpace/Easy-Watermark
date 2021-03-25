@@ -10,13 +10,12 @@ import { Button } from '@wordpress/components';
 class SaveButton extends Component {
 	render() {
 		const { save, isSaving, isSaveable } = this.props;
-		const label = isSaving ? __( 'Saving...' ) : __( 'Save' );
+		const label = isSaving ? __( 'Saving…' ) : __( 'Save' );
 
 		const isDisabled = isSaving || ! isSaveable;
 
 		const onClick = () => {
 			if ( isDisabled ) {
-
 			}
 
 			save();
@@ -47,5 +46,5 @@ export default compose(
 			isSaveable: isSaveable(),
 			isSaving: isSaving(),
 		};
-	} ),
+	} )
 )( SaveButton );

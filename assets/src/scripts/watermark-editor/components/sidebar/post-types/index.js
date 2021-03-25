@@ -11,11 +11,7 @@ import { CheckboxControl } from '@wordpress/components';
  */
 import EnhancedPanelBody from '../enhanced-panel-body';
 
-const PostTypes = ( {
-	isAutoWatermarkEnabled,
-	setPostTypes,
-	postTypes,
-} ) => {
+const PostTypes = ( { isAutoWatermarkEnabled, setPostTypes, postTypes } ) => {
 	if ( ! isAutoWatermarkEnabled ) {
 		return null;
 	}
@@ -48,8 +44,14 @@ const PostTypes = ( {
 	return (
 		<EnhancedPanelBody
 			title={ __( 'Post Types', 'easy-watermark' ) }
-			id="postTypes" >
-			<p>{ __( 'Select which post type attachments should be watermarked on upload:', 'easy-watermark' ) }</p>
+			id="postTypes"
+		>
+			<p>
+				{ __(
+					'Select which post type attachments should be watermarked on upload:',
+					'easy-watermark'
+				) }
+			</p>
 			{ items }
 		</EnhancedPanelBody>
 	);
@@ -60,14 +62,11 @@ export default compose(
 		setPostTypes: dispatch( 'easy-watermark' ).setPostTypes,
 	} ) ),
 	withSelect( ( select ) => {
-		const {
-			getConfig,
-			getPostTypes,
-		} = select( 'easy-watermark' );
+		const { getConfig, getPostTypes } = select( 'easy-watermark' );
 
 		return {
 			isAutoWatermarkEnabled: getConfig( 'auto_add' ),
 			postTypes: getPostTypes(),
 		};
-	} ),
+	} )
 )( PostTypes );

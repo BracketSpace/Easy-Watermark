@@ -28,10 +28,12 @@ export default class {
 	confirm( e ) {
 		e.preventDefault();
 
-		const
-			link = $( e.currentTarget ),
+		const link = $( e.currentTarget ),
 			watermarkName = link.data( 'watermark-name' ),
-			message = ew.i18n.deleteConfirmation.replace( '{watermarkName}', watermarkName );
+			message = ew.i18n.deleteConfirmation.replace(
+				'{watermarkName}',
+				watermarkName
+			);
 
 		confirm( message, ( result ) => {
 			if ( true === result ) {

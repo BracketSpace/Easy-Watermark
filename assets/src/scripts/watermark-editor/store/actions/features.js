@@ -1,12 +1,13 @@
 /**
  * Internal dependencies
  */
-import {
-	TOGGLE_FEATURE,
-} from '../action-types';
+import { TOGGLE_FEATURE } from '../action-types';
 
 /**
- * @param feature
+ * Toggle feature action.
+ *
+ * @param  {string} feature Feature key to toggle.
+ * @return {Object}         Action object.
  */
 export function toggleFeature( feature ) {
 	return {

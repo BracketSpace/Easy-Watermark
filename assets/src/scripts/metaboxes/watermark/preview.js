@@ -38,7 +38,9 @@ export default class {
 		this.form.on( 'ew.update', this.update );
 		this.image.on( 'click', this.openPopup );
 
-		this.popup.find( '.media-modal-close, .media-modal-backdrop' ).on( 'click', this.closePopup );
+		this.popup
+			.find( '.media-modal-close, .media-modal-backdrop' )
+			.on( 'click', this.closePopup );
 
 		this.imageSelector.hide();
 		this.contentWrap.hide();
@@ -92,9 +94,11 @@ export default class {
 				watermark_id: watermarkId,
 				nonce: ew.previewImageNonce,
 			},
-		} ).done( this.imageSelected ).fail( () => {
-			// TODO: handle errors.
-		} );
+		} )
+			.done( this.imageSelected )
+			.fail( () => {
+				// TODO: handle errors.
+			} );
 	}
 
 	imageSelected( response ) {
@@ -105,7 +109,9 @@ export default class {
 			if ( response.data.popup ) {
 				const popup = $( response.data.popup );
 
-				this.popup.find( '.media-frame-content' ).replaceWith( popup.find( '.media-frame-content' ) );
+				this.popup
+					.find( '.media-frame-content' )
+					.replaceWith( popup.find( '.media-frame-content' ) );
 			}
 
 			this.refreshPreview();
@@ -122,18 +128,19 @@ export default class {
 			const src = imageVersion( this.previewWrap.data( 'src' ) );
 
 			this.popup.find( 'img' ).each( ( i, e ) => {
-				const
-					img = $( e ),
+				const img = $( e ),
 					psrc = imageVersion( img.attr( 'src' ) );
 
 				img.attr( 'src', psrc );
 			} );
 
-			this.image.one( 'load', () => {
-				this.spinner.hide();
-				this.contentWrap.fadeIn( 200 );
-				this.imageSelector.fadeIn( 200 );
-			} ).attr( 'src', src );
+			this.image
+				.one( 'load', () => {
+					this.spinner.hide();
+					this.contentWrap.fadeIn( 200 );
+					this.imageSelector.fadeIn( 200 );
+				} )
+				.attr( 'src', src );
 		} else {
 			this.imageSelector.show();
 		}

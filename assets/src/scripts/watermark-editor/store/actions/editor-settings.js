@@ -1,13 +1,13 @@
 /**
  * Internal dependencies
  */
-import {
-	LOAD_EDITOR_SETTINGS,
-	SAVE_EDITOR_SETTINGS,
-} from '../action-types';
+import { LOAD_EDITOR_SETTINGS, SAVE_EDITOR_SETTINGS } from '../action-types';
 
 /**
- * @param settings
+ * Load editor settings action.
+ *
+ * @param  {Object} settings Editor settings.
+ * @return {Object}          Action object.
  */
 export function loadEditorSettings( settings ) {
 	return {
@@ -17,7 +17,10 @@ export function loadEditorSettings( settings ) {
 }
 
 /**
- * @param settings
+ * Save editor settings action.
+ *
+ * @param  {Object} settings Editor settings.
+ * @return {Object}          Action object.
  */
 export function saveEditorSettings( settings ) {
 	return {

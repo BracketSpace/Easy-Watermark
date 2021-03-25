@@ -13,44 +13,52 @@ import {
 	filterSelection,
 } from '../utils/functions.js';
 
-if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typeof wp.media.view.MediaFrame.Manage ) {
-	wp.media.view.MediaFrame.Manage = class extends wp.media.view.MediaFrame.Manage {
+if (
+	wp.media &&
+	wp.media.view &&
+	wp.media.view.MediaFrame &&
+	'function' === typeof wp.media.view.MediaFrame.Manage
+) {
+	wp.media.view.MediaFrame.Manage = class extends (
+		wp.media.view.MediaFrame.Manage
+	) {
 		browseContent( contentRegion ) {
 			this.state().set( {
-				ewCollection: new Collection,
-				ewStatus: new Model,
+				ewCollection: new Collection(),
+				ewStatus: new Model(),
 			} );
 
 			super.browseContent( contentRegion );
 		}
 
 		ewBulkAction() {
-			const
-				state = this.state(),
+			const state = this.state(),
 				selection = state.get( 'selection' ),
 				action = state.get( 'ewAction' ),
 				originalSelection = selection.clone();
 
 			state.set( 'originalSelection', originalSelection );
 
-			filterSelection( selection, ( 'restore' === action ) );
+			filterSelection( selection, 'restore' === action );
 
 			if ( ! selection.length ) {
 				return;
 			}
 
-			const
-				collection = state.get( 'ewCollection' ),
+			const collection = state.get( 'ewCollection' ),
 				status = state.get( 'ewStatus' );
 
 			collection.reset();
 
-			for ( const model of selection.models ) { // eslint-disable-line no-unused-vars
+			for ( const model of selection.models ) {
+				// eslint-disable-line no-unused-vars
 				collection.add( model );
 				model.trigger( 'ewBulkAction:start' );
 			}
 
-			this.deactivateMode( 'watermark' ).trigger( 'selection:action:done' );
+			this.deactivateMode( 'watermark' ).trigger(
+				'selection:action:done'
+			);
 			this.activateMode( 'processing' );
 
 			status.set( {
@@ -65,18 +73,19 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 		}
 
 		ewBulkActionRecursive() {
-			const
-				state = this.state(),
+			const state = this.state(),
 				bulkAction = state.get( 'ewAction' ),
 				watermark = state.get( 'watermark' );
 
-			let
-				action = 'easy-watermark/',
+			let action = 'easy-watermark/',
 				nonce;
 
 			if ( 'watermark' === bulkAction ) {
-				action += ( ( 'all' === watermark ) ? 'apply_all' : 'apply_single' );
-				nonce = ( 'all' === watermark ) ? ew.applyAllNonce : ew.applySingleNonces[ watermark ];
+				action += 'all' === watermark ? 'apply_all' : 'apply_single';
+				nonce =
+					'all' === watermark
+						? ew.applyAllNonce
+						: ew.applySingleNonces[ watermark ];
 			} else if ( 'restore' === bulkAction ) {
 				action += 'restore_backup';
 				nonce = ew.restoreBackupNonce;
@@ -84,8 +93,7 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 				return;
 			}
 
-			const
-				status = state.get( 'ewStatus' ),
+			const status = state.get( 'ewStatus' ),
 				collection = state.get( 'ewCollection' ),
 				model = collection.shift(),
 				data = { action, nonce, watermark };
@@ -98,67 +106,90 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 
 			$.ajax( ajaxurl, {
 				data,
-			} ).done( ( response ) => {
-				if ( true === response.success ) {
-					if ( response.data.attachmentVersion ) {
-						model.set( 'url', imageVersion( model.get( 'url' ), response.data.attachmentVersion ) );
+			} )
+				.done( ( response ) => {
+					if ( true === response.success ) {
+						if ( response.data.attachmentVersion ) {
+							model.set(
+								'url',
+								imageVersion(
+									model.get( 'url' ),
+									response.data.attachmentVersion
+								)
+							);
 
-						const	sizes = model.get( 'sizes' );
+							const sizes = model.get( 'sizes' );
 
-						for ( const size of Object.keys( sizes ) ) { // eslint-disable-line no-unused-vars
-							sizes[ size ].url = imageVersion( sizes[ size ].url, response.data.attachmentVersion );
+							for ( const size of Object.keys( sizes ) ) {
+								// eslint-disable-line no-unused-vars
+								sizes[ size ].url = imageVersion(
+									sizes[ size ].url,
+									response.data.attachmentVersion
+								);
+							}
+
+							model.set( 'sizes', sizes );
 						}
 
-						model.set( 'sizes', sizes );
-					}
+						model.set(
+							'hasBackup',
+							response.data.hasBackup ? true : false
+						);
 
-					model.set( 'hasBackup', response.data.hasBackup ? true : false );
+						processed++;
+						status.set( { processed } );
+						model.trigger( 'ewBulkAction:done' );
 
-					processed++;
-					status.set( { processed } );
-					model.trigger( 'ewBulkAction:done' );
-
-					if ( status.get( 'total' ) === processed ) {
-						this.ewBulkActionDone();
+						if ( status.get( 'total' ) === processed ) {
+							this.ewBulkActionDone();
+						} else {
+							this.ewBulkActionRecursive();
+						}
 					} else {
-						this.ewBulkActionRecursive();
+						const error =
+							'string' === typeof response.data.message
+								? response.data.message
+								: ew.i18n.genericErrorMessage;
+						this.ewBulkActionError( error );
 					}
-				} else {
-					const error = ( 'string' === typeof response.data.message ) ? response.data.message : ew.i18n.genericErrorMessage;
-					this.ewBulkActionError( error );
-				}
-			} ).fail( () => {
-				this.ewBulkActionError( ew.i18n.genericErrorMessage );
-			} );
+				} )
+				.fail( () => {
+					this.ewBulkActionError( ew.i18n.genericErrorMessage );
+				} );
 		}
 
 		ewWatermark() {
-			this.state().set( {
-				ewAction: 'watermark',
-				ewSuccessMessage: ew.i18n.watermarkingSuccessMessage,
-			} ).get( 'ewStatus' ).set( {
-				text: ew.i18n.watermarkingStatus,
-			} );
+			this.state()
+				.set( {
+					ewAction: 'watermark',
+					ewSuccessMessage: ew.i18n.watermarkingSuccessMessage,
+				} )
+				.get( 'ewStatus' )
+				.set( {
+					text: ew.i18n.watermarkingStatus,
+				} );
 
 			this.activateMode( 'watermarking' );
 			this.ewBulkAction();
 		}
 
 		ewRestoreBackup() {
-			this.state().set( {
-				ewAction: 'restore',
-				ewSuccessMessage: ew.i18n.restoringSuccessMessage,
-			} ).get( 'ewStatus' ).set( {
-				text: ew.i18n.restoringStatus,
-			} );
+			this.state()
+				.set( {
+					ewAction: 'restore',
+					ewSuccessMessage: ew.i18n.restoringSuccessMessage,
+				} )
+				.get( 'ewStatus' )
+				.set( {
+					text: ew.i18n.restoringStatus,
+				} );
 
 			this.activateMode( 'restoring' );
 			this.ewBulkAction();
 		}
 
 		ewBulkActionError( error ) {
-			const
-				state = this.state(),
+			const state = this.state(),
 				status = state.get( 'ewStatus' ),
 				collection = state.get( 'ewCollection' ),
 				currentModel = state.get( 'ewCurrentModel' );
@@ -167,7 +198,8 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 				collection.push( currentModel );
 			}
 
-			for ( const model of collection.models ) { // eslint-disable-line no-unused-vars
+			for ( const model of collection.models ) {
+				// eslint-disable-line no-unused-vars
 				model.trigger( 'ewBulkAction:done' );
 			}
 
@@ -177,8 +209,7 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 		}
 
 		ewBulkActionDone() {
-			const
-				state = this.state(),
+			const state = this.state(),
 				status = state.get( 'ewStatus' ),
 				currentModel = state.get( 'ewCurrentModel' ),
 				procesed = status.get( 'processed' ),
@@ -190,7 +221,10 @@ if ( wp.media && wp.media.view && wp.media.view.MediaFrame && 'function' === typ
 			this.deactivateMode( 'processing' );
 
 			if ( procesed > 0 ) {
-				addNotice( successMessage.replace( '{procesed}', procesed ), 'success' );
+				addNotice(
+					successMessage.replace( '{procesed}', procesed ),
+					'success'
+				);
 			}
 
 			if ( error ) {

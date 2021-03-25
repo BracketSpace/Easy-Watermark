@@ -1,4 +1,3 @@
-
 let StatusExport = null;
 
 if ( wp.media && 'function' === typeof wp.media.View ) {
@@ -15,11 +14,10 @@ if ( wp.media && 'function' === typeof wp.media.View ) {
 			let statusText = this.status.get( 'text' );
 
 			if ( this.status.get( 'progress' ) ) {
-				const
-					processed = this.status.get( 'processed' ),
+				const processed = this.status.get( 'processed' ),
 					total = this.status.get( 'total' ),
 					counter = `${ processed }/${ total }`,
-					percent = Math.floor( processed / total * 100 );
+					percent = Math.floor( ( processed / total ) * 100 );
 
 				if ( 'string' === typeof status ) {
 					statusText = statusText.replace( '{counter}', counter );

@@ -9,7 +9,7 @@ import { addQueryArgs } from '@wordpress/url';
 /**
  * @param {Object} props           React props.
  * @param {boolean} props.isActive Whether the fullscreen mode is active.
- * @returns {React.Element} React element.
+ * @return {React.Element} React element.
  */
 function FullscreenModeClose( { isActive } ) {
 	if ( ! isActive ) {

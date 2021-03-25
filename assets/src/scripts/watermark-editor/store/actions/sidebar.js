@@ -8,7 +8,9 @@ import {
 } from '../action-types';
 
 /**
- * Open sidebar.
+ * Open sidebar action
+ *
+ * @return {Object} Action object
  */
 export function openSidebar() {
 	return {
@@ -18,7 +20,9 @@ export function openSidebar() {
 }
 
 /**
- * Close sidebar.
+ * Close sidebar action
+ *
+ * @return {Object} Action object
  */
 export function closeSidebar() {
 	return {
@@ -28,7 +32,10 @@ export function closeSidebar() {
 }
 
 /**
- * @param tab
+ * Toggle sidebar tab action
+ *
+ * @param  {string} tab Tab key to open.
+ * @return {Object}     Action object.
  */
 export function toggleSidebarTab( tab ) {
 	return {
@@ -38,7 +45,10 @@ export function toggleSidebarTab( tab ) {
 }
 
 /**
- * @param panel
+ * Toggle sidebar panel action.
+ *
+ * @param  {string} panel Panel key to open.
+ * @return {Object}       Action object.
  */
 export function togglePanel( panel ) {
 	return {

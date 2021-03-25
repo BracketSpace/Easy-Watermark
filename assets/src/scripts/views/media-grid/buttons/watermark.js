@@ -1,4 +1,3 @@
-
 let WatermarkButton = null;
 
 if ( wp.media && 'function' === typeof wp.media.view.Button ) {
@@ -14,7 +13,11 @@ if ( wp.media && 'function' === typeof wp.media.view.Button ) {
 				this.$el.addClass( 'hidden' ).hide();
 			} );
 
-			this.controller.on( 'watermark:selected', this.toggleDisabled, this );
+			this.controller.on(
+				'watermark:selected',
+				this.toggleDisabled,
+				this
+			);
 
 			this.model.set( 'disabled', true );
 		}

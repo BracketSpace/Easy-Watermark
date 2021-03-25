@@ -11,9 +11,6 @@ import './store';
 import Editor from './components/editor';
 
 render(
-	<Editor
-		settings={ ew.editorSettings }
-		watermarkID={ ew.watermarkID }
-	/>,
+	<Editor settings={ ew.editorSettings } watermarkID={ ew.watermarkID } />,
 	document.getElementById( 'watermark-editor' )
 );

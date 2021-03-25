@@ -24,10 +24,9 @@ export default class extends View {
 	}
 
 	template() {
-		const
-			processed = this.state.get( 'processed' ),
+		const processed = this.state.get( 'processed' ),
 			total = this.state.get( 'total' ),
-			percent = Math.floor( processed / total * 100 );
+			percent = Math.floor( ( processed / total ) * 100 );
 
 		let text = this.state.get( 'statusText' );
 
@@ -42,8 +41,7 @@ export default class extends View {
 	}
 
 	update() {
-		const
-			mode = this.state.get( 'mode' ),
+		const mode = this.state.get( 'mode' ),
 			action = this.state.get( 'action' );
 
 		if ( this.mode !== mode ) {
@@ -58,7 +56,10 @@ export default class extends View {
 	toggleMode( mode ) {
 		this.mode = mode;
 
-		if ( this.action !== this.state.get( 'action' ) && ( 'loading' === mode || 'processing' === mode ) ) {
+		if (
+			this.action !== this.state.get( 'action' ) &&
+			( 'loading' === mode || 'processing' === mode )
+		) {
 			this.disable();
 		} else if ( 'loading' === mode ) {
 			this.loading();

@@ -48,8 +48,14 @@ const ImageTypes = ( {
 	return (
 		<EnhancedPanelBody
 			title={ __( 'Image Types', 'easy-watermark' ) }
-			id="imageTypes" >
-			<p>{ __( 'Select image types which should be watermarked on upload:', 'easy-watermark' ) }</p>
+			id="imageTypes"
+		>
+			<p>
+				{ __(
+					'Select image types which should be watermarked on upload:',
+					'easy-watermark'
+				) }
+			</p>
 			{ items }
 		</EnhancedPanelBody>
 	);
@@ -60,14 +66,11 @@ export default compose(
 		setImageTypes: dispatch( 'easy-watermark' ).setImageTypes,
 	} ) ),
 	withSelect( ( select ) => {
-		const {
-			getConfig,
-			getImageTypes,
-		} = select( 'easy-watermark' );
+		const { getConfig, getImageTypes } = select( 'easy-watermark' );
 
 		return {
 			isAutoWatermarkEnabled: getConfig( 'auto_add' ),
 			imageTypes: getImageTypes(),
 		};
-	} ),
+	} )
 )( ImageTypes );

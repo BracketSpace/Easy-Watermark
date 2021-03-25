@@ -8,8 +8,11 @@ import {
 } from '../action-types';
 
 /**
- * @param state
- * @param action
+ * TOGGLE_SIDEBAR action reducer
+ *
+ * @param  {mixed}  state  Current state.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function isSidebarOpened( state, action ) {
 	if ( TOGGLE_SIDEBAR === action.type ) {
@@ -20,8 +23,11 @@ export function isSidebarOpened( state, action ) {
 }
 
 /**
- * @param state
- * @param action
+ * TOGGLE_SIDEBAR_TAB action reducer
+ *
+ * @param  {mixed}  state  Current state.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function activeSidebarTab( state, action ) {
 	if ( TOGGLE_SIDEBAR_TAB === action.type ) {
@@ -32,8 +38,11 @@ export function activeSidebarTab( state, action ) {
 }
 
 /**
- * @param state
- * @param action
+ * TOGGLE_PANEL action reducer
+ *
+ * @param  {mixed}  state  Current state.
+ * @param  {Object} action Action object.
+ * @return {mixed}         Reduced state.
  */
 export function panels( state, action ) {
 	if ( TOGGLE_PANEL === action.type ) {

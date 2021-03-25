@@ -4,9 +4,12 @@
 import apiFetch from '@wordpress/api-fetch';
 
 /**
- * @param action
+ * Side effect for loading editor settings
+ *
+ * @param  {Object} action Action object.
+ * @return {void}
  */
-export default function( action ) {
+export default function ( action ) {
 	apiFetch( {
 		path: `/${ ew.namespace }/v1/editor-settings`,
 		method: 'POST',

@@ -4,8 +4,10 @@
 import $ from 'jquery';
 
 /**
- * @param content
- * @param type
+ * Add WordPress admin notice
+ *
+ * @param {string} content       Notice content.
+ * @param {string} [type='info'] Notice type.
  */
 export function addNotice( content, type = 'info' ) {
 	const notice = $( document.createElement( 'div' ) ),
@@ -31,16 +33,30 @@ export function addNotice( content, type = 'info' ) {
 }
 
 /**
- * @param selection
- * @param backup
- * @param remove
+ * Filter attachments selection. Used in media library to remove attachemtn used
+ * as watermark from user-selected attachments before applying watermarks and to
+ * remove attachments without backup available while restoring backups.
+ *
+ * @param  {Backbone.Collection}  selection      Selected attachments.
+ * @param  {boolean}              [backup=false] Whether to filter files for
+ *                                               backup restoration.
+ * @param  {boolean}              [remove=true]  If true (default), items will
+ *                                               be removed from the actual
+ *                                               collection. If false, this
+ *                                               function will just return the
+ *                                               lenght of the cloned and
+ *                                               filtered collection.
+ * @return {number}                              Filtered collection length.
  */
 export function filterSelection( selection, backup = false, remove = true ) {
 	let length = selection.length;
 
-	for ( const model of selection.clone().models ) { // eslint-disable-line no-unused-vars
-		if ( ! isImage( model ) || model.get( 'usedAsWatermark' ) ||
-			( true === backup && ! model.get( 'hasBackup' ) ) ) {
+	for ( const model of selection.clone().models ) {
+		if (
+			! isImage( model ) ||
+			model.get( 'usedAsWatermark' ) ||
+			( true === backup && ! model.get( 'hasBackup' ) )
+		) {
 			if ( true === remove ) {
 				selection.remove( model );
 			}
@@ -53,11 +69,14 @@ export function filterSelection( selection, backup = false, remove = true ) {
 }
 
 /**
- * @param url
- * @param version
+ * Add image version (timestamp) param to image url. This is needed to force the
+ * browser to refresh the image after it was watermarked or restored.
+ *
+ * @param  {string} url Image url.
+ * @return {string}     Url with time param.
  */
 export function imageVersion( url ) {
-	const	index = url.indexOf( '?' );
+	const index = url.indexOf( '?' );
 	const version = `t=${ Date.now() }`;
 
 	let query;
@@ -81,7 +100,10 @@ export function imageVersion( url ) {
 }
 
 /**
- * @param mime
+ * Check if the given mime type is for an image.
+ *
+ * @param  {string}  mime MIME type.
+ * @return {boolean}      If this is an image type.
  */
 export function isImage( mime ) {
 	if ( 'object' === typeof mime && mime.get ) {

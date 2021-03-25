@@ -1,13 +1,12 @@
 /**
  * Internal dependencies
  */
-import {
-	SAVE,
-	TOGGLE_SAVING,
-} from '../action-types';
+import { SAVE, TOGGLE_SAVING } from '../action-types';
 
 /**
- * Save.
+ * Save action.
+ *
+ * @return {Object} Action object.
  */
 export function save() {
 	return {
@@ -16,7 +15,9 @@ export function save() {
 }
 
 /**
- * Toggle saving.
+ * Toggle saving action.
+ *
+ * @return {Object} Action object.
  */
 export function toggleSaving() {
 	return {

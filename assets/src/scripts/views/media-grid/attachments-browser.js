@@ -8,7 +8,9 @@ import WatermarkSelector from './watermark-selector.js';
 import Status from './status.js';
 
 if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
-	wp.media.view.AttachmentsBrowser = class extends wp.media.view.AttachmentsBrowser {
+	wp.media.view.AttachmentsBrowser = class extends (
+		wp.media.view.AttachmentsBrowser
+	) {
 		createToolbar() {
 			super.createToolbar();
 
@@ -25,42 +27,67 @@ if ( wp.media && 'function' === typeof wp.media.view.AttachmentsBrowser ) {
 			}
 
 			if ( Object.keys( ew.watermarks ).length ) {
-				this.toolbar.set( 'watermarkModeToggleButton', new WatermarkModeToggleButton( {
-					text: ew.i18n.watermarkModeToggleButtonLabel,
-					cancelText: ew.i18n.cancelLabel,
-					controller: this.controller,
-					priority: -60,
-				} ).render() );
+				this.toolbar.set(
+					'watermarkModeToggleButton',
+					new WatermarkModeToggleButton( {
+						text: ew.i18n.watermarkModeToggleButtonLabel,
+						cancelText: ew.i18n.cancelLabel,
+						controller: this.controller,
+						priority: -60,
+					} ).render()
+				);
 
-				this.toolbar.set( 'watermarkSelector', new WatermarkSelector( {
-					controller: this.controller,
-					priority: -50,
-				} ).render() );
+				this.toolbar.set(
+					'watermarkSelector',
+					new WatermarkSelector( {
+						controller: this.controller,
+						priority: -50,
+					} ).render()
+				);
 
-				this.toolbar.set( 'watermarkButton', new WatermarkButton( {
-					text: ew.i18n.watermarkButtonLabel,
-					style: 'primary',
-					controller: this.controller,
-					priority: -40,
-				} ).render() );
+				this.toolbar.set(
+					'watermarkButton',
+					new WatermarkButton( {
+						text: ew.i18n.watermarkButtonLabel,
+						style: 'primary',
+						controller: this.controller,
+						priority: -40,
+					} ).render()
+				);
 			}
 
-			this.toolbar.set( 'restoreButton', new RestoreButton( {
-				text: ew.i18n.restoreButtonLabel,
-				controller: this.controller,
-				priority: -30,
-			} ).render() );
+			this.toolbar.set(
+				'restoreButton',
+				new RestoreButton( {
+					text: ew.i18n.restoreButtonLabel,
+					controller: this.controller,
+					priority: -30,
+				} ).render()
+			);
 
-			this.toolbar.set( 'watermarkingStatus', new Status( {
-				style: 'primary',
-				controller: this.controller,
-				priority: -20,
-			} ).render() );
+			this.toolbar.set(
+				'watermarkingStatus',
+				new Status( {
+					style: 'primary',
+					controller: this.controller,
+					priority: -20,
+				} ).render()
+			);
 
-			this.controller.on( 'select:deactivate', () => this.controller.deactivateMode( 'watermark' ) );
+			this.controller.on( 'select:deactivate', () =>
+				this.controller.deactivateMode( 'watermark' )
+			);
 			this.controller.on( 'watermark:activate', this.hideButtons, this );
-			this.controller.on( 'watermark:deactivate', this.showButtons, this );
-			this.controller.on( 'processing:activate processing:deactivate', this.disableViewSwitch, this );
+			this.controller.on(
+				'watermark:deactivate',
+				this.showButtons,
+				this
+			);
+			this.controller.on(
+				'processing:activate processing:deactivate',
+				this.disableViewSwitch,
+				this
+			);
 		}
 
 		hideButtons() {

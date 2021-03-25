@@ -1,10 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	Component,
-	createRef,
-} from '@wordpress/element';
+import { Component, createRef } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 
@@ -13,13 +10,11 @@ import { compose } from '@wordpress/compose';
  */
 import panAndZoomHoc from 'react-pan-and-zoom-hoc';
 
-/* global wp */
-
 class Canvas extends Component {
 	state = {
 		previewImage: null,
 		initialFit: false,
-	}
+	};
 
 	constructor( { previewImageID } ) {
 		super( ...arguments );
@@ -57,7 +52,7 @@ class Canvas extends Component {
 		const scaleX = canvas.clientWidth / this.currentImage.width;
 		const scaleY = canvas.clientHeight / this.currentImage.height;
 
-		const selector = ( 1 > scaleX || 1 > scaleY ) ? Math.min : Math.max;
+		const selector = 1 > scaleX || 1 > scaleY ? Math.min : Math.max;
 		const scale = selector( scaleX, scaleY );
 
 		this.props.setEditorScale( scale );
@@ -70,9 +65,7 @@ class Canvas extends Component {
 
 		console.log( { objects } );
 
-		let
-			canvasWrapStyle,
-			imageWrapStyle;
+		let canvasWrapStyle, imageWrapStyle;
 
 		if ( previewImage ) {
 			this.currentImage = previewImage.get( 'realSizes' )[ imageSize ];
@@ -81,7 +74,9 @@ class Canvas extends Component {
 			const translateY = -y + 0.5;
 
 			canvasWrapStyle = {
-				transform: `scale(${ scale }) translate(${ translateX * 100 }%, ${ translateY * 100 }%)`,
+				transform: `scale(${ scale }) translate(${
+					translateX * 100
+				}%, ${ translateY * 100 }%)`,
 			};
 
 			imageWrapStyle = {
@@ -96,12 +91,13 @@ class Canvas extends Component {
 					<div
 						className="watermark-editor-canvas-wrap"
 						ref={ this.canvasRef }
-						style={ canvasWrapStyle } >
-						<div
-							className="watermark-editor-canvas">
+						style={ canvasWrapStyle }
+					>
+						<div className="watermark-editor-canvas">
 							<div
 								className="watermark-editor-image"
-								style={ imageWrapStyle } >
+								style={ imageWrapStyle }
+							>
 								<img
 									alt=""
 									draggable="false"
@@ -123,12 +119,14 @@ export default compose(
 		setEditorScale: dispatch( 'easy-watermark' ).setEditorScale,
 	} ) ),
 	withSelect( ( select ) => {
-		const { getEditorPreviewImageSize, getObjects } = select( 'easy-watermark' );
+		const { getEditorPreviewImageSize, getObjects } = select(
+			'easy-watermark'
+		);
 
 		return {
 			imageSize: getEditorPreviewImageSize(),
 			objects: getObjects(),
 		};
 	} ),
-	panAndZoomHoc,
+	panAndZoomHoc
 )( Canvas );

@@ -10,7 +10,9 @@ export default class {
 		this.hiddenSections = this.metabox.find( '.hidden' );
 		this.fields = this.metabox.find( 'input, select' );
 
-		this.toggleOptionsVisibility = this.toggleOptionsVisibility.bind( this );
+		this.toggleOptionsVisibility = this.toggleOptionsVisibility.bind(
+			this
+		);
 
 		this.scalingModeSelect.on( 'change', this.toggleOptionsVisibility );
 
@@ -31,12 +33,12 @@ export default class {
 		this.hiddenSections.hide();
 
 		switch ( this.scalingModeSelect.val() ) {
-			case 'fit_to_width' :
-			case 'fit_to_height' :
+			case 'fit_to_width':
+			case 'fit_to_height':
 				this.hiddenSections.show();
 				break;
-			case 'cover' :
-			case 'contain' :
+			case 'cover':
+			case 'contain':
 				this.hiddenSections.filter( '.show-for-all' ).show();
 				break;
 		}

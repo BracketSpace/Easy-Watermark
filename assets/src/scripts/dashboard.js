@@ -17,13 +17,13 @@ $( document ).ready( () => {
 
 	switch ( currentTab ) {
 		case 'settings':
-			new Settings;
+			new Settings();
 			break;
 		case 'watermarks':
-			new Watermarks;
+			new Watermarks();
 			break;
 		case 'tools':
-			new Tools;
+			new Tools();
 			break;
 	}
 } );

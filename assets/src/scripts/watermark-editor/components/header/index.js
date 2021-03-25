@@ -2,9 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	NavigableToolbar,
-} from '@wordpress/block-editor';
+import { NavigableToolbar } from '@wordpress/block-editor';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import {
@@ -23,11 +21,7 @@ import FullscreenModeClose from './fullscreen-mode-close';
 
 import shortcuts from '../../keyboard-shortcuts';
 
-const Header = ( {
-	openSidebar,
-	closeSidebar,
-	isSidebarOpened,
-} ) => {
+const Header = ( { openSidebar, closeSidebar, isSidebarOpened } ) => {
 	const toggleSidebar = isSidebarOpened ? closeSidebar : openSidebar;
 
 	const ToolbarItemComponent = ToolbarItem || ExperimentalToolbarItem;
@@ -63,10 +57,7 @@ const Header = ( {
 
 export default compose(
 	withDispatch( ( dispatch ) => {
-		const {
-			openSidebar,
-			closeSidebar,
-		} = dispatch( 'easy-watermark' );
+		const { openSidebar, closeSidebar } = dispatch( 'easy-watermark' );
 
 		return {
 			openSidebar,

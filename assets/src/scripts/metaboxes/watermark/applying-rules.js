@@ -9,7 +9,9 @@ export default class {
 		this.autoAddCheckbox = this.metabox.find( '#watermark-autoadd' );
 		this.hiddenSections = this.metabox.find( '.hidden' );
 
-		this.toggleOptionsVisibility = this.toggleOptionsVisibility.bind( this );
+		this.toggleOptionsVisibility = this.toggleOptionsVisibility.bind(
+			this
+		);
 
 		this.autoAddCheckbox.on( 'change', this.toggleOptionsVisibility );
 

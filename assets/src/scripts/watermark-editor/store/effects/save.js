@@ -6,10 +6,7 @@ import apiFetch from '@wordpress/api-fetch';
 /**
  * Internal dependencies
  */
-import {
-	toggleSaving,
-	loadWatermarkSuccess,
-} from '../actions';
+import { toggleSaving, loadWatermarkSuccess } from '../actions';
 import { getEditedData } from '../selectors';
 
 export default ( action, { getState, dispatch } ) => {
@@ -23,11 +20,14 @@ export default ( action, { getState, dispatch } ) => {
 		method: 'POST',
 		path: `/wp/v2/watermarks/${ state.initialData.id }?context=edit`,
 		data: getEditedData( state ),
-	} ).then( ( response ) => {
-		dispatch( loadWatermarkSuccess( response ) );
-	} ).catch( () => {
-		// TODO: error handling.
-	} ).finally( () => {
-		dispatch( toggleSaving() );
-	} );
+	} )
+		.then( ( response ) => {
+			dispatch( loadWatermarkSuccess( response ) );
+		} )
+		.catch( () => {
+			// TODO: error handling.
+		} )
+		.finally( () => {
+			dispatch( toggleSaving() );
+		} );
 };

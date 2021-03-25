@@ -17,28 +17,42 @@ const AutoWatermark = ( {
 	allowForAll,
 } ) => {
 	const allowForAllToggleLabel = sprintf(
-		__( 'With this option enabled auto watermarking will work for each user regardless of role-based <a href="%s">permission settings</a>.', 'easy-watermark' ),
+		/* translators: %s: permission settings page URL. */
+		__(
+			'With this option enabled auto watermarking will work for each user regardless of role-based <a href="%s">permission settings</a>.',
+			'easy-watermark'
+		),
 		ew.permissionSettingsURL
 	);
 
 	return (
 		<EnhancedPanelBody
 			title={ __( 'Auto Watermark', 'easy-watermark' ) }
-			id="autoWatermark" >
+			id="autoWatermark"
+		>
 			<ToggleControl
 				label={ __( 'Enable Auto Watermark', 'easy-watermark' ) }
-				help={ __( 'This option will automatically add watermak on image upload.', 'easy-watermark' ) }
+				help={ __(
+					'This option will automatically add watermak on image upload.',
+					'easy-watermark'
+				) }
 				checked={ isAutoWatermarkEnabled }
 				onChange={ ( checked ) => editConfig( 'auto_add', checked ) }
 			/>
 			{ isAutoWatermarkEnabled && (
 				<ToggleControl
-					label={ __( 'Alow For All', 'easy-watermark' ) }
-					help={ (
-						<span dangerouslySetInnerHTML={ { __html: allowForAllToggleLabel } } />
-					) }
+					label={ __( 'Allow For All', 'easy-watermark' ) }
+					help={
+						<span
+							dangerouslySetInnerHTML={ {
+								__html: allowForAllToggleLabel,
+							} }
+						/>
+					}
 					checked={ allowForAll }
-					onChange={ ( checked ) => editConfig( 'auto_add_all', checked ) }
+					onChange={ ( checked ) =>
+						editConfig( 'auto_add_all', checked )
+					}
 				/>
 			) }
 		</EnhancedPanelBody>
@@ -56,5 +70,5 @@ export default compose(
 			isAutoWatermarkEnabled: getConfig( 'auto_add' ),
 			allowForAll: getConfig( 'auto_add_all' ),
 		};
-	} ),
+	} )
 )( AutoWatermark );

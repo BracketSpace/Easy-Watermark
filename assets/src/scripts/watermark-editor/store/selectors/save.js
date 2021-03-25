@@ -9,7 +9,10 @@ import { isEqual } from 'lodash';
 import { getEditedData } from './data';
 
 /**
- * @param state
+ * Determine if the data is savable
+ *
+ * @param  {Object}  state State object.
+ * @return {boolean}       Whether can perform save operation.
  */
 export function isSaveable( state ) {
 	if ( isSaving( state ) ) {
@@ -22,7 +25,10 @@ export function isSaveable( state ) {
 }
 
 /**
- * @param state
+ * Detemine if the editor is saving
+ *
+ * @param  {Object}  state State object.
+ * @return {boolean}       Whether is saving.
  */
 export function isSaving( state ) {
 	return state.isSaving;

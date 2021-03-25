@@ -14,7 +14,7 @@ const WatermarkName = ( { editAttribute, watermarkName } ) => {
 				className="watermark-name-control"
 				label={ __( 'Watermark Name' ) }
 				value={ watermarkName }
-				placeholder={ __( 'Name your watermark...', 'easy-watermark' ) }
+				placeholder={ __( 'Name your watermark…', 'easy-watermark' ) }
 				onChange={ ( value ) => {
 					editAttribute( 'title', value );
 				} }
@@ -29,5 +29,5 @@ export default compose(
 	} ) ),
 	withSelect( ( select ) => ( {
 		watermarkName: select( 'easy-watermark' ).getAttribute( 'title' ),
-	} ) ),
+	} ) )
 )( WatermarkName );

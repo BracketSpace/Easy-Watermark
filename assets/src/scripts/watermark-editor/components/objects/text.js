@@ -11,13 +11,8 @@ import objectHOC from './object';
 
 class TextObject extends Component {
 	render() {
-		return (
-			<div className="text-object">
-			</div>
-		);
+		return <div className="text-object"></div>;
 	}
 }
 
-export default compose(
-	objectHOC
-)( TextObject );
+export default compose( objectHOC )( TextObject );

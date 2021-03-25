@@ -31,10 +31,13 @@ export default class {
 
 		button.toggleClass( 'is-open' );
 
-		button.next( '.dropdown-menu' ).css( {
-			left: position.left,
-			top: position.top + button.height(),
-		} ).toggle();
+		button
+			.next( '.dropdown-menu' )
+			.css( {
+				left: position.left,
+				top: position.top + button.height(),
+			} )
+			.toggle();
 	}
 
 	dropdownSelect( e ) {

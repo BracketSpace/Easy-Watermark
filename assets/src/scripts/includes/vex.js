@@ -33,30 +33,31 @@ vex.dialog.buttons.NO = {
 export default vex;
 
 /**
- * @param message
- * @param callback
+ * Display confirmation dialog using vex.
+ *
+ * @param  {string}   [message=''] Dialog message.
+ * @param  {Function} [callback=(] Confirmation callback.
+ * @return {Object}                Vex instance.
  */
 export function confirm( message = '', callback = () => {} ) {
 	return vex.dialog.confirm( {
 		message,
 		callback,
-		buttons: [
-			vex.dialog.buttons.YES,
-			vex.dialog.buttons.NO,
-		],
+		buttons: [ vex.dialog.buttons.YES, vex.dialog.buttons.NO ],
 	} );
 }
 
 /**
- * @param message
- * @param callback
+ * Display alert ialog using vex.
+ *
+ * @param  {string}   [message=''] Dialog message.
+ * @param  {Function} [callback=(] Confirmation callback.
+ * @return {Object}                Vex instance.
  */
 export function alert( message = '', callback = () => {} ) {
 	return vex.dialog.alert( {
 		message,
 		callback,
-		buttons: [
-			vex.dialog.buttons.OK,
-		],
+		buttons: [ vex.dialog.buttons.OK ],
 	} );
 }

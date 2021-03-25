@@ -3,9 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
-import {
-	Panel,
-} from '@wordpress/components';
+import { Panel } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -34,14 +32,19 @@ const ObjectSidebar = () => (
 );
 
 /**
+ * Sidebar component
  *
+ * @param  {Object}  props                 Component props.
+ * @param  {boolean} props.isSidebarOpened Whether the sidebar is open.
+ * @param  {string}  props.activeTab       Active tab key.
+ * @return {ReactElement|null}             Rendered component elements.
  */
 function Sidebar( { isSidebarOpened, activeTab } ) {
 	if ( ! isSidebarOpened ) {
 		return null;
 	}
 
-	const Content = ( 'object' === activeTab ) ? ObjectSidebar : GeneralSidebar;
+	const Content = 'object' === activeTab ? ObjectSidebar : GeneralSidebar;
 
 	return (
 		<div
@@ -57,10 +60,7 @@ function Sidebar( { isSidebarOpened, activeTab } ) {
 }
 
 export default withSelect( ( select ) => {
-	const {
-		isSidebarOpened,
-		getActiveSidebarTab,
-	} = select( 'easy-watermark' );
+	const { isSidebarOpened, getActiveSidebarTab } = select( 'easy-watermark' );
 
 	return {
 		isSidebarOpened: isSidebarOpened(),
