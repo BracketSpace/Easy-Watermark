@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wojte
 Tags: watermark, image, picture, photo, media, gallery, signature, transparent, upload, admin
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.6
-Stable tag: 1.0.10
+Tested up to: 5.7
+Stable tag: 1.0.11
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: easy-watermark
@@ -117,6 +117,10 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 8. Bulk watermark and restore all images
 
 == Changelog ==
+
+= 1.0.11 =
+* [Fixed] Watermark preview url fixed to work with non-standard WordPress installations
+* [Fixed] Error in Cache Busting feature.
 
 = 1.0.10 =
 * [Added] Role existence checks during plugin activation.

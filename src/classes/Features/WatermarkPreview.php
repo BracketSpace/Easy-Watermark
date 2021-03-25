@@ -55,7 +55,7 @@ class WatermarkPreview {
 			}
 		}
 
-		return add_query_arg( $args, site_url( $base ) );
+		return add_query_arg( $args, home_url( $base ) );
 	}
 
 	/**

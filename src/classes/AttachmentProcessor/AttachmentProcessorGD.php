@@ -445,7 +445,7 @@ class AttachmentProcessorGD extends AttachmentProcessor {
 			$watermark_size['width']  = $new_width;
 			$watermark_size['height'] = $new_height;
 
-			unset( $tmp_image, $new_width, $nwe_height );
+			unset( $tmp_image, $new_width, $new_height );
 		}
 
 		// Compute watermark offset.
