@@ -5,7 +5,7 @@ Tags: watermark, image, picture, photo, media, gallery, signature, transparent, 
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.7
-Stable tag: 1.0.10
+Stable tag: 1.0.11
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: easy-watermark
@@ -118,7 +118,7 @@ All available placeholders are listed in a box titled 'Placeholders' displayed w
 
 == Changelog ==
 
-= [next] =
+= 1.0.11 =
 * [Fixed] Watermark preview url fixed to work with non-standard WordPress installations
 * [Fixed] Error in Cache Busting feature.
 
