@@ -47,6 +47,7 @@
     "@wordpress/media-utils": "^1.7.2",
     "@wordpress/notices": "^2.13.0",
     "@wordpress/primitives": "^1.12.0",
+    "@wordpress/stylelint-config": "^19.0.1",
     "@wordpress/url": "^2.11.0",
     "@wordpress/viewport": "^2.13.1",
     "autobind-decorator": "^2.4.0",
