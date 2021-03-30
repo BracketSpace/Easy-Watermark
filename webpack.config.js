@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyPlugin = require( 'copy-webpack-plugin' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
+const ESLintPlugin = require( 'eslint-webpack-plugin' );
 const path = require( 'path' );
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
@@ -138,6 +139,12 @@ module.exports = ( env, argv ) => {
 						new StyleLintPlugin( {
 							configFile: '.stylelintrc',
 							context: 'assets/src/styles',
+						} ),
+						new ESLintPlugin( {
+							configFile:
+								'production' === argv.mode
+									? '.eslintrc.prod.json'
+									: '.eslintrc.json',
 						} ),
 				  ]
 				: [] ),
