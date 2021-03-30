@@ -9,3 +9,4 @@ rules:
   - declarations
   - rules
   order/properties-alphabetical-order: true
+  selector-class-pattern: null
