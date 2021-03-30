@@ -141,7 +141,7 @@ module.exports = ( env, argv ) => {
 							context: 'assets/src/styles',
 						} ),
 						new ESLintPlugin( {
-							configFile:
+							overrideConfigFile:
 								'production' === argv.mode
 									? '.eslintrc.prod.json'
 									: '.eslintrc.json',
