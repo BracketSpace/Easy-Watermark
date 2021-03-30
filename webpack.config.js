@@ -119,7 +119,9 @@ module.exports = ( env, argv ) => {
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
-			new CopyPlugin( [ { from: 'assets/src/fonts', to: 'fonts' } ] ),
+			new CopyPlugin( {
+				patterns: [ { from: 'assets/src/fonts', to: 'fonts' } ],
+			} ),
 			new DependencyExtractionWebpackPlugin( {
 				injectPolyfill: true,
 				useDefaults: false,
