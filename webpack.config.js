@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyPlugin = require( 'copy-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const ESLintPlugin = require( 'eslint-webpack-plugin' );
 const path = require( 'path' );
@@ -61,6 +62,18 @@ module.exports = ( env, argv ) => {
 				},
 				{
 					test: /\.scss$/,
+					use: [
+						MiniCssExtractPlugin.loader,
+						'css-loader',
+						{
+							loader: 'sass-loader',
+							options: {
+								sassOptions: {
+									importer: globImporter(),
+								},
+							},
+						},
+					],
 				},
 				{
 					test: /\.(png|jpg|gif)$/i,
@@ -118,6 +131,9 @@ module.exports = ( env, argv ) => {
 					return defaultRequestToExternal( request );
 				},
 				requestToHandle: defaultRequestToHandle,
+			} ),
+			new MiniCssExtractPlugin( {
+				filename: 'styles/[name].css',
 			} ),
 			new FriendlyErrorsWebpackPlugin(),
 			...( ! argv.watch
