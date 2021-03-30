@@ -1,6 +1,5 @@
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyPlugin = require( 'copy-webpack-plugin' );
-const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const ESLintPlugin = require( 'eslint-webpack-plugin' );
 const path = require( 'path' );
@@ -62,18 +61,6 @@ module.exports = ( env, argv ) => {
 				},
 				{
 					test: /\.scss$/,
-					use: ExtractTextPlugin.extract( {
-						fallback: 'style-loader',
-						use: [
-							'css-loader',
-							{
-								loader: 'sass-loader',
-								options: {
-									importer: globImporter(),
-								},
-							},
-						],
-					} ),
 				},
 				{
 					test: /\.(png|jpg|gif)$/i,
@@ -132,7 +119,6 @@ module.exports = ( env, argv ) => {
 				},
 				requestToHandle: defaultRequestToHandle,
 			} ),
-			new ExtractTextPlugin( 'styles/[name].css' ),
 			new FriendlyErrorsWebpackPlugin(),
 			...( ! argv.watch
 				? [
