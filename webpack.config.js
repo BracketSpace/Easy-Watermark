@@ -45,22 +45,6 @@ module.exports = ( env, argv ) => {
 		},
 		module: {
 			rules: [
-				...( ! argv.watch
-					? [
-							{
-								enforce: 'pre',
-								test: /\.js$/,
-								exclude: /node_modules/,
-								loader: 'eslint-loader',
-								options: {
-									configFile:
-										'production' === argv.mode
-											? '.eslintrc.prod.json'
-											: '.eslintrc.json',
-								},
-							},
-					  ]
-					: [] ),
 				{
 					test: /\.[jt]sx?$/,
 					exclude: /node_modules/,
