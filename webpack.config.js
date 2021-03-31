@@ -16,7 +16,7 @@ const { lstatSync, readdirSync } = require( 'fs' );
 const srcPath = 'assets/src/scripts';
 const entry = {};
 
-const BUNDLED_PACKAGES = [ '@wordpress/interface' ];
+const BUNDLED_PACKAGES = [ '@wordpress/compose' ];
 
 readdirSync( srcPath ).forEach( ( file ) => {
 	const filePath = path.join( srcPath, file );
