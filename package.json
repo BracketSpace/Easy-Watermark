@@ -83,7 +83,7 @@
     "react-draggable": "^4.2.0",
     "react-focus-within": "^2.0.1",
     "react-is": "^17.0.2",
-    "react-moveable": "^0.16.6",
+    "react-moveable": "^0.27.6",
     "react-pan-and-zoom-hoc": "^2.1.8",
     "react-resizable-rotatable-draggable": "^0.2.0",
     "react-test-renderer": "^17.0.2",
