@@ -17,7 +17,7 @@ devDependencies:
   '@wordpress/components': 9.9.0_react-dom@16.14.0+react@16.14.0
   '@wordpress/compose': 3.25.0_react@16.14.0
   '@wordpress/data': 4.27.0_react@16.14.0
-  '@wordpress/dependency-extraction-webpack-plugin': 2.9.0_webpack@5.28.0
+  '@wordpress/dependency-extraction-webpack-plugin': 3.1.0_webpack@5.28.0
   '@wordpress/editor': 9.26.0_ac55eb0727908bb6a0e72bd83a7eee79
   '@wordpress/element': 2.20.0
   '@wordpress/eslint-plugin': 8.0.2_eslint@7.23.0+typescript@4.2.3
@@ -2517,16 +2517,18 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7300QodhTfWTbz19ElGmYnbxu0pG+EXcnasaOFUJn5Q7hKB9oSqnsyLmg2QkKzg8aYNQP+pWsRrIDWetOemfaw==
-  /@wordpress/dependency-extraction-webpack-plugin/2.9.0_webpack@5.28.0:
+  /@wordpress/dependency-extraction-webpack-plugin/3.1.0_webpack@5.28.0:
     dependencies:
       json2php: 0.0.4
       webpack: 5.28.0_webpack-cli@4.6.0
-      webpack-sources: 1.4.3
+      webpack-sources: 2.2.0
     dev: true
+    engines:
+      node: '>=12'
     peerDependencies:
       webpack: ^4.8.3 || ^5.0.0
     resolution:
-      integrity: sha512-Eo8ByPd3iZ6az4UmdLD2xYLp1/7os/H80l28Y5OlS4DozkD3vcWCBReynWoBax74u3oJ9wWN5b/8oSxGwIKXYQ==
+      integrity: sha512-lxdQ6qkHFiL1y7C/tHi/pxnFMaBa4AzBI/NcQ2+yJXwUqO746KYO9A6zEueQxa3mpEH3kT4r98C/p+MEf8xAsg==
   /@wordpress/deprecated/2.12.0:
     dependencies:
       '@babel/runtime': 7.13.10
@@ -11586,7 +11588,7 @@ specifiers:
   '@wordpress/components': ^9.2.3
   '@wordpress/compose': ^3.25.0
   '@wordpress/data': ^4.27.0
-  '@wordpress/dependency-extraction-webpack-plugin': ^2.3.0
+  '@wordpress/dependency-extraction-webpack-plugin': ^3.1.0
   '@wordpress/editor': ^9.12.3
   '@wordpress/element': ^2.20.0
   '@wordpress/eslint-plugin': ^8.0.2
