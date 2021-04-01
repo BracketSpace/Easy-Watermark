@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "allowJs": true,
-		"checkJs": false,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "src",
+    "baseUrl": "assets/src/scripts",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,8 +19,10 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5"
-  },
+    "target": "es5",
+		"types": ["node", "jest"],
+    "declaration": true
+	},
   "include": [
     "assets/src/scripts"
   ]
