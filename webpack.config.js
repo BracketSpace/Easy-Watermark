@@ -6,6 +6,7 @@ const ESLintPlugin = require( 'eslint-webpack-plugin' );
 const path = require( 'path' );
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const ForkTsCheckerWebpackPlugin = require( 'fork-ts-checker-webpack-plugin' );
 const {
 	defaultRequestToExternal,
 	defaultRequestToHandle,
@@ -138,6 +139,9 @@ module.exports = ( env, argv ) => {
 				filename: 'styles/[name].css',
 			} ),
 			new FriendlyErrorsWebpackPlugin(),
+			new ForkTsCheckerWebpackPlugin( {
+				async: !! argv.watch,
+			} ),
 			...( ! argv.watch
 				? [
 						new StyleLintPlugin( {
