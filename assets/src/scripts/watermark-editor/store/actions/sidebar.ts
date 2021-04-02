@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import type { Action } from '@wordpress/data';
+
+/**
  * Internal dependencies
  */
 import {
@@ -10,9 +15,9 @@ import {
 /**
  * Open sidebar action
  *
- * @return {Object} Action object
+ * @return Action object
  */
-export function openSidebar() {
+export function openSidebar() : Action {
 	return {
 		type: TOGGLE_SIDEBAR,
 		isOpen: true,
@@ -22,9 +27,9 @@ export function openSidebar() {
 /**
  * Close sidebar action
  *
- * @return {Object} Action object
+ * @return Action object
  */
-export function closeSidebar() {
+export function closeSidebar() : Action {
 	return {
 		type: TOGGLE_SIDEBAR,
 		isOpen: false,
@@ -34,10 +39,10 @@ export function closeSidebar() {
 /**
  * Toggle sidebar tab action
  *
- * @param  {string} tab Tab key to open.
- * @return {Object}     Action object.
+ * @param  tab Tab key to open.
+ * @return     Action object.
  */
-export function toggleSidebarTab( tab ) {
+export function toggleSidebarTab( tab: string ) : Action {
 	return {
 		type: TOGGLE_SIDEBAR_TAB,
 		tab,
@@ -47,10 +52,10 @@ export function toggleSidebarTab( tab ) {
 /**
  * Toggle sidebar panel action.
  *
- * @param  {string} panel Panel key to open.
- * @return {Object}       Action object.
+ * @param  panel Panel key to open.
+ * @return       Action object.
  */
-export function togglePanel( panel ) {
+export function togglePanel( panel: string ) : Action {
 	return {
 		type: TOGGLE_PANEL,
 		panel,

@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import type { Action } from '@wordpress/data';
+
+/**
  * Internal dependencies
  */
 import { SAVE, TOGGLE_SAVING } from '../action-types';
@@ -8,7 +13,7 @@ import { SAVE, TOGGLE_SAVING } from '../action-types';
  *
  * @return {Object} Action object.
  */
-export function save() {
+export function save() : Action{
 	return {
 		type: SAVE,
 	};
@@ -19,7 +24,7 @@ export function save() {
  *
  * @return {Object} Action object.
  */
-export function toggleSaving() {
+export function toggleSaving() : Action {
 	return {
 		type: TOGGLE_SAVING,
 	};
