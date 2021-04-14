@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { TStoreState, TEditorState } from 'types';
+import { TStoreState, TEditorState, TPosition } from 'types';
 
 type TEditorStateValue<T> =
 	T extends keyof TEditorState ? TEditorState[T] :
@@ -58,8 +58,8 @@ export function getEditorScale( state: TStoreState ) : number {
  * @param  state State object.
  * @return       Preview image ID.
  */
-export function getEditorPreviewImageID( state: TStoreState ) : number {
-	return getEditorState( state, 'previewImageID' ) as number;
+export function getEditorPreviewImageID( state: TStoreState ) : number | undefined {
+	return getEditorState( state, 'previewImageID' ) as number | undefined;
 }
 
 /**
@@ -78,7 +78,7 @@ export function getEditorPreviewImageSize( state: TStoreState ) : string {
  * @param  state State object.
  * @return       Editor position (x, y).
  */
-export function getEditorPosition( state: TStoreState ) : { x: number, y: number } {
+export function getEditorPosition( state: TStoreState ) : TPosition {
 	return {
 		x: getEditorPositionX( state ),
 		y: getEditorPositionY( state ),
