@@ -7,6 +7,7 @@ import { isEqual } from 'lodash';
  * Internal dependencies
  */
 import { getEditedData } from './data';
+import { TStoreState } from 'types';
 
 /**
  * Determine if the data is savable
@@ -14,7 +15,7 @@ import { getEditedData } from './data';
  * @param  {Object}  state State object.
  * @return {boolean}       Whether can perform save operation.
  */
-export function isSaveable( state ) {
+export function isSaveable( state: TStoreState ) : boolean {
 	if ( isSaving( state ) ) {
 		return false;
 	}
@@ -27,9 +28,9 @@ export function isSaveable( state ) {
 /**
  * Detemine if the editor is saving
  *
- * @param  {Object}  state State object.
- * @return {boolean}       Whether is saving.
+ * @param  state State object.
+ * @return       Whether is saving.
  */
-export function isSaving( state ) {
+export function isSaving( state: TStoreState ) : boolean {
 	return state.isSaving;
 }
