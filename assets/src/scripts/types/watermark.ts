@@ -8,13 +8,9 @@ export type TWatermarkConfig = {
 	post_types: Array<string>;
 };
 
-export type TWatermark<T extends Schema.Context = 'edit'> = {
-	objects: Array<TTextObject | TImageObject>;
-	config: TWatermarkConfig;
-} & Schema.BasePost<T>;
-
 type TBaseObject = {
 	type: 'image' | 'text';
+	isActive: boolean;
 	offset: {
 		x: {
 			value: number;
@@ -49,3 +45,13 @@ export type TImageObject = {
 } & TBaseObject;
 
 export type TWatermarkObject = TTextObject | TImageObject;
+
+export type TWatermarkObjects = Array<TWatermarkObject>;
+
+export type TWatermark<T extends Schema.Context = 'edit'> = {
+	objects: TWatermarkObjects;
+	config: TWatermarkConfig;
+	status: Schema.PostStatus | "auto-draft";
+} & Omit<Schema.BasePost<T>, "status">;
+
+export type TWatermarkValues = TWatermark[keyof TWatermark];

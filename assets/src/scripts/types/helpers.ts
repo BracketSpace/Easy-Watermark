@@ -19,3 +19,8 @@ export type RemoveReturnTypes< O > = {
 export type TObject<T = any> = {
 	[key: string]: T;
 }
+
+export type TSelectable = Array<{
+	label: string;
+	selected: boolean;
+}>;
