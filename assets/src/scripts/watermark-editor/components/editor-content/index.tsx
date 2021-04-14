@@ -13,44 +13,55 @@ import { withSelect, withDispatch } from '@wordpress/data';
  */
 import { boundMethod } from 'autobind-decorator';
 import { uniqueId } from 'lodash';
+import React from 'react';
+import { createErrorNotice, removeNotice } from 'wordpress__notices/store/actions';
 
 /**
  * Internal dependencies
  */
 import Canvas from './canvas';
+import type { TAttachment, TPosition } from 'types';
+import type { TSelectors, TActions } from 'watermark-editor/store';
+
+export type TEditorContentProps = {
+	createErrorNotice: typeof createErrorNotice;
+	position: TPosition;
+	previewImageID: number | undefined;
+	removeNotice: typeof removeNotice;
+	scale: number;
+} & Pick<TActions, "setEditorPosition" | "setEditorPositionScale" | "setEditorPreviewImage">;
+
+export type TEditorContentState = {
+	loading: boolean,
+	initialized: boolean,
+	width: number,
+	height: number,
+};
 
 /**
  * EditorContent Component
  *
  * @augments React.Component
  */
-class EditorContent extends Component {
+class EditorContent extends Component<TEditorContentProps, TEditorContentState> {
 	/**
 	 * Notice IDs generated wit _.uniqueID
 	 * This is needed to be able to remove created notices.
-	 *
-	 * @type {Array}
 	 */
-	noticeIds = [];
+	noticeIds: Array<string> = [];
 
 	/**
-	 * Attachment object
-	 *
-	 * @type {Object}
+	 * Attachment model
 	 */
-	attachment;
+	attachment?: TAttachment;
 
 	/**
 	 * React node ref
-	 *
-	 * @type {Object}
 	 */
-	ref = createRef();
+	ref = createRef<HTMLDivElement>();
 
 	/**
 	 * Component state
-	 *
-	 * @type {Object}
 	 */
 	state = {
 		loading: false,
@@ -60,26 +71,28 @@ class EditorContent extends Component {
 	};
 
 	/**
-	 * @function constructor
-	 * @param  {integer} previewImageID Attachment ID
+	 * Indicate if component is mounted.
 	 */
-	constructor( { previewImageID } ) {
-		super( ...arguments );
+	_isMounted: boolean = false;
 
-		if ( previewImageID ) {
+	/**
+	 * @function constructor
+	 */
+	constructor(props: TEditorContentProps ) {
+		super(props);
+
+		if ( props.previewImageID ) {
 			this.state.loading = true;
-			this.loadPreviewImage( previewImageID );
+			this.loadPreviewImage( props.previewImageID );
 		}
 	}
 
 	/**
 	 * Loads attachment used as preview image (editor background)
-	 *
-	 * @function loadPreviewImage
-	 * @param    {integer} id Attachment ID
-	 * @return  {void}
 	 */
-	loadPreviewImage( id ) {
+	async loadPreviewImage( id: number ) : Promise<void> {
+		console.log(wp.media);
+
 		const attachment = wp.media.attachment( id );
 
 		if ( ! attachment ) {
@@ -89,11 +102,15 @@ class EditorContent extends Component {
 		if ( ! attachment.get( 'url' ) ) {
 			this.setState( { loading: true } );
 
-			attachment
-				.fetch()
-				.then( () => ( this.attachment = attachment ) )
-				.fail( this.handleInvalidAttachment )
-				.always( () => this.setState( { loading: false } ) );
+			try {
+				await attachment.fetch();
+
+				this.attachment = attachment;
+			} catch ( e ) {
+				this.handleInvalidAttachment();
+			}
+
+			this.setState( { loading: false } );
 		}
 	}
 
@@ -101,12 +118,9 @@ class EditorContent extends Component {
 	 * Displays error notification if selected background image does not exist.
 	 * This might happen if the editor was used before and selected image has
 	 * been removed from WordPress Media Library in the meantime.
-	 *
-	 * @function handleInvalidAttachment
-	 * @return {void}
 	 */
 	@boundMethod
-	handleInvalidAttachment() {
+	handleInvalidAttachment() : void {
 		const id = uniqueId( 'ew_notice_' );
 
 		this.props.createErrorNotice(
@@ -126,27 +140,23 @@ class EditorContent extends Component {
 	/**
 	 * Sets position and scale information to store
 	 *
-	 * @function handlePanAndZoom
-	 * @param  {number}         x     X coordinate
-	 * @param  {number}         y     Y coordinate
-	 * @param  {number}         scale Scale
-	 * @return {void}
+	 * @param x     X coordinate
+	 * @param y     Y coordinate
+	 * @param scale Scale
 	 */
 	@boundMethod
-	handlePanAndZoom( x, y, scale ) {
+	handlePanAndZoom( x: number, y: number, scale: number ) : void {
 		this.props.setEditorPositionScale( { x, y, scale } );
 	}
 
 	/**
 	 * Sets position information to store
 	 *
-	 * @function handlePanMove
-	 * @param  {number}         x     X coordinate
-	 * @param  {number}         y     Y coordinate
-	 * @return {void}
+	 * @param x     X coordinate
+	 * @param y     Y coordinate
 	 */
 	@boundMethod
-	handlePanMove( x, y ) {
+	handlePanMove( x: number, y: number ) : void {
 		this.props.setEditorPosition( { x, y } );
 	}
 
@@ -158,11 +168,12 @@ class EditorContent extends Component {
 	 * @return {void}
 	 */
 	@boundMethod
-	handleBackgroundSelect( { id: attachmentId } ) {
-		const noticeId = uniqueId( 'ew_notice_' );
+	handleBackgroundSelect( { id: attachmentId }: {id: number} ) {
 		const attachment = wp.media.attachment( attachmentId );
 
 		if ( ! attachment.get( 'hasAllSizes' ) ) {
+			const noticeId = uniqueId( 'ew_notice_' );
+
 			this.props.createErrorNotice(
 				__(
 					'Selected image is not available in every size. Please choose larger image.',
@@ -197,7 +208,13 @@ class EditorContent extends Component {
 		this.noticeIds = [];
 	}
 
+	/**
+	 * Mark component as mounted after it did mount and set `initialized` state.
+	 *
+	 * @return {void}
+	 */
 	componentDidMount() {
+		this._isMounted = true;
 		this.setState( { initialized: true } );
 	}
 
@@ -209,7 +226,6 @@ class EditorContent extends Component {
 	 */
 	render() {
 		const { initialized, loading } = this.state;
-
 		const { position, scale } = this.props;
 
 		const content = initialized ? (
@@ -219,8 +235,8 @@ class EditorContent extends Component {
 						x={ position.x }
 						y={ position.y }
 						scale={ scale }
-						width={ this.ref.current.clientWidth }
-						height={ this.ref.current.clientHeight }
+						width={ this.ref.current!.clientWidth }
+						height={ this.ref.current!.clientHeight }
 						minScale={ 0.1 }
 						maxScale={ 10 }
 						onPanAndZoom={ this.handlePanAndZoom }
@@ -231,7 +247,7 @@ class EditorContent extends Component {
 				) }
 				{ ! this.attachment && ! loading && (
 					<MediaUpload
-						onSelect={ this.handleBackgroundSelect }
+						onSelect={ this.handleBackgroundSelect  }
 						allowedTypes={ [ 'image' ] }
 						render={ ( { open } ) => (
 							<div className="editor-background-selector">
