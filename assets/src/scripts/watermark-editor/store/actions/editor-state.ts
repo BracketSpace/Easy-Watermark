@@ -13,14 +13,7 @@ import {
 	SET_EDITOR_SCALE,
 	SET_EDITOR_PREVIEW_IMAGE,
 } from '../action-types';
-import type { TAttachment } from 'types';
-
-type TPosition = {
-	x: number,
-	y: number,
-}
-
-type TPositionScale = TPosition & { scale: number};
+import type { TAttachment, TPosition, TPositionScale } from 'types';
 
 /**
  * Set editor state action.
