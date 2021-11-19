@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wojte
 Tags: watermark, image, picture, photo, media, gallery, signature, transparent, upload, admin
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.7
+Tested up to: 5.8
 Stable tag: 1.0.11
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -57,6 +57,10 @@ The plugin supports a few fonts:
 
 You can also place the text watermark in one of the 9 positions on the image, control the angle, color, opacity and size.
 
+= Custom development =
+
+BracketSpace - the company behind this plugin provides [custom WordPress plugin development services](https://bracketspace.com/custom-development/). We can create any custom plugin for you.
+
 == Installation ==
 
 Note: Easy Watermark requires GD extension installed and enabled on a server to work.
@@ -104,6 +108,10 @@ With 'Fit to Width' or 'Fit to Height' options watermark dimensions can be set a
 
 = What placeholders can I use in text watermark? =
 All available placeholders are listed in a box titled 'Placeholders' displayed while creating the Text Watermark.
+
+= Can you create a plugin for me? =
+
+Yes! We're offering a [custom plugin development](https://bracketspace.com/custom-development/) services. Feel free to contact us to find out how we can help you.
 
 == Screenshots ==
 
