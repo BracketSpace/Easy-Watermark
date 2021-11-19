@@ -109,6 +109,9 @@ With 'Fit to Width' or 'Fit to Height' options watermark dimensions can be set a
 = What placeholders can I use in text watermark? =
 All available placeholders are listed in a box titled 'Placeholders' displayed while creating the Text Watermark.
 
+= Does the plugin work without the GD library? =
+Unfortunately, no. It is planned though for one of the releases in the undefined future.
+
 = Can you create a plugin for me? =
 
 Yes! We're offering a [custom plugin development](https://bracketspace.com/custom-development/) services. Feel free to contact us to find out how we can help you.
